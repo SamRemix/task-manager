@@ -1,4 +1,4 @@
-# task-manager-MERN
+# Task Manager - MERN Stack
 
 **Create .env file in back_ folder**
 
