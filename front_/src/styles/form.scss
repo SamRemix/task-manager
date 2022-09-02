@@ -1,0 +1,102 @@
+@import './variables';
+
+form {
+  padding: 20px;
+  width: 400px;
+  box-shadow: $lg-shadow;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+input,
+textarea,
+select,
+button {
+  padding: 8px 10px;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+input,
+textarea {
+  width: 100%;
+  box-shadow: $sm-shadow;
+
+  &.error {
+    box-shadow: $sm-shadow, 0 0 0 1px $red;
+  }
+}
+
+textarea {
+  max-height: 200px;
+  min-height: 90px;
+  white-space: break-spaces;
+  resize: vertical;
+}
+
+select {
+  cursor: pointer;
+}
+
+button {
+  margin: 0 60px;
+  width: fit-content;
+  background: $green;
+  color: #fff;
+  cursor: pointer;
+}
+
+.error-message {
+  color: $red;
+  font-weight: 600;
+  position: absolute;
+  bottom: -60px;
+}
+
+// TASK FORM
+
+.importance {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+select {
+  width: 100%;
+
+  &.to-do {
+    background: #ffc0ca;
+  }
+
+  &.in-progress {
+    background: #dec1f2;
+  }
+
+  &.done {
+    background: #f9d89c;
+  }
+
+  &.high-importance {
+    background: #f8cbbe;
+  }
+
+  &.medium-importance {
+    background: #cbeddb;
+  }
+
+  &.low-importance {
+    background: #f6fafd;
+  }
+
+  option {
+    background: #fff;
+  }
+}

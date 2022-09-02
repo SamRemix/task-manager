@@ -1,0 +1,10 @@
+@import './variables.scss';
+
+.account {
+  padding: 20px;
+  box-shadow: $lg-shadow;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

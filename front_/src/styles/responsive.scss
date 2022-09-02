@@ -1,0 +1,36 @@
+// sm 640px
+@media (min-width: 640px) {}
+
+// md 768px
+@media (min-width: 768px) {}
+
+// lg 1024px
+@media (min-width: 1024px) {
+  .tasks-page {
+    .tasks-container {
+      .status {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+}
+
+// xl 1280px
+@media (min-width: 1280px) {}
+
+// 2xl 1536px
+@media (min-width: 1536px) {
+  .tasks-page {
+    .tasks-container {
+      grid-template-columns: repeat(3, 1fr);
+
+      .status {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+}

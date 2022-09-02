@@ -1,0 +1,76 @@
+@import './variables';
+
+.navbar {
+  grid-area: 1 / 2 / 2 / 3;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $nav-gap;
+  position: sticky;
+  top: $app-padding;
+  z-index: 100;
+
+  ul,
+  ul>div {
+    display: flex;
+    flex-direction: column;
+    gap: $nav-gap;
+
+    li {
+
+      a,
+      .logout {
+        width: $btn-size;
+        height: $btn-size;
+        background: #fff;
+        box-shadow: $sm-shadow;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: .2s;
+
+        .icon {
+          text-align: center;
+          font-size: 1.9em;
+          pointer-events: none;
+        }
+
+        .title {
+          padding: 4px 6px;
+          background: #fff;
+          border: 1px solid #aaa;
+          border-radius: 4px;
+          position: absolute;
+          right: calc(100% + 20px);
+          opacity: 0;
+          transform: translateX(-20px);
+          cursor: pointer;
+          pointer-events: none;
+          transition: .2s;
+        }
+
+        &:hover {
+          .title {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        &.active {
+          background: $pink;
+
+          .icon {
+            color: #fff;
+          }
+        }
+      }
+
+      .logout {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
+
+@import './variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins';
+  white-space: nowrap;
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  // background: #ece3ce;
+  background: #f6fafd;
+  overflow-x: hidden;
+
+  #root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .App {
+      padding: $app-padding;
+      width: 100%;
+      max-width: 1600px;
+      min-height: 100vh;
+      display: grid;
+      align-items: start;
+      justify-items: center;
+      grid-template-columns: 1fr auto;
+      gap: $app-col-gap;
+
+      // set h1 pos
+      position: relative;
+
+      // CONTAINER
+
+      .container {
+        padding: 0 0 0 calc($app-padding + $nav-width);
+        grid-area: 1 / 1 / 2 / 2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: $app-col-gap;
+
+        h1 {
+          background: linear-gradient(rgba($color: #000, $alpha: .4), transparent);
+          color: transparent;
+          font-size: clamp(7em, 12vw, 9em);
+          font-weight: 600;
+          line-height: .9em;
+          background-clip: text;
+          position: fixed;
+          inset: 10px auto auto 50%;
+          transform: translateX(-50%) !important;
+        }
+
+        // 404 PAGE
+
+        .not-found {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          h1 {
+            font-size: 12em;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%) !important;
+          }
+
+          p {
+            font-size: 1.2em;
+          }
+        }
+      }
+
+      h2 {
+        font-size: 1.4em;
+        font-weight: 400;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
