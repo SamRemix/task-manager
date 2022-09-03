@@ -24,14 +24,6 @@
         box-shadow: $sm-shadow;
         border-radius: 12px;
 
-        &.important {
-
-          h2,
-          h2 * {
-            color: $red;
-          }
-        }
-
         h2 {
           margin: 0 20px 10px;
           font-weight: 600 !important;

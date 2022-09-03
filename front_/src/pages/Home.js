@@ -25,21 +25,21 @@ const Home = () => {
             <p><span>alias: origin, URL: github-repo-link</span></p>
             <p>Add a git URL as an alias</p>
           </div> */}
-          <div className="commands important">
+          <div className="commands">
             <h2>git add .</h2>
             <p><span>git add folder/file: single file</span></p>
             <p>Add a file as it looks now to your next commit (stage)</p>
           </div>
-          <div className="commands important">
+          <div className="commands">
             <h2>git status</h2>
             <p>Show modified files in working directory, staged for your next commit</p>
           </div>
-          <div className="commands important">
+          <div className="commands">
             <h2>git commit <i>-m "comment"</i></h2>
             <p><span>add comment: -m "comment"</span></p>
             <p>commit your staged content as a new commit snapshot</p>
           </div>
-          <div className="commands important">
+          <div className="commands">
             <h2>git push</h2>
             {/* <h2>git push -u <i>origin branch</i></h2> */}
             <p><span>origin: alias (git remote add), branch: master</span></p>
