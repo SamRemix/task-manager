@@ -54,40 +54,53 @@ const TaskForm = () => {
     <section className="container">
       <motion.h1
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        animate={{ opacity: 1, transition: { duration: .2 } }}
+        exit={{ opacity: 0, transition: { duration: .2 } }}>
         Add Task
       </motion.h1>
 
-      <motion.form
-        onSubmit={createTask}
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ y: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
-        <input
+      <form onSubmit={createTask}>
+        <motion.input
           type="text"
           onChange={e => setTitle(e.target.value)}
           value={title}
           className={emptyFields.includes('title') ? 'error' : ''}
           placeholder="Title"
-          autoFocus />
-        <textarea
+          autoFocus
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .4 } }} />
+
+        <motion.textarea
           onChange={e => setDescription(e.target.value)}
           value={description}
-          placeholder="Description (optional)"></textarea>
-        <select
+          placeholder="Description (optional)"
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .3 } }}>
+        </motion.textarea>
+
+        <motion.select
           className={
             status === 'To do' ? 'to-do' :
               status === 'In progress' ? 'in-progress' :
                 'done'
           }
           onChange={e => setStatus(e.target.value)}
-          value={status}>
+          value={status}
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }}>
           <option value="To do">To do</option>
           <option value="In progress">In progress</option>
           <option value="Done">Done</option>
-        </select>
-        <div className="importance">
+        </motion.select>
+
+        <motion.div
+          className="importance"
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }}>
           <p>Importance: </p>
           <select
             className={
@@ -101,15 +114,23 @@ const TaskForm = () => {
             <option value='2'>Medium</option>
             <option value='1'>High</option>
           </select>
-        </div>
-        <button>Add Task</button>
+        </motion.div>
+
+        <motion.button
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .4 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>
+          Add Task
+        </motion.button>
+
         {error && <motion.p
           className="error-message"
           initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}>
+          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}
+          exit={{ opacity: 0 }}>
           {error}
         </motion.p>}
-      </motion.form>
+      </form>
     </section>
   )
 }

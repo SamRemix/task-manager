@@ -24,35 +24,50 @@ const Signup = () => {
         Sign Up
       </motion.h1>
 
-      <motion.form
-        onSubmit={handleSubmit}
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ y: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
-        <input
+      <form onSubmit={handleSubmit}>
+        <motion.input
           type="text"
           onChange={e => setName(e.target.value)}
           value={name}
           placeholder="Name"
-          autoFocus />
-        <input
+          autoFocus
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .3 } }} />
+
+        <motion.input
           type="text"
           onChange={e => setEmail(e.target.value)}
           value={email}
-          placeholder="Email" />
-        <input
+          placeholder="Email"
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }} />
+
+        <motion.input
           type="text"
           onChange={e => setPassword(e.target.value)}
           value={password}
-          placeholder="Password" />
-        <button>Submit</button>
+          placeholder="Password"
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }} />
+
+        <motion.button
+          initial={{ x: -160, opacity: 0 }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>
+          Submit
+        </motion.button>
+
         {error && <motion.p
           className="error-message"
           initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}>
+          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}
+          exit={{ opacity: 0 }}>
           {error}
         </motion.p>}
-      </motion.form>
+      </form>
     </section>
   )
 }

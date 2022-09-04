@@ -1,10 +1,10 @@
 @import './variables';
 
 form {
-  padding: 20px;
-  width: 400px;
-  box-shadow: $lg-shadow;
-  border-radius: 12px;
+  // padding: 20px;
+  min-width: 400px;
+  // box-shadow: $lg-shadow;
+  // border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 20px;
