@@ -6,7 +6,6 @@ PORT
 > same as package.json proxy in front_ folder (4000)
 
 MONGO_URI
-> mongodb+srv://[username:password@]host[/[database][?options]]
 
 SECRET
 > jwt secret key
