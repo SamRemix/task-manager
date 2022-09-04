@@ -46,6 +46,7 @@ const TaskForm = () => {
 
     if (response.ok) {
       dispatch({ type: 'CREATE_TASK', payload: json })
+
       navigate('/tasks')
     }
   }
