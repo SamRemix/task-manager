@@ -9,34 +9,24 @@
   .content {
     margin: 8em 0 0;
     grid-area: 1 / 2 / 2 / 3;
-    // display: flex;
-    // align-items: center;
-    // flex-direction: column;
-    // gap: 20px;
 
     .git {
       display: flex;
       flex-direction: column;
       gap: 40px;
 
-      .commands {
+      .commands-container {
         padding: 20px;
         box-shadow: $sm-shadow;
         border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
 
-        h2 {
-          margin: 0 20px 10px;
-          font-weight: 600 !important;
-        }
-
-        h2,
-        h2 * {
-          color: $blue;
-        }
-
-        p {
-          span {
-            font-size: .9em;
+        .commands {
+          .command-name {
+            margin: 0 20px 10px;
+            font-weight: 600;
           }
         }
       }
