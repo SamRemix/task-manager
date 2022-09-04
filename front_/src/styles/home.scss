@@ -15,19 +15,10 @@
       flex-direction: column;
       gap: 40px;
 
-      .commands-container {
-        padding: 20px;
-        box-shadow: $sm-shadow;
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-
-        .commands {
-          .command-name {
-            margin: 0 20px 10px;
-            font-weight: 600;
-          }
+      .commands {
+        .command-name {
+          margin: 0 20px 10px;
+          font-weight: 600;
         }
       }
     }
