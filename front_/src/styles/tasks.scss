@@ -238,7 +238,6 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 10px;
-        position: relative;
 
         .task-content {
           padding: 0 16px;
@@ -274,20 +273,20 @@
           }
 
           .description {
-            padding: 4px 6px;
-            max-width: calc(100% - 80px);
+            padding: 20px;
+            min-height: 140px;
             background: #fff;
             border: 1px solid #aaa;
-            border-radius: 4px;
-            text-align: center;
             white-space: normal;
-            position: absolute;
-            top: calc(100% - 5px);
-            opacity: 0;
-            transform: translateY(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            inset: auto 0 0;
+            transform: translateY(100%);
             pointer-events: none;
-            z-index: 1;
-            transition: .2s;
+            z-index: 4;
+            transition: .4s;
           }
 
           .buttons {
@@ -382,8 +381,8 @@
             }
 
             .description {
-              opacity: 1;
               transform: translateY(0);
+              pointer-events: all;
 
               &.link {
                 pointer-events: all;
