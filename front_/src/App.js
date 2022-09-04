@@ -3,8 +3,10 @@ import { AnimatePresence } from 'framer-motion'
 
 import { useAuthContext } from './hooks/useAuthContext'
 
-// pages & components
+// components
 import Navbar from './components/Navbar'
+
+// pages
 import Home from './pages/Home'
 import Tasks from './pages/Tasks'
 import TaskDetails from './pages/TaskDetails'

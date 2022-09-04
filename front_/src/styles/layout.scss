@@ -11,6 +11,7 @@
   font-family: 'Poppins';
   white-space: nowrap;
   color: #000;
+  // cursor: none !important;
 }
 
 ::-webkit-scrollbar {
@@ -65,6 +66,7 @@ body {
           position: fixed;
           inset: 10px auto auto 50%;
           transform: translateX(-50%) !important;
+          cursor: default;
         }
 
         // 404 PAGE
