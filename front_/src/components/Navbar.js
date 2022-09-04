@@ -1,16 +1,13 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../hooks/useLogout'
 
 const Navbar = () => {
-  const navigate = useNavigate()
-
   const { user } = useAuthContext()
   const { logout } = useLogout()
 
   const handleClick = () => {
     logout()
-    navigate('/')
   }
 
   return (
