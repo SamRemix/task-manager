@@ -58,17 +58,21 @@ const TaskForm = () => {
       </motion.h1>
 
       <form onSubmit={createTask}>
-        <motion.input
-          type="text"
-          onChange={e => setTitle(e.target.value)}
-          value={title}
-          className={error ? 'error' : ''}
-          placeholder="Title (24 characters max)"
-          maxLength="24"
-          autoFocus
+        <motion.div
+          className="title-input"
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .4 } }} />
+          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .4 } }}>
+          <input
+            type="text"
+            onChange={e => setTitle(e.target.value)}
+            value={title}
+            className={error ? 'error' : ''}
+            placeholder="Title"
+            maxLength="24"
+            autoFocus />
+          <p className="remaining">{24 - title.length} remaining character{title.length < 23 && 's'}</p>
+        </motion.div>
 
         <motion.textarea
           onChange={e => setDescription(e.target.value)}
@@ -96,7 +100,7 @@ const TaskForm = () => {
         </motion.select>
 
         <motion.div
-          className="importance"
+          className="importance-select"
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }}>

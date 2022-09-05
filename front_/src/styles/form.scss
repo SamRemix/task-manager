@@ -57,13 +57,16 @@ button {
 
 // TASK FORM
 
-.importance {
-  margin: 0 auto;
-  width: 100%;
+.importance-select,
+.title-input {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 10px;
+
+  .remaining {
+    color: #888;
+  }
 }
 
 select {
