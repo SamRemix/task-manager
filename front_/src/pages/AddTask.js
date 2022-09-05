@@ -134,8 +134,7 @@ const TaskForm = () => {
             exit={{ opacity: 0 }}>
             {error}
           </motion.p>
-          {!user && <motion.div
-            className="link"
+          {!user && <motion.div className="link"
             initial={{ x: -80, opacity: 0 }}
             animate={{ x: 0, opacity: 1, transition: { duration: .4, delay: .1 } }}
             exit={{ opacity: 0 }}>

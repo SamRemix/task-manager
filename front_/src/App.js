@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 // pages
 import Home from './pages/Home'
 import Tasks from './pages/Tasks'
+// import TaskDetails from './pages/TaskDetails'
 import AddTask from './pages/AddTask'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
@@ -26,6 +27,7 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<Tasks />} />
+          {/* <Route path="/tasks/:id" element={<TaskDetails />} /> */}
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />

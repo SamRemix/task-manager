@@ -46,6 +46,8 @@ const Tasks = () => {
         Task Board
       </motion.h1>
 
+      {!tasks && <div className="loader"></div>}
+
       <motion.div
         className="add-task-link"
         initial={{ x: -80, opacity: 0 }}
