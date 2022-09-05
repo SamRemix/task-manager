@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
@@ -126,13 +126,23 @@ const TaskForm = () => {
           Add Task
         </motion.button>
 
-        {error && <motion.p
-          className="error-message"
-          initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}
-          exit={{ opacity: 0 }}>
-          {error}
-        </motion.p>}
+        {error && <div
+          className="error-message">
+          <motion.p
+            initial={{ x: -80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1, transition: { duration: .4 } }}
+            exit={{ opacity: 0 }}>
+            {error}
+          </motion.p>
+          {!user && <motion.div
+            className="link"
+            initial={{ x: -80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1, transition: { duration: .4, delay: .1 } }}
+            exit={{ opacity: 0 }}>
+            <Link to="/login">Log In</Link>
+            <Link to="/signup">Sign Up</Link>
+          </motion.div>}
+        </div>}
       </form>
     </section>
   )

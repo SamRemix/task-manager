@@ -46,8 +46,6 @@ const Tasks = () => {
         Task Board
       </motion.h1>
 
-      {!tasks && <h2 className="no-tasks"><i>No tasks</i></h2>}
-
       <motion.div
         className="add-task-link"
         initial={{ x: -80, opacity: 0 }}
