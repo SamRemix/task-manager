@@ -65,7 +65,8 @@ const TaskForm = () => {
           onChange={e => setTitle(e.target.value)}
           value={title}
           className={emptyFields.includes('title') ? 'error' : ''}
-          placeholder="Title"
+          placeholder="Title (24 characters max)"
+          maxLength="24"
           autoFocus
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
