@@ -273,11 +273,8 @@
 
           .description {
             padding: 40px;
-            // width: fit-content;
             background: #fff;
             box-shadow: 0 0 0 1px #000;
-            // border: 1px solid #000;
-            border-radius: 6px;
             text-align: center;
             white-space: normal;
             position: fixed;
@@ -286,7 +283,7 @@
             opacity: 0;
             pointer-events: none;
             z-index: 4;
-            transition: .4s;
+            transition: .2s;
           }
 
           .buttons {
