@@ -30,14 +30,12 @@ const getTask = async (req, res) => {
 const createTask = async (req, res) => {
   const { title, description, status, importance } = req.body
 
-  let emptyFields = []
-
   if (!title || title.trim().length === 0) {
-    emptyFields.push('title')
+    return res.status(400).json({ error: 'Please fill in \'Title\' field' })
   }
 
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  if (title.length > 24) {
+    return res.status(400).json({ error: 'Title should not exceed 24 characters' })
   }
 
   try {

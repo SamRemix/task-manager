@@ -16,7 +16,6 @@ const TaskForm = () => {
   const [importance, setImportance] = useState('2')
 
   const [error, setError] = useState(null)
-  const [emptyFields, setEmptyFields] = useState([])
 
   const createTask = async e => {
     e.preventDefault()
@@ -41,7 +40,6 @@ const TaskForm = () => {
 
     if (!response.ok) {
       setError(json.error)
-      setEmptyFields(json.emptyFields)
     }
 
     if (response.ok) {
@@ -64,7 +62,7 @@ const TaskForm = () => {
           type="text"
           onChange={e => setTitle(e.target.value)}
           value={title}
-          className={emptyFields.includes('title') ? 'error' : ''}
+          className={error ? 'error' : ''}
           placeholder="Title (24 characters max)"
           maxLength="24"
           autoFocus
