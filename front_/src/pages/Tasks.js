@@ -46,7 +46,7 @@ const Tasks = () => {
         Task Board
       </motion.h1>
 
-      {!tasks && <div className="loader"></div>}
+      {!tasks && <p className="loading">Loading...</p>}
 
       <motion.div
         className="add-task-link"
