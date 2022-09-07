@@ -9,6 +9,7 @@ import './styles/navbar.scss'
 import './styles/home.scss'
 import './styles/tasks.scss'
 import './styles/form.scss'
+import './styles/button.scss'
 import './styles/account.scss'
 
 import './styles/responsive.scss'

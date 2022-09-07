@@ -259,6 +259,7 @@
 
           .task-title {
             width: 100%;
+            white-space: normal;
             transition: .2s;
           }
 
@@ -267,6 +268,8 @@
             position: relative;
             cursor: default;
           }
+
+          // TASK DETAILS
 
           .details {
             padding: 40px;
@@ -289,6 +292,10 @@
               pointer-events: all;
             }
 
+            * {
+              white-space: normal;
+            }
+
             .task-title {
               font-weight: 600 !important;
               transform: none !important;
@@ -296,7 +303,6 @@
 
             .description {
               font-weight: 500;
-              white-space: normal;
             }
 
             .date {
@@ -306,7 +312,6 @@
 
               p {
                 font-size: .9em;
-                white-space: normal;
                 font-weight: 500;
 
                 span {
@@ -315,50 +320,6 @@
               }
             }
 
-            .button-close {
-              padding: 4px;
-              background: #fff;
-              border: 1px solid #ccc;
-              border-radius: 4px;
-              display: flex;
-              justify-content: center;
-              position: absolute;
-              inset: -6px -6px auto auto;
-              cursor: pointer;
-
-              &::before {
-                padding: 8px 10px;
-                background: #fff;
-                border: 1px solid #aaa;
-                border-radius: 4px;
-                color: #000;
-                font-family: 'Poppins' !important;
-                font-size: 16px !important;
-                position: absolute;
-                bottom: calc(100% + 10px);
-                opacity: 0;
-                transform: translateY(10px);
-                pointer-events: none;
-                transition: .2s;
-              }
-
-              &:hover {
-                &::before {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
-
-              &.button-close {
-                &::before {
-                  content: 'Close';
-                }
-
-                &:hover {
-                  color: $red;
-                }
-              }
-            }
           }
 
           .backdrop {
@@ -366,77 +327,6 @@
             position: fixed;
             inset: 0;
             z-index: 110;
-          }
-
-          .buttons {
-            padding: 4px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            display: flex;
-            gap: 10px;
-            position: absolute;
-            left: calc(100% - 30px);
-            transform: translateX(-20px);
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1;
-            transition: .4s;
-
-            .link {
-              display: flex;
-              justify-content: center;
-            }
-
-            .button {
-              display: flex;
-              justify-content: center;
-              position: relative;
-              cursor: pointer;
-
-              &::before {
-                padding: 8px 10px;
-                background: #fff;
-                border: 1px solid #aaa;
-                border-radius: 4px;
-                color: #000;
-                font-family: 'Poppins' !important;
-                font-size: 16px !important;
-                position: absolute;
-                bottom: calc(100% + 10px);
-                opacity: 0;
-                transform: translateY(10px);
-                pointer-events: none;
-                transition: .2s;
-              }
-
-              &:hover {
-                &::before {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
-
-              &.button-details {
-                &::before {
-                  content: 'Details';
-                }
-
-                &:hover {
-                  color: $green;
-                }
-              }
-
-              &.button-delete {
-                &::before {
-                  content: 'Delete';
-                }
-
-                &:hover {
-                  color: $red;
-                }
-              }
-            }
           }
 
           &.open,
@@ -447,12 +337,6 @@
 
             .created-at {
               opacity: 0;
-            }
-
-            .buttons {
-              transform: translateX(0);
-              opacity: 1;
-              visibility: visible;
             }
           }
         }

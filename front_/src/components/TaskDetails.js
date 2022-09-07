@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { formatDistanceToNowStrict, formatRelative } from 'date-fns'
+import { formatDistanceToNowStrict, format } from 'date-fns'
 import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+
+// import fr from 'date-fns/esm/locale/fr'
+// format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
 const Details = ({ task }) => {
   const { dispatch } = useTasksContext()
@@ -48,17 +51,23 @@ const Details = ({ task }) => {
         <div className={visible ? 'details open' : 'details'}>
           <h2 className="task-title">{task.title}</h2>
           {task.description.trim().length !== 0 && <p className="description">{task.description}</p>}
+
           <div className="date">
-            <p>Created: <span>{formatRelative(new Date(task.createdAt), new Date())}</span></p>
-            {task.createdAt !== task.updatedAt && <p>Last update: <span>{formatRelative(new Date(task.updatedAt), new Date())}</span></p>}
+            <p>Created: <span>{format(new Date(task.createdAt), 'PPPPpppp')}</span></p>
+            {task.createdAt !== task.updatedAt && <p>Last update: <span>{format(new Date(task.updatedAt), 'PPPPpppp')}</span></p>}
           </div>
-          <span className="material-symbols-outlined button button-close" onClick={toggle}>close</span>
+
+          <div className="buttons">
+            <span className="material-symbols-outlined button button-close" onClick={toggle}>close</span>
+            <span className="material-symbols-outlined button button-edit">edit</span>
+            <span className="material-symbols-outlined button button-delete" onClick={() => deleteTask(task._id)}>delete</span>
+          </div>
         </div>
         {visible && <div className="backdrop" onClick={toggle} />}
 
         <div className="buttons">
           <span className="material-symbols-outlined button button-details" onClick={toggle}>description</span>
-          <span className="material-symbols-outlined button button-delete" onClick={() => deleteTask(task._id)}>delete</span>
+          {/* <span className="material-symbols-outlined button button-delete" onClick={() => deleteTask(task._id)}>delete</span> */}
         </div>
       </motion.div>
     </AnimatePresence >
