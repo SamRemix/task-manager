@@ -240,15 +240,10 @@
         .task-content {
           padding: 10px 16px;
           border-radius: 6px;
-          display: grid;
+          display: flex;
           align-items: center;
-          justify-content: space-between;
           gap: 10px;
           position: relative;
-
-          &.open {
-            z-index: 1;
-          }
 
           &.high-importance {
             background: #f8cbbe;
@@ -263,31 +258,41 @@
           }
 
           .task-title {
-            grid-area: 1 / 1 / 2 / 2;
             width: 100%;
             transition: .2s;
           }
 
           .created-at {
-            grid-area: 1 / 2 / 2 / 3;
             font-size: 14px;
             position: relative;
             cursor: default;
           }
 
           .details {
-            padding: 55px 10px 10px;
-            width: calc(100% + 20px);
+            padding: 40px;
             background: #fff;
-            border: 1px solid #000;
-            border-radius: 6px;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            position: absolute;
-            inset: -10px -10px auto auto;
-            z-index: -1;
-            cursor: default;
+            gap: 20px;
+            position: fixed;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, 0);
+            opacity: 0;
+            z-index: 120;
+            pointer-events: none;
+            transition: .2s;
+
+            &.open {
+              transform: translate(-50%, -50%);
+              opacity: 1;
+              pointer-events: all;
+            }
+
+            .task-title {
+              font-weight: 600 !important;
+              transform: none !important;
+            }
 
             .description {
               font-weight: 500;
@@ -296,7 +301,8 @@
 
             .date {
               display: flex;
-              gap: 20px;
+              flex-direction: column;
+              gap: 10px;
 
               p {
                 font-size: .9em;
@@ -308,6 +314,58 @@
                 }
               }
             }
+
+            .button-close {
+              padding: 4px;
+              background: #fff;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              display: flex;
+              justify-content: center;
+              position: absolute;
+              inset: -6px -6px auto auto;
+              cursor: pointer;
+
+              &::before {
+                padding: 8px 10px;
+                background: #fff;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                color: #000;
+                font-family: 'Poppins' !important;
+                font-size: 16px !important;
+                position: absolute;
+                bottom: calc(100% + 10px);
+                opacity: 0;
+                transform: translateY(10px);
+                pointer-events: none;
+                transition: .2s;
+              }
+
+              &:hover {
+                &::before {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+              &.button-close {
+                &::before {
+                  content: 'Close';
+                }
+
+                &:hover {
+                  color: $red;
+                }
+              }
+            }
+          }
+
+          .backdrop {
+            background: rgba($color: #000, $alpha: .4);
+            position: fixed;
+            inset: 0;
+            z-index: 110;
           }
 
           .buttons {

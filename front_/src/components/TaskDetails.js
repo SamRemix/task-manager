@@ -41,59 +41,27 @@ const Details = ({ task }) => {
         layoutId={task._id}
         animate={{ opacity: 1, transition: { duration: .4 } }}
         exit={{ opacity: 0 }}>
+
         <p className="task-title">{task.title}</p>
         <p className="created-at"><i>{formatDistanceToNowStrict(new Date(task.updatedAt))}</i></p>
-        {visible && <div className="details">
-          {/* {task.description.trim().length !== 0 && <p className="description">{task.description}</p>} */}
+
+        <div className={visible ? 'details open' : 'details'}>
+          <h2 className="task-title">{task.title}</h2>
           {task.description.trim().length !== 0 && <p className="description">{task.description}</p>}
           <div className="date">
             <p>Created: <span>{formatRelative(new Date(task.createdAt), new Date())}</span></p>
-            {task.createdAt !== task.updatedAt && <p>Last updated: <span>{formatRelative(new Date(task.updatedAt), new Date())}</span></p>}
+            {task.createdAt !== task.updatedAt && <p>Last update: <span>{formatRelative(new Date(task.updatedAt), new Date())}</span></p>}
           </div>
-        </div>}
+          <span className="material-symbols-outlined button button-close" onClick={toggle}>close</span>
+        </div>
+        {visible && <div className="backdrop" onClick={toggle} />}
 
         <div className="buttons">
           <span className="material-symbols-outlined button button-details" onClick={toggle}>description</span>
           <span className="material-symbols-outlined button button-delete" onClick={() => deleteTask(task._id)}>delete</span>
         </div>
-
-        {/* {visible && <div className="task-details">
-          <motion.div
-            className="backdrop"
-            onClick={toggle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: .4 } }}
-            exit={{ opacity: 0, transition: { duration: .2 } }} />
-
-          <motion.div
-            className="content"
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, transition: { duration: .2, delay: .2, ease: 'easeOut' } }}
-            exit={{ y: 80, opacity: 0, transition: { duration: .2 } }}>
-            <span className="material-symbols-outlined button button-close" onClick={toggle}>close</span>
-            <div className="title">
-              <p>title:</p>
-              <p>{task.title}</p>
-            </div>
-
-            <div className="description">
-              <p>description:</p>
-              {task.description.trim().length !== 0 && <p className="description">{task.description}</p>}
-            </div>
-
-            <div className="created">
-              <p>created at: </p>
-              <p>{formatRelative(new Date(task.createdAt), new Date())}</p>
-            </div>
-
-            {task.createdAt !== task.updatedAt && <div className="updated">
-              <p>updated at: </p>
-              <p>{formatRelative(new Date(task.updatedAt), new Date())}</p>
-            </div>}
-          </motion.div>
-        </div>} */}
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence >
   )
 }
 

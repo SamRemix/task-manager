@@ -6,6 +6,7 @@ import { useTasksContext } from '../hooks/useTasksContext'
 
 import ProgressBar from '../components/ProgressBar'
 import TaskList from '../components/TaskList'
+// import TaskDetails from '../components/TaskDetails'
 
 const Tasks = () => {
   // Get tasks value (tasks = null) and dispatch function
@@ -34,7 +35,7 @@ const Tasks = () => {
   const [prefix, setPrefix] = useState('')
 
   const search = data => {
-    return data.filter(item => item.title.toLowerCase().startsWith(prefix.toLowerCase()))
+    return data.filter(d => d.title.toLowerCase().startsWith(prefix.toLowerCase()))
   }
 
   return (
@@ -72,29 +73,7 @@ const Tasks = () => {
         </div>
       </motion.div>
 
-      {tasks && <div className="tasks-container">
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .6 } }}
-          exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
-          <TaskList tasks={search(tasks.filter(task => task.status === 'To do'))} status='To do' classTitle="to-do" />
-        </motion.div>
-
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .8 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
-          <TaskList tasks={search(tasks.filter(task => task.status === 'In progress'))} status='In progress' classTitle="in-progress" />
-        </motion.div>
-
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: 1 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
-          <TaskList tasks={search(tasks.filter(task => task.status === 'Done'))} status='Done' classTitle="done" />
-        </motion.div>
-        {/* <TaskList tasks={tasks.filter(task => task.status === '')} title='Error' /> */}
-      </div>}
+      {tasks && <TaskList tasks={search(tasks)} />}
     </section >
   )
 }
