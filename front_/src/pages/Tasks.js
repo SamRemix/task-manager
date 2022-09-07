@@ -41,8 +41,8 @@ const Tasks = () => {
     <section className="container tasks-page">
       <motion.h1
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        animate={{ opacity: 1, transition: { duration: .6 } }}
+        exit={{ opacity: 0, transition: { duration: .4 } }}>
         Task Board
       </motion.h1>
 
@@ -51,8 +51,8 @@ const Tasks = () => {
       <motion.div
         className="add-task-link"
         initial={{ x: -80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ x: -80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
+        exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
         <Link to="/add-task">
           <span className="material-symbols-outlined icon">playlist_add</span>
           <p className="title">Add Task</p>
@@ -64,8 +64,8 @@ const Tasks = () => {
       <motion.div
         className="js-function"
         initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .4, ease: 'easeOut' } }}
-        exit={{ x: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .4 } }}
+        exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
         <div className="search">
           <input className="search-bar" placeholder="Search" onChange={e => setPrefix(e.target.value)} />
           <span className="material-symbols-outlined button icon-search">search</span>
@@ -75,22 +75,22 @@ const Tasks = () => {
       {tasks && <div className="tasks-container">
         <motion.div
           initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .6, ease: 'easeOut' } }}
-          exit={{ x: -80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .6 } }}
+          exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
           <TaskList tasks={search(tasks.filter(task => task.status === 'To do'))} status='To do' classTitle="to-do" />
         </motion.div>
 
         <motion.div
           initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .8, ease: 'easeOut' } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .8 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
           <TaskList tasks={search(tasks.filter(task => task.status === 'In progress'))} status='In progress' classTitle="in-progress" />
         </motion.div>
 
         <motion.div
           initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: 1, ease: 'easeOut' } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+          animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: 1 } }}
+          exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
           <TaskList tasks={search(tasks.filter(task => task.status === 'Done'))} status='Done' classTitle="done" />
         </motion.div>
         {/* <TaskList tasks={tasks.filter(task => task.status === '')} title='Error' /> */}

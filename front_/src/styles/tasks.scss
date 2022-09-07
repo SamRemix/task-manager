@@ -176,6 +176,8 @@
 
         .grid {
           .task-content {
+
+            &.open,
             &:hover {
               background: #ffc0ca;
               box-shadow: 0 0 0 4px #ffc0ca;
@@ -191,6 +193,8 @@
 
         .grid {
           .task-content {
+
+            &.open,
             &:hover {
               background: #dec1f2;
               box-shadow: 0 0 0 4px #dec1f2;
@@ -206,6 +210,8 @@
 
         .grid {
           .task-content {
+
+            &.open,
             &:hover {
               background: #f9d89c;
               box-shadow: 0 0 0 4px #f9d89c;
@@ -232,14 +238,17 @@
         gap: 10px;
 
         .task-content {
-          padding: 0 16px;
-          height: 44px;
+          padding: 10px 16px;
           border-radius: 6px;
-          display: flex;
+          display: grid;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           gap: 10px;
           position: relative;
+
+          &.open {
+            z-index: 1;
+          }
 
           &.high-importance {
             background: #f8cbbe;
@@ -254,30 +263,51 @@
           }
 
           .task-title {
+            grid-area: 1 / 1 / 2 / 2;
             width: 100%;
             transition: .2s;
           }
 
           .created-at {
+            grid-area: 1 / 2 / 2 / 3;
             font-size: 14px;
             position: relative;
             cursor: default;
           }
 
-          .description {
-            padding: 40px;
+          .details {
+            padding: 55px 10px 10px;
+            width: calc(100% + 20px);
             background: #fff;
-            box-shadow: 0 0 0 1px #000;
-            border-radius: 4px;
-            text-align: center;
-            white-space: normal;
-            position: fixed;
-            inset: auto 20% 20px;
-            transform: translateY(50%);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 4;
-            transition: .2s;
+            border: 1px solid #000;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: absolute;
+            inset: -10px -10px auto auto;
+            z-index: -1;
+            cursor: default;
+
+            .description {
+              font-weight: 500;
+              white-space: normal;
+            }
+
+            .date {
+              display: flex;
+              gap: 20px;
+
+              p {
+                font-size: .9em;
+                white-space: normal;
+                font-weight: 500;
+
+                span {
+                  font-weight: 400;
+                }
+              }
+            }
           }
 
           .buttons {
@@ -312,7 +342,6 @@
                 border: 1px solid #aaa;
                 border-radius: 4px;
                 color: #000;
-                // color: #fff;
                 font-family: 'Poppins' !important;
                 font-size: 16px !important;
                 position: absolute;
@@ -330,19 +359,9 @@
                 }
               }
 
-              &.button-link {
+              &.button-details {
                 &::before {
-                  content: 'Open in new tab';
-                }
-
-                &:hover {
-                  color: $blue;
-                }
-              }
-
-              &.button-edit {
-                &::before {
-                  content: 'Update';
+                  content: 'Details';
                 }
 
                 &:hover {
@@ -362,6 +381,7 @@
             }
           }
 
+          &.open,
           &:hover {
             .task-title {
               transform: translateX(30px);
@@ -369,11 +389,6 @@
 
             .created-at {
               opacity: 0;
-            }
-
-            .description {
-              transform: translateY(0);
-              opacity: 1;
             }
 
             .buttons {
@@ -385,14 +400,5 @@
         }
       }
     }
-  }
-
-  // TASK DETAILS
-
-  .task-details {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
   }
 }
