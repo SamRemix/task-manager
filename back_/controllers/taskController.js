@@ -1,7 +1,5 @@
 const Task = require('../models/taskModel')
 
-// Mongoose is an 'Object Data Modeling' library that allows us to use methods to read and write database documents
-// it also gives a way to declare schemas to ensure a strict data structure
 const { Types } = require('mongoose')
 
 const getTasks = async (req, res) => {
@@ -18,7 +16,7 @@ const getTask = async (req, res) => {
     return res.status(404).json({ error: 'No such task, invalid id' })
   }
 
-  const task = await Task.findById(Object(id))
+  const task = await Task.findById(id)
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })
@@ -70,9 +68,7 @@ const updateTask = async (req, res) => {
     return res.status(404).json({ error: 'No such task, invalid id' })
   }
 
-  const task = await Task.findOneAndUpdate({ _id: id }, {
-    ...req.body
-  })
+  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body })
 
   if (!task) {
     return res.status(400).json({ error: 'No such task' })

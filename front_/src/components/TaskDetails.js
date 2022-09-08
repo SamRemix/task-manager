@@ -53,8 +53,8 @@ const Details = ({ task }) => {
           {task.description.trim().length !== 0 && <p className="description">{task.description}</p>}
 
           <div className="date">
-            <p>Created: <span>{format(new Date(task.createdAt), 'PPPPpppp')}</span></p>
-            {task.createdAt !== task.updatedAt && <p>Last update: <span>{format(new Date(task.updatedAt), 'PPPPpppp')}</span></p>}
+            <p>Created: <span>{format(new Date(task.createdAt), 'PPPPpppp').split(' GMT')[0]}</span></p>
+            {task.createdAt !== task.updatedAt && <p>Last update: <span>{format(new Date(task.updatedAt), 'PPPPpppp').split(' GMT')[0]}</span></p>}
           </div>
 
           <div className="buttons">
