@@ -29,8 +29,8 @@ const ProgressBar = ({ tasks }) => {
     <motion.div
       className="progress-bar"
       initial={{ x: -80, opacity: 0 }}
-      animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2, ease: 'easeOut' } }}
-      exit={{ x: -80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+      animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
+      exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
       {toDo.length > 0 && <div
         className="percent percent-to-do"
         style={{ height: toDo.length / tasks.length * 100 + '%' }}>
