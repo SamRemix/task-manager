@@ -65,7 +65,7 @@ const Tasks = () => {
       <motion.div
         className="js-function"
         initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6, delay: .4 } }}
+        animate={{ y: 0, opacity: 1, transition: { duration: .6 } }}
         exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
         <div className="search">
           <input className="search-bar" placeholder="Search" onChange={e => setPrefix(e.target.value)} />
