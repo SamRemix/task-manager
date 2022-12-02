@@ -46,7 +46,7 @@ const Details = ({ task }) => {
         exit={{ opacity: 0 }}>
 
         <p className="task-title">{task.title}</p>
-        <p className="created-at"><i>{formatDistanceToNowStrict(new Date(task.updatedAt))}</i></p>
+        <p className="updated-at"><i>{formatDistanceToNowStrict(new Date(task.updatedAt))}</i></p>
 
         <div className={visible ? 'details open' : 'details'}>
           <h2 className="task-title">{task.title}</h2>

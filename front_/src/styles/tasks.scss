@@ -263,7 +263,7 @@
             transition: .2s;
           }
 
-          .created-at {
+          .updated-at {
             font-size: 14px;
             position: relative;
             cursor: default;
@@ -335,7 +335,7 @@
               transform: translateX(30px);
             }
 
-            .created-at {
+            .updated-at {
               opacity: 0;
             }
           }
