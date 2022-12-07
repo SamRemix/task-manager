@@ -1,4 +1,4 @@
-const Transition = {
+const transition = {
   initial: {
     y: 80,
     opacity: 0
@@ -19,4 +19,4 @@ const Transition = {
   }
 }
 
-export default Transition
+export default transition

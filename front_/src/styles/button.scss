@@ -1,4 +1,4 @@
-@import './variables';
+@use './vars';
 
 .task-content {
   .buttons {
@@ -56,7 +56,7 @@
         }
 
         &:hover {
-          color: $green;
+          color: vars.$green;
         }
       }
     }
@@ -75,7 +75,7 @@
           }
 
           &:hover {
-            color: $red;
+            color: vars.$red;
           }
         }
 
@@ -85,7 +85,7 @@
           }
 
           &:hover {
-            color: $green;
+            color: vars.$green;
           }
         }
 
@@ -95,7 +95,7 @@
           }
 
           &:hover {
-            color: $red;
+            color: vars.$red;
           }
         }
       }

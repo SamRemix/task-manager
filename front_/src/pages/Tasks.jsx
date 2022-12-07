@@ -60,6 +60,7 @@ const Tasks = () => {
         </Link>
       </motion.div>
 
+      {/* {tasks && tasks.length >= 1 && <ProgressBar tasks={tasks} />} */}
       {tasks && <ProgressBar tasks={tasks} />}
 
       <motion.div

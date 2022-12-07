@@ -1,4 +1,4 @@
-@import './variables';
+@use './vars';
 
 .navbar {
   grid-area: 1 / 2 / 2 / 3;
@@ -6,25 +6,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $nav-gap;
+  gap: vars.$nav-gap;
   position: sticky;
-  top: $app-padding;
+  top: vars.$app-padding;
   z-index: 100;
 
-  ul,
-  ul>div {
+  .navbar__list {
     display: flex;
     flex-direction: column;
-    gap: $nav-gap;
+    gap: vars.$nav-gap;
 
-    li {
+    .navbar__item {
 
-      a,
+      .navbar__item-link,
       .logout {
-        width: $btn-size;
-        height: $btn-size;
+        width: vars.$btn-size;
+        height: vars.$btn-size;
         background: #fff;
-        box-shadow: $sm-shadow;
+        box-shadow: vars.$sm-shadow;
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -32,13 +31,13 @@
         position: relative;
         transition: .2s;
 
-        .icon {
+        .navbar__item-icon {
           text-align: center;
           font-size: 1.9em;
           pointer-events: none;
         }
 
-        .title {
+        .navbar__item-title {
           padding: 4px 6px;
           background: #fff;
           border: 1px solid #aaa;
@@ -53,16 +52,16 @@
         }
 
         &:hover {
-          .title {
+          .navbar__item-title {
             opacity: 1;
             transform: translateX(0);
           }
         }
 
         &.active {
-          background: $pink;
+          background: vars.$pink;
 
-          .icon {
+          .navbar__item-icon {
             color: #fff;
           }
         }

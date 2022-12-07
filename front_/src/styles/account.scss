@@ -1,8 +1,8 @@
-@import './variables';
+@use './vars';
 
 .account {
   padding: 20px;
-  box-shadow: $lg-shadow;
+  box-shadow: vars.$lg-shadow;
   border-radius: 12px;
   display: flex;
   flex-direction: column;

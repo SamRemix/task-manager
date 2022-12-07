@@ -21,7 +21,7 @@ const App = () => {
   const { user } = useAuthContext()
 
   return (
-    <div className="App">
+    <>
       <Navbar />
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
@@ -35,8 +35,8 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-    </div >
-  );
+    </>
+  )
 }
 
 export default App
