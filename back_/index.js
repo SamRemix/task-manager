@@ -19,7 +19,7 @@ app.use(express.json())
 
 app.use((req, res, next) => {
   // Every time I get a request I can log the path & the method in the console
-  console.log(req.path, req.method)
+  console.log(`PATH: ${req.path}\nMETHOD: ${req.method}`)
 
   // Run the next() function to move on to next piece of middleware
   next()
