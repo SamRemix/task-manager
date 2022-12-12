@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict, format } from 'date-fns'
@@ -7,7 +8,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
-const Details = ({ task }) => {
+const TaskDetails = ({ task }) => {
   const { dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
@@ -74,4 +75,8 @@ const Details = ({ task }) => {
   )
 }
 
-export default Details
+TaskDetails.propTypes = {
+  task: PropTypes.object.isRequired
+}
+
+export default TaskDetails

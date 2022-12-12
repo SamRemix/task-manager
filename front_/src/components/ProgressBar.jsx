@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 
 const ProgressBar = ({ tasks }) => {
@@ -12,7 +13,7 @@ const ProgressBar = ({ tasks }) => {
     return status[type]()
   }
 
-  tasks.filter(({ status }) => {
+  tasks.forEach(({ status }) => {
     getLength(status)
   })
 
@@ -39,6 +40,10 @@ const ProgressBar = ({ tasks }) => {
       </div>}
     </motion.div>
   )
+}
+
+ProgressBar.propTypes = {
+  tasks: PropTypes.array.isRequired
 }
 
 export default ProgressBar

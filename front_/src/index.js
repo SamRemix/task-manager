@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 
 import { BrowserRouter } from 'react-router-dom'
 
-// import './styles/variables.scss'
 import './styles/layout.scss'
 import './styles/navbar.scss'
 import './styles/home.scss'
@@ -15,19 +14,17 @@ import './styles/account.scss'
 import './styles/responsive.scss'
 
 import App from './App'
-import { AuthContextProvider } from './context/AuthContext'
-import { TasksContextProvider } from './context/TasksContext'
+import Context from './context/Context'
+// import { AuthContextProvider } from './context/AuthContext'
+// import { TasksContextProvider } from './context/TasksContext'
 
 const root = createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
-  // App component access to the TaskContext
-  <AuthContextProvider>
-    <TasksContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </TasksContextProvider>
-  </AuthContextProvider>
+  <Context>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Context>
   // </React.StrictMode>
 )

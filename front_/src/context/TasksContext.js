@@ -3,10 +3,10 @@ import { createContext, useReducer } from 'react'
 
 export const TasksContext = createContext()
 
-// The state argument is the previous state before the change
+// The state argument is the previous state before the change (current data)
 // The action argument is the object passed in the dispatch function (action.type & action.payload)
 export const tasksReducer = (state, action) => {
-  // console.log(state.tasks, action)
+  console.log(action)
 
   switch (action.type) {
     case 'SET_TASKS':
@@ -16,8 +16,6 @@ export const tasksReducer = (state, action) => {
 
     case 'CREATE_TASK':
       return {
-        // action.payload is the new task that was just created
-        // ...state.tasks represents the existing tasks
         tasks: [action.payload, ...state.tasks]
       }
 
@@ -51,10 +49,6 @@ export const TasksContextProvider = ({ children }) => {
   // The dispatch function as an object argument with 2 property :
   // - type property that describe the state change
   // - payload property represents an array of object with data that the component will access
-
-  // Exemple:
-  // { type: 'CREATE', payload: [{}, {}, ...] }
-  // { type: 'UPDATE', payload: [{}, {}, ...] }
   const [state, dispatch] = useReducer(tasksReducer, { tasks: null })
 
   return (

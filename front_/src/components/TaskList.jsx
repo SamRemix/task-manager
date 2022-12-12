@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import TaskDetails from './TaskDetails'
 
@@ -44,6 +45,10 @@ const TaskList = ({ tasks }) => {
       </motion.div>
     </div>
   )
+}
+
+TaskList.propTypes = {
+  tasks: PropTypes.array.isRequired
 }
 
 export default TaskList
