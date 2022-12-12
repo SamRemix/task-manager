@@ -8,7 +8,7 @@ import Navbar from './components/Navbar'
 
 // pages
 import Home from './pages/Home'
-import Tasks from './pages/Tasks'
+import TaskBoard from './pages/TaskBoard'
 // import TaskDetails from './pages/TaskDetails'
 import AddTask from './pages/AddTask'
 import Signup from './pages/Signup'
@@ -26,12 +26,12 @@ const App = () => {
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/task-board" element={<TaskBoard />} />
           {/* <Route path="/tasks/:id" element={<TaskDetails />} /> */}
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-          <Route path="/account" element={user ? <Account /> : <Navigate to="/" />} />
+          {user && <Route path={`/account-${user.name}`} element={user ? <Account /> : <Navigate to="/" />} />}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>

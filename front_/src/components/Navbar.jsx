@@ -30,8 +30,8 @@ const Navbar = () => {
         <ul className='navbar__list'>
           <NavbarItem path='/' title='Home' resetActive={resetActive} />
           {user ? <>
-            <NavbarItem path='/tasks' title='Tasks' resetActive={resetActive} />
-            <NavbarItem path='/account' title={user.name} resetActive={resetActive} />
+            <NavbarItem path='/task-board' title='Tasks' resetActive={resetActive} />
+            <NavbarItem path={`/account-${user.name}`} title={user.name} resetActive={resetActive} />
             <li className='navbar__item'>
               <div className='navbar__item-link logout' onClick={() => logout()}>
                 <p className='navbar__item-title'>Log Out</p>

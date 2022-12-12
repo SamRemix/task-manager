@@ -28,7 +28,7 @@ export const useLogin = () => {
       localStorage.setItem('user', JSON.stringify(json))
 
       dispatch({ type: 'LOGIN', payload: json })
-      navigate('/tasks')
+      navigate('/task-board')
     }
   }
 

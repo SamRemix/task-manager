@@ -8,7 +8,7 @@ import ProgressBar from '../components/ProgressBar'
 import TaskList from '../components/TaskList'
 // import TaskDetails from '../components/TaskDetails'
 
-const Tasks = () => {
+const TaskBoard = () => {
   const { tasks, dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
@@ -81,4 +81,4 @@ const Tasks = () => {
   )
 }
 
-export default Tasks
+export default TaskBoard
