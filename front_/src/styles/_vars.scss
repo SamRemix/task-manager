@@ -1,15 +1,22 @@
-// $green: #1aac83;
+$green-border: #1aac83;
 // $red-dark: #df0000;
 // $yellow: #f0f014;
-// $blue-dark: #1863ff;
+$blue-dark: #1863ff;
 $light: #f6fafd;
 
-// $to-do: #ffc0ca;
-// $in-progress: #dec1f2;
-// $done: #f9d89c;
+$to-do: #ffc0ca;
+$in-progress: #dec1f2;
+$done: #f9d89c;
+// $to-do: #444;
+// $in-progress: #444;
+// $done: #444;
 
-// $high-importance: #f8cbbe;
-// $medium-importance: #cbeddb;
+$high-importance: #f8cbbe;
+$medium-importance: #cbeddb;
+$low-importance: #fff;
+// $high-importance: #222;
+// $medium-importance: #777;
+// $low-importance: #aaa;
 
 
 $green: #1eb854;
@@ -23,7 +30,7 @@ $app-col-gap: 60px;
 $app-row-gap: 40px;
 
 $nav-width: 80px;
-$nav-gap: 30px;
+// $nav-gap: 30px;
 
 $btn-size: 60px;
 

@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion'
 import { useAuthContext } from '../hooks/useAuthContext'
-import Transition from '../components/Transition'
 import { formatDistanceToNowStrict } from 'date-fns'
 
 const Account = () => {
   const { user } = useAuthContext()
-
-  if (!user) {
-    return Transition.exit.transition.duration === 0
-  }
 
   return (
     <section className="container">
@@ -19,7 +14,7 @@ const Account = () => {
         Account
       </motion.h1>
 
-      <motion.div
+      {user && <motion.div
         className="account"
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
@@ -27,7 +22,7 @@ const Account = () => {
         <p>Name: {user.name}</p>
         <p>Email: {user.email}</p>
         <p>Account created {formatDistanceToNowStrict(new Date(user.createdAt), { addSuffix: true })}.</p>
-      </motion.div>
+      </motion.div>}
     </section>
   )
 }

@@ -69,9 +69,9 @@ const TaskForm = () => {
             value={title}
             className={error ? 'error' : ''}
             placeholder="Title"
-            maxLength="24"
+            maxLength="36"
             autoFocus />
-          <p className="remaining">{24 - title.length} remaining character{title.length < 23 && 's'}</p>
+          <p className="remaining">{36 - title.length} remaining character{title.length < 35 && 's'}</p>
         </motion.div>
 
         <motion.textarea

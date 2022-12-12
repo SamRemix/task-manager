@@ -23,6 +23,11 @@ const Login = () => {
         exit={{ opacity: 0, transition: { duration: .4 } }}>
         Log In
       </motion.h1>
+      <div style={{ position: 'absolute', inset: 0 }}>
+        <p>s_capron@hotmail.fr</p>
+        <p>Gg-967026</p>
+      </div>
+
 
       <form onSubmit={handleSubmit}>
         <motion.input
@@ -34,17 +39,15 @@ const Login = () => {
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }} />
-        <p>s_capron@hotmail.fr</p>
 
         <motion.input
-          type="text"
+          type="password"
           onChange={e => setPassword(e.target.value)}
           value={password}
           placeholder="Password"
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }} />
-        <p>Gg-967026</p>
 
         <motion.button
           initial={{ x: -160, opacity: 0 }}

@@ -9,7 +9,6 @@ import TaskList from '../components/TaskList'
 // import TaskDetails from '../components/TaskDetails'
 
 const Tasks = () => {
-  // Get tasks value (tasks = null) and dispatch function
   const { tasks, dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
@@ -21,9 +20,10 @@ const Tasks = () => {
       const json = await response.json()
 
       if (response.ok) {
-        // Update tasks value with the dispatch function (tasks = payload)
-        // dispatch({ action.type, action.payload })
-        dispatch({ type: 'SET_TASKS', payload: json })
+        dispatch({
+          type: 'SET_TASKS',
+          payload: json
+        })
       }
     }
 
@@ -35,7 +35,9 @@ const Tasks = () => {
   const [prefix, setPrefix] = useState('')
 
   const search = data => {
-    return data.filter(d => d.title.toLowerCase().startsWith(prefix.toLowerCase()))
+    return data.filter(({ title }) => (
+      title.toLowerCase().startsWith(prefix.toLowerCase())
+    ))
   }
 
   return (

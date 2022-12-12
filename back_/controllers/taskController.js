@@ -32,7 +32,7 @@ const createTask = async (req, res) => {
     return res.status(400).json({ error: 'Please fill in \'Title\' field' })
   }
 
-  if (title.length > 24) {
+  if (title.length > 36) {
     return res.status(400).json({ error: 'Title should not exceed 24 characters' })
   }
 

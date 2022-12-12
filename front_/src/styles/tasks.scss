@@ -92,15 +92,15 @@
       // transition: .2s;
 
       &.percent-to-do {
-        background: #ffc0ca;
+        background: vars.$to-do;
       }
 
       &.percent-in-progress {
-        background: #dec1f2;
+        background: vars.$in-progress;
       }
 
       &.percent-done {
-        background: #f9d89c;
+        background: vars.$done;
       }
 
       p {
@@ -126,12 +126,15 @@
   // JS FUNCTION CONTAINER
 
   .js-function {
+    padding: 0 vars.$app-padding;
     grid-area: 1 / 2 / 2 / 3;
     height: vars.$btn-size;
     // width: calc(100% - vars.$app-padding * 2 - 60px);
     display: flex;
-    justify-content: center;
-    // gap: 60px;
+    align-items: center;
+    // justify-content: space-evenly;
+    // justify-content: center;
+    gap: 60px;
     // position: sticky;
     // top: vars.$app-padding;
     // z-index: 3;
@@ -171,7 +174,7 @@
 
       &.to-do {
         .task-status {
-          background: #ffc0ca;
+          background: vars.$to-do;
         }
 
         .grid {
@@ -179,8 +182,8 @@
 
             &.open,
             &:hover {
-              background: #ffc0ca;
-              box-shadow: 0 0 0 4px #ffc0ca;
+              background: vars.$to-do;
+              box-shadow: 0 0 0 4px vars.$to-do;
             }
           }
         }
@@ -188,7 +191,7 @@
 
       &.in-progress {
         .task-status {
-          background: #dec1f2;
+          background: vars.$in-progress;
         }
 
         .grid {
@@ -196,8 +199,8 @@
 
             &.open,
             &:hover {
-              background: #dec1f2;
-              box-shadow: 0 0 0 4px #dec1f2;
+              background: vars.$in-progress;
+              box-shadow: 0 0 0 4px vars.$in-progress;
             }
           }
         }
@@ -205,7 +208,7 @@
 
       &.done {
         .task-status {
-          background: #f9d89c;
+          background: vars.$done;
         }
 
         .grid {
@@ -213,14 +216,15 @@
 
             &.open,
             &:hover {
-              background: #f9d89c;
-              box-shadow: 0 0 0 4px #f9d89c;
+              background: vars.$done;
+              box-shadow: 0 0 0 4px vars.$done;
             }
           }
         }
       }
 
       .task-status {
+        // color: #fff;
         margin: 0 20px;
         padding: 0 40px;
         width: fit-content;
@@ -242,19 +246,23 @@
           border-radius: 6px;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 40px;
           position: relative;
 
+          // & * {
+          //   color: #fff;
+          // }
+
           &.high-importance {
-            background: #f8cbbe;
+            background: vars.$high-importance;
           }
 
           &.medium-importance {
-            background: #cbeddb;
+            background: vars.$medium-importance;
           }
 
           &.low-importance {
-            background: #fff;
+            background: vars.$low-importance;
           }
 
           .task-title {

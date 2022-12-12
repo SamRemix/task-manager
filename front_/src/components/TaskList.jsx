@@ -11,7 +11,9 @@ const TaskList = ({ tasks }) => {
         exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
         <h2 className="task-status">To do</h2>
         {tasks.length > 0 && <div className="grid">
-          {tasks.map(task => task.status === 'To do' && <TaskDetails task={task} key={task._id} />)}
+          {tasks.map(task => (
+            task.status === 'To do' && <TaskDetails task={task} key={task._id} />
+          ))}
         </div>}
       </motion.div>
 
@@ -22,7 +24,9 @@ const TaskList = ({ tasks }) => {
         exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
         <h2 className="task-status">In progress</h2>
         {tasks.length > 0 && <div className="grid">
-          {tasks.map(task => task.status === 'In progress' && <TaskDetails task={task} key={task._id} />)}
+          {tasks.map(task => (
+            task.status === 'In progress' && <TaskDetails task={task} key={task._id} />
+          ))}
         </div>}
       </motion.div>
 
@@ -33,7 +37,9 @@ const TaskList = ({ tasks }) => {
         exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
         <h2 className="task-status">Done</h2>
         {tasks.length > 0 && <div className="grid">
-          {tasks.map(task => task.status === 'Done' && <TaskDetails task={task} key={task._id} />)}
+          {tasks.map(task => (
+            task.status === 'Done' && <TaskDetails task={task} key={task._id} />
+          ))}
         </div>}
       </motion.div>
     </div>
