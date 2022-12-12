@@ -33,7 +33,7 @@ const createTask = async (req, res) => {
   }
 
   if (title.length > 36) {
-    return res.status(400).json({ error: 'Title should not exceed 24 characters' })
+    return res.status(400).json({ error: 'Title should not exceed 36 characters' })
   }
 
   try {

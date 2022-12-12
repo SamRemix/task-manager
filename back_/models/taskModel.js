@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-// timestamps add 'createdAt' & 'updatedAt' properties to the schema
 const taskSchema = new Schema({
   title: {
     type: String,

@@ -14,7 +14,7 @@ const TaskBoard = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch('/tasks', {
         headers: { 'Authorization': `Bearer ${user.token}` }
       })
       const json = await response.json()

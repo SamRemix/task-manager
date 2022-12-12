@@ -7,8 +7,8 @@ const express = require('express')
 // it also gives a way to declare schemas to ensure a strict data structure
 const mongoose = require('mongoose')
 
-// const boardsRoutes = require('./routes/boards')
-const tasksRoutes = require('./routes/tasks')
+const boardRoutes = require('./routes/board')
+const taskRoutes = require('./routes/task')
 const userRoutes = require('./routes/user')
 
 const app = express()
@@ -25,9 +25,9 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use('/api/boards', boardsRoutes)
-app.use('/api/tasks', tasksRoutes)
-app.use('/api/user', userRoutes)
+app.use('/boards', boardRoutes)
+app.use('/tasks', taskRoutes)
+app.use('/user', userRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

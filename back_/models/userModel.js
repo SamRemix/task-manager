@@ -45,7 +45,6 @@ userSchema.statics.signup = async function (name, email, password) {
     throw Error('Password isn\'t strong enough')
   }
 
-  // Hashing the password
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
