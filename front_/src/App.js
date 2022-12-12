@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-          {user && <Route path={`/account-${user.name}`} element={user ? <Account /> : <Navigate to="/" />} />}
+          <Route path='/account' element={user ? <Account /> : <Navigate to="/" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
