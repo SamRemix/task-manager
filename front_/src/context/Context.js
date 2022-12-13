@@ -1,12 +1,15 @@
 import { AuthContextProvider } from './AuthContext'
 import { TasksContextProvider } from './TasksContext'
+import { BoardsContextProvider } from './BoardsContext';
 
 const Context = ({ children }) => {
   return (
     <AuthContextProvider>
-      <TasksContextProvider>
-        {children}
-      </TasksContextProvider>
+      <BoardsContextProvider>
+        <TasksContextProvider>
+          {children}
+        </TasksContextProvider>
+      </BoardsContextProvider>
     </AuthContextProvider>
   );
 }

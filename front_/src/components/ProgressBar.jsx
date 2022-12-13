@@ -13,6 +13,10 @@ const ProgressBar = ({ tasks }) => {
     return status[type]()
   }
 
+  const setPercent = num => (
+    +(num / tasks.length * 100)
+  )
+
   tasks.forEach(({ status }) => {
     getLength(status)
   })
@@ -25,18 +29,20 @@ const ProgressBar = ({ tasks }) => {
       exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
       {toDo && <div
         className="percent percent-to-do"
-        style={{ height: toDo / tasks.length * 100 + '%' }}>
-        <p>{+(toDo / tasks.length * 100).toFixed(1)}<span>%</span></p>
+        style={{ height: setPercent(toDo) + '%' }}>
+        <p>{setPercent(toDo).toFixed(1)}<span>%</span></p>
       </div>}
+
       {inProgress && <div
         className="percent percent-in-progress"
-        style={{ height: inProgress / tasks.length * 100 + '%' }}>
-        <p>{+(inProgress / tasks.length * 100).toFixed(1)}<span>%</span></p>
+        style={{ height: setPercent(inProgress) + '%' }}>
+        <p>{setPercent(inProgress).toFixed(1)}<span>%</span></p>
       </div>}
+
       {done && <div
         className="percent percent-done"
-        style={{ height: done / tasks.length * 100 + '%' }}>
-        <p>{+(done / tasks.length * 100).toFixed(1)}<span>%</span></p>
+        style={{ height: setPercent(done) + '%' }}>
+        <p>{setPercent(done).toFixed(1)}<span>%</span></p>
       </div>}
     </motion.div>
   )

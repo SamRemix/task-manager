@@ -30,6 +30,7 @@ const Navbar = () => {
         <ul className='navbar__list'>
           <NavbarItem path='/' title='Home' resetActive={resetActive} />
           {user ? <>
+            <NavbarItem path='/boards' title='Boards' resetActive={resetActive} />
             <NavbarItem path='/task-board' title='Tasks' resetActive={resetActive} />
             <NavbarItem path='/account' title={user.name} resetActive={resetActive} />
             <li className='navbar__item'>

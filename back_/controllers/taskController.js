@@ -37,8 +37,9 @@ const createTask = async (req, res) => {
   }
 
   try {
+    const board_id = req.board._id
     const user_id = req.user._id
-    const task = await Task.create({ title, description, status, importance, user_id })
+    const task = await Task.create({ title, description, status, importance, board_id, user_id })
     res.status(200).json(task)
   } catch (error) {
     res.status(400).json({ error: error.message })

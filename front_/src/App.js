@@ -8,7 +8,8 @@ import Navbar from './components/Navbar'
 
 // pages
 import Home from './pages/Home'
-import TaskBoard from './pages/TaskBoard'
+import Boards from './pages/Boards'
+import Tasks from './pages/Tasks'
 // import TaskDetails from './pages/TaskDetails'
 import AddTask from './pages/AddTask'
 import Signup from './pages/Signup'
@@ -26,7 +27,8 @@ const App = () => {
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/task-board" element={<TaskBoard />} />
+          <Route path="/boards" element={<Boards />} />
+          <Route path="/task-board" element={<Tasks />} />
           {/* <Route path="/tasks/:id" element={<TaskDetails />} /> */}
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />

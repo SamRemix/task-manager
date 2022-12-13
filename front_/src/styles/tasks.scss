@@ -71,7 +71,7 @@
     grid-area: 2 / 1 / 3 / 2;
     margin: 0 auto;
     padding: 20px;
-    width: vars.$nav-width;
+    width: 80px;
     height: calc(100vh - vars.$app-padding * 2 - vars.$btn-size - vars.$app-row-gap);
     box-shadow: vars.$lg-shadow;
     border-radius: 12px;

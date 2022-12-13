@@ -8,7 +8,7 @@ import ProgressBar from '../components/ProgressBar'
 import TaskList from '../components/TaskList'
 // import TaskDetails from '../components/TaskDetails'
 
-const TaskBoard = () => {
+const Tasks = () => {
   const { tasks, dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
@@ -62,7 +62,6 @@ const TaskBoard = () => {
         </Link>
       </motion.div>
 
-      {/* {tasks && tasks.length >= 1 && <ProgressBar tasks={tasks} />} */}
       {tasks && <ProgressBar tasks={tasks} />}
 
       <motion.div
@@ -81,4 +80,4 @@ const TaskBoard = () => {
   )
 }
 
-export default TaskBoard
+export default Tasks
