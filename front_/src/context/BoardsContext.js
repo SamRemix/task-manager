@@ -3,8 +3,6 @@ import { createContext, useReducer } from 'react'
 export const BoardsContext = createContext()
 
 export const boardsReducer = (state, action) => {
-  console.log(action)
-
   switch (action.type) {
     case 'SET_BOARDS':
       return {

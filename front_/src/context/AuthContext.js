@@ -3,8 +3,6 @@ import { createContext, useReducer, useEffect } from 'react'
 export const AuthContext = createContext()
 
 export const AuthReducer = (state, action) => {
-  console.log(action)
-
   switch (action.type) {
     case 'LOGIN':
       return { user: action.payload }

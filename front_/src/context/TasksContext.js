@@ -6,8 +6,6 @@ export const TasksContext = createContext()
 // The state argument is the previous state before the change (current data)
 // The action argument is the object passed in the dispatch function (action.type & action.payload)
 export const tasksReducer = (state, action) => {
-  console.log(action)
-
   switch (action.type) {
     case 'SET_TASKS':
       return {
