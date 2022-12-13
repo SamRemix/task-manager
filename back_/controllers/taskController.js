@@ -4,6 +4,7 @@ const { Types } = require('mongoose')
 
 const getTasks = async (req, res) => {
   const user_id = req.user._id
+
   const tasks = await Task.find({ user_id }).sort({ importance: 1, updatedAt: -1 })
 
   res.status(200).json(tasks)
@@ -26,7 +27,9 @@ const getTask = async (req, res) => {
 }
 
 const createTask = async (req, res) => {
-  const { title, description, status, importance } = req.body
+  const { title, description, status, importance, board_id } = req.body
+
+  console.log(req.body);
 
   if (!title || title.trim().length === 0) {
     return res.status(400).json({ error: 'Please fill in \'Title\' field' })
@@ -37,9 +40,10 @@ const createTask = async (req, res) => {
   }
 
   try {
-    const board_id = req.board._id
     const user_id = req.user._id
+
     const task = await Task.create({ title, description, status, importance, board_id, user_id })
+
     res.status(200).json(task)
   } catch (error) {
     res.status(400).json({ error: error.message })

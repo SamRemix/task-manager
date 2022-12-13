@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const TaskForm = () => {
-  const { dispatch } = useTasksContext()
+  let { board_id } = useParams()
+
   const { user } = useAuthContext()
 
   const navigate = useNavigate()
@@ -25,26 +26,23 @@ const TaskForm = () => {
       return
     }
 
-    const task = { title, description, status, importance }
+    const task = { title, description, status, importance, board_id }
 
-    const response = await fetch('/tasks', {
-      method: 'POST',
-      body: JSON.stringify(task),
+    let response = await axios.post('/tasks', task, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`
       }
     })
 
-    const json = await response.json()
+    const json = await response.data
 
     if (!response.ok) {
       setError(json.error)
     }
 
     if (response.ok) {
-      dispatch({ type: 'CREATE_TASK', payload: json })
-      navigate('/task-board')
+      navigate(`/boards/${board_id}`)
     }
   }
 
@@ -134,13 +132,6 @@ const TaskForm = () => {
             exit={{ opacity: 0 }}>
             {error}
           </motion.p>
-          {!user && <motion.div className="link"
-            initial={{ x: -80, opacity: 0 }}
-            animate={{ x: 0, opacity: 1, transition: { duration: .4, delay: .1 } }}
-            exit={{ opacity: 0 }}>
-            <Link to="/login">Log In</Link>
-            <Link to="/signup">Sign Up</Link>
-          </motion.div>}
         </div>}
       </form>
     </section>

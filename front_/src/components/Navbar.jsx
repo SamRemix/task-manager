@@ -14,8 +14,6 @@ const Navbar = () => {
     active ? setActive(false) : setActive(true)
   }
 
-  const resetActive = () => setActive(false)
-
   return (
     <>
       <div className={`navbar__toggle-btn ${active ? 'active' : ''}`} onClick={openMenu}>
@@ -28,19 +26,18 @@ const Navbar = () => {
       <nav className={`navbar ${active ? 'active' : ''}`}>
         <h1>Menu</h1>
         <ul className='navbar__list'>
-          <NavbarItem path='/' title='Home' resetActive={resetActive} />
+          <NavbarItem path='/' title='Home' resetActive={() => setActive(false)} />
           {user ? <>
-            <NavbarItem path='/boards' title='Boards' resetActive={resetActive} />
-            <NavbarItem path='/task-board' title='Tasks' resetActive={resetActive} />
-            <NavbarItem path='/account' title={user.name} resetActive={resetActive} />
+            <NavbarItem path='/boards' title='Boards' resetActive={() => setActive(false)} />
+            <NavbarItem path='/account' title={user.name} resetActive={() => setActive(false)} />
             <li className='navbar__item'>
               <div className='navbar__item-link logout' onClick={() => logout()}>
                 <p className='navbar__item-title'>Log Out</p>
               </div>
             </li>
           </> : <>
-            <NavbarItem path='/login' title='Log In' resetActive={resetActive} />
-            <NavbarItem path='/signup' title='Sign Up' resetActive={resetActive} />
+            <NavbarItem path='/login' title='Log In' resetActive={() => setActive(false)} />
+            <NavbarItem path='/signup' title='Sign Up' resetActive={() => setActive(false)} />
           </>}
         </ul>
       </nav>

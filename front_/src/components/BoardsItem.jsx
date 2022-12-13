@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const BoardsItem = ({ path, title }) => {
   return (
     <li>
-      <NavLink to={path} end>
+      <Link to={path}>
         <p>{title}</p>
-      </NavLink>
+      </Link>
     </li>
   )
 }

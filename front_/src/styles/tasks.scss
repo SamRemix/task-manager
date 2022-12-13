@@ -1,6 +1,7 @@
 @use './vars';
 
-.tasks-page {
+.tasks-page,
+.boards-page {
   padding: 0 !important;
   display: grid !important;
   align-items: flex-start !important;
@@ -132,7 +133,7 @@
     // width: calc(100% - vars.$app-padding * 2 - 60px);
     display: flex;
     align-items: center;
-    // justify-content: space-evenly;
+    justify-content: space-between;
     // justify-content: center;
     gap: 60px;
     // position: sticky;
@@ -140,6 +141,7 @@
     // z-index: 3;
 
     .search {
+      min-width: 160px;
       display: flex;
       align-items: center;
       position: relative;

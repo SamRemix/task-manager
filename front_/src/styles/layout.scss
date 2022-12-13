@@ -39,6 +39,7 @@ body {
       inset: 10px auto auto 50%;
       transform: translateX(-50%) !important;
       cursor: default;
+      z-index: -1;
     }
 
     // CONTAINER

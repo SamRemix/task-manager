@@ -13,6 +13,7 @@ export const tasksReducer = (state, action) => {
       }
 
     case 'CREATE_TASK':
+      console.log(state);
       return {
         tasks: [action.payload, ...state.tasks]
       }

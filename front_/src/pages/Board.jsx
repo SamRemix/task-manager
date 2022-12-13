@@ -1,38 +1,23 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useAuthContext } from '../hooks/useAuthContext'
-import { useTasksContext } from '../hooks/useTasksContext'
 
+import NotFound from './404'
 import ProgressBar from '../components/ProgressBar'
-import TaskList from '../components/TaskList'
-// import TaskDetails from '../components/TaskDetails'
+import Tasks from '../components/Tasks'
 
-const Tasks = () => {
-  const { tasks, dispatch } = useTasksContext()
-  const { user } = useAuthContext()
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const response = await fetch('/tasks', {
-        headers: { 'Authorization': `Bearer ${user.token}` }
-      })
-      const json = await response.json()
-
-      if (response.ok) {
-        dispatch({
-          type: 'SET_TASKS',
-          payload: json
-        })
-      }
-    }
-
-    if (user) {
-      fetchTasks()
-    }
-  }, [dispatch, user])
+const Board = ({ boards, tasks }) => {
+  let { board_id } = useParams()
 
   const [prefix, setPrefix] = useState('')
+
+  const board = boards.find(({ _id }) => _id === board_id)
+  const filteredTasks = tasks.filter(({ board_id: id }) => id === board_id)
+
+  if (!board) {
+    return <NotFound />
+  }
 
   const search = data => {
     return data.filter(({ title }) => (
@@ -41,12 +26,12 @@ const Tasks = () => {
   }
 
   return (
-    <section className="container tasks-page">
+    <section className="container boards-page">
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: .6 } }}
         exit={{ opacity: 0, transition: { duration: .4 } }}>
-        Task Board
+        {board.title}
       </motion.h1>
 
       {!tasks && <p className="loading">Loading...</p>}
@@ -56,13 +41,13 @@ const Tasks = () => {
         initial={{ x: -80, opacity: 0 }}
         animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
         exit={{ x: -80, opacity: 0, transition: { duration: .4 } }}>
-        <Link to="/add-task">
+        <Link to={`/add-task/${board_id}`}>
           <span className="material-symbols-outlined icon">playlist_add</span>
           <p className="title">Add Task</p>
         </Link>
       </motion.div>
 
-      {tasks && <ProgressBar tasks={tasks} />}
+      {filteredTasks && <ProgressBar tasks={filteredTasks} />}
 
       <motion.div
         className="js-function"
@@ -75,9 +60,14 @@ const Tasks = () => {
         </div>
       </motion.div>
 
-      {tasks && <TaskList tasks={search(tasks)} />}
-    </section >
+      {filteredTasks && <Tasks tasks={search(filteredTasks)} />}
+    </section>
   )
 }
 
-export default Tasks
+Board.propTypes = {
+  boards: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired
+}
+
+export default Board
