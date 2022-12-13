@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const TaskForm = () => {
   let { board_id } = useParams()

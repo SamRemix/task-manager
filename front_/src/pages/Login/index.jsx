@@ -1,18 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useSignup } from '../hooks/useSignup'
+import { useLogin } from '../../hooks/useLogin'
 
-const Signup = () => {
-  const { signup, error } = useSignup()
+const Login = () => {
+  const { login, error } = useLogin()
 
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = async e => {
     e.preventDefault()
 
-    await signup(name, email, password)
+    await login(email, password)
   }
 
   return (
@@ -20,43 +19,39 @@ const Signup = () => {
     <section className="container">
       <motion.h1
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
-        Sign Up
+        animate={{ opacity: 1, transition: { duration: .6 } }}
+        exit={{ opacity: 0, transition: { duration: .4 } }}>
+        Log In
       </motion.h1>
+      <div style={{ position: 'absolute', inset: 0 }}>
+        <p>s_capron@hotmail.fr</p>
+        <p>Gg-967026</p>
+      </div>
+
 
       <form onSubmit={handleSubmit}>
-        <motion.input
-          type="text"
-          onChange={e => setName(e.target.value)}
-          value={name}
-          placeholder="Name"
-          autoFocus
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .3 } }} />
-
         <motion.input
           type="text"
           onChange={e => setEmail(e.target.value)}
           value={email}
           placeholder="Email"
+          autoFocus
           initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }} />
 
         <motion.input
-          type="text"
+          type="password"
           onChange={e => setPassword(e.target.value)}
           value={password}
           placeholder="Password"
           initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }} />
 
         <motion.button
           initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
+          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>
           Submit
         </motion.button>
@@ -73,4 +68,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Login

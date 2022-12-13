@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
-import NotFound from './404'
-import ProgressBar from '../components/ProgressBar'
-import Tasks from '../components/Tasks'
+import NotFound from '../404'
+import ProgressBar from '../../components/ProgressBar'
+import Tasks from '../../components/Tasks'
 
 const Board = ({ boards, tasks }) => {
   let { board_id } = useParams()

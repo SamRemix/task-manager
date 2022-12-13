@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
-import BoardsItem from '../components/BoardsItem'
+import BoardsItem from '../../components/BoardsItem'
 
 const Boards = ({ boards }) => {
 

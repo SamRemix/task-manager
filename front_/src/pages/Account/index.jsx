@@ -1,5 +1,7 @@
+import './style.scss'
+
 import { motion } from 'framer-motion'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../../hooks/useAuthContext'
 import { formatDistanceToNowStrict } from 'date-fns'
 
 const Account = () => {

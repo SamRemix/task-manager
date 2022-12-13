@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
 
-import NotFound from './404'
+import NotFound from '../404'
 
 const TaskDetails = ({ tasks }) => {
   let { task_id } = useParams()
