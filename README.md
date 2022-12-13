@@ -7,5 +7,5 @@ npm run dev
 
 cd front_
 npm i
-npm run start
+npm start
 ```
