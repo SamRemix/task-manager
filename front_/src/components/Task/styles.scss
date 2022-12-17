@@ -1,0 +1,45 @@
+@use '../../styles/vars';
+
+.task-content {
+  padding: 10px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+
+  &.high-importance {
+    background: vars.$high-importance;
+  }
+
+  &.medium-importance {
+    background: vars.$medium-importance;
+  }
+
+  &.low-importance {
+    background: vars.$low-importance;
+  }
+
+  .task-title {
+    width: 100%;
+    white-space: normal;
+    transition: .2s;
+  }
+
+  .updated-at {
+    font-size: 14px;
+    position: relative;
+    cursor: default;
+  }
+
+  &.open,
+  &:hover {
+    .task-title {
+      transform: translateX(30px);
+    }
+
+    .updated-at {
+      opacity: 0;
+    }
+  }
+}

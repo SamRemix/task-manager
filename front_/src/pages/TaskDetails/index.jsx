@@ -1,3 +1,5 @@
+import './styles.scss'
+
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -17,6 +19,7 @@ const TaskDetails = ({ tasks }) => {
   return (
     <section className="container">
       <motion.h1
+        className="container__title"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
         exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>

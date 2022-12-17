@@ -18,16 +18,17 @@ const Login = () => {
     // test
     <section className="container">
       <motion.h1
+        className="container__title"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: .6 } }}
         exit={{ opacity: 0, transition: { duration: .4 } }}>
         Log In
       </motion.h1>
+
       <div style={{ position: 'absolute', inset: 0 }}>
         <p>s_capron@hotmail.fr</p>
         <p>Gg-967026</p>
       </div>
-
 
       <form onSubmit={handleSubmit}>
         <motion.input

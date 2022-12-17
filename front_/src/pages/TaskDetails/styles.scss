@@ -1,0 +1,34 @@
+@use '../../styles/vars';
+
+.task-details {
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .task-title {
+    font-weight: 600 !important;
+  }
+
+  .description {
+    font-weight: 500;
+  }
+
+  .date {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    p {
+      font-size: .9em;
+      font-weight: 500;
+
+      span {
+        font-weight: 400;
+      }
+    }
+  }
+
+}

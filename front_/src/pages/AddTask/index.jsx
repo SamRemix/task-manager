@@ -3,21 +3,25 @@ import { useState, useContext } from 'react'
 import axios from '../../config'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import config from './motion.config'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { BoardsContext } from '../../context/BoardsContext'
+import { TasksContext } from '../../context/TasksContext'
 
 const TaskForm = ({ getTasks }) => {
   let { board_id } = useParams()
 
-  const { dispatchBoards } = useContext(BoardsContext)
+  const { dispatchTasks } = useContext(TasksContext)
   const { user } = useAuthContext()
 
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [status, setStatus] = useState('To do')
-  const [importance, setImportance] = useState(3)
+  const [newTask, setNewTask] = useState({
+    title: '',
+    description: '',
+    status: 'To do',
+    importance: 3,
+    board_id
+  })
 
   const [error, setError] = useState(null)
 
@@ -29,55 +33,46 @@ const TaskForm = ({ getTasks }) => {
       return
     }
 
-    const task = { title, description, status, importance, board_id }
-
-    const response = await axios.post('/tasks', task)
-    dispatchBoards({ type: 'ADD_BOARD', payload: response.data })
+    const response = await axios.post('/tasks', newTask)
+    dispatchTasks({ type: 'ADD_BOARD', payload: response.data })
     getTasks()
-    navigate(`/boards/${board_id}`)
+    navigate(`/Tasks/${board_id}`)
   }
 
   return (
     <section className="container">
       <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .2 } }}
-        exit={{ opacity: 0, transition: { duration: .2 } }}>
+        className="container__title"
+        {...config.pageTitleAnimation}>
         Add Task
       </motion.h1>
 
       <form onSubmit={addTask}>
         <motion.div
           className="title-input"
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .4 } }}>
+          {...config.titleInputAnimation}>
           <input
             type="text"
-            onChange={e => setTitle(e.target.value)}
-            value={title}
+            onChange={e => setNewTask({ ...newTask, title: e.target.value })}
+            value={newTask.title}
             className={error ? 'error' : ''}
             placeholder="Title"
             maxLength="36"
             autoFocus />
-          <p className="remaining">{36 - title.length} remaining character{title.length < 35 && 's'}</p>
+          <p className="remaining">{36 - newTask.title.length} remaining character{newTask.title.length < 35 && 's'}</p>
         </motion.div>
 
         <motion.textarea
-          onChange={e => setDescription(e.target.value)}
-          value={description}
+          onChange={e => setNewTask({ ...newTask, description: e.target.value })}
+          value={newTask.description}
           placeholder="Description (optional)"
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .3 } }}>
+          {...config.descriptionInputAnimation}>
         </motion.textarea>
 
         <motion.select
-          onChange={e => setStatus(e.target.value)}
-          value={status}
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }}>
+          onChange={e => setNewTask({ ...newTask, status: e.target.value })}
+          value={newTask.status}
+          {...config.statusInputAnimation}>
           <option value="To do">To do</option>
           <option value="In progress">In progress</option>
           <option value="Done">Done</option>
@@ -85,13 +80,11 @@ const TaskForm = ({ getTasks }) => {
 
         <motion.div
           className="importance-select"
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }}>
+          {...config.importanceInputAnimation}>
           <p>Importance: </p>
           <select
-            onChange={e => setImportance(e.target.value)}
-            value={importance}
+            onChange={e => setNewTask({ ...newTask, importance: e.target.value })}
+            value={newTask.importance}
           >
             <option value='3'>Low</option>
             <option value='2'>Medium</option>
@@ -100,18 +93,14 @@ const TaskForm = ({ getTasks }) => {
         </motion.div>
 
         <motion.button
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .4 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>
+          {...config.submitButtonAnimation}>
           Add Task
         </motion.button>
 
         {error && <div
           className="error-message">
           <motion.p
-            initial={{ x: -80, opacity: 0 }}
-            animate={{ x: 0, opacity: 1, transition: { duration: .4 } }}
-            exit={{ opacity: 0 }}>
+            {...config.errorMessageAnimation}>
             {error}
           </motion.p>
         </div>}

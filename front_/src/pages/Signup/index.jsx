@@ -19,6 +19,7 @@ const Signup = () => {
     // test
     <section className="container">
       <motion.h1
+        className="container__title"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
         exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>

@@ -52,9 +52,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/boards" element={boards && <Boards boards={boards} />} />
           <Route path="/boards/:board_id" element={boards && tasks && <Board boards={boards} tasks={tasks} />} />
-          {/* <Route path="/task-board" element={<Tasks />} /> */}
           <Route path="/boards/:board_id/:task_id" element={tasks && <TaskDetails tasks={tasks} />} />
-          <Route path="/add-task/:board_id" element={<AddTask getTasks={getTasks} tasks={tasks} />} />
+          <Route path="/add-task/:board_id" element={<AddTask getTasks={getTasks} />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path='/account' element={user ? <Account /> : <Navigate to="/" />} />

@@ -1,0 +1,86 @@
+@use '../../styles/vars';
+
+.tasks-container {
+  grid-area: 2 / 2 / 3 / 3;
+  margin: 0 0 100px;
+  display: grid;
+  gap: 20px;
+
+  .status {
+    padding: 20px;
+    height: fit-content;
+    box-shadow: vars.$lg-shadow;
+    border-radius: 12px;
+    position: relative;
+
+    &.to-do {
+      .task-status {
+        background: vars.$to-do;
+      }
+
+      .grid {
+        .task-content {
+
+          &.open,
+          &:hover {
+            background: vars.$to-do;
+            box-shadow: 0 0 0 4px vars.$to-do;
+          }
+        }
+      }
+    }
+
+    &.in-progress {
+      .task-status {
+        background: vars.$in-progress;
+      }
+
+      .grid {
+        .task-content {
+
+          &.open,
+          &:hover {
+            background: vars.$in-progress;
+            box-shadow: 0 0 0 4px vars.$in-progress;
+          }
+        }
+      }
+    }
+
+    &.done {
+      .task-status {
+        background: vars.$done;
+      }
+
+      .grid {
+        .task-content {
+
+          &.open,
+          &:hover {
+            background: vars.$done;
+            box-shadow: 0 0 0 4px vars.$done;
+          }
+        }
+      }
+    }
+
+    .task-status {
+      // color: #fff;
+      margin: 0 20px;
+      padding: 0 40px;
+      width: fit-content;
+      height: 40px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+    }
+
+    .grid {
+      width: 100%;
+      margin: 20px 0 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+}

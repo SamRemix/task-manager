@@ -1,0 +1,51 @@
+@use '../../styles/vars';
+
+.add-task-link {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 80px;
+  position: sticky;
+  top: vars.$app-padding;
+  z-index: 3;
+
+  a {
+    margin: 0 auto;
+    width: vars.$btn-size;
+    height: vars.$btn-size;
+    background: vars.$pink;
+    box-shadow: vars.$lg-shadow;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      color: #fff;
+      font-size: 2.3em;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .title {
+      padding: 4px 6px;
+      background: #fff;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      position: absolute;
+      top: calc(100% - 10px);
+      opacity: 0;
+      transform: translateY(10px);
+      cursor: pointer;
+      pointer-events: none;
+      transition: .2s;
+    }
+  }
+
+  &:hover {
+    a {
+      .title {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}

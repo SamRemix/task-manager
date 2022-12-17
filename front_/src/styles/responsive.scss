@@ -6,13 +6,11 @@
 
 // lg 1024px
 @media (min-width: 1024px) {
-
-  .tasks-page,
-  .boards-page {
+  .board__container {
     .tasks-container {
       .status {
         .grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, 1fr) !important;
         }
       }
     }
@@ -24,15 +22,13 @@
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-
-  .tasks-page,
-  .boards-page {
+  .board__container {
     .tasks-container {
       grid-template-columns: repeat(3, 1fr);
 
       .status {
         .grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr !important;
         }
       }
     }

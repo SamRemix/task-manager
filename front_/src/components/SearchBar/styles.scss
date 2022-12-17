@@ -1,0 +1,23 @@
+@use '../../styles/vars';
+
+.js-function {
+  padding: 0 vars.$app-padding;
+  grid-area: 1 / 2 / 2 / 3;
+  height: vars.$btn-size;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+
+  .search {
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .icon-search {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}

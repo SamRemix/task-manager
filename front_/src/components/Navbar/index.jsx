@@ -1,3 +1,5 @@
+import './styles.scss'
+
 import { useState } from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useLogout } from '../../hooks/useLogout'
@@ -24,7 +26,7 @@ const Navbar = () => {
 
       <div className={`navbar__border ${active ? 'active' : ''}`}></div>
       <nav className={`navbar ${active ? 'active' : ''}`}>
-        <h1>Menu</h1>
+        <h1 className="container__title">Menu</h1>
         <ul className='navbar__list'>
           <NavbarItem path='/' title='Home' resetActive={() => setActive(false)} />
           {user ? <>

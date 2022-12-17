@@ -2,27 +2,25 @@ import './styles.scss'
 
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
+import config from './motion.config'
+
 import BoardsItem from '../../components/BoardsItem'
 
 const Boards = ({ boards }) => {
-
   return (
     <section className="container boards-page">
       <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6 } }}
-        exit={{ opacity: 0, transition: { duration: .4 } }}>
+        className="container__title"
+        {...config.pageTitleAnimation}>
         Boards
       </motion.h1>
 
       <motion.div
         className="boards"
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6 } }}
-        exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
+        {...config.boardsMenuAnimation}>
         <nav>
           <ul>
-            {boards?.map(({ _id, title }) => (
+            {boards.map(({ _id, title }) => (
               <BoardsItem key={_id} path={_id} title={title} />
             ))}
           </ul>

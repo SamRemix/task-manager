@@ -4,8 +4,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 import './styles/layout.scss'
-import './styles/navbar.scss'
-import './styles/tasks.scss'
+// import './styles/navbar.scss'
+// import './styles/tasks.scss'
 import './styles/form.scss'
 import './styles/button.scss'
 

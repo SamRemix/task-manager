@@ -1,11 +1,14 @@
+import './styles.scss'
+
 import PropTypes from 'prop-types'
-import axios from '../config'
+import axios from '../../config'
 import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import config from './motion.config'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
 
-import { TasksContext } from '../context/TasksContext'
+import { TasksContext } from '../../context/TasksContext'
 
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
@@ -22,14 +25,10 @@ const Task = ({ _id, title, importance, updatedAt }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={
-          (importance === 1 ? 'task-content high-importance' :
-            importance === 2 ? 'task-content medium-importance' :
-              'task-content low-importance')
-        }
+        className={`task-content ${importance === 1 ? 'high-importance' :
+          importance === 2 ? 'medium-importance' : 'low-importance'}`}
         layoutId={_id}
-        animate={{ opacity: 1, transition: { duration: .4 } }}
-        exit={{ opacity: 0 }}>
+        {...config.singleTaskAnimation}>
 
         <p className="task-title">{title}</p>
         <p className="updated-at"><i>{formatDistanceToNowStrict(new Date(updatedAt))}</i></p>

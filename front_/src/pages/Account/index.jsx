@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import { motion } from 'framer-motion'
+import config from './motion.config'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { formatDistanceToNowStrict } from 'date-fns'
 
@@ -10,17 +11,14 @@ const Account = () => {
   return (
     <section className="container">
       <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        className="container__title"
+        {...config.pageTitleAnimation}>
         Account
       </motion.h1>
 
       {user && <motion.div
         className="account"
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: .6, ease: 'easeOut' } }}
-        exit={{ y: 80, opacity: 0, transition: { duration: .4, ease: 'easeOut' } }}>
+        {...config.accountComponentAnimation}>
         <p>Name: {user.name}</p>
         <p>Email: {user.email}</p>
         <p>Account created {formatDistanceToNowStrict(new Date(user.createdAt), { addSuffix: true })}.</p>
