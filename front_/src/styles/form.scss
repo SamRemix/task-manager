@@ -6,6 +6,7 @@ form {
   flex-direction: column;
   gap: 20px;
   position: relative;
+
 }
 
 input,
@@ -20,13 +21,10 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   box-shadow: $sm-shadow;
-
-  &.error {
-    box-shadow: $sm-shadow, 0 0 0 1px $red;
-  }
 }
 
 textarea {
@@ -84,37 +82,5 @@ button {
 
   .remaining {
     color: #888;
-  }
-}
-
-select {
-  width: 100%;
-
-  &.to-do {
-    background: #ffc0ca;
-  }
-
-  &.in-progress {
-    background: #dec1f2;
-  }
-
-  &.done {
-    background: #f9d89c;
-  }
-
-  &.high-importance {
-    background: #f8cbbe;
-  }
-
-  &.medium-importance {
-    background: #cbeddb;
-  }
-
-  &.low-importance {
-    background: #f6fafd;
-  }
-
-  option {
-    background: #fff;
   }
 }

@@ -3,24 +3,27 @@ import axios from 'axios'
 import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
-// import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
-const Task = ({ _id, title, importance, updatedAt, }) => {
+const Task = ({ _id, title, importance, updatedAt }) => {
   const location = useLocation()
 
   // const { dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
   const deleteTask = id => {
-    axios.delete(`/tasks/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      }
-    })
+    try {
+      axios.delete(`/tasks/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

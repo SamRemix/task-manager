@@ -20,7 +20,7 @@ const Boards = ({ boards }) => {
         exit={{ x: 80, opacity: 0, transition: { duration: .4 } }}>
         <nav>
           <ul>
-            {boards && boards.map(({ _id, title }) => (
+            {boards?.map(({ _id, title }) => (
               <BoardsItem key={_id} path={_id} title={title} />
             ))}
           </ul>
@@ -31,8 +31,7 @@ const Boards = ({ boards }) => {
 }
 
 Boards.propTypes = {
-  boards: PropTypes.array.isRequired,
-  // tasks: PropTypes.array.isRequired
+  boards: PropTypes.array.isRequired
 }
 
 export default Boards

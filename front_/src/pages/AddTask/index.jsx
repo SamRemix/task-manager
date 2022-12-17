@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../config'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
-const TaskForm = () => {
+const TaskForm = ({ fetchData }) => {
   let { board_id } = useParams()
 
   const { user } = useAuthContext()
@@ -28,20 +30,12 @@ const TaskForm = () => {
 
     const task = { title, description, status, importance, board_id }
 
-    let response = await axios.post('/tasks', task, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
-      }
-    })
-
-    const json = await response.data
-
-    if (!response.ok) {
-      setError(json.error)
-    }
-
-    if (response.ok) {
+    try {
+      await axios.post('/tasks', task)
+    } catch (err) {
+      setError(err)
+    } finally {
+      fetchData()
       navigate(`/boards/${board_id}`)
     }
   }
@@ -82,11 +76,6 @@ const TaskForm = () => {
         </motion.textarea>
 
         <motion.select
-          className={
-            status === 'To do' ? 'to-do' :
-              status === 'In progress' ? 'in-progress' :
-                'done'
-          }
           onChange={e => setStatus(e.target.value)}
           value={status}
           initial={{ x: -160, opacity: 0 }}
@@ -104,13 +93,9 @@ const TaskForm = () => {
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }}>
           <p>Importance: </p>
           <select
-            className={
-              importance === '1' ? 'high-importance' :
-                importance === '2' ? 'medium-importance' :
-                  'low-importance'
-            }
             onChange={e => setImportance(e.target.value)}
-            value={importance}>
+            value={importance}
+          >
             <option value='3'>Low</option>
             <option value='2'>Medium</option>
             <option value='1'>High</option>
@@ -136,6 +121,10 @@ const TaskForm = () => {
       </form>
     </section>
   )
+}
+
+TaskForm.propTypes = {
+  fetchData: PropTypes.func.isRequired
 }
 
 export default TaskForm

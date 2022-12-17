@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const NavbarItem = ({ path, title, resetActive }) => {
   return (
     <li className='navbar__item' onClick={resetActive}>
-      <NavLink to={path} className='navbar__item-link' end>
+      <NavLink to={path} className='navbar__item-link'>
         <p className='navbar__item-title'>{title}</p>
       </NavLink>
     </li>

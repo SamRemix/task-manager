@@ -1,4 +1,4 @@
-import './style.scss'
+import './styles.scss'
 
 import { motion } from 'framer-motion'
 import { useAuthContext } from '../../hooks/useAuthContext'

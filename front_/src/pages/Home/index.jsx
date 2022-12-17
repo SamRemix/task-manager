@@ -7,7 +7,7 @@ const Home = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: .6 } }}
         exit={{ opacity: 0, transition: { duration: .4 } }}>
-        Home
+        Task Manager
       </motion.h1>
 
       <motion.div
