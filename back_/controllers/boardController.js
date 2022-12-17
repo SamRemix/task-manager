@@ -39,6 +39,7 @@ const createBoard = async (req, res) => {
   try {
     const user_id = req.user._id
     const board = await Board.create({ title, user_id })
+
     res.status(200).json(board)
   } catch (error) {
     res.status(400).json({ error: error.message })

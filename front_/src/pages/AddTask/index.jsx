@@ -33,10 +33,14 @@ const TaskForm = ({ getTasks }) => {
       return
     }
 
-    const response = await axios.post('/tasks', newTask)
-    dispatchTasks({ type: 'ADD_BOARD', payload: response.data })
-    getTasks()
-    navigate(`/Tasks/${board_id}`)
+    try {
+      const response = await axios.post('/tasks', newTask)
+      dispatchTasks({ type: 'ADD_BOARD', payload: response.data })
+      getTasks()
+      navigate(`/Tasks/${board_id}`)
+    } catch (err) {
+      setError(err.response.data.error)
+    }
   }
 
   return (

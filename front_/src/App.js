@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from './config'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
@@ -28,15 +28,26 @@ const App = () => {
   const location = useLocation()
   const { user } = useAuthContext()
 
+  const [error, setError] = useState(null)
 
   const getBoards = async () => {
-    const response = await axios.get('/boards')
-    dispatchBoards({ type: 'GET_BOARDS', payload: response.data })
+    try {
+      const response = await axios.get('/boards')
+      dispatchBoards({ type: 'GET_BOARDS', payload: response.data })
+    } catch (err) {
+      setError(err.response.data.error)
+      console.log(error)
+    }
   }
 
   const getTasks = async () => {
-    const response = await axios.get('/tasks')
-    dispatchTasks({ type: 'GET_TASKS', payload: response.data })
+    try {
+      const response = await axios.get('/tasks')
+      dispatchTasks({ type: 'GET_TASKS', payload: response.data })
+    } catch (err) {
+      setError(err.response.data.error)
+      console.log(error)
+    }
   }
 
   useEffect(() => {

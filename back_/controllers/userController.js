@@ -10,7 +10,6 @@ const signupUser = async (req, res) => {
 
   try {
     const user = await User.signup(name, email, password)
-
     const token = createToken(user._id)
 
     res.status(200).json({ name, email, token, createdAt: user.createdAt })
@@ -24,7 +23,6 @@ const loginUser = async (req, res) => {
 
   try {
     const user = await User.login(email, password)
-
     const token = createToken(user._id)
 
     res.status(200).json({ name: user.name, email, token, createdAt: user.createdAt })
