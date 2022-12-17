@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import axios from './config'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useAuthContext } from './hooks/useAuthContext'
+
+import { TasksContext } from './context/TasksContext'
+import { BoardsContext } from './context/BoardsContext'
 
 // components
 import Navbar from './components/Navbar'
@@ -19,37 +22,26 @@ import Account from './pages/Account'
 import NotFound from './pages/404'
 
 const App = () => {
+  const { boards, dispatchBoards } = useContext(BoardsContext)
+  const { tasks, dispatchTasks } = useContext(TasksContext)
+
   const location = useLocation()
   const { user } = useAuthContext()
 
-  const [tasks, setTasks] = useState(null)
-  const [boards, setBoards] = useState(null)
 
-  const fetchTasks = async () => {
-    try {
-      const getTasks = await axios.get('/tasks')
-
-      setTasks(getTasks.data)
-    } catch (err) {
-      console.log(err)
-    }
+  const getBoards = async () => {
+    const response = await axios.get('/boards')
+    dispatchBoards({ type: 'GET_BOARDS', payload: response.data })
   }
 
-  const fetchBoards = async () => {
-    try {
-      const getBoards = await axios.get('/boards')
-
-      setBoards(getBoards.data)
-    } catch (err) {
-      console.log(err)
-    }
+  const getTasks = async () => {
+    const response = await axios.get('/tasks')
+    dispatchTasks({ type: 'GET_TASKS', payload: response.data })
   }
 
   useEffect(() => {
-    if (user) {
-      fetchTasks()
-      fetchBoards()
-    }
+    getBoards()
+    getTasks()
   }, [user])
 
   return (
@@ -62,7 +54,7 @@ const App = () => {
           <Route path="/boards/:board_id" element={boards && tasks && <Board boards={boards} tasks={tasks} />} />
           {/* <Route path="/task-board" element={<Tasks />} /> */}
           <Route path="/boards/:board_id/:task_id" element={tasks && <TaskDetails tasks={tasks} />} />
-          <Route path="/add-task/:board_id" element={<AddTask fetchData={fetchTasks} tasks={tasks} />} />
+          <Route path="/add-task/:board_id" element={<AddTask getTasks={getTasks} tasks={tasks} />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path='/account' element={user ? <Account /> : <Navigate to="/" />} />

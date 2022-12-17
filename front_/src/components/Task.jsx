@@ -1,29 +1,22 @@
 import PropTypes from 'prop-types'
-import axios from 'axios'
+import axios from '../config'
+import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
-import { useAuthContext } from '../hooks/useAuthContext'
+
+import { TasksContext } from '../context/TasksContext'
 
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
 const Task = ({ _id, title, importance, updatedAt }) => {
+  const { dispatchTasks } = useContext(TasksContext)
   const location = useLocation()
 
-  // const { dispatch } = useTasksContext()
-  const { user } = useAuthContext()
-
-  const deleteTask = id => {
-    try {
-      axios.delete(`/tasks/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        }
-      })
-    } catch (err) {
-      console.log(err);
-    }
+  const deleteTask = async id => {
+    await axios.delete(`/tasks/${id}`)
+    dispatchTasks({ type: 'DELETE_TASK', payload: id })
   }
 
   return (

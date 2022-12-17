@@ -4,32 +4,35 @@ export const BoardsContext = createContext()
 
 export const boardsReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_BOARDS':
+    case 'GET_BOARDS':
       return {
+        ...state,
         boards: action.payload
       }
 
-    case 'CREATE_BOARD':
+    case 'ADD_BOARD':
       return {
-        boards: [action.payload, ...state.boards]
+        ...state,
+        boards: [
+          ...state.boards,
+          action.payload
+        ]
+      }
+
+    case 'UPDATE_BOARD':
+      return {
+        ...state,
+        boards: state.boards.map(board => (
+          board.id === action.payload.id ? action.payload : board
+        ))
       }
 
     case 'DELETE_BOARD':
       return {
-        boards: state.boards.filter(({ _id }) => _id !== action.payload._id)
-      }
-
-    case 'UPDATE_BOARD':
-      const updatedBoard = action.payload
-
-      const updatedBoards = state.boards.map(board => {
-        if (board._id === updatedBoard._id) {
-          return updatedBoard
-        }
-        return board
-      })
-      return {
-        boards: updatedBoards
+        ...state,
+        boards: state.boards.filter(board => (
+          board.id !== action.payload
+        ))
       }
 
     default:
@@ -37,12 +40,8 @@ export const boardsReducer = (state, action) => {
   }
 }
 
-export const BoardsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(boardsReducer, { boards: null })
-
-  return (
-    <BoardsContext.Provider value={{ ...state, dispatch }}>
-      {children}
-    </BoardsContext.Provider>
-  )
+export const useBoardsReducer = () => {
+  return useReducer(boardsReducer, {
+    boards: []
+  })
 }

@@ -1,15 +1,20 @@
 import { AuthContextProvider } from './AuthContext'
-import { TasksContextProvider } from './TasksContext'
-import { BoardsContextProvider } from './BoardsContext';
+// import { TasksContextProvider } from './TasksContext'
+// import { BoardsContextProvider } from './BoardsContext'
+import { BoardsContext, useBoardsReducer } from './BoardsContext'
+import { TasksContext, useTasksReducer } from './TasksContext'
 
 const Context = ({ children }) => {
+  const [boards, dispatchBoards] = useBoardsReducer()
+  const [tasks, dispatchTasks] = useTasksReducer()
+
   return (
     <AuthContextProvider>
-      <BoardsContextProvider>
-        <TasksContextProvider>
+      <BoardsContext.Provider value={{ ...boards, dispatchBoards }}>
+        <TasksContext.Provider value={{ ...tasks, dispatchTasks }}>
           {children}
-        </TasksContextProvider>
-      </BoardsContextProvider>
+        </TasksContext.Provider>
+      </BoardsContext.Provider>
     </AuthContextProvider>
   );
 }

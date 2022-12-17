@@ -20,7 +20,7 @@ const ProgressBar = ({ tasks }) => {
   })
 
   const setPercent = num => (
-    +(num / tasks.length * 100)
+    num / tasks.length * 100
   )
 
   return (
@@ -32,19 +32,19 @@ const ProgressBar = ({ tasks }) => {
       {toDo > 0 && <div
         className="percent percent-to-do"
         style={{ height: setPercent(toDo) + '%' }}>
-        <p>{setPercent(toDo).toFixed(1)}<span>%</span></p>
+        <p>{+setPercent(toDo).toFixed(1)}<span>%</span></p>
       </div>}
 
       {inProgress > 0 && <div
         className="percent percent-in-progress"
         style={{ height: setPercent(inProgress) + '%' }}>
-        <p>{setPercent(inProgress).toFixed(1)}<span>%</span></p>
+        <p>{+setPercent(inProgress).toFixed(1)}<span>%</span></p>
       </div>}
 
       {done > 0 && <div
         className="percent percent-done"
         style={{ height: setPercent(done) + '%' }}>
-        <p>{setPercent(done).toFixed(1)}<span>%</span></p>
+        <p>{+setPercent(done).toFixed(1)}<span>%</span></p>
       </div>}
     </motion.div>
   )

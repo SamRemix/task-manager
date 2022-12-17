@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-// import axios from 'axios'
+import { useState, useContext } from 'react'
 import axios from '../../config'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import { BoardsContext } from '../../context/BoardsContext'
 
-const TaskForm = ({ fetchData }) => {
+const TaskForm = ({ getTasks }) => {
   let { board_id } = useParams()
 
+  const { dispatchBoards } = useContext(BoardsContext)
   const { user } = useAuthContext()
 
   const navigate = useNavigate()
@@ -16,11 +17,11 @@ const TaskForm = ({ fetchData }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState('To do')
-  const [importance, setImportance] = useState('2')
+  const [importance, setImportance] = useState(3)
 
   const [error, setError] = useState(null)
 
-  const createTask = async e => {
+  const addTask = async e => {
     e.preventDefault()
 
     if (!user) {
@@ -30,14 +31,10 @@ const TaskForm = ({ fetchData }) => {
 
     const task = { title, description, status, importance, board_id }
 
-    try {
-      await axios.post('/tasks', task)
-    } catch (err) {
-      setError(err)
-    } finally {
-      fetchData()
-      navigate(`/boards/${board_id}`)
-    }
+    const response = await axios.post('/tasks', task)
+    dispatchBoards({ type: 'ADD_BOARD', payload: response.data })
+    getTasks()
+    navigate(`/boards/${board_id}`)
   }
 
   return (
@@ -49,7 +46,7 @@ const TaskForm = ({ fetchData }) => {
         Add Task
       </motion.h1>
 
-      <form onSubmit={createTask}>
+      <form onSubmit={addTask}>
         <motion.div
           className="title-input"
           initial={{ x: -160, opacity: 0 }}
@@ -124,7 +121,7 @@ const TaskForm = ({ fetchData }) => {
 }
 
 TaskForm.propTypes = {
-  fetchData: PropTypes.func.isRequired
+  getTasks: PropTypes.func.isRequired
 }
 
 export default TaskForm

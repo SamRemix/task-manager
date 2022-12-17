@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
-import { useLogout } from '../hooks/useLogout'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useLogout } from '../../hooks/useLogout'
 
-import NavbarItem from './NavbarItem'
+import NavbarItem from '../NavbarItem'
 
 const Navbar = () => {
   const { user } = useAuthContext()
