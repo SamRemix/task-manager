@@ -1,10 +1,9 @@
 import './styles.scss'
 
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useLogout } from '../../hooks/useLogout'
-
-import NavbarItem from '../NavbarItem'
 
 const Navbar = () => {
   const { user } = useAuthContext()
@@ -28,18 +27,38 @@ const Navbar = () => {
       <nav className={`navbar ${active ? 'active' : ''}`}>
         <h1 className="container__title">Menu</h1>
         <ul className='navbar__list'>
-          <NavbarItem path='/' title='Home' resetActive={() => setActive(false)} />
+          <li className='navbar__item' onClick={() => setActive(false)}>
+            <NavLink to='/' className='navbar__item-link'>
+              <p className='navbar__item-title'>Home</p>
+            </NavLink>
+          </li>
           {user ? <>
-            <NavbarItem path='/boards' title='Boards' resetActive={() => setActive(false)} />
-            <NavbarItem path='/account' title={user.name} resetActive={() => setActive(false)} />
+            <li className='navbar__item' onClick={() => setActive(false)}>
+              <NavLink to='/boards' className='navbar__item-link'>
+                <p className='navbar__item-title'>Boards</p>
+              </NavLink>
+            </li>
+            <li className='navbar__item' onClick={() => setActive(false)}>
+              <NavLink to='/account' className='navbar__item-link'>
+                <p className='navbar__item-title'>{user.name}</p>
+              </NavLink>
+            </li>
             <li className='navbar__item'>
               <div className='navbar__item-link logout' onClick={() => logout()}>
                 <p className='navbar__item-title'>Log Out</p>
               </div>
             </li>
           </> : <>
-            <NavbarItem path='/login' title='Log In' resetActive={() => setActive(false)} />
-            <NavbarItem path='/signup' title='Sign Up' resetActive={() => setActive(false)} />
+            <li className='navbar__item' onClick={() => setActive(false)}>
+              <NavLink to='/login' className='navbar__item-link'>
+                <p className='navbar__item-title'>Log In</p>
+              </NavLink>
+            </li>
+            <li className='navbar__item' onClick={() => setActive(false)}>
+              <NavLink to='/signup' className='navbar__item-link'>
+                <p className='navbar__item-title'>Sign Up</p>
+              </NavLink>
+            </li>
           </>}
         </ul>
       </nav>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import BoardsItem from '../../components/BoardsItem'
+import Item from './Item'
 
 const Boards = ({ boards }) => {
   return (
@@ -21,7 +21,7 @@ const Boards = ({ boards }) => {
         <nav>
           <ul>
             {boards.map(({ _id, title }) => (
-              <BoardsItem key={_id} path={_id} title={title} />
+              <Item key={_id} path={_id} title={title} />
             ))}
           </ul>
         </nav>
