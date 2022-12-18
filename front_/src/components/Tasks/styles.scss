@@ -18,9 +18,7 @@
       }
 
       .grid {
-        .task-content {
-
-          &.open,
+        .task__content {
           &:hover {
             background: vars.$to-do;
             box-shadow: 0 0 0 4px vars.$to-do;
@@ -35,9 +33,7 @@
       }
 
       .grid {
-        .task-content {
-
-          &.open,
+        .task__content {
           &:hover {
             background: vars.$in-progress;
             box-shadow: 0 0 0 4px vars.$in-progress;
@@ -52,9 +48,7 @@
       }
 
       .grid {
-        .task-content {
-
-          &.open,
+        .task__content {
           &:hover {
             background: vars.$done;
             box-shadow: 0 0 0 4px vars.$done;

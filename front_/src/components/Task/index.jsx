@@ -25,18 +25,31 @@ const Task = ({ _id, title, important, createdAt }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`task-content ${important && 'important'}`}
+        className={`task__content ${important && 'important'}`}
         layoutId={_id}
         {...config.singleTaskAnimation}>
 
-        <p className="task-title">{title}</p>
-        <p className="updated-at"><i>{formatDistanceToNowStrict(new Date(createdAt))}</i></p>
+        <p className="task__content-title">{title}</p>
+        <p className="task__content-date"><i>{formatDistanceToNowStrict(new Date(createdAt))}</i></p>
 
-        <div className="buttons">
-          <Link to={`${location.pathname}/${_id}`}>
-            <span className="material-symbols-outlined button button-details">description</span>
+        <div className="task__content-buttons-container">
+          {/* <div> */}
+          <Link className="button" to={`${location.pathname}/${_id}`}>
+            <span
+              className="material-symbols-outlined button-details">
+              description
+            </span>
+            <p className="button-title">Details</p>
           </Link>
-          <span className="material-symbols-outlined button button-delete" onClick={() => deleteTask(_id)}>delete</span>
+          {/* </div> */}
+          <div className="button">
+            <span
+              className="material-symbols-outlined button-delete"
+              onClick={() => deleteTask(_id)}>
+              delete
+            </span>
+            <p className="button-title">Delete</p>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence >

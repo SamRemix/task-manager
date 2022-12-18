@@ -13,7 +13,6 @@
       border-radius: 4px;
       position: absolute;
       inset: auto 5% 3px auto;
-      opacity: 0;
       transition: .2s;
     }
 
@@ -21,38 +20,8 @@
       &::before {
         width: 90%;
         inset: auto auto 3px 5%;
-        opacity: 1;
       }
 
     }
   }
-
-  // span {
-  //   width: 10px;
-  //   height: 10px;
-  //   background: #f00;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   position: relative;
-
-  //   &::before,
-  //   &::after {
-  //     content: '';
-  //     width: 20px;
-  //     height: 4px;
-  //     position: absolute;
-  //     left: 0;
-  //   }
-
-  //   &::before {
-  //     transform: rotate(45deg) translateY(-100%);
-  //     background: #0f0;
-  //   }
-
-  //   &::after {
-  //     transform: rotate(-45deg) translateY(-100%);
-  //     background: #f0f;
-  //   }
-  // }
 }

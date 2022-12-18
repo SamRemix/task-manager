@@ -11,7 +11,6 @@ const PreviousButton = ({ path }) => {
       className="previous-page"
       {...config.btnDeMerde}>
       <Link to={path}>Previous</Link>
-      <span></span>
     </motion.div>
   )
 }
