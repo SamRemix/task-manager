@@ -20,7 +20,7 @@ const TaskForm = ({ getTasks }) => {
     title: '',
     description: '',
     status: 'To do',
-    importance: 'Low',
+    important: false,
     board_id
   })
 
@@ -37,7 +37,7 @@ const TaskForm = ({ getTasks }) => {
     try {
       const response = await axios.post('/tasks', newTask)
 
-      dispatchTasks({ type: 'ADD_BOARD', payload: response.data })
+      dispatchTasks({ type: 'ADD_TASK', payload: response.data })
 
       getTasks()
 
@@ -79,27 +79,25 @@ const TaskForm = ({ getTasks }) => {
           {...config.descriptionInputAnimation}>
         </motion.textarea>
 
-        <motion.select
-          onChange={e => setNewTask({ ...newTask, status: e.target.value })}
-          value={newTask.status}
-          {...config.statusInputAnimation}>
-          <option value="To do">To do</option>
-          <option value="In progress">In progress</option>
-          <option value="Done">Done</option>
-        </motion.select>
-
         <motion.div
-          className="importance-select"
-          {...config.importanceInputAnimation}>
-          <p>Importance: </p>
+          className="inputs-container"
+          {...config.inputsContainerAnimation}>
           <select
-            onChange={e => setNewTask({ ...newTask, importance: e.target.value })}
-            value={newTask.importance}
-          >
-            <option value='Low'>Low</option>
-            <option value='Medium'>Medium</option>
-            <option value='High'>High</option>
+            onChange={e => setNewTask({ ...newTask, status: e.target.value })}
+            value={newTask.status}>
+            <option value="To do">To do</option>
+            <option value="In progress">In progress</option>
+            <option value="Done">Done</option>
           </select>
+
+          <div className="important__checkbox">
+            <p>Important: </p>
+            <input
+              type="checkbox"
+              onChange={e => setNewTask({ ...newTask, important: e.target.checked })}
+              checked={newTask.important} />
+            <p className="important__checkbox-value">{String(newTask.important)}</p>
+          </div>
         </motion.div>
 
         <motion.button

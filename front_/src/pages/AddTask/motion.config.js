@@ -33,7 +33,7 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
-        delay: .4
+        delay: .3
       }
     }
   },
@@ -55,11 +55,11 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
-        delay: .3
+        delay: .2
       }
     }
   },
-  statusInputAnimation: {
+  inputsContainerAnimation: {
     initial: {
       x: -160,
       opacity: 0
@@ -70,28 +70,6 @@ const config = {
       transition: {
         duration: .6,
         delay: .2
-      }
-    },
-    exit: {
-      x: 80,
-      opacity: 0,
-      transition: {
-        duration: .2,
-        delay: .2
-      }
-    }
-  },
-  importanceInputAnimation: {
-    initial: {
-      x: -160,
-      opacity: 0
-    },
-    animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: .6,
-        delay: .3
       }
     },
     exit: {
@@ -113,7 +91,7 @@ const config = {
       opacity: 1,
       transition: {
         duration: .6,
-        delay: .4
+        delay: .3
       }
     },
     exit: {

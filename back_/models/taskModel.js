@@ -15,8 +15,8 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
-  importance: {
-    type: String,
+  important: {
+    type: Boolean,
     required: true
   },
   board_id: {

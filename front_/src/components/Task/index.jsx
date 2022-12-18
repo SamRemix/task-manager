@@ -13,7 +13,7 @@ import { TasksContext } from '../../context/TasksContext'
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
-const Task = ({ _id, title, importance, createdAt }) => {
+const Task = ({ _id, title, important, createdAt }) => {
   const { dispatchTasks } = useContext(TasksContext)
   const location = useLocation()
 
@@ -25,8 +25,7 @@ const Task = ({ _id, title, importance, createdAt }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`task-content ${importance === 'High' ? 'high-importance' :
-          importance === 'Medium' ? 'medium-importance' : 'low-importance'}`}
+        className={`task-content ${important && 'important'}`}
         layoutId={_id}
         {...config.singleTaskAnimation}>
 
@@ -47,7 +46,7 @@ const Task = ({ _id, title, importance, createdAt }) => {
 Task.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  importance: PropTypes.string.isRequired,
+  important: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired
 }
 

@@ -20,7 +20,7 @@ button {
   font-size: 1em;
 }
 
-input,
+input:not([type=checkbox]),
 textarea,
 select {
   width: 100%;
@@ -73,7 +73,6 @@ button {
 
 // TASK FORM
 
-.importance-select,
 .title-input {
   display: flex;
   align-items: center;
@@ -82,5 +81,24 @@ button {
 
   .remaining {
     color: #888;
+  }
+}
+
+.inputs-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .important__checkbox {
+    margin: 0 50px 0 0;
+    display: flex;
+    // justify-content: center;
+    gap: 10px;
+
+    &-value {
+      color: #888;
+      position: absolute;
+      left: calc(100% - 40px);
+    }
   }
 }
