@@ -18,7 +18,11 @@ const userSchema = new Schema({
     type: String,
     required: true
   }
-}, { timestamps: { updatedAt: false } })
+}, {
+  timestamps: {
+    updatedAt: false
+  }
+})
 
 // Static signup method
 // Use regular function instead of arrow function to use 'this'

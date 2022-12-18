@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { TasksContext } from '../../context/TasksContext'
+import PreviousButton from '../../components/PreviousButton'
 
 const TaskForm = ({ getTasks }) => {
   let { board_id } = useParams()
@@ -19,7 +20,7 @@ const TaskForm = ({ getTasks }) => {
     title: '',
     description: '',
     status: 'To do',
-    importance: 3,
+    importance: 'Low',
     board_id
   })
 
@@ -35,9 +36,12 @@ const TaskForm = ({ getTasks }) => {
 
     try {
       const response = await axios.post('/tasks', newTask)
+
       dispatchTasks({ type: 'ADD_BOARD', payload: response.data })
+
       getTasks()
-      navigate(`/Tasks/${board_id}`)
+
+      navigate(`/boards/${board_id}`)
     } catch (err) {
       setError(err.response.data.error)
     }
@@ -50,6 +54,8 @@ const TaskForm = ({ getTasks }) => {
         {...config.pageTitleAnimation}>
         Add Task
       </motion.h1>
+
+      <PreviousButton path={`/boards/${board_id}`} />
 
       <form onSubmit={addTask}>
         <motion.div
@@ -90,9 +96,9 @@ const TaskForm = ({ getTasks }) => {
             onChange={e => setNewTask({ ...newTask, importance: e.target.value })}
             value={newTask.importance}
           >
-            <option value='3'>Low</option>
-            <option value='2'>Medium</option>
-            <option value='1'>High</option>
+            <option value='Low'>Low</option>
+            <option value='Medium'>Medium</option>
+            <option value='High'>High</option>
           </select>
         </motion.div>
 

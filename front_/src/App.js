@@ -33,9 +33,11 @@ const App = () => {
   const getBoards = async () => {
     try {
       const response = await axios.get('/boards')
+
       dispatchBoards({ type: 'GET_BOARDS', payload: response.data })
     } catch (err) {
       setError(err.response.data.error)
+
       console.log(error)
     }
   }
@@ -43,9 +45,11 @@ const App = () => {
   const getTasks = async () => {
     try {
       const response = await axios.get('/tasks')
+
       dispatchTasks({ type: 'GET_TASKS', payload: response.data })
     } catch (err) {
       setError(err.response.data.error)
+
       console.log(error)
     }
   }

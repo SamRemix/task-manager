@@ -4,7 +4,7 @@ const { Types } = require('mongoose')
 
 const getTasks = async (req, res) => {
   const user_id = req.user._id
-  const tasks = await Task.find({ user_id }).sort({ importance: 1, updatedAt: -1 })
+  const tasks = await Task.find({ user_id }).sort({ createdAt: -1 })
 
   res.status(200).json(tasks)
 }

@@ -16,7 +16,7 @@ const taskSchema = new Schema({
     required: true
   },
   importance: {
-    type: Number,
+    type: String,
     required: true
   },
   board_id: {
@@ -27,6 +27,8 @@ const taskSchema = new Schema({
     type: String,
     required: true
   }
-}, { timestamps: true })
+}, {
+  timestamps: true
+})
 
 module.exports = mongoose.model('Task', taskSchema)

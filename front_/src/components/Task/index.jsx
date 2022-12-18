@@ -13,7 +13,7 @@ import { TasksContext } from '../../context/TasksContext'
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
-const Task = ({ _id, title, importance, updatedAt }) => {
+const Task = ({ _id, title, importance, createdAt }) => {
   const { dispatchTasks } = useContext(TasksContext)
   const location = useLocation()
 
@@ -25,13 +25,13 @@ const Task = ({ _id, title, importance, updatedAt }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`task-content ${importance === 1 ? 'high-importance' :
-          importance === 2 ? 'medium-importance' : 'low-importance'}`}
+        className={`task-content ${importance === 'High' ? 'high-importance' :
+          importance === 'Medium' ? 'medium-importance' : 'low-importance'}`}
         layoutId={_id}
         {...config.singleTaskAnimation}>
 
         <p className="task-title">{title}</p>
-        <p className="updated-at"><i>{formatDistanceToNowStrict(new Date(updatedAt))}</i></p>
+        <p className="updated-at"><i>{formatDistanceToNowStrict(new Date(createdAt))}</i></p>
 
         <div className="buttons">
           <Link to={`${location.pathname}/${_id}`}>
@@ -47,8 +47,8 @@ const Task = ({ _id, title, importance, updatedAt }) => {
 Task.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  importance: PropTypes.number.isRequired,
-  updatedAt: PropTypes.string.isRequired
+  importance: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired
 }
 
 export default Task
