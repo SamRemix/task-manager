@@ -1,6 +1,6 @@
 @use '../../styles/vars';
 
-.js-function {
+.filter__function {
   padding: 0 vars.$app-padding;
   grid-area: 1 / 2 / 2 / 3;
   height: vars.$btn-size;
@@ -9,11 +9,20 @@
   justify-content: space-between;
   gap: 60px;
 
-  .search {
+  &-search-bar {
     min-width: 160px;
     display: flex;
     align-items: center;
     position: relative;
+
+    input {
+      padding: 8px 10px;
+      outline: none;
+      border: none;
+      border-radius: 6px;
+      box-shadow: vars.$sm-shadow;
+      font-size: 100%;
+    }
 
     .icon-search {
       position: absolute;

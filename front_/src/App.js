@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import axios from './config'
+import axios from './axios.config'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useAuthContext } from './hooks/useAuthContext'

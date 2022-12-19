@@ -28,22 +28,22 @@ const ProgressBar = ({ tasks }) => {
 
   return (
     <motion.div
-      className="progress-bar"
+      className="progress__bar"
       {...config.progressBarAnimation}>
       {toDoLength > 0 && <div
-        className="percent percent-to-do"
+        className="progress__bar-percent percent-to-do"
         style={{ height: setPercent(toDoLength) + '%' }}>
         <p>{+setPercent(toDoLength).toFixed(1)}<span>%</span></p>
       </div>}
 
       {inProgressLength > 0 && <div
-        className="percent percent-in-progress"
+        className="progress__bar-percent percent-in-progress"
         style={{ height: setPercent(inProgressLength) + '%' }}>
         <p>{+setPercent(inProgressLength).toFixed(1)}<span>%</span></p>
       </div>}
 
       {doneLength > 0 && <div
-        className="percent percent-done"
+        className="progress__bar-percent percent-done"
         style={{ height: setPercent(doneLength) + '%' }}>
         <p>{+setPercent(doneLength).toFixed(1)}<span>%</span></p>
       </div>}

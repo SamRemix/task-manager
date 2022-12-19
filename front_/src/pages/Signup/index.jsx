@@ -56,6 +56,7 @@ const Signup = () => {
           exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }} />
 
         <motion.button
+          className="submit"
           initial={{ x: -160, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .3 } }}
           exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>

@@ -1,0 +1,68 @@
+// @import '../../styles/vars';
+
+form {
+  .title__input {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    &-remaining {
+      color: #888;
+    }
+  }
+
+  .inputs-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .important__checkbox {
+      display: flex;
+      gap: 10px;
+
+      &-label {
+        display: flex;
+        gap: 10px;
+      }
+
+      &-value {
+        width: 40px;
+        color: #888;
+        text-align: center;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .reset-fields {
+      outline: none;
+      border: none;
+      border-radius: 6px;
+      position: relative;
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #000;
+        border-radius: 4px;
+        position: absolute;
+        inset: auto 5% -2px auto;
+        transition: .2s;
+      }
+
+      &:hover {
+        &::before {
+          width: 90%;
+          inset: auto auto -2px 5%;
+        }
+      }
+    }
+  }
+}

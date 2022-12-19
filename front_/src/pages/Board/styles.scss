@@ -1,7 +1,6 @@
 @use '../../styles/vars';
 
 .board__container {
-  padding: 0 !important;
   display: grid !important;
   align-items: flex-start !important;
   grid-template-columns: auto 1fr;

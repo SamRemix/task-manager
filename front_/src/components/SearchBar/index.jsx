@@ -7,10 +7,10 @@ import config from './motion.config'
 const SearchBar = ({ setPrefix }) => {
   return (
     <motion.div
-      className="js-function"
+      className="filter__function"
       {...config.searchBarAnimation}>
-      <div className="search">
-        <input className="search-bar" placeholder="Search" onChange={e => setPrefix(e.target.value)} />
+      <div className="filter__function-search-bar">
+        <input placeholder="Search" onChange={e => setPrefix(e.target.value)} />
         <span className="material-symbols-outlined button icon-search">search</span>
       </div>
     </motion.div>

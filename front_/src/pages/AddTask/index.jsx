@@ -1,6 +1,8 @@
+import './styles.scss'
+
 import PropTypes from 'prop-types'
-import { useState, useContext } from 'react'
-import axios from '../../config'
+import { useState, useReducer, useContext } from 'react'
+import axios from '../../axios.config'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -16,13 +18,42 @@ const TaskForm = ({ getTasks }) => {
 
   const navigate = useNavigate()
 
-  const [newTask, setNewTask] = useState({
+  const SET_FIELD = 'SET_FIELD'
+  const actionSetField = (name, value) => ({
+    type: SET_FIELD, payload: {
+      name,
+      value
+    }
+  })
+
+  const RESET = 'RESET'
+  const actionReset = () => ({
+    type: RESET
+  })
+
+  const initialState = {
     title: '',
     description: '',
     status: 'To do',
     important: false,
     board_id
-  })
+  }
+
+  const newTaskReducer = (state, action) => {
+    switch (action.type) {
+      case SET_FIELD:
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value
+        }
+      case RESET:
+        return initialState
+      default:
+        throw new Error('Action not recognized')
+    }
+  }
+
+  const [newTask, dispatchNewTask] = useReducer(newTaskReducer, initialState)
 
   const [error, setError] = useState(null)
 
@@ -59,21 +90,25 @@ const TaskForm = ({ getTasks }) => {
 
       <form onSubmit={addTask}>
         <motion.div
-          className="title-input"
+          className="title__input"
           {...config.titleInputAnimation}>
           <input
             type="text"
-            onChange={e => setNewTask({ ...newTask, title: e.target.value })}
+            onChange={e => {
+              dispatchNewTask(actionSetField('title', e.target.value))
+            }}
             value={newTask.title}
-            className={error ? 'error' : ''}
+            className={error && 'error'}
             placeholder="Title"
             maxLength="36"
             autoFocus />
-          <p className="remaining">{36 - newTask.title.length} remaining character{newTask.title.length < 35 && 's'}</p>
+          <p className="title__input-remaining">{36 - newTask.title.length} remaining character{newTask.title.length < 35 && 's'}</p>
         </motion.div>
 
         <motion.textarea
-          onChange={e => setNewTask({ ...newTask, description: e.target.value })}
+          onChange={e => {
+            dispatchNewTask(actionSetField('description', e.target.value))
+          }}
           value={newTask.description}
           placeholder="Description (optional)"
           {...config.descriptionInputAnimation}>
@@ -83,7 +118,9 @@ const TaskForm = ({ getTasks }) => {
           className="inputs-container"
           {...config.inputsContainerAnimation}>
           <select
-            onChange={e => setNewTask({ ...newTask, status: e.target.value })}
+            onChange={e => {
+              dispatchNewTask(actionSetField('status', e.target.value))
+            }}
             value={newTask.status}>
             <option value="To do">To do</option>
             <option value="In progress">In progress</option>
@@ -91,19 +128,30 @@ const TaskForm = ({ getTasks }) => {
           </select>
 
           <div className="important__checkbox">
-            <p>Important: </p>
-            <input
-              type="checkbox"
-              onChange={e => setNewTask({ ...newTask, important: e.target.checked })}
-              checked={newTask.important} />
+            <label className="important__checkbox-label">Important:
+              <input
+                type="checkbox"
+                onChange={e => {
+                  dispatchNewTask(actionSetField('important', e.target.checked))
+                }}
+                checked={newTask.important} />
+            </label>
             <p className="important__checkbox-value">{String(newTask.important)}</p>
           </div>
         </motion.div>
 
-        <motion.button
+        <motion.div
+          className="buttons"
           {...config.submitButtonAnimation}>
-          Add Task
-        </motion.button>
+          <button className="submit">
+            Add Task
+          </button>
+          <div
+            className="reset-fields"
+            onClick={() => dispatchNewTask(actionReset())}>
+            <p>Reset fields</p>
+          </div>
+        </motion.div>
 
         {error && <div
           className="error-message">

@@ -12,16 +12,15 @@
       background: #000;
       border-radius: 4px;
       position: absolute;
-      inset: auto 5% 3px auto;
+      inset: auto 5% -2px auto;
       transition: .2s;
     }
 
     &:hover {
       &::before {
         width: 90%;
-        inset: auto auto 3px 5%;
+        inset: auto auto -2px 5%;
       }
-
     }
   }
 }

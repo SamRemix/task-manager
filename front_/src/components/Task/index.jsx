@@ -1,7 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import axios from '../../config'
+import axios from '../../axios.config'
 import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import config from './motion.config'
@@ -30,7 +30,7 @@ const Task = ({ _id, title, important, createdAt }) => {
         {...config.singleTaskAnimation}>
 
         <p className="task__content-title">{title}</p>
-        <p className="task__content-date"><i>{formatDistanceToNowStrict(new Date(createdAt))}</i></p>
+        <p className="task__content-date">{formatDistanceToNowStrict(new Date(createdAt))}</p>
 
         <div className="task__content-buttons-container">
           {/* <div> */}
