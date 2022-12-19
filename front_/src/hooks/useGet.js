@@ -64,4 +64,25 @@ const useGet = url => {
   }
 }
 
+export const useMultipleGet = urls => {
+  const [state, dispatch] = useReducer(getReducer, initialState)
+
+  const getData = async () => {
+    dispatch({ type: LOADING })
+    try {
+      const responses = await Promise.all(urls.map(url => {
+        return axios.get(url)
+      }))
+
+      dispatch({
+        type: SUCCESS, data: responses.map(response => response.data)
+      })
+    } catch (err) {
+      dispatch({ type: ERROR, error: err.response.data.error })
+    }
+  }
+
+  return [{ ...state }, getData]
+}
+
 export default useGet

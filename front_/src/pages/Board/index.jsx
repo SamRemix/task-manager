@@ -11,48 +11,41 @@ import SearchBar from '../../components/SearchBar'
 import Tasks from '../../components/Tasks'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
-import useGet from '../../hooks/useGet'
+import { useMultipleGet } from '../../hooks/useGet'
 
 const Board = () => {
   let { board_id } = useParams()
 
-  const {
-    loading: loadingBoard,
-    data: board,
-    error: errorBoard,
-    getData: getBoard
-  } = useGet(`/boards/${board_id}`)
-
-  const {
-    loading: loadingTasks,
-    data: tasks,
-    error: errorTasks,
-    getData: getTasks
-  } = useGet('/tasks')
+  const [{
+    loading,
+    data,
+    error
+  }, getData] = useMultipleGet([
+    `/boards/${board_id}`,
+    '/tasks'
+  ])
 
   const [prefix, setPrefix] = useState('')
 
   useEffect(() => {
-    getBoard()
-    getTasks()
+    getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (loadingBoard || loadingTasks) {
+  if (loading) {
     return <Dimmer active inverted>
       <Loader inverted>Loading</Loader>
     </Dimmer>
   }
 
-  if (!board || !tasks) return
+  if (!data) return
 
-  if (errorBoard) {
-    return <p>{errorBoard}</p>
+  if (error) {
+    return <p>{error}</p>
   }
 
-  if (errorTasks) {
-    return <p>{errorTasks}</p>
-  }
+  const board = data[0] // object
+  const tasks = data[1] // array
 
   const filteredTasks = tasks.filter(task => (
     task.board_id === board_id
