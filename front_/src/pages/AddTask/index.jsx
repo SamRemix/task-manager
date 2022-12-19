@@ -1,6 +1,5 @@
 import './styles.scss'
 
-import PropTypes from 'prop-types'
 import { memo, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -11,9 +10,8 @@ import PreviousButton from '../../components/PreviousButton'
 import usePost from '../../hooks/usePost'
 import { Button } from 'semantic-ui-react'
 
-const TaskForm = ({ getTasks }) => {
+const TaskForm = () => {
   let { board_id } = useParams()
-  // const { user } = useAuthContext()
 
   const { loading, error, postData } = usePost('/tasks')
 
@@ -49,10 +47,7 @@ const TaskForm = ({ getTasks }) => {
   const addTask = async e => {
     e.preventDefault()
 
-    // if (!user) {
-    //   return
-    // }
-
+    // postData(new data, path redirection)
     postData(newTask, `/boards/${board_id}`)
   }
 
@@ -124,10 +119,7 @@ const TaskForm = ({ getTasks }) => {
           ) : (
             <Button className="submit" loading primary>Loading</Button>
           )}
-
         </motion.div>
-
-
 
         {error && <div
           className="error-message">
@@ -139,10 +131,6 @@ const TaskForm = ({ getTasks }) => {
       </form>
     </section>
   )
-}
-
-TaskForm.propTypes = {
-  getTasks: PropTypes.func.isRequired
 }
 
 export default memo(TaskForm)

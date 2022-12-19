@@ -1,22 +1,38 @@
 import './styles.scss'
 
-import PropTypes from 'prop-types'
 import { memo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { Loader, Dimmer } from 'semantic-ui-react'
 import useGet from '../../hooks/useGet'
 
 import Item from './Item'
 
 const Boards = () => {
-  const { user } = useAuthContext()
-  const { data: boards, getData: getBoards } = useGet('/boards')
+  const {
+    loading,
+    data: boards,
+    error,
+    getData: getBoards
+  } = useGet('/boards')
 
   useEffect(() => {
     getBoards()
-  }, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (loading) {
+    return <Dimmer active inverted>
+      <Loader inverted>Loading</Loader>
+    </Dimmer>
+  }
+
+  if (!boards) return
+
+  if (error) {
+    return <p>{error}</p>
+  }
 
   return (
     <section className="container boards-page">
@@ -40,9 +56,5 @@ const Boards = () => {
     </section>
   )
 }
-
-// Boards.propTypes = {
-//   boards: PropTypes.array.isRequired
-// }
 
 export default memo(Boards)
