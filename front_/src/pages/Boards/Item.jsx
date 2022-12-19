@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
 const BoardsItem = ({ path, title }) => {
@@ -16,4 +17,4 @@ BoardsItem.propTypes = {
   title: PropTypes.string.isRequired
 }
 
-export default BoardsItem
+export default memo(BoardsItem)

@@ -1,7 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -12,22 +12,30 @@ import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
 import Tasks from '../../components/Tasks'
 
-const Board = ({ boards, tasks }) => {
+import { useAuthContext } from '../../hooks/useAuthContext'
+import useGet from '../../hooks/useGet'
+
+const Board = () => {
   let { board_id } = useParams()
+
+  const { user } = useAuthContext()
+
+  const { data: board, getData: getBoard } = useGet(`/boards/${board_id}`)
+  const { data: tasks, getData: getTasks } = useGet('/tasks')
 
   const [prefix, setPrefix] = useState('')
 
-  const board = boards.find(board => (
-    board._id === board_id
-  ))
+  useEffect(() => {
+    getBoard()
+    getTasks()
+  }, [user])
 
-  tasks = tasks.filter(task => (
+  if (!board || !tasks) return
+  // if (!tasks) return
+
+  const filteredTasks = tasks.filter(task => (
     task.board_id === board_id
   ))
-
-  if (!board) {
-    return <NotFound />
-  }
 
   const search = data => {
     return data.filter(({ title }) => (
@@ -49,16 +57,16 @@ const Board = ({ boards, tasks }) => {
 
       <SearchBar setPrefix={setPrefix} />
 
-      <ProgressBar tasks={tasks} />
+      <ProgressBar tasks={filteredTasks} />
 
-      <Tasks tasks={search(tasks)} />
+      <Tasks tasks={search(filteredTasks)} />
     </section>
   )
 }
 
-Board.propTypes = {
-  boards: PropTypes.array.isRequired,
-  tasks: PropTypes.array.isRequired
-}
+// Board.propTypes = {
+//   // boards: PropTypes.array.isRequired,
+//   tasks: PropTypes.array.isRequired
+// }
 
-export default Board
+export default memo(Board)

@@ -1,13 +1,11 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import { useState, useReducer, useContext } from 'react'
-import axios from '../../axios.config'
-import { useParams, useNavigate } from 'react-router-dom'
+import { memo, useReducer } from 'react'
+import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
-import { useAuthContext } from '../../hooks/useAuthContext'
-import { TasksContext } from '../../context/TasksContext'
+// import { useAuthContext } from '../../hooks/useAuthContext'
 import PreviousButton from '../../components/PreviousButton'
 
 import usePost from '../../hooks/usePost'
@@ -15,18 +13,9 @@ import { Button } from 'semantic-ui-react'
 
 const TaskForm = ({ getTasks }) => {
   let { board_id } = useParams()
+  // const { user } = useAuthContext()
 
-  const { dispatchTasks } = useContext(TasksContext)
-  const { user } = useAuthContext()
-
-  const navigate = useNavigate()
-
-  const {
-    data,
-    loading,
-    error,
-    makePostRequest
-  } = usePost('/tasks', `/boards/${board_id}`)
+  const { loading, error, postData } = usePost('/tasks')
 
   const SET_FIELD = 'SET_FIELD'
   const actionSetField = (name, value) => ({
@@ -36,14 +25,6 @@ const TaskForm = ({ getTasks }) => {
     }
   })
 
-  const initialState = {
-    title: '',
-    description: '',
-    status: 'To do',
-    important: false,
-    board_id
-  }
-
   const newTaskReducer = (state, action) => {
     switch (action.type) {
       case SET_FIELD:
@@ -51,21 +32,28 @@ const TaskForm = ({ getTasks }) => {
           ...state,
           [action.payload.name]: action.payload.value
         }
+
       default:
         throw new Error('Action not recognized')
     }
   }
 
-  const [newTask, dispatchNewTask] = useReducer(newTaskReducer, initialState)
+  const [newTask, dispatchNewTask] = useReducer(newTaskReducer, {
+    title: '',
+    description: '',
+    status: 'To do',
+    important: false,
+    board_id
+  })
 
   const addTask = async e => {
     e.preventDefault()
 
-    if (!user) {
-      return
-    }
+    // if (!user) {
+    //   return
+    // }
 
-    makePostRequest(newTask)
+    postData(newTask, `/boards/${board_id}`)
   }
 
   return (
@@ -157,4 +145,4 @@ TaskForm.propTypes = {
   getTasks: PropTypes.func.isRequired
 }
 
-export default TaskForm
+export default memo(TaskForm)

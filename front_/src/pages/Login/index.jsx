@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 import { useLogin } from '../../hooks/useLogin'
@@ -55,4 +55,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default memo(Login)

@@ -1,20 +1,25 @@
 import './styles.scss'
 
-import PropTypes from 'prop-types'
+import { memo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
 
-import NotFound from '../404'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import useGet from '../../hooks/useGet'
 
-const TaskDetails = ({ tasks }) => {
+const TaskDetails = () => {
   let { task_id } = useParams()
 
-  const task = tasks.find(({ _id }) => _id === task_id)
+  const { user } = useAuthContext()
 
-  if (!task) {
-    return <NotFound />
-  }
+  const { loading, data: task, error, getData: getTask } = useGet(`/tasks/${task_id}`)
+
+  useEffect(() => {
+    getTask()
+  }, [user])
+
+  if (!task) return
 
   return (
     <section className="container">
@@ -46,8 +51,8 @@ const TaskDetails = ({ tasks }) => {
   )
 }
 
-TaskDetails.propTypes = {
-  tasks: PropTypes.array.isRequired
-}
+// TaskDetails.propTypes = {
+//   tasks: PropTypes.array.isRequired
+// }
 
-export default TaskDetails
+export default memo(TaskDetails)

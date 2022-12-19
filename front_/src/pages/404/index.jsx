@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
@@ -17,4 +18,4 @@ const NotFound = () => {
   )
 }
 
-export default NotFound
+export default memo(NotFound)

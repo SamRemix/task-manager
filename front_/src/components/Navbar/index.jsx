@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useLogout } from '../../hooks/useLogout'
@@ -66,4 +66,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

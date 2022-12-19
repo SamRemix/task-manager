@@ -1,5 +1,4 @@
 import { useReducer } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import axios from '../axios.config'
 
@@ -13,7 +12,7 @@ const LOADING = 'LOADING'
 const SUCCESS = 'SUCCESS'
 const ERROR = 'ERROR'
 
-const postReducer = (state, action) => {
+const getReducer = (state, action) => {
   switch (action.type) {
     case LOADING:
       return {
@@ -44,19 +43,16 @@ const postReducer = (state, action) => {
   }
 }
 
-const usePost = url => {
-  const [state, dispatch] = useReducer(postReducer, initialState)
+const useGet = url => {
+  const [state, dispatch] = useReducer(getReducer, initialState)
 
-  const navigate = useNavigate()
-
-  const postData = async (data, redirect) => {
+  const getData = async () => {
     dispatch({ type: LOADING })
     try {
-      const response = await axios.post(url, data)
+      const response = await axios.get(url)
 
       dispatch({ type: SUCCESS, data: response.data })
 
-      navigate(redirect)
     } catch (err) {
       dispatch({ type: ERROR, error: err.response.data.error })
     }
@@ -64,8 +60,8 @@ const usePost = url => {
 
   return {
     ...state,
-    postData
+    getData
   }
 }
 
-export default usePost
+export default useGet

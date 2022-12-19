@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
@@ -21,4 +22,4 @@ SearchBar.propTypes = {
   setPrefix: PropTypes.func.isRequired
 }
 
-export default SearchBar
+export default memo(SearchBar)

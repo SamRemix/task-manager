@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -22,4 +23,4 @@ AddTaskButton.propTypes = {
   board_id: PropTypes.string.isRequired
 }
 
-export default AddTaskButton
+export default memo(AddTaskButton)

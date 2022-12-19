@@ -1,5 +1,6 @@
 import './styles.scss'
 
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -49,4 +50,4 @@ Tasks.propTypes = {
   tasks: PropTypes.array.isRequired
 }
 
-export default Tasks
+export default memo(Tasks)

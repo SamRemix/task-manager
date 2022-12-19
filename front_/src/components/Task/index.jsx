@@ -2,7 +2,7 @@ import './styles.scss'
 
 import PropTypes from 'prop-types'
 import axios from '../../axios.config'
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import config from './motion.config'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -63,4 +63,4 @@ Task.propTypes = {
   createdAt: PropTypes.string.isRequired
 }
 
-export default Task
+export default memo(Task)

@@ -1,5 +1,6 @@
 import './styles.scss'
 
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 import { useAuthContext } from '../../hooks/useAuthContext'
@@ -27,4 +28,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default memo(Account)

@@ -1,12 +1,23 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
+import { memo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import { useAuthContext } from '../../hooks/useAuthContext'
+import useGet from '../../hooks/useGet'
+
 import Item from './Item'
 
-const Boards = ({ boards }) => {
+const Boards = () => {
+  const { user } = useAuthContext()
+  const { data: boards, getData: getBoards } = useGet('/boards')
+
+  useEffect(() => {
+    getBoards()
+  }, [user])
+
   return (
     <section className="container boards-page">
       <motion.h1
@@ -20,7 +31,7 @@ const Boards = ({ boards }) => {
         {...config.boardsMenuAnimation}>
         <nav>
           <ul>
-            {boards.map(({ _id, title }) => (
+            {boards && boards.map(({ _id, title }) => (
               <Item key={_id} path={_id} title={title} />
             ))}
           </ul>
@@ -30,8 +41,8 @@ const Boards = ({ boards }) => {
   )
 }
 
-Boards.propTypes = {
-  boards: PropTypes.array.isRequired
-}
+// Boards.propTypes = {
+//   boards: PropTypes.array.isRequired
+// }
 
-export default Boards
+export default memo(Boards)

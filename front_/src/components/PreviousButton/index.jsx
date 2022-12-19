@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -19,4 +20,4 @@ PreviousButton.propTypes = {
   path: PropTypes.string.isRequired
 }
 
-export default PreviousButton
+export default memo(PreviousButton)

@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
@@ -55,4 +56,4 @@ ProgressBar.propTypes = {
   tasks: PropTypes.array.isRequired
 }
 
-export default ProgressBar
+export default memo(ProgressBar)

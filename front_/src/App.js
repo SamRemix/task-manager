@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { memo, useState, useEffect, useContext } from 'react'
 import axios from './axios.config'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
@@ -6,6 +6,8 @@ import { useAuthContext } from './hooks/useAuthContext'
 
 import { TasksContext } from './context/TasksContext'
 import { BoardsContext } from './context/BoardsContext'
+
+import useGet from './hooks/useGet'
 
 // components
 import Navbar from './components/Navbar'
@@ -22,51 +24,28 @@ import Account from './pages/Account'
 import NotFound from './pages/404'
 
 const App = () => {
-  const { boards, dispatchBoards } = useContext(BoardsContext)
-  const { tasks, dispatchTasks } = useContext(TasksContext)
+  // const { boards, dispatchBoards } = useContext(BoardsContext)
+  // const { tasks, dispatchTasks } = useContext(TasksContext)
+
+  // const { data: boards, getData: getBoards } = useGet('/boards')
+  const { data: tasks, getData: getTasks } = useGet('/tasks')
 
   const location = useLocation()
   const { user } = useAuthContext()
 
-  const [error, setError] = useState(null)
-
-  const getBoards = async () => {
-    try {
-      const response = await axios.get('/boards')
-
-      dispatchBoards({ type: 'GET_BOARDS', payload: response.data })
-    } catch (err) {
-      setError(err.response.data.error)
-
-      console.log(error)
-    }
-  }
-
-  const getTasks = async () => {
-    try {
-      const response = await axios.get('/tasks')
-
-      dispatchTasks({ type: 'GET_TASKS', payload: response.data })
-    } catch (err) {
-      setError(err.response.data.error)
-
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
-    getBoards()
+    // getBoards()
     getTasks()
   }, [user])
 
   return (
     <>
-      <Navbar boards={boards} />
+      <Navbar />
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/boards" element={boards && <Boards boards={boards} />} />
-          <Route path="/boards/:board_id" element={boards && tasks && <Board boards={boards} tasks={tasks} />} />
+          <Route path="/boards" element={<Boards />} />
+          <Route path="/boards/:board_id" element={<Board />} />
           <Route path="/boards/:board_id/:task_id" element={tasks && <TaskDetails tasks={tasks} />} />
           <Route path="/add-task/:board_id" element={<AddTask getTasks={getTasks} />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
@@ -79,4 +58,4 @@ const App = () => {
   )
 }
 
-export default App
+export default memo(App)

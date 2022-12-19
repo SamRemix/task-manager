@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
@@ -13,4 +14,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default memo(Home)
