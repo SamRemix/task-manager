@@ -10,6 +10,9 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { TasksContext } from '../../context/TasksContext'
 import PreviousButton from '../../components/PreviousButton'
 
+import usePost from '../../hooks/usePost'
+import { Button } from 'semantic-ui-react'
+
 const TaskForm = ({ getTasks }) => {
   let { board_id } = useParams()
 
@@ -18,17 +21,19 @@ const TaskForm = ({ getTasks }) => {
 
   const navigate = useNavigate()
 
+  const {
+    data,
+    loading,
+    error,
+    makePostRequest
+  } = usePost('/tasks', `/boards/${board_id}`)
+
   const SET_FIELD = 'SET_FIELD'
   const actionSetField = (name, value) => ({
     type: SET_FIELD, payload: {
       name,
       value
     }
-  })
-
-  const RESET = 'RESET'
-  const actionReset = () => ({
-    type: RESET
   })
 
   const initialState = {
@@ -46,8 +51,6 @@ const TaskForm = ({ getTasks }) => {
           ...state,
           [action.payload.name]: action.payload.value
         }
-      case RESET:
-        return initialState
       default:
         throw new Error('Action not recognized')
     }
@@ -55,27 +58,14 @@ const TaskForm = ({ getTasks }) => {
 
   const [newTask, dispatchNewTask] = useReducer(newTaskReducer, initialState)
 
-  const [error, setError] = useState(null)
-
   const addTask = async e => {
     e.preventDefault()
 
     if (!user) {
-      setError('You must be logged in')
       return
     }
 
-    try {
-      const response = await axios.post('/tasks', newTask)
-
-      dispatchTasks({ type: 'ADD_TASK', payload: response.data })
-
-      getTasks()
-
-      navigate(`/boards/${board_id}`)
-    } catch (err) {
-      setError(err.response.data.error)
-    }
+    makePostRequest(newTask)
   }
 
   return (
@@ -140,18 +130,16 @@ const TaskForm = ({ getTasks }) => {
           </div>
         </motion.div>
 
-        <motion.div
-          className="buttons"
-          {...config.submitButtonAnimation}>
-          <button className="submit">
-            Add Task
-          </button>
-          <div
-            className="reset-fields"
-            onClick={() => dispatchNewTask(actionReset())}>
-            <p>Reset fields</p>
-          </div>
+        <motion.div {...config.submitButtonAnimation}>
+          {!loading ? (
+            <Button className="submit" primary>Add Task</Button>
+          ) : (
+            <Button className="submit" loading primary>Loading</Button>
+          )}
+
         </motion.div>
+
+
 
         {error && <div
           className="error-message">

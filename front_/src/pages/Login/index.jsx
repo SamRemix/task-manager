@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import config from './motion.config'
 import { useLogin } from '../../hooks/useLogin'
+import { Button } from 'semantic-ui-react'
 
 const Login = () => {
   const { login, error } = useLogin()
@@ -19,16 +21,9 @@ const Login = () => {
     <section className="container">
       <motion.h1
         className="container__title"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: .6 } }}
-        exit={{ opacity: 0, transition: { duration: .4 } }}>
+        {...config.pageTitleAnimation}>
         Log In
       </motion.h1>
-
-      <div style={{ position: 'absolute', inset: 0 }}>
-        <p>s_capron@hotmail.fr</p>
-        <p>Gg-967026</p>
-      </div>
 
       <form onSubmit={handleSubmit}>
         <motion.input
@@ -37,32 +32,22 @@ const Login = () => {
           value={email}
           placeholder="Email"
           autoFocus
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .2 } }} />
+          {...config.emailInputAnimation} />
 
         <motion.input
           type="password"
           onChange={e => setPassword(e.target.value)}
           value={password}
           placeholder="Password"
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .1 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2, delay: .1 } }} />
+          {...config.passwordInputAnimation} />
 
-        <motion.button
-          className="submit"
-          initial={{ x: -160, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .6, delay: .2 } }}
-          exit={{ x: 80, opacity: 0, transition: { duration: .2 } }}>
-          Submit
-        </motion.button>
+        <motion.div {...config.submitButtonAnimation}>
+          <Button className="submit" primary>Submit</Button>
+        </motion.div>
 
         {error && <motion.p
           className="error-message"
-          initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: .2 } }}
-          exit={{ opacity: 0 }}>
+          {...config.errorMessageAnimation}>
           {error}
         </motion.p>}
       </form>

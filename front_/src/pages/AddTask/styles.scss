@@ -33,36 +33,4 @@ form {
       }
     }
   }
-
-  .buttons {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    .reset-fields {
-      outline: none;
-      border: none;
-      border-radius: 6px;
-      position: relative;
-      cursor: pointer;
-
-      &::before {
-        content: '';
-        width: 0;
-        height: 1px;
-        background: #000;
-        border-radius: 4px;
-        position: absolute;
-        inset: auto 5% -2px auto;
-        transition: .2s;
-      }
-
-      &:hover {
-        &::before {
-          width: 90%;
-          inset: auto auto -2px 5%;
-        }
-      }
-    }
-  }
 }

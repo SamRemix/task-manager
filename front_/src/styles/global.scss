@@ -83,13 +83,11 @@ body {
 
         input,
         textarea,
-        select,
-        button {
+        select {
           padding: 8px 10px;
           outline: none;
           border: none;
           border-radius: 6px;
-          font-size: 1em;
         }
 
         input:not([type=checkbox]),
@@ -110,11 +108,9 @@ body {
           cursor: pointer;
         }
 
-        button.submit {
+        .submit {
           margin: 0 60px;
-          width: fit-content;
-          background: vars.$green;
-          color: #fff;
+          width: 120px;
         }
 
         .error-message {
