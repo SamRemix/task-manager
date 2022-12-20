@@ -1,26 +1,23 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import axios from '../../axios.config'
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import config from './motion.config'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
 
-import { TasksContext } from '../../context/TasksContext'
+import useDelete from '../../hooks/useDelete'
+
+import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
 
 // import fr from 'date-fns/esm/locale/fr'
 // format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
 
 const Task = ({ _id, title, important, createdAt }) => {
-  const { dispatchTasks } = useContext(TasksContext)
-  const location = useLocation()
+  const { loading, data: task, error, deleteData } = useDelete(`/tasks/${_id}`)
 
-  const deleteTask = async id => {
-    await axios.delete(`/tasks/${id}`)
-    dispatchTasks({ type: 'DELETE_TASK', payload: id })
-  }
+  const location = useLocation()
 
   return (
     <AnimatePresence>
@@ -33,21 +30,12 @@ const Task = ({ _id, title, important, createdAt }) => {
         <p className="task__content-date">{formatDistanceToNowStrict(new Date(createdAt))}</p>
 
         <div className="task__content-buttons-container">
-          {/* <div> */}
           <Link className="button" to={`${location.pathname}/${_id}`}>
-            <span
-              className="material-symbols-outlined button-details">
-              description
-            </span>
+            <HiOutlineDocumentText size="1.4em" className="button-details" />
             <p className="button-title">Details</p>
           </Link>
-          {/* </div> */}
           <div className="button">
-            <span
-              className="material-symbols-outlined button-delete"
-              onClick={() => deleteTask(_id)}>
-              delete
-            </span>
+            <HiOutlineTrash size="1.4em" className="button-delete" onClick={() => deleteData()} />
             <p className="button-title">Delete</p>
           </div>
         </div>
