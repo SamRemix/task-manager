@@ -3,9 +3,10 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 import { useSignup } from '../../hooks/useSignup'
 import { Button } from 'semantic-ui-react'
+import { Loader, Dimmer } from 'semantic-ui-react'
 
 const Signup = () => {
-  const { signup, error } = useSignup()
+  const { loading, error, signup } = useSignup()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -15,6 +16,14 @@ const Signup = () => {
     e.preventDefault()
 
     await signup(name, email, password)
+  }
+
+  if (loading) {
+    return (
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>
+    )
   }
 
   return (

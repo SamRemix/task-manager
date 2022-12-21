@@ -2,34 +2,33 @@ import './styles.scss'
 
 import { memo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
+
 import { format } from 'date-fns'
 
-import { Loader, Dimmer } from 'semantic-ui-react'
-import useGet from '../../hooks/useGet'
+import useTasksRequests from '../../hooks/useTasksRequests'
 
+import { Loader, Dimmer } from 'semantic-ui-react'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 
 const TaskDetails = () => {
   let { task_id } = useParams()
 
-  const {
-    loading,
-    data: task,
-    error,
-    getData: getTask
-  } = useGet(`/tasks/${task_id}`)
+  const { loading, tasks: task, error, getTask } = useTasksRequests()
 
   useEffect(() => {
-    getTask()
+    getTask(task_id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (loading) {
-    return <Dimmer active inverted>
-      <Loader inverted>Loading</Loader>
-    </Dimmer>
+    return (
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>
+    )
   }
 
   if (!task) return
@@ -61,7 +60,7 @@ const TaskDetails = () => {
           <h2 className="task__details-header-title">{task.title}</h2>
         </div>
 
-        {task.description.trim().length !== 0 && <p className="description">{task.description}</p>}
+        {task?.description.trim().length !== 0 && <p className="description">{task.description}</p>}
 
         <div className="date">
           <p>Created: <span>{setDate(task.createdAt)}</span></p>

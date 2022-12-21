@@ -2,8 +2,11 @@
 
 .filter__function {
   padding: 0 vars.$app-padding;
-  grid-area: 1 / 2 / 2 / 3;
   height: vars.$btn-size;
+  // background: vars.$container-bg;
+  // box-shadow: vars.$lg-shadow;
+  // border-radius: 12px;
+  grid-area: 1 / 2 / 2 / 3;
   display: flex;
   align-items: center;
   justify-content: space-between;

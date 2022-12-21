@@ -2,18 +2,19 @@ import './styles.scss'
 
 import { memo, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
-// import { useAuthContext } from '../../hooks/useAuthContext'
+
 import PreviousButton from '../../components/PreviousButton'
 
-import usePost from '../../hooks/usePost'
 import { Button } from 'semantic-ui-react'
 
-const TaskForm = () => {
-  let { board_id } = useParams()
+import useTasksRequests from '../../hooks/useTasksRequests'
 
-  const { loading, error, postData } = usePost('/tasks')
+const AddTask = () => {
+  let { board_id } = useParams()
+  const { loading, error, postTask } = useTasksRequests()
 
   const SET_FIELD = 'SET_FIELD'
   const actionSetField = (name, value) => ({
@@ -48,7 +49,8 @@ const TaskForm = () => {
     e.preventDefault()
 
     // postData(new data, path redirection)
-    postData(newTask, `/boards/${board_id}`)
+    // postData(newTask, `/boards/${board_id}`)
+    postTask(newTask, board_id)
   }
 
   return (
@@ -133,4 +135,4 @@ const TaskForm = () => {
   )
 }
 
-export default memo(TaskForm)
+export default memo(AddTask)

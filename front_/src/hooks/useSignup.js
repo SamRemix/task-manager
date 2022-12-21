@@ -1,36 +1,31 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from '../contexts/AuthContext'
+import axios from '../axios.config'
 
 export const useSignup = () => {
   const navigate = useNavigate()
 
-  const { dispatch } = useAuthContext()
-
-  const [error, setError] = useState(null)
+  const { loading, error, dispatch } = useAuthContext()
 
   const signup = async (name, email, password) => {
-    setError(null)
+    dispatch({ type: 'LOADING' })
 
-    const response = await fetch('/user/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
-    })
+    try {
+      const response = await axios.post('/user/signup', {
+        name,
+        email,
+        password
+      })
 
-    const json = await response.json()
+      dispatch({ type: 'LOGIN', payload: response.data })
 
-    if (!response.ok) {
-      setError(json.error)
-    }
+      localStorage.setItem('user', JSON.stringify(response.data))
 
-    if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(json))
-
-      dispatch({ type: 'LOGIN', payload: json })
       navigate('/boards')
+    } catch (err) {
+      dispatch({ type: 'ERROR', error: err.response.data.error })
     }
   }
 
-  return { signup, error }
+  return { loading, error, signup }
 }

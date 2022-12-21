@@ -1,23 +1,20 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import config from './motion.config'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
 
-import useDelete from '../../hooks/useDelete'
-
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
 
-// import fr from 'date-fns/esm/locale/fr'
-// format(new Date(task.createdAt), 'PPPPpppp', { locale: fr })
+import useTasksRequests from '../../hooks/useTasksRequests'
 
 const Task = ({ _id, title, important, createdAt }) => {
-  const { loading, data: task, error, deleteData } = useDelete(`/tasks/${_id}`)
-
   const location = useLocation()
+
+  const { deleteTask } = useTasksRequests()
 
   return (
     <AnimatePresence>
@@ -35,7 +32,7 @@ const Task = ({ _id, title, important, createdAt }) => {
             <p className="button-title">Details</p>
           </Link>
           <div className="button">
-            <HiOutlineTrash size="1.4em" className="button-delete" onClick={() => deleteData()} />
+            <HiOutlineTrash size="1.4em" className="button-delete" onClick={() => deleteTask(_id)} />
             <p className="button-title">Delete</p>
           </div>
         </div>

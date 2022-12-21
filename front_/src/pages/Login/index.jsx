@@ -1,11 +1,14 @@
 import { memo, useState } from 'react'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
-import { useLogin } from '../../hooks/useLogin'
-import { Button } from 'semantic-ui-react'
+
+import useLogin from '../../hooks/useLogin'
+
+import { Loader, Dimmer, Button } from 'semantic-ui-react'
 
 const Login = () => {
-  const { login, error } = useLogin()
+  const { loading, error, login } = useLogin()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -14,6 +17,14 @@ const Login = () => {
     e.preventDefault()
 
     await login(email, password)
+  }
+
+  if (loading) {
+    return (
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>
+    )
   }
 
   return (

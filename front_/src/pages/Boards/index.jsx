@@ -1,21 +1,18 @@
 import './styles.scss'
 
 import { memo, useEffect } from 'react'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import useGetBoards from '../../hooks/useGetBoards'
+
 import { Loader, Dimmer } from 'semantic-ui-react'
-import useGet from '../../hooks/useGet'
 
 import Item from './Item'
 
 const Boards = () => {
-  const {
-    loading,
-    data: boards,
-    error,
-    getData: getBoards
-  } = useGet('/boards')
+  const { loading, boards, error, getBoards } = useGetBoards()
 
   useEffect(() => {
     getBoards()
@@ -23,9 +20,11 @@ const Boards = () => {
   }, [])
 
   if (loading) {
-    return <Dimmer active inverted>
-      <Loader inverted>Loading</Loader>
-    </Dimmer>
+    return (
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>
+    )
   }
 
   if (!boards) return

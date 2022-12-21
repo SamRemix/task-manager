@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 import { useLogout } from '../../hooks/useLogout'
 
 const Navbar = () => {
