@@ -6,6 +6,7 @@
   padding: 20px;
   width: 80px;
   height: calc(100vh - vars.$app-padding * 2 - vars.$btn-size - vars.$app-row-gap);
+  background: vars.$container-bg;
   box-shadow: vars.$lg-shadow;
   border-radius: 12px;
   display: flex;

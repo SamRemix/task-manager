@@ -1,11 +1,12 @@
 @use '../../styles/vars';
 
 .filter__function {
+  margin: 0 120px 0 0;
   padding: 0 vars.$app-padding;
   height: vars.$btn-size;
-  // background: vars.$container-bg;
-  // box-shadow: vars.$lg-shadow;
-  // border-radius: 12px;
+  background: vars.$container-bg;
+  box-shadow: vars.$lg-shadow;
+  border-radius: 12px;
   grid-area: 1 / 2 / 2 / 3;
   display: flex;
   align-items: center;

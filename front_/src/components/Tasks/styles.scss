@@ -8,11 +8,10 @@
   .status {
     padding: 20px;
     height: fit-content;
-    // background: vars.$container-bg;
+    background: vars.$container-bg;
     box-shadow: vars.$lg-shadow;
     border-radius: 12px;
     position: relative;
-    // backdrop-filter: blur(6px);
 
     &.to-do {
       .task-status {
