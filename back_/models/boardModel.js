@@ -7,6 +7,10 @@ const boardSchema = new Schema({
     type: String,
     required: true
   },
+  tasks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Task'
+  }],
   user_id: {
     type: String,
     required: true

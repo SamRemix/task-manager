@@ -19,10 +19,6 @@ const taskSchema = new Schema({
     type: Boolean,
     required: true
   },
-  board_id: {
-    type: String,
-    required: true
-  },
   user_id: {
     type: String,
     required: true

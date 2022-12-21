@@ -13,19 +13,15 @@ import Tasks from '../../components/Tasks'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
 import useGetBoards from '../../hooks/useGetBoards'
-import useTasksRequests from '../../hooks/useTasksRequests'
 
 const Board = () => {
   let { board_id } = useParams()
   const { loading, boards: board, error, getSingleBoard } = useGetBoards()
 
-  const { tasks, getTasks } = useTasksRequests()
-
   const [prefix, setPrefix] = useState('')
 
   useEffect(() => {
     getSingleBoard(board_id)
-    getTasks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -37,21 +33,12 @@ const Board = () => {
     )
   }
 
-  if (!tasks) return
+  if (!board) return
+  console.log(board);
 
   if (error) {
     return <p>{error}</p>
   }
-
-  // const board = data[0] // object
-
-  // const tasks = data[1].filter(task => (
-  //   task.board_id === board_id
-  // ))
-
-  const filteredTasks = tasks.filter(task => (
-    task.board_id === board_id
-  ))
 
   const search = data => {
     return data.filter(({ title }) => (
@@ -67,15 +54,15 @@ const Board = () => {
         {board.title}
       </motion.h1>
 
-      {!tasks && <p className="loading">Loading...</p>}
+      {!board && <p className="loading">Loading...</p>}
 
       <AddTaskButton board_id={board_id} />
 
       <SearchBar setPrefix={setPrefix} />
 
-      <ProgressBar tasks={filteredTasks} />
+      <ProgressBar tasks={board.tasks} />
 
-      <Tasks tasks={search(filteredTasks)} />
+      <Tasks tasks={search(board.tasks)} />
     </section>
   )
 }

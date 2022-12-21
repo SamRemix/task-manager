@@ -1,3 +1,4 @@
+const Board = require('../models/boardModel')
 const Task = require('../models/taskModel')
 
 const { Types } = require('mongoose')
@@ -26,7 +27,7 @@ const getTask = async (req, res) => {
 }
 
 const createTask = async (req, res) => {
-  const { title, description, status, important, board_id } = req.body
+  const { title, board_id } = req.body
 
   console.log(req.body);
 
@@ -40,7 +41,13 @@ const createTask = async (req, res) => {
 
   try {
     const user_id = req.user._id
-    const task = await Task.create({ title, description, status, important, board_id, user_id })
+    const task = await Task.create({ ...req.body, user_id })
+
+    await Board.findByIdAndUpdate(board_id, {
+      $push: {
+        tasks: task._id
+      }
+    })
 
     res.status(200).json(task)
   } catch (error) {

@@ -48,8 +48,6 @@ const AddTask = () => {
   const addTask = async e => {
     e.preventDefault()
 
-    // postData(new data, path redirection)
-    // postData(newTask, `/boards/${board_id}`)
     postTask(newTask, board_id)
   }
 
