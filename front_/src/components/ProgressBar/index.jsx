@@ -48,6 +48,8 @@ const ProgressBar = ({ tasks }) => {
         style={{ height: setPercent(doneLength) + '%' }}>
         <p>{+setPercent(doneLength).toFixed(1)}<span>%</span></p>
       </div>}
+
+      {tasks.length === 0 && <p className="no-tasks">NO TASKS</p>}
     </motion.div>
   )
 }

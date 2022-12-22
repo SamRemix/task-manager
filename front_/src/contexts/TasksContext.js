@@ -17,42 +17,42 @@ const tasksReducer = (state, action) => {
   switch (action.type) {
     case LOADING:
       return {
+        ...state,
         loading: true
       }
 
     case GET_TASKS:
       return {
-        ...state,
         loading: false,
-        tasks: action.payload
+        tasks: action.tasks,
+        error: null
       }
 
     case CREATE_TASK:
       return {
-        ...state,
         loading: false,
-        tasks: [
-          { ...state.tasks },
-          action.payload
-        ]
+        tasks: action.tasks,
+        error: null
       }
 
     case UPDATE_TASK:
       return {
-        ...state,
         loading: false,
-        tasks: state.tasks.map(task => (
-          task._id === action.payload._id ? action.payload : task
-        ))
+        tasks: action.tasks,
+        // tasks: state.tasks.map(task => (
+        //   task._id === action.tasks._id ? action.tasks : task
+        // )),
+        error: null
       }
 
     case DELETE_TASK:
       return {
-        ...state,
         loading: false,
-        tasks: state.tasks.filter(task => (
-          task._id !== action.payload._id
-        ))
+        // tasks: action.tasks,
+        tasks: state.tasks?.filter(task => (
+          task._id !== action.tasks
+        )),
+        error: null
       }
 
     case ERROR:
@@ -62,7 +62,7 @@ const tasksReducer = (state, action) => {
       }
 
     default:
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Unrecognized action type: ${action.type}`)
   }
 }
 

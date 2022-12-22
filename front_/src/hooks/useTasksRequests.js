@@ -5,7 +5,7 @@ import axios from '../axios.config'
 const useTasksRequests = () => {
   const navigate = useNavigate()
 
-  const { loading, tasks, error, dispatch } = useTasksContext()
+  const { state, dispatch } = useTasksContext()
 
   const getTasks = async () => {
     dispatch({ type: 'LOADING' })
@@ -13,7 +13,7 @@ const useTasksRequests = () => {
     try {
       const response = await axios.get('/tasks')
 
-      dispatch({ type: 'GET_TASKS', payload: response.data })
+      dispatch({ type: 'GET_TASKS', tasks: response.data })
     } catch (err) {
       dispatch({ type: 'ERROR', error: err.response.data.error })
     }
@@ -25,7 +25,7 @@ const useTasksRequests = () => {
     try {
       const response = await axios.get(`/tasks/${id}`)
 
-      dispatch({ type: 'GET_TASKS', payload: response.data })
+      dispatch({ type: 'GET_TASKS', tasks: response.data })
     } catch (err) {
       dispatch({ type: 'ERROR', error: err.response.data.error })
     }
@@ -37,7 +37,7 @@ const useTasksRequests = () => {
     try {
       const response = await axios.post('/tasks', data)
 
-      dispatch({ type: 'CREATE_TASK', payload: response.data })
+      dispatch({ type: 'CREATE_TASK', tasks: response.data })
 
       navigate(`/boards/${boardId}`)
     } catch (err) {
@@ -47,22 +47,29 @@ const useTasksRequests = () => {
 
   const updateTask = async (id, data) => {
     dispatch({ type: 'LOADING' })
+
     try {
       const response = await axios.put(`/tasks/${id}`, data)
 
-      dispatch({ type: 'UPDATE_TASK', payload: response.data })
+      dispatch({ type: 'UPDATE_TASK', tasks: response.data })
     } catch (err) {
       dispatch({ type: 'ERROR', error: err.response.data.error })
     }
   }
 
   const deleteTask = async id => {
-    const response = await axios.delete(`/tasks/${id}`)
+    dispatch({ type: 'LOADING' })
 
-    dispatch({ type: 'DELETE_TASK', payload: response.data })
+    try {
+      const response = await axios.delete(`/tasks/${id}`)
+
+      dispatch({ type: 'DELETE_TASK', tasks: id })
+    } catch (err) {
+      dispatch({ type: 'ERROR', error: err.response.data.error })
+    }
   }
 
-  return { loading, tasks, error, getTasks, getTask, postTask, updateTask, deleteTask }
+  return { state, getTasks, getTask, postTask, updateTask, deleteTask }
 }
 
 export default useTasksRequests

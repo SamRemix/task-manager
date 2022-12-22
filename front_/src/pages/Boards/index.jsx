@@ -29,6 +29,8 @@ const Boards = () => {
 
   if (!boards) return
 
+  console.log(boards);
+
   if (error) {
     return <p>{error}</p>
   }
@@ -44,13 +46,13 @@ const Boards = () => {
       <motion.div
         className="boards"
         {...config.boardsMenuAnimation}>
-        <nav>
+        {boards && <nav>
           <ul>
-            {boards && boards.map(({ _id, title }) => (
+            {boards.map(({ _id, title }) => (
               <Item key={_id} path={_id} title={title} />
             ))}
           </ul>
-        </nav>
+        </nav>}
       </motion.div>
     </section>
   )

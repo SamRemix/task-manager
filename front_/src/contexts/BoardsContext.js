@@ -24,7 +24,7 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        boards: action.payload
+        boards: action.boards
       }
 
     case CREATE_BOARD:
@@ -33,7 +33,7 @@ const boardsReducer = (state, action) => {
         loading: false,
         boards: [
           ...state.boards,
-          action.payload
+          action.boards
         ]
       }
 
@@ -42,7 +42,7 @@ const boardsReducer = (state, action) => {
         ...state,
         loading: false,
         boards: state.boards.map(board => (
-          board._id === action.payload._id ? action.payload : board
+          board._id === action.boards._id ? action.boards : board
         ))
       }
 
@@ -50,9 +50,9 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        boards: state.boards.filter(board => {
-          return board._id !== action.payload._id
-        })
+        boards: state.boards.filter(board => (
+          board._id !== action.boards._id
+        ))
       }
 
     case ERROR:
@@ -62,17 +62,17 @@ const boardsReducer = (state, action) => {
       }
 
     default:
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Unrecognized action type: ${action.type}`)
   }
 }
 
 const BoardsContext = createContext()
 
 export const BoardsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(boardsReducer, initialState)
+  const [boards, dispatch] = useReducer(boardsReducer, initialState)
 
   return (
-    <BoardsContext.Provider value={{ ...state, dispatch }}>
+    <BoardsContext.Provider value={{ ...boards, dispatch }}>
       {children}
     </BoardsContext.Provider>
   )

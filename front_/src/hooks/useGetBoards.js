@@ -10,7 +10,7 @@ const useGetBoards = () => {
     try {
       const response = await axios.get('/boards')
 
-      dispatch({ type: 'GET_BOARDS', payload: response.data })
+      dispatch({ type: 'GET_BOARDS', boards: response.data })
     } catch (err) {
       dispatch({ type: 'ERROR', error: err.response.data.error })
     }
@@ -22,7 +22,11 @@ const useGetBoards = () => {
     try {
       const response = await axios.get(`/boards/${id}`)
 
-      dispatch({ type: 'GET_BOARDS', payload: response.data })
+      // response.data.tasks.sort((a, b) => {
+      //   return b.important - a.important
+      // })
+
+      dispatch({ type: 'GET_BOARDS', boards: response.data })
     } catch (err) {
       dispatch({ type: 'ERROR', error: err.response.data.error })
     }

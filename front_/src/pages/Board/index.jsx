@@ -34,7 +34,6 @@ const Board = () => {
   }
 
   if (!board) return
-  console.log(board);
 
   if (error) {
     return <p>{error}</p>
@@ -54,15 +53,13 @@ const Board = () => {
         {board.title}
       </motion.h1>
 
-      {!board && <p className="loading">Loading...</p>}
-
       <AddTaskButton board_id={board_id} />
 
       <SearchBar setPrefix={setPrefix} />
 
-      <ProgressBar tasks={board.tasks} />
+      {board.tasks && <ProgressBar tasks={board.tasks} />}
 
-      <Tasks tasks={search(board.tasks)} />
+      {board.tasks && <Tasks tasks={search(board.tasks)} />}
     </section>
   )
 }

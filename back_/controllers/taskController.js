@@ -64,6 +64,14 @@ const deleteTask = async (req, res) => {
 
   const task = await Task.findOneAndDelete({ _id: id })
 
+  // await Board.updateOne({
+  //   'tasks': id
+  // }, {
+  //   $pull: {
+  //     'tasks': id
+  //   }
+  // })
+
   if (!task) {
     return res.status(400).json({ error: 'No such task' })
   }

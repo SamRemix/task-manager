@@ -10,7 +10,6 @@ import './styles/responsive.scss'
 import App from './App'
 
 import { AuthContextProvider } from './contexts/AuthContext'
-// import { DataProvider } from './contexts/DataContext'
 import { BoardsContextProvider } from './contexts/BoardsContext'
 import { TasksContextProvider } from './contexts/TasksContext'
 
@@ -20,11 +19,9 @@ root.render(
   <AuthContextProvider>
     <BoardsContextProvider>
       <TasksContextProvider>
-        {/* <DataProvider> */}
         <BrowserRouter>
           <App />
         </BrowserRouter>
-        {/* </DataProvider> */}
       </TasksContextProvider>
     </BoardsContextProvider>
   </AuthContextProvider >

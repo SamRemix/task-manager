@@ -10,12 +10,14 @@
   box-shadow: vars.$lg-shadow;
   border-radius: 12px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   position: sticky;
   top: calc(vars.$app-padding + vars.$btn-size + vars.$app-row-gap);
   z-index: 3;
-
+  overflow: hidden;
 
   &-percent {
     width: 40px;
@@ -52,5 +54,14 @@
         font-size: .8em;
       }
     }
+  }
+
+  .no-tasks {
+    color: #888;
+    font-size: 1.4rem;
+    font-weight: 600;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    cursor: default;
   }
 }

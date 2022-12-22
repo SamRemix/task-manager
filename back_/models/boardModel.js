@@ -9,7 +9,8 @@ const boardSchema = new Schema({
   },
   tasks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: 'Task',
+    required: false
   }],
   user_id: {
     type: String,
