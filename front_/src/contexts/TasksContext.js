@@ -2,7 +2,7 @@ import { createContext, useReducer, useContext } from 'react'
 
 const initialState = {
   loading: null,
-  tasks: null,
+  tasks: [],
   error: null
 }
 
@@ -23,42 +23,43 @@ const tasksReducer = (state, action) => {
 
     case GET_TASKS:
       return {
+        ...state,
         loading: false,
-        tasks: action.tasks,
-        error: null
+        tasks: action.payload
       }
 
     case CREATE_TASK:
       return {
+        ...state,
         loading: false,
-        tasks: action.tasks,
-        error: null
+        tasks: action.payload
       }
 
     case UPDATE_TASK:
       return {
+        ...state,
         loading: false,
-        tasks: action.tasks,
+        tasks: action.payload
         // tasks: state.tasks.map(task => (
-        //   task._id === action.tasks._id ? action.tasks : task
-        // )),
-        error: null
+        //   task._id === action.payload._id ? action.payload : task
+        // ))
       }
 
     case DELETE_TASK:
       return {
+        ...state,
         loading: false,
-        // tasks: action.tasks,
-        tasks: state.tasks?.filter(task => (
-          task._id !== action.tasks
-        )),
-        error: null
+        tasks: action.payload,
+        // tasks: state.tasks.filter(task => (
+        //   task._id !== action.payload._id
+        // ))
       }
 
     case ERROR:
       return {
+        ...state,
         loading: false,
-        error: action.error
+        error: action.payload
       }
 
     default:
@@ -78,6 +79,6 @@ export const TasksContextProvider = ({ children }) => {
   )
 }
 
-export const useTasksContext = () => {
-  return useContext(TasksContext)
-}
+export const useTasksContext = () => (
+  useContext(TasksContext)
+)

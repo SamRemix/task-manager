@@ -5,7 +5,7 @@ import axios from '../axios.config'
 const useLogin = () => {
   const navigate = useNavigate()
 
-  const { loading, error, dispatch } = useAuthContext()
+  const { state, dispatch } = useAuthContext()
 
   const login = async (email, password) => {
     dispatch({ type: 'LOADING' })
@@ -22,11 +22,11 @@ const useLogin = () => {
 
       navigate('/boards')
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
-  return { loading, error, login }
+  return { state, login }
 }
 
 export default useLogin

@@ -12,16 +12,16 @@ import Tasks from '../../components/Tasks'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 
-import useGetBoards from '../../hooks/useGetBoards'
+import useBoardsRequests from '../../hooks/useBoardsRequests'
 
 const Board = () => {
   let { board_id } = useParams()
-  const { loading, boards: board, error, getSingleBoard } = useGetBoards()
+  const { loading, boards: board, error, getBoard } = useBoardsRequests()
 
   const [prefix, setPrefix] = useState('')
 
   useEffect(() => {
-    getSingleBoard(board_id)
+    getBoard(board_id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -57,9 +57,9 @@ const Board = () => {
 
       <SearchBar setPrefix={setPrefix} />
 
-      {board.tasks && <ProgressBar tasks={board.tasks} />}
+      <ProgressBar tasks={board.tasks} />
 
-      {board.tasks && <Tasks tasks={search(board.tasks)} />}
+      <Tasks tasks={search(board.tasks)} />
     </section>
   )
 }

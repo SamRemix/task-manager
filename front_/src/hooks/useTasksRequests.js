@@ -13,9 +13,9 @@ const useTasksRequests = () => {
     try {
       const response = await axios.get('/tasks')
 
-      dispatch({ type: 'GET_TASKS', tasks: response.data })
+      dispatch({ type: 'GET_TASKS', payload: response.data })
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
@@ -25,9 +25,9 @@ const useTasksRequests = () => {
     try {
       const response = await axios.get(`/tasks/${id}`)
 
-      dispatch({ type: 'GET_TASKS', tasks: response.data })
+      dispatch({ type: 'GET_TASKS', payload: response.data })
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
@@ -37,11 +37,11 @@ const useTasksRequests = () => {
     try {
       const response = await axios.post('/tasks', data)
 
-      dispatch({ type: 'CREATE_TASK', tasks: response.data })
+      dispatch({ type: 'CREATE_TASK', payload: response.data })
 
       navigate(`/boards/${boardId}`)
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
@@ -51,9 +51,9 @@ const useTasksRequests = () => {
     try {
       const response = await axios.put(`/tasks/${id}`, data)
 
-      dispatch({ type: 'UPDATE_TASK', tasks: response.data })
+      dispatch({ type: 'UPDATE_TASK', payload: response.data })
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
@@ -63,9 +63,9 @@ const useTasksRequests = () => {
     try {
       const response = await axios.delete(`/tasks/${id}`)
 
-      dispatch({ type: 'DELETE_TASK', tasks: id })
+      dispatch({ type: 'DELETE_TASK', payload: response.data })
     } catch (err) {
-      dispatch({ type: 'ERROR', error: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 

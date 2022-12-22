@@ -2,7 +2,7 @@ import { createContext, useReducer, useContext } from 'react'
 
 const initialState = {
   loading: null,
-  boards: null,
+  boards: [],
   error: null
 }
 
@@ -17,6 +17,7 @@ const boardsReducer = (state, action) => {
   switch (action.type) {
     case LOADING:
       return {
+        ...state,
         loading: true
       }
 
@@ -24,41 +25,41 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        boards: action.boards
+        boards: action.payload
       }
 
     case CREATE_BOARD:
       return {
         ...state,
         loading: false,
-        boards: [
-          ...state.boards,
-          action.boards
-        ]
+        boards: action.payload
       }
 
     case UPDATE_BOARD:
       return {
         ...state,
         loading: false,
-        boards: state.boards.map(board => (
-          board._id === action.boards._id ? action.boards : board
-        ))
+        boards: action.payload
+        // boards: state.boards.map(board => (
+        //   board._id === action.payload._id ? action.payload : board
+        // ))
       }
 
     case DELETE_BOARD:
       return {
         ...state,
         loading: false,
-        boards: state.boards.filter(board => (
-          board._id !== action.boards._id
-        ))
+        boards: action.payload
+        // boards: state.boards.filter(board => (
+        //   board._id !== action.payload._id
+        // ))
       }
 
     case ERROR:
       return {
+        ...state,
         loading: false,
-        error: action.error
+        error: action.payload
       }
 
     default:
@@ -69,10 +70,10 @@ const boardsReducer = (state, action) => {
 const BoardsContext = createContext()
 
 export const BoardsContextProvider = ({ children }) => {
-  const [boards, dispatch] = useReducer(boardsReducer, initialState)
+  const [state, dispatch] = useReducer(boardsReducer, initialState)
 
   return (
-    <BoardsContext.Provider value={{ ...boards, dispatch }}>
+    <BoardsContext.Provider value={{ ...state, dispatch }}>
       {children}
     </BoardsContext.Provider>
   )

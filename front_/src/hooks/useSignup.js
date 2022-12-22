@@ -5,7 +5,7 @@ import axios from '../axios.config'
 export const useSignup = () => {
   const navigate = useNavigate()
 
-  const { loading, error, dispatch } = useAuthContext()
+  const { state, dispatch } = useAuthContext()
 
   const signup = async (name, email, password) => {
     dispatch({ type: 'LOADING' })
@@ -27,5 +27,5 @@ export const useSignup = () => {
     }
   }
 
-  return { loading, error, signup }
+  return { state, signup }
 }

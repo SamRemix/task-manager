@@ -1,7 +1,7 @@
 import './styles.scss'
 
 import PropTypes from 'prop-types'
-import { memo, useState, useEffect } from 'react'
+import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import config from './motion.config'
 import { AnimatePresence, motion } from 'framer-motion'

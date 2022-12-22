@@ -5,17 +5,18 @@ import { memo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useGetBoards from '../../hooks/useGetBoards'
+import useBoardsRequests from '../../hooks/useBoardsRequests'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 
 import Item from './Item'
 
 const Boards = () => {
-  const { loading, boards, error, getBoards } = useGetBoards()
+  const { loading, boards, error, getBoards } = useBoardsRequests()
 
   useEffect(() => {
     getBoards()
+    console.log(boards)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -29,7 +30,6 @@ const Boards = () => {
 
   if (!boards) return
 
-  console.log(boards);
 
   if (error) {
     return <p>{error}</p>
@@ -46,13 +46,13 @@ const Boards = () => {
       <motion.div
         className="boards"
         {...config.boardsMenuAnimation}>
-        {boards && <nav>
+        <nav>
           <ul>
             {boards.map(({ _id, title }) => (
               <Item key={_id} path={_id} title={title} />
             ))}
           </ul>
-        </nav>}
+        </nav>
       </motion.div>
     </section>
   )
