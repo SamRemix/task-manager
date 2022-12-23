@@ -80,9 +80,5 @@ export const TasksContextProvider = ({ children }) => {
 }
 
 export const useTasksContext = () => {
-  const context = useContext(TasksContext)
-
-  if (!context) return
-
-  return context
+  return useContext(TasksContext)
 }

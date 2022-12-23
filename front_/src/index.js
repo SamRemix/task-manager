@@ -1,5 +1,3 @@
-// import { StrictMode } from 'react'
-
 import { createRoot } from 'react-dom/client'
 
 import { BrowserRouter } from 'react-router-dom'
@@ -18,7 +16,6 @@ import { TasksContextProvider } from './contexts/TasksContext'
 const root = createRoot(document.getElementById('root'))
 
 root.render(
-  // <StrictMode>
   <AuthContextProvider>
     <BoardsContextProvider>
       <TasksContextProvider>
@@ -28,5 +25,4 @@ root.render(
       </TasksContextProvider>
     </BoardsContextProvider>
   </AuthContextProvider >
-  // </StrictMode>
 )

@@ -81,9 +81,5 @@ export const BoardsContextProvider = ({ children }) => {
 }
 
 export const useBoardsContext = () => {
-  const context = useContext(BoardsContext)
-
-  if (!context) return
-
-  return context
+  return useContext(BoardsContext)
 }
