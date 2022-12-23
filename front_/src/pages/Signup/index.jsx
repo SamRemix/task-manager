@@ -1,12 +1,15 @@
 import { memo, useState } from 'react'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
-import { useSignup } from '../../hooks/useSignup'
+
+import useAuth from '../../hooks/useAuth'
+
 import { Button } from 'semantic-ui-react'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
 const Signup = () => {
-  const { loading, error, signup } = useSignup()
+  const { loading, error, signup } = useAuth()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

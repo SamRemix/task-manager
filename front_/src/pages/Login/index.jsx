@@ -3,12 +3,12 @@ import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useLogin from '../../hooks/useLogin'
+import useAuth from '../../hooks/useAuth'
 
 import { Loader, Dimmer, Button } from 'semantic-ui-react'
 
 const Login = () => {
-  const { loading, error, login } = useLogin()
+  const { loading, error, login } = useAuth()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

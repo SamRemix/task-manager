@@ -3,11 +3,11 @@ import './styles.scss'
 import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/AuthContext'
-import { useLogout } from '../../hooks/useLogout'
+import useAuth from '../../hooks/useAuth'
 
 const Navbar = () => {
   const { user } = useAuthContext()
-  const { logout } = useLogout()
+  const { logout } = useAuth()
 
   const [active, setActive] = useState(false)
 

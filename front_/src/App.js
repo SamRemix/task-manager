@@ -25,7 +25,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/boards" element={<Boards />} />
@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/update-task/:task_id" element={<UpdateTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-          <Route path='/account' element={user && <Account />} />
+          <Route path="/account" element={user && <Account />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
