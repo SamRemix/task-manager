@@ -6,7 +6,7 @@ const express = require('express')
 
 // Mongoose is an 'Object Data Modeling' library that allows us to use methods to read and write database documents
 // it also gives a way to declare schemas to ensure a strict data structure
-const mongoose = require('mongoose')
+const { connect } = require('mongoose')
 
 const boardRoutes = require('./routes/board')
 const taskRoutes = require('./routes/task')
@@ -31,7 +31,7 @@ app.use('/boards', boardRoutes)
 app.use('/tasks', taskRoutes)
 app.use('/user', userRoutes)
 
-mongoose.connect(process.env.MONGO_URI)
+connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to database')
 

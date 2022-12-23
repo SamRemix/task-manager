@@ -71,6 +71,7 @@ const BoardsContext = createContext()
 
 export const BoardsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
+  console.log(state)
 
   return (
     <BoardsContext.Provider value={{ ...state, dispatch }}>
@@ -80,5 +81,9 @@ export const BoardsContextProvider = ({ children }) => {
 }
 
 export const useBoardsContext = () => {
-  return useContext(BoardsContext)
+  const context = useContext(BoardsContext)
+
+  if (!context) return
+
+  return context
 }

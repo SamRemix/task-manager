@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-
-const Schema = mongoose.Schema
+const { Schema, model } = require('mongoose')
 
 const boardSchema = new Schema({
   title: {
@@ -20,4 +18,4 @@ const boardSchema = new Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Board', boardSchema)
+module.exports = model('Board', boardSchema)

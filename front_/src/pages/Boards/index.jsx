@@ -16,7 +16,6 @@ const Boards = () => {
 
   useEffect(() => {
     getBoards()
-    console.log(boards)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -28,8 +27,7 @@ const Boards = () => {
     )
   }
 
-  if (!boards) return
-
+  // if (!boards) return
 
   if (error) {
     return <p>{error}</p>
@@ -48,8 +46,8 @@ const Boards = () => {
         {...config.boardsMenuAnimation}>
         <nav>
           <ul>
-            {boards.map(({ _id, title }) => (
-              <Item key={_id} path={_id} title={title} />
+            {boards?.map(board => (
+              <Item key={board._id} {...board} />
             ))}
           </ul>
         </nav>

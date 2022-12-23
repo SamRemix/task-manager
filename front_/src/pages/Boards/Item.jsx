@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
-const BoardsItem = ({ path, title }) => {
+const BoardsItem = ({ _id, title }) => {
   return (
     <li>
-      <Link to={path}>
+      <Link to={_id}>
         <p>{title}</p>
       </Link>
     </li>
@@ -13,7 +13,7 @@ const BoardsItem = ({ path, title }) => {
 }
 
 BoardsItem.propTypes = {
-  path: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 }
 
