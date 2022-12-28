@@ -7,7 +7,7 @@
 
 * {
   white-space: nowrap;
-  cursor: none !important;
+  // cursor: none !important;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -26,7 +26,8 @@
 
 
 body {
-  background: vars.$light;
+  // background: vars.$light;
+  background: #222;
   // font-family: 'Overpass';
   // font-family: 'Fira Mono';
   font-family: 'Poppins';
@@ -37,42 +38,37 @@ body {
   }
 
   #root {
-    margin: 0 auto;
     padding: vars.$app-padding;
-    width: 100%;
-    max-width: 1600px;
     min-height: 100vh;
+    background: vars.$light;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: calc(100% - 30px);
+      height: calc(100% - 30px);
+      box-shadow: 0 0 0 30px #222;
+      border-radius: 16px;
+      position: fixed;
+      inset: 15px auto auto 15px;
+      z-index: 100000;
+      pointer-events: none;
+    }
 
     .container {
+      margin-left: calc(vars.$navbar-width - 20px);
       min-height: calc(100vh - vars.$app-padding * 2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: vars.$app-col-gap;
+      gap: vars.$container-gap;
 
       &__title {
         color: rgba($color: #000, $alpha: .3);
         font-size: clamp(6em, 10vw, 9em);
         font-weight: 600;
-        line-height: .9em;
-        position: fixed;
-        inset: 10px auto auto 50%;
-        transform: translateX(-50%);
         cursor: default;
-        z-index: -1;
-
-        &::before {
-          content: '';
-          width: 100%;
-          height: 100%;
-          // background: #f00;
-          background: linear-gradient(transparent 20%,
-              rgba($color: vars.$light, $alpha: .9) 100%);
-          position: absolute;
-          inset: auto auto 0 0;
-          transform: translateY(.2em);
-        }
       }
 
       form {
@@ -140,11 +136,6 @@ body {
           font-size: 1.2em;
         }
       }
-    }
-
-    h2 {
-      font-size: 1.4em;
-      font-weight: 400;
     }
   }
 }

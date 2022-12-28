@@ -12,7 +12,7 @@ import { format } from 'date-fns'
 import { useTasksContext } from "../../hooks/useTasksContext"
 import axios from '../../axios.config'
 
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 
 const TaskDetails = () => {
@@ -38,11 +38,7 @@ const TaskDetails = () => {
   }, [task_id, dispatch])
 
   if (loading) {
-    return (
-      <Dimmer active inverted>
-        <Loader inverted>Loading</Loader>
-      </Dimmer>
-    )
+    return <Loader active content="Loading" />
   }
 
   // if (!task) return

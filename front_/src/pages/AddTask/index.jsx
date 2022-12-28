@@ -52,8 +52,6 @@ const AddTask = () => {
   const addTask = async e => {
     e.preventDefault()
 
-    // postTask(newTask, board_id)
-    // const postTask = async (data, boardId) => {
     dispatch({ type: 'LOADING' })
 
     try {
@@ -65,7 +63,6 @@ const AddTask = () => {
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
-    // }
   }
 
   return (

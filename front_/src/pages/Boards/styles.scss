@@ -1,15 +1,22 @@
 @use '../../styles/vars';
 
 .boards-page {
+  display: flex;
+  justify-content: space-evenly !important;
+  flex-direction: row !important;
+
   .boards {
     nav {
       ul {
-        margin: 0 20px;
+        padding: 40px;
+        height: 100%;
         display: flex;
+        align-items: baseline;
+        flex-direction: column;
         gap: 40px;
 
         li {
-          background: rgba($color: #fff, $alpha: .6);
+          // background: rgba($color: #fff, $alpha: .6);
           border: 1px solid #ccc;
           border-radius: 6px;
           // box-shadow: vars.$lg-shadow;

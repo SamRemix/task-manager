@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from './useAuthContext'
+import { useBoardsContext } from "../hooks/useBoardsContext"
 import axios from '../axios.config'
 
 const useAuth = () => {
   const navigate = useNavigate()
 
   const { state, dispatch } = useAuthContext()
+  const { dispatch: dispatchBoards } = useBoardsContext()
 
   const login = async (email, password) => {
     dispatch({ type: 'LOADING' })
@@ -20,7 +22,7 @@ const useAuth = () => {
 
       localStorage.setItem('user', JSON.stringify(response.data))
 
-      navigate('/boards')
+      navigate('/')
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
@@ -40,7 +42,7 @@ const useAuth = () => {
 
       localStorage.setItem('user', JSON.stringify(response.data))
 
-      navigate('/boards')
+      navigate('/')
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
@@ -50,6 +52,7 @@ const useAuth = () => {
     localStorage.removeItem('user')
 
     dispatch({ type: 'LOGOUT' })
+    dispatchBoards({ type: 'GET_BOARDS', payload: null })
     navigate('/')
   }
 

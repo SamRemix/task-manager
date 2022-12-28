@@ -1,18 +1,11 @@
 @use '../../styles/vars';
 
 .tasks-container {
-  grid-area: 2 / 2 / 3 / 3;
+  grid-area: 2 / 2 / 3 / 4;
   display: grid;
-  gap: 20px;
+  gap: 60px;
 
   .status {
-    padding: 20px;
-    height: fit-content;
-    background: vars.$container-bg;
-    box-shadow: vars.$lg-shadow;
-    border-radius: 12px;
-    position: relative;
-
     &.to-do {
       .task-status {
         background: vars.$to-do;
@@ -65,6 +58,7 @@
       width: fit-content;
       height: 40px;
       border-radius: 6px;
+      font-size: 1.4em;
       display: flex;
       align-items: center;
     }

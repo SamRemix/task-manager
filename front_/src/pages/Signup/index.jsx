@@ -6,7 +6,7 @@ import config from './motion.config'
 import useAuth from '../../hooks/useAuth'
 
 import { Button } from 'semantic-ui-react'
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 const Signup = () => {
   const { loading, error, signup } = useAuth()
@@ -22,11 +22,7 @@ const Signup = () => {
   }
 
   if (loading) {
-    return (
-      <Dimmer active inverted>
-        <Loader inverted>Loading</Loader>
-      </Dimmer>
-    )
+    return <Loader active content="Loading" />
   }
 
   return (

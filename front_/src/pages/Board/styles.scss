@@ -3,12 +3,6 @@
 .board__container {
   display: grid !important;
   align-items: flex-start !important;
-  grid-template-columns: auto 1fr;
-  row-gap: vars.$app-row-gap !important;
-
-  .loading {
-    position: fixed;
-    inset: 50% auto auto 50%;
-    transform: translate(-50%, -50%);
-  }
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: auto 1fr;
 }

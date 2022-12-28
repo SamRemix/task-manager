@@ -2,15 +2,13 @@ import './styles.scss'
 
 import { memo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import config from './motion.config'
 
 import AddTaskButton from '../../components/AddTaskButton'
 import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
 import Tasks from '../../components/Tasks'
 
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useBoardsContext } from "../../hooks/useBoardsContext"
@@ -65,11 +63,7 @@ const Board = () => {
   }, [dispatchTasks, user])
 
   if (loadBoard || loadTasks) {
-    return (
-      <Dimmer active inverted>
-        <Loader inverted>Loading</Loader>
-      </Dimmer>
-    )
+    return <Loader active content="Loading" />
   }
 
   if (boardErr || tasksErr) {
@@ -92,12 +86,6 @@ const Board = () => {
 
   return (
     <section className="container board__container">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        {board.title}
-      </motion.h1>
-
       <AddTaskButton board_id={board_id} />
 
       <SearchBar setPrefix={setPrefix} />

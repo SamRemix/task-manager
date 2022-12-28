@@ -1,17 +1,10 @@
 @use '../../styles/vars';
 
 .filter__function {
-  margin: 0 120px 0 0;
-  padding: 0 vars.$app-padding;
+  grid-area: 1 / 3 / 2 / 4;
   height: vars.$btn-size;
-  background: vars.$container-bg;
-  box-shadow: vars.$lg-shadow;
-  border-radius: 12px;
-  grid-area: 1 / 2 / 2 / 3;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 60px;
 
   &-search-bar {
     min-width: 160px;
