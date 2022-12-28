@@ -49,10 +49,10 @@ const tasksReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        tasks: action.payload,
-        // tasks: state.tasks.filter(task => (
-        //   task._id !== action.payload._id
-        // ))
+        // tasks: action.payload,
+        tasks: state.tasks.filter(task => (
+          task._id !== action.payload._id
+        ))
       }
 
     case ERROR:
@@ -67,7 +67,7 @@ const tasksReducer = (state, action) => {
   }
 }
 
-const TasksContext = createContext()
+export const TasksContext = createContext()
 
 export const TasksContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tasksReducer, initialState)
@@ -79,6 +79,6 @@ export const TasksContextProvider = ({ children }) => {
   )
 }
 
-export const useTasksContext = () => {
-  return useContext(TasksContext)
-}
+// export const useTasksContext = () => {
+//   return useContext(TasksContext)
+// }

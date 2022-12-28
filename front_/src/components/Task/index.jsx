@@ -3,18 +3,28 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+
 import config from './motion.config'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
 
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
 
-import useTasksRequests from '../../hooks/useTasksRequests'
+import { useTasksContext } from "../../hooks/useTasksContext"
+
+import axios from '../../axios.config'
 
 const Task = ({ _id, title, important, createdAt }) => {
   const location = useLocation()
 
-  const { deleteTask } = useTasksRequests()
+  const { dispatch } = useTasksContext()
+
+  const deleteTask = async () => {
+    const response = await axios.delete(`/tasks/${_id}`)
+
+    dispatch({ type: 'DELETE_TASK', payload: response.data })
+  }
 
   return (
     <AnimatePresence>
@@ -32,7 +42,7 @@ const Task = ({ _id, title, important, createdAt }) => {
             <p className="button-title">Details</p>
           </Link>
           <div className="button">
-            <HiOutlineTrash size="1.4em" className="button-delete" onClick={() => deleteTask(_id)} />
+            <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
             <p className="button-title">Delete</p>
           </div>
         </div>

@@ -1,0 +1,48 @@
+.cursor {
+  width: 0px;
+  height: 0px;
+  // border: 1px solid #0006;
+  // border-radius: 50%;
+  background: #f00;
+  position: fixed;
+  inset: 0;
+  z-index: 1003;
+  pointer-events: none;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg,
+        #aaa 40%,
+        transparent 40% 60%,
+        #aaa 60%);
+    position: absolute;
+    inset: 0;
+  }
+
+  &::before {
+    // background: #f0f;
+    // transform: rotate(45deg);
+    // transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    // transform:;
+    // transform: rotate(90deg) translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.inner {
+  width: 6px;
+  height: 6px;
+  background: #000;
+  border-radius: 50%;
+  position: fixed;
+  inset: 0;
+  z-index: 1003;
+  pointer-events: none;
+}

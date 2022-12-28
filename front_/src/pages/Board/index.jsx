@@ -12,20 +12,59 @@ import Tasks from '../../components/Tasks'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 
-import useBoardsRequests from '../../hooks/useBoardsRequests'
+import { useAuthContext } from "../../hooks/useAuthContext"
+import { useBoardsContext } from "../../hooks/useBoardsContext"
+import { useTasksContext } from "../../hooks/useTasksContext"
+
+import axios from '../../axios.config'
 
 const Board = () => {
   let { board_id } = useParams()
-  const { loading, boards: board, error, getBoard } = useBoardsRequests()
+
+  const { user } = useAuthContext()
+
+  const { loading: loadBoard, boards: board, error: boardErr, dispatch: dispatchBoard } = useBoardsContext()
+  const { loading: loadTasks, tasks, error: tasksErr, dispatch: dispatchTasks } = useTasksContext()
 
   const [prefix, setPrefix] = useState('')
 
   useEffect(() => {
-    getBoard(board_id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const getBoard = async id => {
+      dispatchBoard({ type: 'LOADING' })
 
-  if (loading) {
+      try {
+        const response = await axios.get(`/boards/${id}`)
+
+        dispatchBoard({ type: 'GET_BOARDS', payload: response.data })
+      } catch (err) {
+        dispatchBoard({ type: 'ERROR', payload: err.response.data.error })
+      }
+    }
+
+    if (user) {
+      getBoard(board_id)
+    }
+  }, [dispatchBoard, user])
+
+  useEffect(() => {
+    const getTasks = async () => {
+      dispatchTasks({ type: 'LOADING' })
+
+      try {
+        const response = await axios.get('/tasks')
+
+        dispatchTasks({ type: 'GET_TASKS', payload: response.data })
+      } catch (err) {
+        dispatchTasks({ type: 'ERROR', payload: err.response.data.error })
+      }
+    }
+
+    if (user) {
+      getTasks()
+    }
+  }, [dispatchTasks, user])
+
+  if (loadBoard || loadTasks) {
     return (
       <Dimmer active inverted>
         <Loader inverted>Loading</Loader>
@@ -33,10 +72,16 @@ const Board = () => {
     )
   }
 
-  if (!board) return
+  if (boardErr || tasksErr) {
+    return <p>{boardErr || tasksErr}</p>
+  }
 
-  if (error) {
-    return <p>{error}</p>
+  let filteredTasks = []
+
+  if (Array.isArray(tasks)) {
+    filteredTasks = tasks.filter(task => (
+      task.board_id === board_id
+    ))
   }
 
   const search = data => {
@@ -57,9 +102,9 @@ const Board = () => {
 
       <SearchBar setPrefix={setPrefix} />
 
-      <ProgressBar tasks={board.tasks} />
+      <ProgressBar tasks={filteredTasks} />
 
-      <Tasks tasks={search(board.tasks)} />
+      <Tasks tasks={search(filteredTasks)} />
     </section>
   )
 }

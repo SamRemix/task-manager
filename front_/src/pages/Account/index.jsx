@@ -3,7 +3,7 @@ import './styles.scss'
 import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
-import { useAuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../hooks/useAuthContext'
 import { formatDistanceToNowStrict } from 'date-fns'
 
 const Account = () => {

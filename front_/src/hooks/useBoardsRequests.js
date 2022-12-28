@@ -1,34 +1,40 @@
-import { useBoardsContext } from '../contexts/BoardsContext'
-import axios from '../axios.config'
+// import { useEffect, useContext } from 'react'
+// import { useBoardsContext, BoardsContext } from '../contexts/BoardsContext'
+// import axios from '../axios.config'
 
-const useBoardsRequests = () => {
-  const { state, dispatch } = useBoardsContext()
+// const useBoardsRequests = () => {
+//   const { state, dispatch } = useContext(BoardsContext)
 
-  const getBoards = async () => {
-    dispatch({ type: 'LOADING' })
+//   const getBoards = async () => {
+//     dispatch({ type: 'LOADING' })
 
-    try {
-      const response = await axios.get('/boards')
+//     try {
+//       const response = await axios.get('/boards')
 
-      dispatch({ type: 'GET_BOARDS', payload: response.data })
-    } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
-    }
-  }
+//       dispatch({ type: 'GET_BOARDS', payload: response.data })
+//     } catch (err) {
+//       dispatch({ type: 'ERROR', payload: err.response.data.error })
+//     }
+//   }
 
-  const getBoard = async id => {
-    dispatch({ type: 'LOADING' })
+//   // useEffect(() => {
+//   //   getBoards()
+//   //   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   // }, [])
 
-    try {
-      const response = await axios.get(`/boards/${id}`)
+//   const getBoard = async id => {
+//     dispatch({ type: 'LOADING' })
 
-      dispatch({ type: 'GET_BOARDS', payload: response.data })
-    } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
-    }
-  }
+//     try {
+//       const response = await axios.get(`/boards/${id}`)
 
-  return { state, getBoards, getBoard }
-}
+//       dispatch({ type: 'GET_BOARDS', payload: response.data })
+//     } catch (err) {
+//       dispatch({ type: 'ERROR', payload: err.response.data.error })
+//     }
+//   }
 
-export default useBoardsRequests
+//   return { state, getBoards, getBoard }
+// }
+
+// export default useBoardsRequests

@@ -8,7 +8,9 @@ import config from './motion.config'
 
 import { format } from 'date-fns'
 
-import useTasksRequests from '../../hooks/useTasksRequests'
+// import useTasksRequests from '../../hooks/useTasksRequests'
+import { useTasksContext } from "../../hooks/useTasksContext"
+import axios from '../../axios.config'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
@@ -16,12 +18,24 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2'
 const TaskDetails = () => {
   let { task_id } = useParams()
 
-  const { loading, tasks: task, error, getTask } = useTasksRequests()
+  // const { loading, tasks: task, error, getTask } = useTasksRequests()
+  const { loading, tasks: task, error, dispatch } = useTasksContext()
 
   useEffect(() => {
+    const getTask = async id => {
+      dispatch({ type: 'LOADING' })
+
+      try {
+        const response = await axios.get(`/tasks/${id}`)
+
+        dispatch({ type: 'GET_TASKS', payload: response.data })
+      } catch (err) {
+        dispatch({ type: 'ERROR', payload: err.response.data.error })
+      }
+    }
+
     getTask(task_id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [task_id, dispatch])
 
   if (loading) {
     return (
@@ -31,15 +45,17 @@ const TaskDetails = () => {
     )
   }
 
-  if (!task) return
+  // if (!task) return
 
   if (error) {
     return <p>{error}</p>
   }
 
-  const setDate = date => (
-    format(new Date(date), 'PPPPpppp').split(' GMT')[0]
-  )
+  const setDate = date => {
+    if (date) {
+      return format(new Date(date), 'PPPPpppp').split(' GMT')[0]
+    }
+  }
 
   return (
     <section className="container">
@@ -60,7 +76,7 @@ const TaskDetails = () => {
           <h2 className="task__details-header-title">{task.title}</h2>
         </div>
 
-        {task?.description.trim().length !== 0 && <p className="description">{task.description}</p>}
+        {String(task.description).trim().length !== 0 && <p className="description">{task.description}</p>}
 
         <div className="date">
           <p>Created: <span>{setDate(task.createdAt)}</span></p>

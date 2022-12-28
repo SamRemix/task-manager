@@ -1,7 +1,7 @@
 import './styles.scss'
 
 import { memo, useReducer } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -10,11 +10,15 @@ import PreviousButton from '../../components/PreviousButton'
 
 import { Button } from 'semantic-ui-react'
 
-import useTasksRequests from '../../hooks/useTasksRequests'
+import { useTasksContext } from "../../hooks/useTasksContext"
+
+import axios from '../../axios.config'
 
 const AddTask = () => {
   let { board_id } = useParams()
-  const { loading, error, postTask } = useTasksRequests()
+  const navigate = useNavigate()
+
+  const { loading, error, dispatch } = useTasksContext()
 
   const SET_FIELD = 'SET_FIELD'
   const actionSetField = (name, value) => ({
@@ -48,7 +52,20 @@ const AddTask = () => {
   const addTask = async e => {
     e.preventDefault()
 
-    postTask(newTask, board_id)
+    // postTask(newTask, board_id)
+    // const postTask = async (data, boardId) => {
+    dispatch({ type: 'LOADING' })
+
+    try {
+      const response = await axios.post('/tasks', newTask)
+
+      dispatch({ type: 'CREATE_TASK', payload: response.data })
+
+      navigate(`/boards/${board_id}`)
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
+    }
+    // }
   }
 
   return (

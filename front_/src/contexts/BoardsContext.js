@@ -39,20 +39,20 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        boards: action.payload
-        // boards: state.boards.map(board => (
-        //   board._id === action.payload._id ? action.payload : board
-        // ))
+        // boards: action.payload
+        boards: state.boards.map(board => (
+          board._id === action.payload._id ? action.payload : board
+        ))
       }
 
     case DELETE_BOARD:
       return {
         ...state,
         loading: false,
-        boards: action.payload
-        // boards: state.boards.filter(board => (
-        //   board._id !== action.payload._id
-        // ))
+        // boards: action.payload
+        boards: state.boards.filter(board => (
+          board._id !== action.payload._id
+        ))
       }
 
     case ERROR:
@@ -67,7 +67,7 @@ const boardsReducer = (state, action) => {
   }
 }
 
-const BoardsContext = createContext()
+export const BoardsContext = createContext(initialState)
 
 export const BoardsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
@@ -78,8 +78,4 @@ export const BoardsContextProvider = ({ children }) => {
       {children}
     </BoardsContext.Provider>
   )
-}
-
-export const useBoardsContext = () => {
-  return useContext(BoardsContext)
 }

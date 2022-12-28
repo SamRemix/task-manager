@@ -1,10 +1,12 @@
 import { memo } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { useAuthContext } from './contexts/AuthContext'
+
+import { useAuthContext } from './hooks/useAuthContext'
 
 // components
 import Navbar from './components/Navbar'
+import Cursor from './components/Cursor'
 
 // pages
 import Home from './pages/Home'
@@ -24,6 +26,7 @@ const App = () => {
 
   return (
     <>
+      <Cursor />
       <Navbar />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>

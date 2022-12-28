@@ -5,19 +5,36 @@ import { memo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useBoardsRequests from '../../hooks/useBoardsRequests'
+import { useAuthContext } from "../../hooks/useAuthContext"
+import { useBoardsContext } from "../../hooks/useBoardsContext"
+
+import axios from '../../axios.config'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 
 import Item from './Item'
 
 const Boards = () => {
-  const { loading, boards, error, getBoards } = useBoardsRequests()
+  const { user } = useAuthContext()
+  const { loading, boards, error, dispatch } = useBoardsContext()
 
   useEffect(() => {
-    getBoards()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const getBoards = async () => {
+      dispatch({ type: 'LOADING' })
+
+      try {
+        const response = await axios.get('/boards')
+
+        dispatch({ type: 'GET_BOARDS', payload: response.data })
+      } catch (err) {
+        dispatch({ type: 'ERROR', payload: err.response.data.error })
+      }
+    }
+
+    if (user) {
+      getBoards()
+    }
+  }, [dispatch, user])
 
   if (loading) {
     return (
@@ -26,8 +43,6 @@ const Boards = () => {
       </Dimmer>
     )
   }
-
-  // if (!boards) return
 
   if (error) {
     return <p>{error}</p>
@@ -46,9 +61,13 @@ const Boards = () => {
         {...config.boardsMenuAnimation}>
         <nav>
           <ul>
-            {boards?.map(board => (
-              <Item key={board._id} {...board} />
-            ))}
+            {Array.isArray(boards) ? (
+              boards.map(board => (
+                <Item key={board._id} {...board} />
+              ))
+            ) : (
+              <p>No boards</p>
+            )}
           </ul>
         </nav>
       </motion.div>

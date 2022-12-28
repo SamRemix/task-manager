@@ -14,18 +14,19 @@
   }
 
   &:hover {
-    .task__content-title {
-      transform: translateX(30px);
-    }
+    .task__content {
+      &-title {
+        transform: translateX(30px);
+      }
 
-    .task__content-date {
-      opacity: 0;
-    }
+      &-date {
+        opacity: 0;
+      }
 
-    .task__content-buttons-container {
-      transform: translateX(0);
-      opacity: 1;
-      visibility: visible;
+      &-buttons-container {
+        transform: translateX(-10px);
+        opacity: 1;
+      }
     }
   }
 
@@ -50,10 +51,8 @@
     gap: 14px;
     position: absolute;
     right: -20px;
-    transform: translateX(-20px);
+    transform: translateX(-30px);
     opacity: 0;
-    visibility: hidden;
-    z-index: 1;
     transition: .4s;
 
     .button {

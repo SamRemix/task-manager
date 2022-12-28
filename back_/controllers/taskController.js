@@ -43,11 +43,11 @@ const createTask = async (req, res) => {
     const user_id = req.user._id
     const task = await Task.create({ ...req.body, user_id })
 
-    await Board.findByIdAndUpdate(board_id, {
-      $push: {
-        tasks: task._id
-      }
-    })
+    // await Board.findByIdAndUpdate(board_id, {
+    //   $push: {
+    //     tasks: task._id
+    //   }
+    // })
 
     res.status(200).json(task)
   } catch (error) {
@@ -64,11 +64,9 @@ const deleteTask = async (req, res) => {
 
   const task = await Task.findOneAndDelete({ _id: id })
 
-  // await Board.updateOne({
-  //   'tasks': id
-  // }, {
+  // await Board.updateOne({}, {
   //   $pull: {
-  //     'tasks': id
+  //     tasks: id
   //   }
   // })
 

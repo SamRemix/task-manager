@@ -5,11 +5,11 @@ const boardSchema = new Schema({
     type: String,
     required: true
   },
-  tasks: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Task',
-    required: false
-  }],
+  // tasks: [{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Task',
+  //   required: false
+  // }],
   user_id: {
     type: String,
     required: true

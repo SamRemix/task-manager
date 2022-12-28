@@ -12,13 +12,7 @@
   position: fixed;
   inset: 45px 60px auto auto;
   cursor: pointer;
-  z-index: 30;
-
-  // &:hover~.navbar__border:not(.active) {
-  //   // background: vars.$blue-dark;
-  //   clip-path: circle(34px at calc(100% - 90px) 90px);
-  //   transition: .2s;
-  // }
+  z-index: 1002;
 
   span {
     width: 30px;
@@ -69,7 +63,8 @@
   height: 100%;
   position: fixed;
   inset: 0 0 auto auto;
-  z-index: 20;
+  // z-index: 20;
+  z-index: 1001;
 }
 
 .navbar__border {
