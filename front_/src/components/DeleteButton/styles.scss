@@ -37,3 +37,42 @@
     }
   }
 }
+
+.backdrop {
+  background: rgba($color: #000, $alpha: .6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+}
+
+.modal {
+  padding: 40px;
+  background: #fff;
+  box-shadow: vars.$lg-shadow;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 1001;
+
+  &-question {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 20px;
+
+    .button {
+
+      &.delete,
+      &:hover.delete {
+        color: vars.$red;
+      }
+    }
+  }
+}
