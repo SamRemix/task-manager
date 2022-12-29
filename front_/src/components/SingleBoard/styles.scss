@@ -1,20 +1,16 @@
 @use '../../styles/vars';
 
-.task__content {
+.board__content {
   padding: 14px 14px;
-  background: #fff;
+  // background: #fff;
   border-radius: 6px;
   display: flex;
   align-items: center;
   gap: 40px;
   position: relative;
 
-  &.important {
-    background: vars.$important-task;
-  }
-
   &:hover {
-    .task__content {
+    .board__content {
       &-title {
         transform: translateX(30px);
       }

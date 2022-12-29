@@ -10,9 +10,9 @@ import Cursor from './components/Cursor'
 
 // pages
 import Home from './pages/Home'
-import Boards from './pages/Boards'
-import Board from './pages/Board'
+import BoardDetails from './pages/BoardDetails'
 import TaskDetails from './pages/TaskDetails'
+import AddBoard from './pages/AddBoard'
 import AddTask from './pages/AddTask'
 import UpdateTask from './pages/UpdateTask'
 import Signup from './pages/Signup'
@@ -31,8 +31,8 @@ const App = () => {
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/boards" element={<Boards />} />
-          <Route path="/boards/:board_id" element={<Board />} />
+          <Route path="/boards/:board_id" element={<BoardDetails />} />
+          <Route path="/add-board" element={<AddBoard />} />
           <Route path="/boards/:board_id/:task_id" element={<TaskDetails />} />
           <Route path="/add-task/:board_id" element={<AddTask />} />
           <Route path="/update-task/:task_id" element={<UpdateTask />} />

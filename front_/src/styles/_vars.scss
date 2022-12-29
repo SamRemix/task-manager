@@ -4,13 +4,21 @@ $red-dark: #df0000;
 $new: #f0f014;
 
 $blue-dark: #1863ff;
-$light: #f6fafd;
+// $light: #f6fafd;
+$light: #f7ece6;
+// $light: #f2ede1;
 
 $to-do: #ffc0ca;
 $in-progress: #dec1f2;
-$done: #f9d89c;
+// $done: #f9d89c;
+// $done: #f7e991;
+$done: #f5e39c;
 
-$important-task: #f8cbbe;
+// $to-do: rgba(#FCDDB0, 1);
+// $in-progress: rgba(#FFDB89, 1);
+// $done: rgba(#ff6058, 1);
+
+$important-task: #FCDDB0;
 
 
 $green: #1eb854;
@@ -22,7 +30,7 @@ $blue: #40b3ff;
 $app-padding: 60px;
 $container-gap: 60px;
 
-$navbar-width: 220px;
+$navbar-width: 260px;
 // $app-row-gap: 40px;
 
 $btn-size: 60px;

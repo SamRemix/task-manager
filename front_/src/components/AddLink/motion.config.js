@@ -1,5 +1,5 @@
 const config = {
-  addTaskButtonAnimation: {
+  addLinkAnimation: {
     initial: {
       x: -80,
       opacity: 0

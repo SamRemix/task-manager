@@ -1,27 +1,24 @@
 @use '../../styles/vars';
 
-.add-task-link {
+.add__link {
   grid-area: 1 / 2 / 2 / 3;
 
   a {
     width: vars.$btn-size;
     height: vars.$btn-size;
     background: vars.$pink;
-    box-shadow: vars.$lg-shadow;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 
-    .button-add {
-      margin: auto;
+    .add__link-button {
       color: #fff;
-      text-align: center;
       pointer-events: none;
     }
 
-    .title {
+    .add__link-title {
       padding: 4px 6px;
       background: #fff;
       border: 1px solid #aaa;
@@ -38,7 +35,7 @@
 
   &:hover {
     a {
-      .title {
+      .add__link-title {
         opacity: 1;
         transform: translateY(0);
       }

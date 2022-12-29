@@ -1,0 +1,39 @@
+@use '../../styles/vars';
+
+.delete__button {
+  grid-area: 1 / 4 / 2 / 5;
+  width: vars.$btn-size;
+  height: vars.$btn-size;
+  background: vars.$pink;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &-icon {
+    color: #fff;
+    pointer-events: none;
+  }
+
+  &-title {
+    padding: 4px 6px;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    position: absolute;
+    top: calc(100% - 10px);
+    opacity: 0;
+    transform: translateY(10px);
+    cursor: pointer;
+    pointer-events: none;
+    transition: .2s;
+  }
+
+  &:hover {
+    .delete__button-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

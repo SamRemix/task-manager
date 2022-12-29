@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import Task from '../Task'
+import SingleTask from '../SingleTask'
 
-const Tasks = ({ tasks }) => {
+const TasksList = ({ tasks }) => {
   return (
     <div className="tasks-container">
       <motion.div
@@ -16,7 +16,7 @@ const Tasks = ({ tasks }) => {
         <h2 className="task-status">To do</h2>
         <div className="grid">
           {tasks.map(task => (
-            task.status === 'To do' && <Task key={task._id} {...task} />
+            task.status === 'To do' && <SingleTask key={task._id} {...task} />
           ))}
         </div>
       </motion.div>
@@ -27,7 +27,7 @@ const Tasks = ({ tasks }) => {
         <h2 className="task-status">In progress</h2>
         <div className="grid">
           {tasks.map(task => (
-            task.status === 'In progress' && <Task key={task._id} {...task} />
+            task.status === 'In progress' && <SingleTask key={task._id} {...task} />
           ))}
         </div>
       </motion.div>
@@ -38,7 +38,7 @@ const Tasks = ({ tasks }) => {
         <h2 className="task-status">Done</h2>
         <div className="grid">
           {tasks.map(task => (
-            task.status === 'Done' && <Task key={task._id} {...task} />
+            task.status === 'Done' && <SingleTask key={task._id} {...task} />
           ))}
         </div>
       </motion.div>
@@ -46,8 +46,8 @@ const Tasks = ({ tasks }) => {
   )
 }
 
-Tasks.propTypes = {
+TasksList.propTypes = {
   tasks: PropTypes.array.isRequired
 }
 
-export default memo(Tasks)
+export default memo(TasksList)

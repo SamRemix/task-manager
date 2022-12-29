@@ -38,6 +38,8 @@ body {
   }
 
   #root {
+    // -15px cause ::before inset
+    margin-left: calc(vars.$navbar-width - 15px);
     padding: vars.$app-padding;
     min-height: 100vh;
     background: vars.$light;
@@ -51,18 +53,20 @@ body {
       border-radius: 16px;
       position: fixed;
       inset: 15px auto auto 15px;
-      z-index: 100000;
+      z-index: 1002;
       pointer-events: none;
     }
 
     .container {
-      margin-left: calc(vars.$navbar-width - 20px);
       min-height: calc(100vh - vars.$app-padding * 2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: vars.$container-gap;
+
+      // relative cause prev btn on form pages
+      position: relative;
 
       &__title {
         color: rgba($color: #000, $alpha: .3);

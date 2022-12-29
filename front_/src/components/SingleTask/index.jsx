@@ -4,18 +4,18 @@ import PropTypes from 'prop-types'
 import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
+import { AnimatePresence, motion } from 'framer-motion'
 import config from './motion.config'
 
-import { AnimatePresence, motion } from 'framer-motion'
 import { formatDistanceToNowStrict } from 'date-fns'
-
-import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
 
 import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
 
-const Task = ({ _id, title, important, createdAt }) => {
+import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
+
+const SingleTask = ({ _id, title, important, createdAt }) => {
   const location = useLocation()
 
   const { dispatch } = useTasksContext()
@@ -51,11 +51,11 @@ const Task = ({ _id, title, important, createdAt }) => {
   )
 }
 
-Task.propTypes = {
+SingleTask.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   important: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired
 }
 
-export default memo(Task)
+export default memo(SingleTask)

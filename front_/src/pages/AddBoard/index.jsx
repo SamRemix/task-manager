@@ -1,50 +1,22 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useAuthContext } from "../../hooks/useAuthContext"
+import PreviousButton from '../../components/PreviousButton'
+
 import { useBoardsContext } from "../../hooks/useBoardsContext"
 
 import axios from '../../axios.config'
 
-import { Loader, Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
-import Item from './Item'
-
-const Boards = () => {
-  const { user } = useAuthContext()
-  const { loading, boards, error, dispatch } = useBoardsContext()
+const AddBoard = () => {
+  const { loading, error, dispatch } = useBoardsContext()
 
   const [title, setTitle] = useState('')
-
-  useEffect(() => {
-    const getBoards = async () => {
-      dispatch({ type: 'LOADING' })
-
-      try {
-        const response = await axios.get('/boards')
-
-        dispatch({ type: 'GET_BOARDS', payload: response.data })
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
-
-    if (user) {
-      getBoards()
-    }
-  }, [dispatch, user])
-
-  if (loading) {
-    return <Loader active content="Loading" />
-  }
-
-  if (error) {
-    return <p>{error}</p>
-  }
 
   const addBoard = async e => {
     e.preventDefault()
@@ -63,22 +35,15 @@ const Boards = () => {
   }
 
   return (
-    <section className="container boards-page">
-      <motion.div
-        className="boards"
-        {...config.boardsMenuAnimation}>
-        <nav>
-          <ul>
-            {Array.isArray(boards) ? (
-              boards.map(board => (
-                <Item key={board._id} {...board} />
-              ))
-            ) : (
-              <p>No boards</p>
-            )}
-          </ul>
-        </nav>
-      </motion.div>
+    <section className="container">
+      <motion.h1
+        className="container__title"
+        {...config.pageTitleAnimation}>
+        Add Board
+      </motion.h1>
+
+      <PreviousButton path='/boards' />
+
       <form onSubmit={addBoard}>
         <motion.div
           className="title__input"
@@ -114,4 +79,4 @@ const Boards = () => {
   )
 }
 
-export default memo(Boards)
+export default memo(AddBoard)
