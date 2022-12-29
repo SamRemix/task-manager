@@ -10,7 +10,6 @@ import TasksList from '../../components/TasksList'
 import DeleteButton from '../../components/DeleteButton'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-
 import { useTasksContext } from '../../hooks/useTasksContext'
 
 import axios from '../../axios.config'

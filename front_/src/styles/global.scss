@@ -1,5 +1,6 @@
 @use './_reset.css';
-@use './vars';
+@use './vars' as v;
+@debug v;
 
 // @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
@@ -26,8 +27,8 @@
 
 
 body {
-  // background: vars.$light;
-  background: #222;
+  // background: v.$light;
+  background: v.$dark;
   color: #000;
   // font-family: 'Overpass';
   // font-family: 'Fira Mono';
@@ -40,17 +41,17 @@ body {
 
   #root {
     // -15px cause ::before inset
-    margin-left: calc(vars.$navbar-width - 15px);
-    padding: vars.$app-padding;
+    margin-left: calc(v.$navbar-width - 15px);
+    padding: v.$app-padding;
     min-height: 100vh;
-    background: vars.$light;
+    background: v.$light;
     position: relative;
 
     &::before {
       content: '';
       width: calc(100% - 30px);
       height: calc(100% - 30px);
-      box-shadow: 0 0 0 30px #222;
+      box-shadow: 0 0 0 30px v.$dark;
       border-radius: 16px;
       position: fixed;
       inset: 15px auto auto 15px;
@@ -59,12 +60,12 @@ body {
     }
 
     .container {
-      min-height: calc(100vh - vars.$app-padding * 2);
+      min-height: calc(100vh - v.$app-padding * 2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: vars.$container-gap;
+      gap: v.$container-gap;
 
       // relative cause prev btn on form pages
       position: relative;
@@ -96,7 +97,7 @@ body {
         textarea,
         select {
           width: 100%;
-          box-shadow: vars.$sm-shadow;
+          box-shadow: v.$sm-shadow;
         }
 
         textarea {
@@ -117,7 +118,7 @@ body {
         }
 
         .error-message {
-          color: vars.$red;
+          color: v.$red;
           font-weight: 600;
           text-align: center;
           display: flex;
