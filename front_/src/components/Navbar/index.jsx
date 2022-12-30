@@ -58,107 +58,120 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar">
-        <ul className="navbar__list">
-          <li className="navbar__list-item theme-switcher">
-            <div className="link" onClick={toggleTheme}>
-              <div className="icon">
-                {theme === 'light' ? (
-                  <HiSun size="1.6em" />
-                ) : (
-                  <HiMoon size="1.6em" />
-                )}
+        <div className="header">
+          <div className="header-theme-switcher" onClick={toggleTheme}>
+            {theme === 'light' ? (
+              <HiSun size="1.6em" />
+            ) : (
+              <HiMoon size="1.6em" />
+            )}
+          </div>
+          <div className="header-lang-switcher">
+            <p>fr - en</p>
+          </div>
+        </div>
+        {user && (
+          <div className="user__card">
+            <div className="user__card-picture">
+              <HiUser size="1.6em" />
+            </div>
+            <div className="user__card-infos">
+              <NavLink to="/account" className="link" end>
+                <div className="user__card-infos-name">
+                  <p>{user.name}</p>
+                </div>
+              </NavLink>
+              <div className="user__card-infos-bio">
+                <p>{user.bio}</p>
               </div>
             </div>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink to="/" className="link">
-              <div className="icon">
-                <HiHome size="1.6em" />
-              </div>
-              <p className="title">Home</p>
-            </NavLink>
-          </li>
-          {user && (
-            <>
-              {Array.isArray(boards) && (
-                <li className="navbar__list-item boards">
-                  <div className="header">
+          </div>
+        )}
+        <ul className="navbar__list">
+          <div className="menu">
+            <li
+              className="navbar__list-item">
+              <NavLink to="/" className="link">
+                <div className="icon">
+                  <HiHome size="1.6em" />
+                </div>
+                <p className="title">Home</p>
+              </NavLink>
+            </li>
+            {user && (
+              <>
+                <li className="navbar__list-item">
+                  <div className="content">
                     <div className="icon">
                       <HiClipboardDocumentList size="1.6em" />
                     </div>
-                    <p className="title">Boards</p>
+                    <p className={`title${!boards ? ' empty' : ''}`}>Boards</p>
                   </div>
-                  <ul className="boards__list">
-                    {boards.map(board => (
-                      <li key={board._id} className="boards__list-item">
-                        <NavLink to={`/boards/${board._id}`} className="link" end>
-                          <div className="icon">
-                            <HiOutlineClipboardDocumentList size="1.2em" />
-                          </div>
-                          <p className="title">{board.title}</p>
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
+                  {Array.isArray(boards) && (
+                    <ul className="boards__list">
+                      {boards.map(board => (
+                        <li key={board._id} className="boards__list-item">
+                          <NavLink to={`/boards/${board._id}`} className="link" end>
+                            <div className="icon">
+                              <HiOutlineClipboardDocumentList size="1.2em" />
+                            </div>
+                            <p className="title">{board.title}</p>
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
-              )}
-              <li className="navbar__list-item">
-                <NavLink to="/add-board" className="link">
-                  <div className="icon">
-                    <HiDocumentPlus size="1.6em" />
+                <li className="navbar__list-item">
+                  <NavLink to="/add-board" className="link">
+                    <div className="icon">
+                      <HiDocumentPlus size="1.6em" />
+                    </div>
+                    <p className="title">Add board</p>
+                  </NavLink>
+                </li>
+                <li className="navbar__list-item">
+                  <div className="content">
+                    <div className="icon">
+                      <HiCog8Tooth size="1.6em" />
+                    </div>
+                    <p className="title">Settings</p>
                   </div>
-                  <p className="title">Add board</p>
-                </NavLink>
-              </li>
+                </li>
+              </>
+            )}
+          </div>
+          <div className="auth">
+            {user ? (
               <li className="navbar__list-item">
-                <NavLink to="/account" className="link">
+                <div className="link" onClick={() => logout()}>
                   <div className="icon">
-                    <HiUser size="1.6em" />
+                    <HiArrowLeftOnRectangle size="1.6em" />
                   </div>
-                  <p className="title">{user.name}</p>
-                </NavLink>
-              </li>
-              <li className="navbar__list-item">
-                <div className="link">
-                  <div className="icon">
-                    <HiCog8Tooth size="1.6em" />
-                  </div>
-                  <p className="title">Settings</p>
+                  <p className="title">Log Out</p>
                 </div>
               </li>
-            </>
-          )}
-        </ul>
-        <ul className="navbar__list auth">
-          {user ? (
-            <li className="navbar__list-item logout">
-              <div className="link" onClick={() => logout()}>
-                <div className="icon">
-                  <HiArrowLeftOnRectangle size="1.6em" />
-                </div>
-                <p className="title">Log Out</p>
-              </div>
-            </li>
-          ) : (
-            <>
-              <li className="navbar__list-item">
-                <NavLink to="/login" className="link">
-                  <div className="icon">
-                    <HiArrowRightOnRectangle size="1.6em" />
-                  </div>
-                  <p className="title">Log In</p>
-                </NavLink>
-              </li>
-              <li className="navbar__list-item">
-                <NavLink to="/signup" className="link">
-                  <div className="icon">
-                    <HiUserPlus size="1.6em" />
-                  </div>
-                  <p className="title">Sign Up</p>
-                </NavLink>
-              </li>
-            </>
-          )}
+            ) : (
+              <>
+                <li className="navbar__list-item">
+                  <NavLink to="/login" className="link">
+                    <div className="icon">
+                      <HiArrowRightOnRectangle size="1.6em" />
+                    </div>
+                    <p className="title">Log In</p>
+                  </NavLink>
+                </li>
+                <li className="navbar__list-item">
+                  <NavLink to="/signup" className="link">
+                    <div className="icon">
+                      <HiUserPlus size="1.6em" />
+                    </div>
+                    <p className="title">Sign Up</p>
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </div>
         </ul>
       </nav>
     </>

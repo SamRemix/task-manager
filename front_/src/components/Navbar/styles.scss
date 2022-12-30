@@ -1,11 +1,12 @@
-@use '../../styles/vars';
+@use '../../styles/vars' as v;
 
 .navbar {
-  width: vars.$navbar-width;
-  background: vars.$light;
+  padding: 40px;
+  width: v.$navbar-width;
+  background: v.$light;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  gap: 40px;
   position: fixed;
   inset: 0;
   z-index: 1001;
@@ -19,56 +20,85 @@
     inset: 5% 0 auto auto;
   }
 
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-theme-switcher {
+      cursor: pointer;
+    }
+  }
+
+  .user__card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    // .link {
+    //   &.active {
+    //     .user__card-infos {
+    //       &-name {
+    //         background: v.$red;
+    //       }
+    //     }
+    //   }
+    // }
+
+    &-picture {
+      width: 60px;
+      height: 60px;
+      background: v.$light;
+      border: 1px solid #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-infos {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+
+      &-name {
+        padding: 8px;
+        background: v.$red;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 1.2em;
+        font-weight: 600;
+      }
+
+      &-bio {
+        color: #888;
+      }
+    }
+  }
+
   &__list {
-    padding: 40px;
-    // height: 100%;
+    height: 100%;
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     flex-direction: column;
-    gap: 40px;
-    position: relative;
+
+    .menu {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 40px;
+    }
 
     &-item {
-      &.theme-switcher {
-        margin-bottom: 40px;
-      }
 
-      &.boards {
-        .header {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-
-          .title {
-            font-weight: 600;
-            border-radius: 4px;
-          }
-        }
-
-        .boards__list {
-          margin: 20px 10px 0;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-
-          &-item {
-            .link {
-              .title {
-                width: 120px;
-                word-wrap: break-word;
-                white-space: pre-wrap;
-                font-weight: 400;
-              }
-            }
-          }
-        }
-      }
-
-      .link {
+      .link,
+      .content {
         display: flex;
         align-items: center;
         gap: 20px;
-        cursor: pointer;
 
         .title {
           font-weight: 600;
@@ -76,11 +106,36 @@
 
         &.active {
           .icon {
-            color: #ff6058;
+            color: v.$red;
           }
 
           .title {
-            color: #ff6058;
+            color: v.$red;
+          }
+        }
+      }
+
+      .link {
+        cursor: pointer;
+      }
+    }
+
+    .boards__list {
+      margin: 20px 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      &-item {
+        .link {
+          display: flex;
+          gap: 20px;
+
+          .title {
+            width: 120px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            font-weight: 400;
           }
         }
       }

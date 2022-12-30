@@ -6,6 +6,7 @@ import App from './App'
 
 import 'semantic-ui-css/semantic.min.css'
 
+import './styles/global.dark.scss'
 import './styles/global.scss'
 import './styles/responsive.scss'
 

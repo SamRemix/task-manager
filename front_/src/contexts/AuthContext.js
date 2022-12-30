@@ -22,12 +22,14 @@ const AuthReducer = (state, action) => {
     case LOGIN:
       return {
         ...state,
+        loading: false,
         user: action.payload
       }
 
     case LOGOUT:
       return {
         ...state,
+        loading: false,
         user: null
       }
 
@@ -64,7 +66,3 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
-// export const useAuthContext = () => {
-//   return useContext(AuthContext)
-// }

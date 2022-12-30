@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from './useAuthContext'
-import { useBoardsContext } from "../hooks/useBoardsContext"
+import { useBoardsContext } from "./useBoardsContext"
 import axios from '../axios.config'
 
 const useAuth = () => {

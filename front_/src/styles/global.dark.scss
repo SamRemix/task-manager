@@ -1,0 +1,12 @@
+@use './_reset.css';
+@use './vars' as v;
+
+.App.dark {
+  background: #19203b;
+  // background: #f2ede1;
+
+  .navbar {
+    background: #19203b;
+    // background: #f2ede1;
+  }
+}

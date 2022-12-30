@@ -39,7 +39,6 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        // boards: action.payload
         boards: state.boards.map(board => (
           board._id === action.payload._id ? action.payload : board
         ))
@@ -49,7 +48,6 @@ const boardsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        // boards: action.payload
         boards: state.boards.filter(board => (
           board._id !== action.payload._id
         ))
