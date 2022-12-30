@@ -9,13 +9,14 @@ import config from './motion.config'
 
 import { formatDistanceToNowStrict } from 'date-fns'
 
-import { useBoardsContext } from "../../hooks/useBoardsContext"
+import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
 
 import { HiOutlineDocumentText, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleBoard = ({ _id, title, createdAt }) => {
+  console.log(1 * 5);
   const location = useLocation()
 
   const { dispatch } = useBoardsContext()

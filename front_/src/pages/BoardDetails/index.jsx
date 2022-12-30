@@ -3,6 +3,8 @@ import './styles.scss'
 import { memo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { motion } from 'framer-motion'
+
 import AddLink from '../../components/AddLink'
 import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
@@ -23,6 +25,7 @@ const BoardDetails = () => {
 
   const { loading, tasks, error, dispatch } = useTasksContext()
 
+  // const [filteredTasks, setFilteredTasks] = useState(null)
   const [prefix, setPrefix] = useState('')
 
   useEffect(() => {
@@ -43,8 +46,28 @@ const BoardDetails = () => {
     }
   }, [dispatch, user])
 
+  // if (loading) {
+  //   return <Loader active content="Loading" />
+  // }
+
   if (loading) {
-    return <Loader active content="Loading" />
+    setTimeout(() => {
+      return (
+        <Loader active content="Loading" />
+        // <motion.div
+        //   initial={{
+        //     opacity: 0
+        //   }}
+        //   animate={{
+        //     opacity: 1,
+        //     transition: {
+        //       duration: .2
+        //     }
+        //   }}>
+        //   <Loader active content="Loading" />
+        // </motion.div>
+      )
+    }, 0)
   }
 
   if (error) {

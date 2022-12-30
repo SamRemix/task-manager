@@ -1,8 +1,9 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import { useAuthContext } from './hooks/useAuthContext'
+import { useThemeContext } from './hooks/useThemeContext'
 
 // components
 import Navbar from './components/Navbar'
@@ -24,8 +25,10 @@ const App = () => {
   const location = useLocation()
   const { user } = useAuthContext()
 
+  const { theme } = useThemeContext()
+
   return (
-    <>
+    <div className={`App ${theme}`}>
       <Cursor />
       <Navbar />
       <AnimatePresence mode="wait" initial={false}>
@@ -42,7 +45,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-    </>
+    </div>
   )
 }
 

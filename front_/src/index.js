@@ -12,6 +12,7 @@ import './styles/responsive.scss'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { BoardsContextProvider } from './contexts/BoardsContext'
 import { TasksContextProvider } from './contexts/TasksContext'
+import { ThemeContextProvider } from './contexts/ThemeContext'
 
 const root = createRoot(document.getElementById('root'))
 
@@ -19,9 +20,11 @@ root.render(
   <AuthContextProvider>
     <BoardsContextProvider>
       <TasksContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeContextProvider>
       </TasksContextProvider>
     </BoardsContextProvider>
   </AuthContextProvider >

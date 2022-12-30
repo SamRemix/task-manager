@@ -27,11 +27,8 @@
 
 
 body {
-  // background: v.$light;
+  // dark cause of resize (console)
   background: v.$dark;
-  color: #000;
-  // font-family: 'Overpass';
-  // font-family: 'Fira Mono';
   font-family: 'Poppins';
   overflow-x: hidden;
 
@@ -40,106 +37,115 @@ body {
   }
 
   #root {
-    // -15px cause ::before inset
-    margin-left: calc(v.$navbar-width - 15px);
-    padding: v.$app-padding;
-    min-height: 100vh;
     background: v.$light;
-    position: relative;
 
-    &::before {
-      content: '';
-      width: calc(100% - 30px);
-      height: calc(100% - 30px);
-      box-shadow: 0 0 0 30px v.$dark;
-      border-radius: 16px;
-      position: fixed;
-      inset: 15px auto auto 15px;
-      z-index: 1002;
-      pointer-events: none;
-    }
-
-    .container {
-      min-height: calc(100vh - v.$app-padding * 2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: v.$container-gap;
-
-      // relative cause prev btn on form pages
+    .App {
+      // -15px cause of ::before inset
+      margin-left: calc(v.$navbar-width - 15px);
+      padding: v.$app-padding;
+      min-height: 100vh;
+      color: #000;
       position: relative;
 
-      &__title {
-        color: rgba($color: #000, $alpha: .3);
-        font-size: clamp(6em, 10vw, 9em);
-        font-weight: 600;
-        cursor: default;
+      &.dark {
+        background: v.$pink;
+        // color: #fff;
       }
 
-      form {
-        min-width: 400px;
+      &::before {
+        content: '';
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        box-shadow: 0 0 0 30px v.$dark;
+        border-radius: 16px;
+        position: fixed;
+        inset: 15px auto auto 15px;
+        z-index: 1002;
+        pointer-events: none;
+      }
+
+      .container {
+        min-height: calc(100vh - v.$app-padding * 2);
         display: flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: column;
-        gap: 20px;
+        gap: v.$container-gap;
+
+        // relative cause of prev btn on form pages
         position: relative;
 
-        input,
-        textarea,
-        select {
-          padding: 8px 10px;
-          outline: none;
-          border: none;
-          border-radius: 6px;
-        }
-
-        input:not([type=checkbox]),
-        textarea,
-        select {
-          width: 100%;
-          box-shadow: v.$sm-shadow;
-        }
-
-        textarea {
-          max-height: 200px;
-          min-height: 90px;
-          white-space: break-spaces;
-          resize: vertical;
-        }
-
-        select,
-        input[type=checkbox] {
-          cursor: pointer;
-        }
-
-        .submit {
-          margin: 0 60px;
-          width: 120px;
-        }
-
-        .error-message {
-          color: v.$red;
+        &__title {
+          color: rgba($color: #000, $alpha: .3);
+          font-size: clamp(6em, 10vw, 9em);
           font-weight: 600;
-          text-align: center;
+          cursor: default;
+        }
+
+        form {
+          min-width: 400px;
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          position: absolute;
-          inset: calc(100% + 20px) auto auto 20px;
+          gap: 20px;
+          position: relative;
+
+          input,
+          textarea,
+          select {
+            padding: 8px 10px;
+            outline: none;
+            border: none;
+            border-radius: 6px;
+          }
+
+          input:not([type=checkbox]),
+          textarea,
+          select {
+            width: 100%;
+            box-shadow: v.$sm-shadow;
+          }
+
+          textarea {
+            max-height: 200px;
+            min-height: 90px;
+            white-space: break-spaces;
+            resize: vertical;
+          }
+
+          select,
+          input[type=checkbox] {
+            cursor: pointer;
+          }
+
+          .submit {
+            margin: 0 60px;
+            width: 120px;
+          }
+
+          .error-message {
+            color: v.$red;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: absolute;
+            inset: calc(100% + 20px) auto auto 20px;
+          }
         }
-      }
 
-      // 404 PAGE
+        // 404 PAGE
 
-      &.not-found {
-        .container__title {
-          font-size: 12em;
-          inset: 50% auto auto 50%;
-          transform: translate(-50%, -50%);
-        }
+        &.not-found {
+          .container__title {
+            font-size: 12em;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%);
+          }
 
-        p {
-          font-size: 1.2em;
+          p {
+            font-size: 1.2em;
+          }
         }
       }
     }

@@ -32,11 +32,10 @@ const Cursor = () => {
     <motion.div
       className="cursor"
       animate={{
-        x: position.x - 3,
-        y: position.y - 3,
-        transition: { duration: 0, ease: 'linear' }
-      }}
-    />
+        x: position.x - 70,
+        y: position.y - 70,
+        // transition: { duration: 0, ease: 'linear' }
+      }} />
   )
 }
 
