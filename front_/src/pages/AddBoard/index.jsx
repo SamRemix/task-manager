@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
@@ -10,6 +11,8 @@ import axios from '../../axios.config'
 import { Form } from 'semantic-ui-react'
 
 const AddBoard = () => {
+  const navigate = useNavigate()
+
   const { loading, error, dispatch } = useBoardsContext()
 
   const [title, setTitle] = useState('')
@@ -21,10 +24,13 @@ const AddBoard = () => {
 
     try {
       const response = await axios.post('/boards', { title })
+      console.log(response.data);
 
       dispatch({ type: 'CREATE_BOARD', payload: response.data })
 
       setTitle('')
+
+      navigate(`/boards/${response.data._id}`)
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }

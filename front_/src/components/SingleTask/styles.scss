@@ -2,6 +2,8 @@
 
 .task__content {
   padding: 14px;
+  // width: 50%;
+  flex: 1;
   background: #ddd;
   border-radius: 6px;
   display: flex;
@@ -109,7 +111,7 @@
         }
       }
 
-      &-details {
+      &-validate {
         &:hover {
           color: v.$blue;
         }

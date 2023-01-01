@@ -53,16 +53,6 @@
     flex-direction: column;
     gap: 20px;
 
-    // .link {
-    //   &.active {
-    //     .user__card-infos {
-    //       &-name {
-    //         background: v.$red;
-    //       }
-    //     }
-    //   }
-    // }
-
     &-picture {
       width: 60px;
       height: 60px;
@@ -125,6 +115,10 @@
         .title {
           font-weight: 600;
         }
+      }
+
+      .link {
+        cursor: pointer;
 
         &.active {
           .icon {
@@ -135,10 +129,6 @@
             color: v.$red;
           }
         }
-      }
-
-      .link {
-        cursor: pointer;
 
         &:hover {
           .icon {

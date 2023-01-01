@@ -2,7 +2,7 @@ import './styles.scss'
 
 import PropTypes from 'prop-types'
 import { memo } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { AnimatePresence, motion } from 'framer-motion'
 import config from './motion.config'
@@ -13,11 +13,9 @@ import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
 
-import { HiCheckCircle, HiOutlineDocumentText, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
+import { HiCheckCircle, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
-  const location = useLocation()
-
   const { dispatch } = useTasksContext()
 
 
@@ -64,11 +62,6 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
               <p className="button-title">{status === 'To do' ? 'In progress' : 'Done'}</p>
             </div>
           )}
-
-          {/* <Link className="button" to={`${location.pathname}/${_id}`}>
-            <HiOutlineDocumentText size="1.4em" className="button-details" />
-            <p className="button-title">Details</p>
-          </Link> */}
 
           <Link className="button" to={`/update-task/${_id}`}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />

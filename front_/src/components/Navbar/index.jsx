@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useEffect } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
@@ -120,16 +120,16 @@ const Navbar = () => {
                           </NavLink>
                         </li>
                       ))}
+                      <li className="boards__list-item">
+                        <NavLink to="/add-board" className="link">
+                          <div className="icon">
+                            <HiDocumentPlus size="1.2em" />
+                          </div>
+                          <p className="title">Add board</p>
+                        </NavLink>
+                      </li>
                     </ul>
                   )}
-                </li>
-                <li className="navbar__list-item">
-                  <NavLink to="/add-board" className="link">
-                    <div className="icon">
-                      <HiDocumentPlus size="1.6em" />
-                    </div>
-                    <p className="title">Add board</p>
-                  </NavLink>
                 </li>
                 <li className="navbar__list-item">
                   <div className="content">
@@ -141,6 +141,7 @@ const Navbar = () => {
                 </li>
               </>
             )}
+            <div className="focus"></div>
           </div>
           <div className="auth">
             {user ? (

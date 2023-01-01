@@ -10,7 +10,7 @@
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: calc(v.$app-padding + v.$container-padding);
+  top: 0;
 
   &-percent {
     width: 40px;
