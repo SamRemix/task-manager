@@ -1,9 +1,6 @@
-@use '../../styles/vars';
+@use '../../styles/vars' as v;
 
 .account {
-  padding: 20px;
-  box-shadow: vars.$lg-shadow;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 20px;

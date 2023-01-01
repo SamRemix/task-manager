@@ -4,8 +4,8 @@ $red-dark: #df0000;
 $new: #f0f014;
 
 $blue-dark: #1863ff;
-// $light: #f6fafd;
-$light: #f7ece6;
+$light: #f6fafd;
+// $light: #f7ece6;
 // $light: #f2ede1;
 
 $to-do: #ffc0ca;
@@ -21,13 +21,21 @@ $done: #f5e39c;
 $important-task: #FCDDB0;
 
 
-$dark: #211e1e;
+$black: #000;
+$white: #fff;
+
+$dark: #222;
 $green: #1eb854;
 // $red: #ff3e00;
-$red: #ff6058;
-$blue: #40b3ff;
 
-$app-padding: 60px;
+$red: #ff6058;
+$dark-red: #D14F48;
+
+$blue: #40b3ff;
+$blue-test: #497ff8;
+
+$app-padding: 15px;
+$container-padding: 60px;
 $container-gap: 60px;
 
 $navbar-width: 280px;

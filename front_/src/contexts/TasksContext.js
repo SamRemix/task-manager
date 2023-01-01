@@ -39,10 +39,14 @@ const tasksReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        tasks: action.payload
+        // tasks: action.payload
         // tasks: state.tasks.map(task => (
         //   task._id === action.payload._id ? action.payload : task
         // ))
+        tasks: {
+          ...state.tasks,
+          ...action.payload
+        }
       }
 
     case DELETE_TASK:

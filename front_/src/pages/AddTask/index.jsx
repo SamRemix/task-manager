@@ -1,18 +1,14 @@
-import './styles.scss'
-
 import { memo, useReducer } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import PreviousButton from '../../components/PreviousButton'
-
-import { Button } from 'semantic-ui-react'
-
 import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
+
+import { Form } from 'semantic-ui-react'
 
 const AddTask = () => {
   let { board_id } = useParams()
@@ -67,71 +63,46 @@ const AddTask = () => {
 
   return (
     <section className="container">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        Add Task
-      </motion.h1>
-
-      <PreviousButton path={`/boards/${board_id}`} />
-
-      <form onSubmit={addTask}>
-        <motion.div
-          className="title__input"
-          {...config.titleInputAnimation}>
-          <input
+      <Form onSubmit={addTask}>
+        <motion.div {...config.titleInputAnimation}>
+          <Form.Input
             type="text"
             onChange={e => {
               dispatchNewTask(actionSetField('title', e.target.value))
             }}
+            className={`title__input${error && ' error'}`}
             value={newTask.title}
-            className={error && 'error'}
             placeholder="Title"
             maxLength="36"
             autoFocus />
           <p className="title__input-remaining">{36 - newTask.title.length} remaining character{newTask.title.length < 35 && 's'}</p>
         </motion.div>
 
-        <motion.textarea
-          onChange={e => {
-            dispatchNewTask(actionSetField('description', e.target.value))
-          }}
-          value={newTask.description}
-          placeholder="Description (optional)"
-          {...config.descriptionInputAnimation}>
-        </motion.textarea>
-
-        <motion.div
-          className="inputs-container"
-          {...config.inputsContainerAnimation}>
-          <select
+        <motion.div {...config.descriptionInputAnimation}>
+          <Form.TextArea
             onChange={e => {
-              dispatchNewTask(actionSetField('status', e.target.value))
+              dispatchNewTask(actionSetField('description', e.target.value))
             }}
-            value={newTask.status}>
-            <option value="To do">To do</option>
-            <option value="In progress">In progress</option>
-            <option value="Done">Done</option>
-          </select>
+            value={newTask.description}
+            placeholder="Description (optional)">
+          </Form.TextArea>
+        </motion.div>
 
-          <div className="important__checkbox">
-            <label className="important__checkbox-label">Important:
-              <input
-                type="checkbox"
-                onChange={e => {
-                  dispatchNewTask(actionSetField('important', e.target.checked))
-                }}
-                checked={newTask.important} />
-            </label>
-            <p className="important__checkbox-value">{String(newTask.important)}</p>
-          </div>
+        <motion.div {...config.inputImportantAnimation}>
+          <Form.Checkbox
+            label="Important"
+            className="important__checkbox"
+            onChange={e => {
+              dispatchNewTask(actionSetField('important', e.target.checked))
+            }}
+            checked={newTask.important} />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
           {!loading ? (
-            <Button className="submit" primary>Add Task</Button>
+            <Form.Button className="submit" content="Add Task" secondary />
           ) : (
-            <Button className="submit" loading primary>Loading</Button>
+            <Form.Button className="submit" content="Loading" loading secondary />
           )}
         </motion.div>
 
@@ -142,8 +113,8 @@ const AddTask = () => {
             {error}
           </motion.p>
         </div>}
-      </form>
-    </section>
+      </Form>
+    </section >
   )
 }
 

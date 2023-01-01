@@ -11,12 +11,6 @@ const Account = () => {
 
   return (
     <section className="container">
-      {/* <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        Account
-      </motion.h1> */}
-
       {user && <motion.div
         className="account"
         {...config.accountComponentAnimation}>

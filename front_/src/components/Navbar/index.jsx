@@ -12,7 +12,7 @@ import useAuth from '../../hooks/useAuth'
 import axios from '../../axios.config'
 
 import {
-  HiMoon,
+  HiSparkles,
   HiSun,
   HiHome,
   HiClipboardDocumentList,
@@ -57,13 +57,14 @@ const Navbar = () => {
 
   return (
     <>
+      <div className={`dark-filter${theme === 'dark' ? ' active' : ''}`} />
       <nav className="navbar">
         <div className="header">
           <div className="header-theme-switcher" onClick={toggleTheme}>
             {theme === 'light' ? (
               <HiSun size="1.6em" />
             ) : (
-              <HiMoon size="1.6em" />
+              <HiSparkles size="1.6em" />
             )}
           </div>
           <div className="header-lang-switcher">

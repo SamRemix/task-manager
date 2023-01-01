@@ -6,7 +6,7 @@ import config from './motion.config'
 import useAuth from '../../hooks/useAuth'
 
 import { Button } from 'semantic-ui-react'
-import { Loader } from 'semantic-ui-react'
+import { Loader, Form } from 'semantic-ui-react'
 
 const Signup = () => {
   const { loading, error, signup } = useAuth()
@@ -28,37 +28,37 @@ const Signup = () => {
   return (
     // test
     <section className="container">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        Sign Up
-      </motion.h1>
+      <Form onSubmit={handleSubmit}>
+        <motion.div>
+          <Form.Input
+            type="text"
+            onChange={e => setName(e.target.value)}
+            value={name}
+            placeholder="Name"
+            autoFocus
+            {...config.nameInputAnimation} />
+        </motion.div>
 
-      <form onSubmit={handleSubmit}>
-        <motion.input
-          type="text"
-          onChange={e => setName(e.target.value)}
-          value={name}
-          placeholder="Name"
-          autoFocus
-          {...config.nameInputAnimation} />
+        <motion.div>
+          <Form.Input
+            type="text"
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+            placeholder="Email"
+            {...config.emailInputAnimation} />
+        </motion.div>
 
-        <motion.input
-          type="text"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-          placeholder="Email"
-          {...config.emailInputAnimation} />
-
-        <motion.input
-          type="text"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-          placeholder="Password"
-          {...config.passwordInputAnimation} />
+        <motion.div>
+          <Form.Input
+            type="text"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            placeholder="Password"
+            {...config.passwordInputAnimation} />
+        </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Button className="submit" primary>Submit</Button>
+          <Button className="submit" content="Submit" secondary />
         </motion.div>
 
         {error && <motion.p
@@ -66,7 +66,7 @@ const Signup = () => {
           {...config.errorMessageAnimation}>
           {error}
         </motion.p>}
-      </form>
+      </Form>
     </section>
   )
 }

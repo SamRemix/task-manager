@@ -12,7 +12,6 @@ import Cursor from './components/Cursor'
 // pages
 import Home from './pages/Home'
 import BoardDetails from './pages/BoardDetails'
-import TaskDetails from './pages/TaskDetails'
 import AddBoard from './pages/AddBoard'
 import AddTask from './pages/AddTask'
 import UpdateTask from './pages/UpdateTask'
@@ -36,7 +35,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/boards/:board_id" element={<BoardDetails />} />
           <Route path="/add-board" element={<AddBoard />} />
-          <Route path="/boards/:board_id/:task_id" element={<TaskDetails />} />
           <Route path="/add-task/:board_id" element={<AddTask />} />
           <Route path="/update-task/:task_id" element={<UpdateTask />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />

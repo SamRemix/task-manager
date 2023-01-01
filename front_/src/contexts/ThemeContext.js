@@ -1,10 +1,11 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 export const ThemeContext = createContext()
 
 export const ThemeContextProvider = ({ children }) => {
-
-  const [theme, setTheme] = useState('light')
+  const defaultTheme = matchMedia('(prefers-color-scheme: dark)').matches
+  const [theme, setTheme] = useLocalStorage('theme', defaultTheme ? 'dark' : 'light')
 
   const toggleTheme = () => {
     setTheme(curr => (

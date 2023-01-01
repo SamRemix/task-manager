@@ -47,22 +47,6 @@ const createBoard = async (req, res) => {
   }
 }
 
-const deleteBoard = async (req, res) => {
-  const { id } = req.params
-
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: 'No such board, invalid id' })
-  }
-
-  const board = await Board.findOneAndDelete({ _id: id })
-
-  if (!board) {
-    return res.status(400).json({ error: 'No such board' })
-  }
-
-  res.status(200).json(board)
-}
-
 const updateBoard = async (req, res) => {
   const { id } = req.params
 
@@ -71,6 +55,22 @@ const updateBoard = async (req, res) => {
   }
 
   const board = await Board.findOneAndUpdate({ _id: id }, { ...req.body })
+
+  if (!board) {
+    return res.status(400).json({ error: 'No such board' })
+  }
+
+  res.status(200).json(board)
+}
+
+const deleteBoard = async (req, res) => {
+  const { id } = req.params
+
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'No such board, invalid id' })
+  }
+
+  const board = await Board.findOneAndDelete({ _id: id })
 
   if (!board) {
     return res.status(400).json({ error: 'No such board' })

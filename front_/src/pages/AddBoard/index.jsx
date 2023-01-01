@@ -1,17 +1,13 @@
-import './styles.scss'
-
 import { memo, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import PreviousButton from '../../components/PreviousButton'
-
 import { useBoardsContext } from "../../hooks/useBoardsContext"
 
 import axios from '../../axios.config'
 
-import { Button } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 
 const AddBoard = () => {
   const { loading, error, dispatch } = useBoardsContext()
@@ -36,23 +32,13 @@ const AddBoard = () => {
 
   return (
     <section className="container">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        Add Board
-      </motion.h1>
-
-      <PreviousButton path='/boards' />
-
-      <form onSubmit={addBoard}>
-        <motion.div
-          className="title__input"
-          {...config.titleInputAnimation}>
-          <input
+      <Form onSubmit={addBoard}>
+        <motion.div {...config.titleInputAnimation}>
+          <Form.Input
             type="text"
             onChange={e => setTitle(e.target.value)}
+            className={`title__input${error && ' error'}`}
             value={title}
-            className={error && 'error'}
             placeholder="Title"
             maxLength="24"
             autoFocus />
@@ -61,9 +47,9 @@ const AddBoard = () => {
 
         <motion.div {...config.submitButtonAnimation}>
           {!loading ? (
-            <Button className="submit" primary>Add Board</Button>
+            <Form.Button className="submit" content="Add Board" secondary />
           ) : (
-            <Button className="submit" loading primary></Button>
+            <Form.Button className="submit" loading secondary content="Loading" />
           )}
         </motion.div>
 
@@ -74,7 +60,7 @@ const AddBoard = () => {
             {error}
           </motion.p>
         </div>}
-      </form>
+      </Form>
     </section>
   )
 }

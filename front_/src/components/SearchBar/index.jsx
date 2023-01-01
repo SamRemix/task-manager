@@ -7,15 +7,17 @@ import config from './motion.config'
 
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
+import { Input } from 'semantic-ui-react'
+
 const SearchBar = ({ setPrefix }) => {
   return (
     <motion.div
       className="filter__function"
       {...config.searchBarAnimation}>
       <div className="filter__function-search-bar">
-        <input placeholder="Search" onChange={e => setPrefix(e.target.value)} />
-        {/* <span className="material-symbols-outlined button icon-search">search</span> */}
-        <HiMagnifyingGlass size="1.4em" className="icon-search" />
+        <Input icon='search' placeholder='Search...' onChange={e => setPrefix(e.target.value)} />
+        {/* <input placeholder="Search" onChange={e => setPrefix(e.target.value)} />
+        <HiMagnifyingGlass size="1.4em" className="icon-search" /> */}
       </div>
     </motion.div>
   )

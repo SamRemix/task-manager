@@ -27,7 +27,7 @@ const getTask = async (req, res) => {
 }
 
 const createTask = async (req, res) => {
-  const { title, board_id } = req.body
+  const { title } = req.body
 
   console.log(req.body);
 
@@ -55,6 +55,22 @@ const createTask = async (req, res) => {
   }
 }
 
+const updateTask = async (req, res) => {
+  const { id } = req.params
+
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'No such task, invalid id' })
+  }
+
+  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body })
+
+  if (!task) {
+    return res.status(400).json({ error: 'No such task' })
+  }
+
+  res.status(200).json(task)
+}
+
 const deleteTask = async (req, res) => {
   const { id } = req.params
 
@@ -69,22 +85,6 @@ const deleteTask = async (req, res) => {
   //     tasks: id
   //   }
   // })
-
-  if (!task) {
-    return res.status(400).json({ error: 'No such task' })
-  }
-
-  res.status(200).json(task)
-}
-
-const updateTask = async (req, res) => {
-  const { id } = req.params
-
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such task, invalid id' })
-  }
-
-  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body })
 
   if (!task) {
     return res.status(400).json({ error: 'No such task' })

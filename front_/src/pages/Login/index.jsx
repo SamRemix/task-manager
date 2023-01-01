@@ -5,7 +5,7 @@ import config from './motion.config'
 
 import useAuth from '../../hooks/useAuth'
 
-import { Loader, Button } from 'semantic-ui-react'
+import { Loader, Form } from 'semantic-ui-react'
 
 const Login = () => {
   const { loading, error, login } = useAuth()
@@ -26,30 +26,27 @@ const Login = () => {
   return (
     // test
     <section className="container">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        Log In
-      </motion.h1>
-
-      <form onSubmit={handleSubmit}>
-        <motion.input
-          type="text"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-          placeholder="Email"
-          autoFocus
-          {...config.emailInputAnimation} />
-
-        <motion.input
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-          placeholder="Password"
-          {...config.passwordInputAnimation} />
+      <Form onSubmit={handleSubmit}>
+        <motion.div>
+          <Form.Input
+            type="text"
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+            placeholder="Email"
+            autoFocus
+            {...config.emailInputAnimation} />
+        </motion.div>
+        <motion.div>
+          <Form.Input
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            placeholder="Password"
+            {...config.passwordInputAnimation} />
+        </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Button className="submit" primary>Submit</Button>
+          <Form.Button className="submit" content="Submit" secondary />
         </motion.div>
 
         {error && <motion.p
@@ -57,7 +54,7 @@ const Login = () => {
           {...config.errorMessageAnimation}>
           {error}
         </motion.p>}
-      </form>
+      </Form>
     </section>
   )
 }
