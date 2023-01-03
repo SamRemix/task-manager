@@ -20,9 +20,7 @@ const BoardSettings = () => {
 
   const { loading, boards, error, dispatch } = useBoardsContext()
 
-  // const [title, setTitle] = useState('')
-
-  // const [title, setTitle] = useState('')
+  const [title, setTitle] = useState('')
 
   const [visible, setVisible] = useState(false)
 
@@ -33,8 +31,6 @@ const BoardSettings = () => {
   // const board = boards.find(board => (
   //   board._id === board_id
   // ))
-
-  // console.log(board);
 
   // setTitle(board.title)
 
@@ -69,12 +65,12 @@ const BoardSettings = () => {
           <Form.Input
             type="text"
             className={`title__input${error && ' error'}`}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
             placeholder="Title"
             maxLength="24"
             autoFocus />
-          {/* <p className="title__input-remaining">{24 - title.length} remaining character{title.length < 23 && 's'}</p> */}
+          <p className="title__input-remaining">{24 - title.length} remaining character{title.length < 23 && 's'}</p>
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>

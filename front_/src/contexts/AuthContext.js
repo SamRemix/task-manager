@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useContext } from 'react'
+import { createContext, useReducer, useEffect } from 'react'
 
 const initialState = {
   loading: null,
@@ -7,6 +7,7 @@ const initialState = {
 }
 
 const LOADING = 'LOADING'
+const GET_USER = 'GET_USER'
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
 const ERROR = 'ERROR'

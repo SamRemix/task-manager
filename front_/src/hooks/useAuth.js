@@ -52,7 +52,10 @@ const useAuth = () => {
     localStorage.removeItem('user')
 
     dispatch({ type: 'LOGOUT' })
+
     dispatchBoards({ type: 'GET_BOARDS', payload: null })
+
+    // navigate('/login')
     navigate('/')
   }
 

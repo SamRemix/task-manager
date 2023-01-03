@@ -1,6 +1,5 @@
-const Board = require('../models/boardModel')
+// const Board = require('../models/boardModel')
 const Task = require('../models/taskModel')
-
 const { Types } = require('mongoose')
 
 const getTasks = async (req, res) => {

@@ -1,4 +1,8 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer, useEffect, useMemo } from 'react'
+
+import { useAuthContext } from '../hooks/useAuthContext'
+
+import axios from '../axios.config'
 
 const initialState = {
   loading: null,
@@ -70,8 +74,32 @@ export const BoardsContext = createContext()
 export const BoardsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
 
+  const { user } = useAuthContext()
+
+  const getBoards = async () => {
+    dispatch({ type: 'LOADING' })
+
+    try {
+      const response = await axios.get('/boards')
+
+      dispatch({ type: 'GET_BOARDS', payload: response.data })
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      getBoards()
+    }
+  }, [user])
+
+  const memoizedState = useMemo(() => state, [state])
+
+  console.log(memoizedState);
+
   return (
-    <BoardsContext.Provider value={{ ...state, dispatch }}>
+    <BoardsContext.Provider value={{ ...memoizedState, dispatch }}>
       {children}
     </BoardsContext.Provider>
   )

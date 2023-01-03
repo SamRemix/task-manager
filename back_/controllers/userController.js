@@ -1,8 +1,9 @@
 const User = require('../models/userModel')
-const jwt = require('jsonwebtoken')
+const { sign, verify } = require('jsonwebtoken')
+const { Types } = require('mongoose')
 
 const createToken = _id => {
-  return jwt.sign({ _id }, process.env.SECRET)
+  return sign({ _id }, process.env.SECRET)
 }
 
 const signup = async (req, res) => {
@@ -31,4 +32,23 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { signup, login }
+const getUser = async (req, res) => {
+  const { token } = req.params
+
+  // if (!Types.ObjectId.isValid(id)) {
+  //   return res.status(404).json({ error: 'No such user, invalid id' })
+  // }
+  const { id } = verify(token, process.env.SECRET)
+
+  const user = await User.findById(id)
+
+  if (!user) {
+    return res.status(404).json({ error: 'No such user' })
+  }
+
+  console.log(user);
+
+  res.status(200).json(user)
+}
+
+module.exports = { signup, login, getUser }

@@ -19,19 +19,21 @@ const UpdateTask = () => {
   const [description, setDescription] = useState('')
   const [important, setImportant] = useState(null)
 
-  // let task
+  let task = []
 
-  // if (tasks) {
-  //   task = tasks?.find(task => (
-  //     task._id === task_id
-  //   ))
-  // }
+  useEffect(() => {
+    task = tasks.find(task => (
+      task._id === task_id
+    ))
 
-  // useEffect(() => {
-  //   setTitle(task.title)
-  //   setDescription(task.description)
-  //   setImportant(task.important)
-  // }, [])
+    console.log(task.board_id);
+
+    setTitle(task.title)
+    setDescription(task.description)
+    setImportant(task.important)
+  }, [])
+
+  console.log(task);
 
   const newTask = { title, description, important }
 

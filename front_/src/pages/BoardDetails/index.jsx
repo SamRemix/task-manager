@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import AddTaskButton from '../../components/AddTaskButton'
@@ -8,39 +8,16 @@ import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
 import TasksList from '../../components/TasksList'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
 import { useTasksContext } from '../../hooks/useTasksContext'
-
-import axios from '../../axios.config'
 
 import { Loader } from 'semantic-ui-react'
 
 const BoardDetails = () => {
   let { board_id } = useParams()
 
-  const { user } = useAuthContext()
-
-  const { loading, tasks, error, dispatch } = useTasksContext()
+  const { loading, tasks, error } = useTasksContext()
 
   const [prefix, setPrefix] = useState('')
-
-  useEffect(() => {
-    const getTasks = async () => {
-      dispatch({ type: 'LOADING' })
-
-      try {
-        const response = await axios.get('/tasks')
-
-        dispatch({ type: 'GET_TASKS', payload: response.data })
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
-
-    if (user) {
-      getTasks()
-    }
-  }, [dispatch, user])
 
   if (loading) {
     return (

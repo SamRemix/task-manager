@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import SingleBoard from '../SingleBoard'
@@ -11,8 +11,6 @@ import { useThemeContext } from '../../hooks/useThemeContext'
 
 import useAuth from '../../hooks/useAuth'
 
-import axios from '../../axios.config'
-
 import {
   HiSparkles,
   HiSun,
@@ -20,6 +18,7 @@ import {
   HiClipboardDocumentList,
   HiDocumentPlus,
   HiUser,
+  HiLockClosed,
   HiCog8Tooth,
   HiArrowRightOnRectangle,
   HiUserPlus,
@@ -28,33 +27,14 @@ import {
 
 const Navbar = () => {
   const { user } = useAuthContext()
-  const { boards, error, dispatch } = useBoardsContext()
-
+  const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
 
   const { logout } = useAuth()
 
-  useEffect(() => {
-    const getBoards = async () => {
-      dispatch({ type: 'LOADING' })
-
-      try {
-        const response = await axios.get('/boards')
-
-        dispatch({ type: 'GET_BOARDS', payload: response.data })
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
-
-    if (user) {
-      getBoards()
-    }
-  }, [dispatch, user])
-
-  if (error) {
-    console.log(error);
-  }
+  // if (error) {
+  //   console.log(error);
+  // }
 
   return (
     <>
@@ -80,16 +60,9 @@ const Navbar = () => {
               <HiUser size="1.6em" />
             </div>
 
-            <div className="user__card-infos">
-              <NavLink to="/account" className="link" end>
-                <div className="user__card-infos-name">
-                  <p>{user.name}</p>
-                </div>
-              </NavLink>
-              <div className="user__card-infos-bio">
-                <p>{user.bio}</p>
-              </div>
-            </div>
+            <NavLink to="/account" end>
+              <p className="user__card-name">{user.name}</p>
+            </NavLink>
           </div>
         )}
 
@@ -104,49 +77,58 @@ const Navbar = () => {
                 <p className="title">Home</p>
               </NavLink>
             </li>
-            {user && (
-              <>
-                <li className="navbar__list-item boards">
-                  <div className="content">
-                    <div className="icon">
-                      <HiClipboardDocumentList size="1.6em" />
-                    </div>
-                    <p className="title">Boards</p>
-                  </div>
 
-                  {Array.isArray(boards) && (
-                    <ul className="boards__list">
-                      {boards.map(board => <SingleBoard key={board._id} {...board} />)}
-
-                      <li className="boards__list-item">
-                        <NavLink to="/add-board" className="link">
-                          <div className="icon">
-                            <HiDocumentPlus size="1.2em" />
-                          </div>
-                          <p className="title">Add board</p>
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-
-                {/* <li className="navbar__list-item">
-                  <div className="content">
-                    <div className="icon">
-                      <HiCog8Tooth size="1.6em" />
-                    </div>
-                    <p className="title">Settings</p>
-                  </div>
-                </li> */}
-              </>
+            {error && (
+              <li className="navbar__list-item error-message">
+                <div className="icon">
+                  <HiLockClosed size="1.6em" />
+                </div>
+                <p className="title">{error}</p>
+              </li>
             )}
-            <div className="focus"></div>
+
+            {user && !error && (
+              <li className="navbar__list-item boards">
+                <div className="content">
+                  <div className="icon">
+                    <HiClipboardDocumentList size="1.6em" />
+                  </div>
+                  <p className="title">Boards</p>
+                </div>
+
+                {boards && (
+                  <ul className="boards__list">
+                    {boards.map(board => (
+                      <SingleBoard key={board._id} {...board} />
+                    ))}
+
+                    <li className="boards__list-item">
+                      <NavLink to="/add-board" className="link">
+                        <div className="icon">
+                          <HiDocumentPlus size="1.2em" />
+                        </div>
+                        <p className="title">Add board</p>
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
+              </li>
+
+              // <li className="navbar__list-item">
+              //   <div className="content">
+              //     <div className="icon">
+              //       <HiCog8Tooth size="1.6em" />
+              //     </div>
+              //     <p className="title">Settings</p>
+              //   </div>
+              // </li>
+            )}
           </div>
 
           <div className="auth">
             {user ? (
               <li className="navbar__list-item">
-                <div className="link" onClick={() => logout()}>
+                <div className="link" onClick={logout}>
                   <div className="icon">
                     <HiArrowLeftOnRectangle size="1.6em" />
                   </div>
