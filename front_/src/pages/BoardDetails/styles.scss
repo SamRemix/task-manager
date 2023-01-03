@@ -3,6 +3,6 @@
 .board__container {
   display: grid !important;
   align-items: flex-start !important;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto auto 1fr;
   grid-template-rows: auto 1fr;
 }

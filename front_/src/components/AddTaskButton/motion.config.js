@@ -1,5 +1,5 @@
 const config = {
-  addLinkAnimation: {
+  buttonAnimation: {
     initial: {
       x: -80,
       opacity: 0

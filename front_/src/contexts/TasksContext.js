@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from 'react'
+import { createContext, useReducer } from 'react'
 
 const initialState = {
   loading: null,
@@ -23,40 +23,40 @@ const tasksReducer = (state, action) => {
 
     case GET_TASKS:
       return {
-        ...state,
         loading: false,
-        tasks: action.payload
+        tasks: action.payload,
+        error: null
       }
 
     case CREATE_TASK:
       return {
-        ...state,
         loading: false,
-        tasks: action.payload
+        tasks: [action.payload, ...state.tasks],
+        error: null
       }
 
     case UPDATE_TASK:
       return {
-        ...state,
         loading: false,
-        // tasks: action.payload
+        tasks: action.payload,
+        error: null
         // tasks: state.tasks.map(task => (
-        //   task._id === action.payload._id ? action.payload : task
+        //   task._id === action.payload._id ? { ...task, ...action.payload } : task
         // ))
-        tasks: {
-          ...state.tasks,
-          ...action.payload
-        }
+        // tasks: {
+        //   ...action.payload,
+        //   ...state.tasks
+        // }
       }
 
     case DELETE_TASK:
       return {
-        ...state,
         loading: false,
         // tasks: action.payload,
         tasks: state.tasks.filter(task => (
           task._id !== action.payload._id
-        ))
+        )),
+        error: null
       }
 
     case ERROR:

@@ -57,6 +57,23 @@ const config = {
     exit: {
       opacity: 0
     }
+  },
+  deleteAnimation: {
+    initial: {
+      x: -80,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .4
+      }
+    },
+    exit: {
+      x: 80,
+      opacity: 0
+    }
   }
 }
 

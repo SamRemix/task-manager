@@ -93,16 +93,16 @@ const AddTask = () => {
             label="Important"
             className="important__checkbox"
             onChange={e => {
-              dispatchNewTask(actionSetField('important', e.target.checked))
+              dispatchNewTask(actionSetField('important', !newTask.important))
             }}
             checked={newTask.important} />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
           {!loading ? (
-            <Form.Button className="submit" content="Add Task" secondary />
+            <Form.Button className="submit" content="Add task" secondary />
           ) : (
-            <Form.Button className="submit" content="Loading" loading secondary />
+            <Form.Button className="submit" content="Add task" loading secondary />
           )}
         </motion.div>
 

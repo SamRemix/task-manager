@@ -1,94 +1,68 @@
-@use '../../styles/vars';
+@use '../../styles/vars' as v;
 
-.board__content {
-  padding: 14px 14px;
-  // background: #fff;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  position: relative;
+.boards__list-item {
+  // display: flex;
+  // align-items: flex-start;
+  // flex-direction: row-reverse;
 
-  &:hover {
-    .board__content {
-      &-title {
-        transform: translateX(30px);
-      }
+  .link-settings {
+    display: flex;
+    align-items: center;
+    position: relative;
 
-      &-date {
-        opacity: 0;
-      }
+    &.active {
 
-      &-buttons-container {
-        transform: translateX(-10px);
-        opacity: 1;
+      // &~.link *,
+      svg {
+        color: v.$red !important;
       }
     }
-  }
 
-  &-title {
-    width: 100%;
-    white-space: normal;
-    transition: .2s;
-  }
+    &:hover {
+      svg {
+        color: #000 !important;
+      }
 
-  &-date {
-    font-size: .8em;
-    position: relative;
-    cursor: default;
-  }
+      .title {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-  &-buttons-container {
-    padding: 6px 8px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    display: flex;
-    gap: 14px;
-    position: absolute;
-    right: -20px;
-    transform: translateX(-30px);
-    opacity: 0;
-    transition: .4s;
-
-    .button {
+    .title {
+      padding: .5rem;
+      background: #fff;
+      border: 1px solid #aaa;
+      border-radius: 4px;
       display: flex;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
+      align-items: center;
+      position: absolute;
+      left: calc(100% + 10px);
+      opacity: 0;
+      transform: translateX(10px);
+      pointer-events: none;
+      z-index: 1;
+      transition: .2s;
 
-      &-title {
-        padding: 8px;
-        background: #fff;
-        border: 1px solid #aaa;
-        border-radius: 4px;
-        font-family: 'Poppins' !important;
-        font-size: 16px !important;
-        position: absolute;
-        bottom: calc(100% + 10px);
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-        transition: .2s;
+      // &::before,
+      // &::after {
+      //   content: '';
+      //   width: 0;
+      //   position: absolute;
+      // }
+
+      &::before {
+        border-top: 9px solid transparent;
+        border-right: 9px solid #aaa;
+        border-bottom: 9px solid transparent;
+        left: -9px;
       }
 
-      &:hover {
-        .button-title {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      &-details {
-        &:hover {
-          color: vars.$green;
-        }
-      }
-
-      &-delete {
-        &:hover {
-          color: vars.$red;
-        }
+      &::after {
+        border-top: 8px solid transparent;
+        border-right: 8px solid #fff;
+        border-bottom: 8px solid transparent;
+        left: -8px;
       }
     }
   }

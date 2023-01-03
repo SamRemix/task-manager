@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from 'react'
+import { createContext, useReducer } from 'react'
 
 const initialState = {
   loading: null,
@@ -23,34 +23,34 @@ const boardsReducer = (state, action) => {
 
     case GET_BOARDS:
       return {
-        ...state,
         loading: false,
-        boards: action.payload
+        boards: action.payload,
+        error: null
       }
 
     case CREATE_BOARD:
       return {
-        ...state,
         loading: false,
-        boards: action.payload
+        boards: [action.payload, ...state.boards],
+        error: null
       }
 
     case UPDATE_BOARD:
       return {
-        ...state,
         loading: false,
         boards: state.boards.map(board => (
           board._id === action.payload._id ? action.payload : board
-        ))
+        )),
+        error: null
       }
 
     case DELETE_BOARD:
       return {
-        ...state,
         loading: false,
         boards: state.boards.filter(board => (
           board._id !== action.payload._id
-        ))
+        )),
+        error: null
       }
 
     case ERROR:
@@ -65,7 +65,7 @@ const boardsReducer = (state, action) => {
   }
 }
 
-export const BoardsContext = createContext(initialState)
+export const BoardsContext = createContext()
 
 export const BoardsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)

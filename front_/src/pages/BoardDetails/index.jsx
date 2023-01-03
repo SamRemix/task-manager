@@ -3,13 +3,10 @@ import './styles.scss'
 import { memo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { motion } from 'framer-motion'
-
-import AddLink from '../../components/AddLink'
+import AddTaskButton from '../../components/AddTaskButton'
 import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
 import TasksList from '../../components/TasksList'
-import DeleteButton from '../../components/DeleteButton'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useTasksContext } from '../../hooks/useTasksContext'
@@ -73,9 +70,7 @@ const BoardDetails = () => {
 
   return (
     <section className="container board__container">
-      <DeleteButton id={board_id} />
-
-      <AddLink path={`/add-task/${board_id}`} content="Task" />
+      <AddTaskButton path={`/add-task/${board_id}`} />
 
       <SearchBar setPrefix={setPrefix} />
 

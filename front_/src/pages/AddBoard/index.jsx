@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useBoardsContext } from "../../hooks/useBoardsContext"
+import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
 
@@ -24,15 +24,16 @@ const AddBoard = () => {
 
     try {
       const response = await axios.post('/boards', { title })
-      console.log(response.data);
 
       dispatch({ type: 'CREATE_BOARD', payload: response.data })
-
-      setTitle('')
 
       navigate(`/boards/${response.data._id}`)
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
+
+      setTimeout(() => {
+        return dispatch({ type: 'ERROR', payload: null })
+      }, 5000)
     }
   }
 
@@ -53,9 +54,9 @@ const AddBoard = () => {
 
         <motion.div {...config.submitButtonAnimation}>
           {!loading ? (
-            <Form.Button className="submit" content="Add Board" secondary />
+            <Form.Button className="submit" content="Add board" secondary />
           ) : (
-            <Form.Button className="submit" loading secondary content="Loading" />
+            <Form.Button className="submit" content="Add board" loading secondary />
           )}
         </motion.div>
 

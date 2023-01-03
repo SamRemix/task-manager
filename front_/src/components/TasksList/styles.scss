@@ -1,9 +1,14 @@
 @use '../../styles/vars';
 
 .tasks-container {
-  grid-area: 2 / 2 / 3 / 5;
+  grid-area: 2 / 2 / 3 / 4;
   display: grid;
   gap: 40px;
+
+
+  @media (min-width: 1536px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   .status {
     &.to-do {

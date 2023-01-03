@@ -1,7 +1,9 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+
+import SingleBoard from '../SingleBoard'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useBoardsContext } from "../../hooks/useBoardsContext"
@@ -16,7 +18,6 @@ import {
   HiSun,
   HiHome,
   HiClipboardDocumentList,
-  HiOutlineClipboardDocumentList,
   HiDocumentPlus,
   HiUser,
   HiCog8Tooth,
@@ -67,15 +68,18 @@ const Navbar = () => {
               <HiSparkles size="1.6em" />
             )}
           </div>
+
           <div className="header-lang-switcher">
             <p>fr - en</p>
           </div>
         </div>
+
         {user && (
           <div className="user__card">
             <div className="user__card-picture">
               <HiUser size="1.6em" />
             </div>
+
             <div className="user__card-infos">
               <NavLink to="/account" className="link" end>
                 <div className="user__card-infos-name">
@@ -88,6 +92,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
+
         <ul className="navbar__list">
           <div className="menu">
             <li
@@ -101,25 +106,18 @@ const Navbar = () => {
             </li>
             {user && (
               <>
-                <li className="navbar__list-item">
+                <li className="navbar__list-item boards">
                   <div className="content">
                     <div className="icon">
                       <HiClipboardDocumentList size="1.6em" />
                     </div>
-                    <p className={`title${!boards ? ' empty' : ''}`}>Boards</p>
+                    <p className="title">Boards</p>
                   </div>
+
                   {Array.isArray(boards) && (
                     <ul className="boards__list">
-                      {boards.map(board => (
-                        <li key={board._id} className="boards__list-item">
-                          <NavLink to={`/boards/${board._id}`} className="link" end>
-                            <div className="icon">
-                              <HiOutlineClipboardDocumentList size="1.2em" />
-                            </div>
-                            <p className="title">{board.title}</p>
-                          </NavLink>
-                        </li>
-                      ))}
+                      {boards.map(board => <SingleBoard key={board._id} {...board} />)}
+
                       <li className="boards__list-item">
                         <NavLink to="/add-board" className="link">
                           <div className="icon">
@@ -131,18 +129,20 @@ const Navbar = () => {
                     </ul>
                   )}
                 </li>
-                <li className="navbar__list-item">
+
+                {/* <li className="navbar__list-item">
                   <div className="content">
                     <div className="icon">
                       <HiCog8Tooth size="1.6em" />
                     </div>
                     <p className="title">Settings</p>
                   </div>
-                </li>
+                </li> */}
               </>
             )}
             <div className="focus"></div>
           </div>
+
           <div className="auth">
             {user ? (
               <li className="navbar__list-item">
@@ -163,6 +163,7 @@ const Navbar = () => {
                     <p className="title">Log In</p>
                   </NavLink>
                 </li>
+
                 <li className="navbar__list-item">
                   <NavLink to="/signup" className="link">
                     <div className="icon">

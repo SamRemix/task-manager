@@ -7,37 +7,31 @@ import config from './motion.config'
 import { useTasksContext } from "../../hooks/useTasksContext"
 import axios from '../../axios.config'
 
-import { Loader, Form } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 
 const UpdateTask = () => {
   let { task_id } = useParams()
   const navigate = useNavigate()
 
-  const { loading, tasks: task, error, dispatch } = useTasksContext()
+  const { loading, tasks, error, dispatch } = useTasksContext()
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [important, setImportant] = useState(null)
 
-  useEffect(() => {
-    const getTask = async () => {
-      dispatch({ type: 'LOADING' })
+  // let task
 
-      try {
-        const response = await axios.get(`/tasks/${task_id}`)
+  // if (tasks) {
+  //   task = tasks?.find(task => (
+  //     task._id === task_id
+  //   ))
+  // }
 
-        dispatch({ type: 'GET_TASKS', payload: response.data })
-
-        setTitle(response.data.title)
-        setDescription(response.data.description)
-        setImportant(response.data.important)
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
-
-    getTask()
-  }, [task_id, dispatch])
+  // useEffect(() => {
+  //   setTitle(task.title)
+  //   setDescription(task.description)
+  //   setImportant(task.important)
+  // }, [])
 
   const newTask = { title, description, important }
 
@@ -51,19 +45,11 @@ const UpdateTask = () => {
 
       dispatch({ type: 'UPDATE_TASK', payload: response.data })
 
-      navigate(`/boards/${task.board_id}`)
+      // navigate(`/boards/${task.board_id}`)
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
-
-  // if (loading) {
-  //   return (
-  //     <section className="container">
-  //       <Loader active content="Loading" />
-  //     </section>
-  //   )
-  // }
 
   if (error) {
     return <p>{error}</p>
@@ -102,9 +88,9 @@ const UpdateTask = () => {
 
         <motion.div {...config.submitButtonAnimation}>
           {!loading ? (
-            <Form.Button className="submit" content="Update Task" secondary />
+            <Form.Button className="submit" content="Update task" secondary />
           ) : (
-            <Form.Button className="submit" content="Loading" loading secondary />
+            <Form.Button className="submit" content="Update task" loading secondary />
           )}
         </motion.div>
 

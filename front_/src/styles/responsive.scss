@@ -5,33 +5,16 @@
 @media (min-width: 768px) {}
 
 // lg 1024px
-@media (min-width: 1024px) {
-  // .board__container {
-  //   .tasks-container {
-  //     .status {
-  //       .grid {
-  //         grid-template-columns: repeat(2, 1fr);
-  //         gap: 10px 20px;
-  //       }
-  //     }
-  //   }
-  // }
-}
+@media (min-width: 1024px) {}
 
 // xl 1280px
 @media (min-width: 1280px) {}
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-  .board__container {
-    .tasks-container {
-      grid-template-columns: repeat(3, 1fr);
-
-      // .status {
-      //   .grid {
-      //     grid-template-columns: 1fr;
-      //   }
-      // }
-    }
-  }
+  // .board__container {
+  //   .tasks-container {
+  //     grid-template-columns: repeat(3, 1fr);
+  //   }
+  // }
 }

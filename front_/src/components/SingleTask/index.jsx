@@ -3,8 +3,9 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
+import cn from 'classnames'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import { formatDistanceToNowStrict } from 'date-fns'
@@ -38,52 +39,56 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
   )
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className={`task__content${important ? ' important' : ''}`}
-        layoutId={_id}
-        {...config.singleTaskAnimation}>
+    <motion.div
+      className={cn('task__content', { 'task__content--important': important })}
+      layoutId={_id}
+      {...config.singleTaskAnimation}>
 
-        <div className="task__content-infos">
-          <p className="task__content-infos-title">{title}</p>
-          {description.trim().length !== 0 && <p className="task__content-infos-description">{description}</p>}
-        </div>
+      <div className="task__content-infos">
+        <p className="task__content-infos-title">{title}</p>
+        {description && <p className="task__content-infos-description">{description}</p>}
+      </div>
 
-        <div className="task__content-footer">
-          <p className="task__content-date">{setDate(createdAt)}</p>
-          {important ? (
-            <p className="high-important-task">high</p>
-          ) : (
-            <p className="low-important-task">low</p>
-          )}
-          {status !== 'Done' && (
-            <div className="button">
-              <HiCheckCircle size="1.4em" className="button-validate" onClick={updateStatus} />
-              <p className="button-title">{status === 'To do' ? 'In progress' : 'Done'}</p>
-            </div>
-          )}
-
-          <Link className="button" to={`/update-task/${_id}`}>
-            <HiOutlinePencilSquare size="1.4em" className="button-update" />
-            <p className="button-title">Update</p>
-          </Link>
-
+      <div className="task__content-footer">
+        <p className="task__content-footer-date">{setDate(createdAt)}</p>
+        <p className={cn({
+          'task-importance--high': important,
+          'task-importance--low': !important
+        })}>
+          {important ? 'high' : 'low'}
+        </p>
+        {status !== 'Done' && (
           <div className="button">
-            <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
-            <p className="button-title">Delete</p>
+            <HiCheckCircle size="1.4em" className="button-validate" onClick={updateStatus} />
+            <p className="button-title">{status === 'To do' ? 'In progress' : 'Done'}</p>
           </div>
+        )}
+
+        <Link className="button" to={`/update-task/${_id}`}>
+          <HiOutlinePencilSquare size="1.4em" className="button-update" />
+          <p className="button-title">Update</p>
+        </Link>
+
+        <div className="button">
+          <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
+          <p className="button-title">Delete</p>
         </div>
-      </motion.div>
-    </AnimatePresence >
+      </div>
+    </motion.div>
   )
 }
 
 SingleTask.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  dsecription: PropTypes.string,
   status: PropTypes.string.isRequired,
   important: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired
+}
+
+SingleTask.defaultProps = {
+  dsecription: ''
 }
 
 export default memo(SingleTask)
