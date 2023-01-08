@@ -27,8 +27,8 @@ import NotFound from './pages/404'
 
 const App = () => {
   const location = useLocation()
-  const { user } = useAuthContext()
 
+  const { user } = useAuthContext()
   const { theme } = useThemeContext()
 
   return (

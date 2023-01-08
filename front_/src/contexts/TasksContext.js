@@ -42,15 +42,10 @@ const tasksReducer = (state, action) => {
     case UPDATE_TASK:
       return {
         loading: false,
-        // tasks: action.payload,
-        error: null,
         tasks: state.tasks.map(task => (
           task._id === action.payload._id ? { ...task, ...action.payload } : task
-        ))
-        // tasks: {
-        //   ...action.payload,
-        //   ...state.tasks
-        // }
+        )),
+        error: null
       }
 
     case DELETE_TASK:
@@ -82,19 +77,19 @@ export const TasksContextProvider = ({ children }) => {
 
   const { user } = useAuthContext()
 
-  useEffect(() => {
-    const getTasks = async () => {
-      dispatch({ type: 'LOADING' })
+  const getTasks = async () => {
+    dispatch({ type: 'LOADING' })
 
-      try {
-        const response = await axios.get('/tasks')
+    try {
+      const { data } = await axios.get('/tasks')
 
-        dispatch({ type: 'GET_TASKS', payload: response.data })
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
+      dispatch({ type: 'GET_TASKS', payload: data })
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
     }
+  }
 
+  useEffect(() => {
     if (user) {
       getTasks()
     }
@@ -102,7 +97,7 @@ export const TasksContextProvider = ({ children }) => {
 
   const memoizedState = useMemo(() => state, [state])
 
-  console.log(memoizedState);
+  console.log('Tasks memoized state : ', memoizedState)
 
   return (
     <TasksContext.Provider value={{ ...memoizedState, dispatch }}>

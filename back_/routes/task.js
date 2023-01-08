@@ -1,4 +1,4 @@
-const express = require('express')
+const { Router } = require('express')
 const {
   getTasks,
   getTask,
@@ -9,8 +9,8 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 // const getBoardId = require('../middleware/getBoardId')
 
-// express.Router() function create a new router object to handle requests
-const router = express.Router()
+// Router() function create a new router object to handle requests
+const router = Router()
 
 // Require auth for all task routes
 router.use(requireAuth)

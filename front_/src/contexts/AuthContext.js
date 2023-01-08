@@ -1,5 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react'
 
+import axios from '../axios.config'
+
 const initialState = {
   loading: null,
   user: null,
@@ -7,7 +9,6 @@ const initialState = {
 }
 
 const LOADING = 'LOADING'
-const GET_USER = 'GET_USER'
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
 const ERROR = 'ERROR'
@@ -51,15 +52,46 @@ export const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
 
+  // const getUser = async () => {
+  //   dispatch({ type: 'LOADING' })
+
+  //   try {
+  //     const { data } = await axios.get('/user')
+
+  //     console.log(data);
+
+  //     dispatch({ type: 'LOGIN', payload: data })
+
+  //     localStorage.setItem('user', JSON.stringify(data))
+  //   } catch (err) {
+  //     dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
+  //   }
+  // }
+
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
+    dispatch({ type: 'LOADING' })
 
-    if (!user) (
-      dispatch({ type: 'LOGOUT' })
-    )
+    try {
+      const user = JSON.parse(localStorage.getItem('user'))
 
-    dispatch({ type: 'LOGIN', payload: user })
+      if (user) {
+        dispatch({ type: 'LOGIN', payload: user })
+      }
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.message })
+      console.log(err);
+    }
+
+    // getUser()
+
+    // !user ? (
+    //   dispatch({ type: 'LOGOUT' })
+    // ) : (
+    //   dispatch({ type: 'LOGIN', payload: user }) && getUser()
+    // )
   }, [])
+
+  console.log('Auth state : ', state)
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

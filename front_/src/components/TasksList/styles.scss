@@ -5,11 +5,6 @@
   display: grid;
   gap: 40px;
 
-
-  @media (min-width: 1536px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .status {
     &.to-do {
       .task-status {
@@ -57,7 +52,6 @@
     }
 
     .task-status {
-      // color: #fff;
       margin: 0 20px;
       padding: 0 40px;
       width: fit-content;
@@ -73,8 +67,6 @@
       margin: 20px 0 0;
       display: flex;
       flex-wrap: wrap;
-      // display: grid;
-      // grid-template-columns: 1fr;
       gap: 10px;
     }
   }

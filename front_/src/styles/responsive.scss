@@ -12,9 +12,9 @@
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-  // .board__container {
-  //   .tasks-container {
-  //     grid-template-columns: repeat(3, 1fr);
-  //   }
-  // }
+  .board__container {
+    .tasks-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }

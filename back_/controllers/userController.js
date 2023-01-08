@@ -1,10 +1,10 @@
 const User = require('../models/userModel')
 const { sign, verify } = require('jsonwebtoken')
-const { Types } = require('mongoose')
+// const { Types } = require('mongoose')
 
-const createToken = _id => {
-  return sign({ _id }, process.env.SECRET)
-}
+const createToken = id => (
+  sign({ _id: id }, process.env.SECRET)
+)
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body
@@ -33,20 +33,15 @@ const login = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-  const { token } = req.params
+  const { _id } = req.user
 
-  // if (!Types.ObjectId.isValid(id)) {
-  //   return res.status(404).json({ error: 'No such user, invalid id' })
-  // }
-  const { id } = verify(token, process.env.SECRET)
+  const user = await User.findOne({ user_id: _id })
+  // const user = await User.findById(id).populate('boards')
 
-  const user = await User.findById(id)
 
   if (!user) {
     return res.status(404).json({ error: 'No such user' })
   }
-
-  console.log(user);
 
   res.status(200).json(user)
 }

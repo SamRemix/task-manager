@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import SingleBoard from '../SingleBoard'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { useBoardsContext } from "../../hooks/useBoardsContext"
+import { useBoardsContext } from '../../hooks/useBoardsContext'
 import { useThemeContext } from '../../hooks/useThemeContext'
 
 import useAuth from '../../hooks/useAuth'
@@ -19,7 +19,7 @@ import {
   HiDocumentPlus,
   HiUser,
   HiLockClosed,
-  HiCog8Tooth,
+  // HiCog8Tooth,
   HiArrowRightOnRectangle,
   HiUserPlus,
   HiArrowLeftOnRectangle,
@@ -31,10 +31,6 @@ const Navbar = () => {
   const { theme, toggleTheme } = useThemeContext()
 
   const { logout } = useAuth()
-
-  // if (error) {
-  //   console.log(error);
-  // }
 
   return (
     <>
@@ -96,6 +92,7 @@ const Navbar = () => {
                   <p className="title">Boards</p>
                 </div>
 
+                {/* {Array.isArray(boards) && ( */}
                 {boards && (
                   <ul className="boards__list">
                     {boards.map(board => (

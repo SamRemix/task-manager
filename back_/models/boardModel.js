@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const boardSchema = new Schema({
+module.exports = model('Board', new Schema({
   title: {
     type: String,
     required: true
@@ -16,6 +16,4 @@ const boardSchema = new Schema({
   }
 }, {
   timestamps: true
-})
-
-module.exports = model('Board', boardSchema)
+}))

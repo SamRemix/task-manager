@@ -3,8 +3,8 @@ const Board = require('../models/boardModel')
 const { Types } = require('mongoose')
 
 const getBoards = async (req, res) => {
-  const user_id = req.user._id
-  const boards = await Board.find({ user_id }).sort({ createdAt: -1 })
+  const { _id } = req.user
+  const boards = await Board.find({ user_id: _id }).sort({ createdAt: -1 })
 
   res.status(200).json(boards)
 }
@@ -38,8 +38,8 @@ const createBoard = async (req, res) => {
   }
 
   try {
-    const user_id = req.user._id
-    const board = await Board.create({ title, user_id })
+    const { _id } = req.user
+    const board = await Board.create({ title, user_id: _id })
 
     res.status(200).json(board)
   } catch (error) {

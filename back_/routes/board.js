@@ -1,4 +1,4 @@
-const express = require('express')
+const { Router } = require('express')
 const {
   getBoards,
   getBoard,
@@ -8,7 +8,7 @@ const {
 } = require('../controllers/boardController')
 const requireAuth = require('../middleware/requireAuth')
 
-const router = express.Router()
+const router = Router()
 
 router.use(requireAuth)
 

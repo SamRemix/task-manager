@@ -1,15 +1,13 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import cn from 'classnames'
+// import cn from 'classnames'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useBoardsContext } from '../../hooks/useBoardsContext'
-
-import axios from '../../axios.config'
+import useBoards from '../../hooks/useBoards'
 
 import { Form, Button } from 'semantic-ui-react'
 // import { HiOutlineTrash } from 'react-icons/hi2'
@@ -18,7 +16,7 @@ const BoardSettings = () => {
   const { board_id } = useParams()
   const navigate = useNavigate()
 
-  const { loading, boards, error, dispatch } = useBoardsContext()
+  const { loading, boards: board, error, getBoard, updateBoard, deleteBoard } = useBoards()
 
   const [title, setTitle] = useState('')
 
@@ -28,39 +26,16 @@ const BoardSettings = () => {
     !visible ? setVisible(true) : setVisible(false)
   }
 
-  // const board = boards.find(board => (
-  //   board._id === board_id
-  // ))
+  const handleSubmit = e => {
+    e.preventDefault()
 
-  // setTitle(board.title)
-
-  // const updateBoard = async e => {
-  //   e.preventDefault()
-
-  //   dispatch({ type: 'LOADING' })
-
-  //   try {
-  //     const response = await axios.patch(`/boards/${board_id}`, { title })
-
-  //     dispatch({ type: 'UPDATE_BOARD', payload: response.data })
-
-  //     // navigate(`/boards/${board.board_id}`)
-  //   } catch (err) {
-  //     dispatch({ type: 'ERROR', payload: err.response.data.error })
-  //   }
-  // }
-
-  const deleteBoard = async () => {
-    const response = await axios.delete(`/boards/${board_id}`)
-
-    dispatch({ type: 'DELETE_BOARD', payload: response.data })
-    navigate('/')
+    updateBoard(board_id, title)
   }
 
   return (
     <section className="container board__settings">
       {/* <h1>{board.title}</h1> */}
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <motion.div {...config.titleInputAnimation}>
           <Form.Input
             type="text"
@@ -99,7 +74,7 @@ const BoardSettings = () => {
               {...config.deleteAnimation}
               className="btn-confirm"
               color="red"
-              onClick={deleteBoard}>
+              onClick={() => deleteBoard(board_id)}>
               yes
             </Button>
           )}

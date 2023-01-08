@@ -26,18 +26,16 @@ const UpdateTask = () => {
       task._id === task_id
     ))
 
-    console.log(task.board_id);
+    // console.log(task.board_id);
 
     setTitle(task.title)
     setDescription(task.description)
     setImportant(task.important)
   }, [])
 
-  console.log(task);
-
   const newTask = { title, description, important }
 
-  const updateTask = async e => {
+  const handleUpdate = async e => {
     e.preventDefault()
 
     dispatch({ type: 'LOADING' })
@@ -59,7 +57,7 @@ const UpdateTask = () => {
 
   return (
     <section className="container">
-      <Form onSubmit={updateTask}>
+      <Form onSubmit={handleUpdate}>
         <motion.div {...config.titleInputAnimation}>
           <Form.Input
             type="text"

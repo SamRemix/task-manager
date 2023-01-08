@@ -80,11 +80,11 @@ export const BoardsContextProvider = ({ children }) => {
     dispatch({ type: 'LOADING' })
 
     try {
-      const response = await axios.get('/boards')
+      const { data } = await axios.get('/boards')
 
-      dispatch({ type: 'GET_BOARDS', payload: response.data })
+      dispatch({ type: 'GET_BOARDS', payload: data })
     } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
     }
   }
 
@@ -92,11 +92,11 @@ export const BoardsContextProvider = ({ children }) => {
     if (user) {
       getBoards()
     }
-  }, [user])
+  }, [dispatch, user])
 
   const memoizedState = useMemo(() => state, [state])
 
-  console.log(memoizedState);
+  console.log('Boards memoized state : ', memoizedState)
 
   return (
     <BoardsContext.Provider value={{ ...memoizedState, dispatch }}>
