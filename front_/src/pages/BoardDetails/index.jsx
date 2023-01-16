@@ -1,16 +1,18 @@
 import './styles.scss'
 
 import { memo, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-import AddTaskButton from '../../components/AddTaskButton'
+import { motion } from 'framer-motion'
+import config from './motion.config'
+
 import ProgressBar from '../../components/ProgressBar'
 import SearchBar from '../../components/SearchBar'
 import TasksList from '../../components/TasksList'
 
 import { useTasksContext } from '../../hooks/useTasksContext'
 
-import { Loader } from 'semantic-ui-react'
+import { Loader, Button } from 'semantic-ui-react'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
 
@@ -55,15 +57,22 @@ const BoardDetails = () => {
     return <p>{error}</p>
   }
 
-  const search = data => {
-    return data.filter(({ title }) => (
-      title.toLowerCase().startsWith(prefix.toLowerCase())
+  const search = data => (
+    data.filter(({ title }) => (
+      title.toLowerCase().startsWith(prefix.trim().toLowerCase())
     ))
-  }
+  )
 
   return (
     <section className="container board__container">
-      <AddTaskButton path={`/add-task/${board_id}`} />
+      {/* <AddTaskButton path={`/add-task/${board_id}`} /> */}
+      <motion.div
+        className="add-task__button"
+        {...config.buttonAnimation}>
+        <Link to={`/add-task/${board_id}`}>
+          <Button className="link" content="+ Add task" secondary />
+        </Link>
+      </motion.div>
 
       <SearchBar setPrefix={setPrefix} />
 

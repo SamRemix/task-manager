@@ -13,13 +13,15 @@ import axios from '../../axios.config'
 import { Form, Icon } from 'semantic-ui-react'
 
 const Login = () => {
-  const { error, dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext()
   const { displayPassword, togglePassword } = useDisplayPassword()
 
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [error, setError] = useState(false)
 
   const login = async e => {
     e.preventDefault()
@@ -36,9 +38,12 @@ const Login = () => {
 
       localStorage.setItem('token', JSON.stringify(data.token))
 
+      setError(false)
+
       navigate('/')
     } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
+      setError(err.response.data.error)
+      // dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 

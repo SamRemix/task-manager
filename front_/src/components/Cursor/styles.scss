@@ -11,8 +11,9 @@
 
   &--out {
     @extend .cursor;
-    opacity: 0;
+
     box-shadow: 0 0 0 40px #444;
+    opacity: 0;
     transition: opacity .8s, box-shadow .6s;
   }
 }

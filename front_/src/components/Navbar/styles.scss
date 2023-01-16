@@ -8,9 +8,11 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  transition: .6s;
+  transition: .6s, transform .2s;
 
-  &.active {
+  &--active {
+    @extend .dark-filter;
+
     clip-path: circle(150% at 68px 68px);
   }
 }
@@ -26,6 +28,7 @@
   position: sticky;
   inset: v.$app-padding;
   z-index: 1;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -41,8 +44,10 @@
     align-items: center;
     justify-content: space-between;
 
-    &-theme-switcher {
+    &-theme-switcher,
+    &-lang-switcher {
       cursor: pointer;
+      transition: .2s;
     }
   }
 
@@ -63,12 +68,6 @@
       justify-content: center;
     }
 
-    // &-infos {
-    //   display: flex;
-    //   align-items: center;
-    //   flex-direction: column;
-    //   gap: 10px;
-
     &-name {
       padding: 8px;
       background: v.$red;
@@ -81,8 +80,6 @@
         background: #D14F48;
       }
     }
-
-    // }
   }
 
   &__list {
@@ -167,8 +164,8 @@
           .link {
             .title {
               // max-width: 120px;
-              word-wrap: break-word;
-              white-space: pre-wrap;
+              // word-wrap: break-word;
+              // white-space: pre-wrap;
               font-weight: 400;
             }
           }

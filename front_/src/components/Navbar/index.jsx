@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import SingleBoard from '../SingleBoard'
@@ -9,7 +9,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import { useThemeContext } from '../../hooks/useThemeContext'
 
-import useAuth from '../../hooks/useAuth'
+import useLogout from '../../hooks/useLogout'
 
 import {
   HiSparkles,
@@ -30,11 +30,12 @@ const Navbar = () => {
   const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
 
-  const { logout } = useAuth()
+  const { logout } = useLogout()
 
   return (
     <>
-      <div className={`dark-filter${theme === 'dark' ? ' active' : ''}`} />
+      <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} />
+
       <nav className="navbar">
         <div className="header">
           <div className="header-theme-switcher" onClick={toggleTheme}>
@@ -53,7 +54,11 @@ const Navbar = () => {
         {user && (
           <div className="user__card">
             <div className="user__card-picture">
-              <HiUser size="1.6em" />
+              {user.profilePicture ? (
+                <></>
+              ) : (
+                <HiUser size="1.6em" />
+              )}
             </div>
 
             <NavLink to="/account" end>
@@ -64,8 +69,7 @@ const Navbar = () => {
 
         <ul className="navbar__list">
           <div className="menu">
-            <li
-              className="navbar__list-item">
+            <li className="navbar__list-item">
               <NavLink to="/" className="link">
                 <div className="icon">
                   <HiHome size="1.6em" />

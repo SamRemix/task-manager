@@ -17,7 +17,7 @@ import axios from '../../axios.config'
 import { Form, Icon } from 'semantic-ui-react'
 
 const Signup = () => {
-  const { error, dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext()
   const { displayPassword, togglePassword } = useDisplayPassword()
 
   const navigate = useNavigate()
@@ -25,6 +25,8 @@ const Signup = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [error, setError] = useState(false)
 
   const signup = async e => {
     e.preventDefault()
@@ -42,9 +44,11 @@ const Signup = () => {
 
       localStorage.setItem('token', JSON.stringify(data.token))
 
+      setError(false)
+
       navigate('/')
     } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
+      setError(err.response.data.error)
     }
   }
 

@@ -1,8 +1,16 @@
-@use '../../styles/vars';
+@use '../../styles/vars' as v;
 
 .board__container {
   display: grid !important;
   align-items: flex-start !important;
   grid-template-columns: auto auto 1fr;
   grid-template-rows: auto 1fr;
+
+  .add-task__button {
+    grid-area: 1 / 2 / 2 / 3;
+    height: v.$btn-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

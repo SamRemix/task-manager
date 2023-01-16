@@ -5,11 +5,10 @@
 // @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=VT323&display=swap');
 
-@import './theme.scss';
-
 * {
-  // white-space: nowrap;
+  white-space: nowrap;
   // cursor: none !important;
+  // line-height: 1.4rem;
 
   &::-webkit-scrollbar {
     width: 8px !important;
@@ -45,7 +44,6 @@ body {
   }
 
   #root {
-
     .App {
       padding: v.$app-padding;
       height: 100vh;
@@ -101,7 +99,7 @@ body {
         }
 
         form {
-          min-width: 400px;
+          min-width: 300px;
           display: flex;
           flex-direction: column;
           gap: 20px;
