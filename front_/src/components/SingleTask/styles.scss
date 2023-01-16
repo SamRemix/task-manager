@@ -15,6 +15,12 @@
     @extend .task__content;
 
     background: v.$important-task;
+
+    .task__content-footer {
+      .task-importance {
+        color: #f00;
+      }
+    }
   }
 
   &-infos {
@@ -51,18 +57,7 @@
     .task-importance {
       font-style: italic;
       font-size: .8rem;
-
-      &--high {
-        @extend .task-importance;
-
-        color: #f00;
-      }
-
-      &--low {
-        @extend .task-importance;
-
-        color: #888;
-      }
+      color: #888;
     }
 
     .button {

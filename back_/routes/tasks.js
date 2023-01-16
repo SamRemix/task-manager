@@ -16,7 +16,7 @@ const router = Router()
 router.use(requireAuth)
 // router.use(getBoardId)
 
-router.get('/', getTasks)
+router.get('/:id', getTasks)
 
 router.get('/:id', getTask)
 

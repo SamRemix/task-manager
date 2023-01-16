@@ -10,31 +10,30 @@ const Cursor = () => {
     y: 0
   })
 
+  const [isOut, setIsOut] = useState(true)
+
   useEffect(() => {
-    const cursorPosition = e => {
+    const event = (type, listener) => (
+      window.addEventListener(type, listener)
+    )
+
+    event('mousemove', e => {
       setPosition({
         x: e.clientX,
         y: e.clientY
       })
-    }
+    })
 
-    window.addEventListener('mousemove', cursorPosition)
+    event('mouseout', () => setIsOut(true))
+    event('mouseover', () => setIsOut(false))
   }, [])
-
-  const variants = {
-    default: {
-      x: position.x - 20,
-      y: position.y - 20
-    }
-  }
 
   return (
     <motion.div
-      className="cursor"
+      className={isOut ? 'cursor--out' : 'cursor'}
       animate={{
         x: position.x - 40,
-        y: position.y - 40,
-        // transition: { duration: 0, ease: 'linear' }
+        y: position.y - 40
       }} />
   )
 }

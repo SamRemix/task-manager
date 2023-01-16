@@ -1,5 +1,4 @@
 const Board = require('../models/boardModel')
-
 const { Types } = require('mongoose')
 
 const getBoards = async (req, res) => {

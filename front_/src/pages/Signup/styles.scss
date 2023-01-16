@@ -1,0 +1,28 @@
+@use '../../styles/vars';
+
+.signup {
+  flex-direction: row !important;
+
+  .validation {
+    padding: 20px;
+    background: #ddd;
+    border-radius: 6px;
+    pointer-events: none;
+
+    &>p {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}

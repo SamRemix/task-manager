@@ -1,10 +1,14 @@
 import { createContext } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
 
-export const ThemeContext = createContext()
+const defaultTheme = matchMedia('(prefers-color-scheme: dark)').matches
+
+export const ThemeContext = createContext({
+  theme: '',
+  toggleTheme: () => { }
+})
 
 export const ThemeContextProvider = ({ children }) => {
-  const defaultTheme = matchMedia('(prefers-color-scheme: dark)').matches
   const [theme, setTheme] = useLocalStorage('theme', defaultTheme ? 'dark' : 'light')
 
   const toggleTheme = () => {

@@ -2,10 +2,10 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useBoardsContext } from '../../hooks/useBoardsContext'
+// import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 const Home = () => {
-  const { boards } = useBoardsContext()
+  // const { boards } = useBoardsContext()
 
   return (
     <section className="container home-page">
@@ -15,9 +15,9 @@ const Home = () => {
         Task Manager
       </motion.h1>
 
-      {boards && boards.map(board => (
+      {/* {boards && boards.map(board => (
         <p key={board._id}>{board.title}</p>
-      ))}
+      ))} */}
     </section>
   )
 }

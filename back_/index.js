@@ -6,8 +6,8 @@ const express = require('express')
 
 const { connect } = require('mongoose')
 
-const boardRoutes = require('./routes/board')
-const taskRoutes = require('./routes/task')
+const boardsRoutes = require('./routes/boards')
+const tasksRoutes = require('./routes/tasks')
 const userRoutes = require('./routes/user')
 
 const app = express()
@@ -20,8 +20,8 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/boards', boardRoutes)
-app.use('/tasks', taskRoutes)
+app.use('/boards', boardsRoutes)
+app.use('/tasks', tasksRoutes)
 app.use('/user', userRoutes)
 
 connect(process.env.MONGO_URI)

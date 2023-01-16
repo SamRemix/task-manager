@@ -17,7 +17,7 @@ const DELETE_BOARD = 'DELETE_BOARD'
 const UPDATE_BOARD = 'UPDATE_BOARD'
 const ERROR = 'ERROR'
 
-const boardsReducer = (state, action) => {
+const boardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOADING:
       return {
@@ -69,37 +69,39 @@ const boardsReducer = (state, action) => {
   }
 }
 
-export const BoardsContext = createContext()
+export const BoardsContext = createContext(initialState)
 
 export const BoardsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
 
-  const { user } = useAuthContext()
+  // const { user } = useAuthContext()
 
-  const getBoards = async () => {
-    dispatch({ type: 'LOADING' })
+  // useEffect(() => {
+  //   const getBoards = async () => {
+  //     dispatch({ type: 'LOADING' })
 
-    try {
-      const { data } = await axios.get('/boards')
+  //     try {
+  //       const { data } = await axios.get('/boards')
 
-      dispatch({ type: 'GET_BOARDS', payload: data })
-    } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
-    }
-  }
+  //       // dispatch({ type: 'GET_BOARDS', payload: user ? data : null })
+  //       dispatch({ type: 'GET_BOARDS', payload: data })
 
-  useEffect(() => {
-    if (user) {
-      getBoards()
-    }
-  }, [dispatch, user])
+  //     } catch (err) {
+  //       dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
+  //     }
+  //   }
 
-  const memoizedState = useMemo(() => state, [state])
+  //   if (user) {
+  //     getBoards()
+  //   }
+  // }, [dispatch, user])
 
-  console.log('Boards memoized state : ', memoizedState)
+  // const memoizedState = useMemo(() => state, [state])
+
+  console.log('Boards memoized state : ', state)
 
   return (
-    <BoardsContext.Provider value={{ ...memoizedState, dispatch }}>
+    <BoardsContext.Provider value={{ ...state, dispatch }}>
       {children}
     </BoardsContext.Provider>
   )

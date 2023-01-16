@@ -39,9 +39,9 @@ const Navbar = () => {
         <div className="header">
           <div className="header-theme-switcher" onClick={toggleTheme}>
             {theme === 'light' ? (
-              <HiSun size="1.6em" />
-            ) : (
               <HiSparkles size="1.6em" />
+            ) : (
+              <HiSun size="1.6em" />
             )}
           </div>
 

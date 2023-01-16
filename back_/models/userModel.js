@@ -29,7 +29,7 @@ module.exports = model('User', new Schema({
         throw Error('All fields must be filled')
       }
 
-      if (name.length < 3) {
+      if (name.trim().length < 3) {
         throw Error('Name must be at least 3 characters')
       }
 

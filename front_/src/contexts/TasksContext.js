@@ -1,8 +1,4 @@
-import { createContext, useReducer, useEffect, useMemo } from 'react'
-
-import { useAuthContext } from '../hooks/useAuthContext'
-
-import axios from '../axios.config'
+import { createContext, useReducer, useMemo } from 'react'
 
 const initialState = {
   loading: null,
@@ -17,7 +13,7 @@ const DELETE_TASK = 'DELETE_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const ERROR = 'ERROR'
 
-const tasksReducer = (state, action) => {
+const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOADING:
       return {
@@ -51,7 +47,6 @@ const tasksReducer = (state, action) => {
     case DELETE_TASK:
       return {
         loading: false,
-        // tasks: action.payload,
         tasks: state.tasks.filter(task => (
           task._id !== action.payload._id
         )),
@@ -70,30 +65,10 @@ const tasksReducer = (state, action) => {
   }
 }
 
-export const TasksContext = createContext()
+export const TasksContext = createContext(initialState)
 
 export const TasksContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tasksReducer, initialState)
-
-  const { user } = useAuthContext()
-
-  const getTasks = async () => {
-    dispatch({ type: 'LOADING' })
-
-    try {
-      const { data } = await axios.get('/tasks')
-
-      dispatch({ type: 'GET_TASKS', payload: data })
-    } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
-    }
-  }
-
-  useEffect(() => {
-    if (user) {
-      getTasks()
-    }
-  }, [dispatch, user])
 
   const memoizedState = useMemo(() => state, [state])
 

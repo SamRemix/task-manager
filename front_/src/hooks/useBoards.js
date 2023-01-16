@@ -8,6 +8,23 @@ const useBoards = () => {
 
   const { state, dispatch } = useBoardsContext()
 
+  // const getBoards = async () => {
+  //   dispatch({ type: 'LOADING' })
+
+  //   try {
+  //     const { data } = await axios.get('/boards')
+
+  //     dispatch({ type: 'GET_BOARDS', payload: data })
+  //     setBoards(data)
+  //   } catch (err) {
+  //     dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getBoards()
+  // }, [])
+
   const getBoard = async id => {
     dispatch({ type: 'LOADING' })
 

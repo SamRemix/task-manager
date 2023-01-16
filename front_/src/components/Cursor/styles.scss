@@ -7,4 +7,12 @@
   inset: 0;
   z-index: 1003;
   pointer-events: none;
+  transition: opacity .2s, box-shadow 0s;
+
+  &--out {
+    @extend .cursor;
+    opacity: 0;
+    box-shadow: 0 0 0 40px #444;
+    transition: opacity .8s, box-shadow .6s;
+  }
 }

@@ -1,71 +1,99 @@
+import './styles.scss'
+
 import { memo, useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuth from '../../hooks/useAuth'
+import PasswordValidation from './PasswordValidation'
 
-import { Button } from 'semantic-ui-react'
-import { Loader, Form } from 'semantic-ui-react'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import useDisplayPassword from '../../hooks/useDisplayPassword'
+
+import axios from '../../axios.config'
+
+import { Form, Icon } from 'semantic-ui-react'
 
 const Signup = () => {
-  const { loading, error, signup } = useAuth()
+  const { error, dispatch } = useAuthContext()
+  const { displayPassword, togglePassword } = useDisplayPassword()
+
+  const navigate = useNavigate()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = async e => {
+  const signup = async e => {
     e.preventDefault()
 
-    await signup(name, email, password)
-  }
+    dispatch({ type: 'LOADING' })
 
-  if (loading) {
-    return <Loader active content="Loading" />
+    try {
+      const { data } = await axios.post('/user/signup', {
+        name,
+        email,
+        password
+      })
+
+      dispatch({ type: 'LOGIN', payload: data })
+
+      localStorage.setItem('token', JSON.stringify(data.token))
+
+      navigate('/')
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
+    }
   }
 
   return (
-    // test
-    <section className="container">
-      <Form onSubmit={handleSubmit}>
-        <motion.div>
+    <section className="container signup">
+      <Form onSubmit={signup}>
+        <motion.div {...config.nameInputAnimation}>
           <Form.Input
             type="text"
             onChange={e => setName(e.target.value)}
             value={name}
             placeholder="Name"
-            autoFocus
-            {...config.nameInputAnimation} />
+            autoFocus />
         </motion.div>
 
-        <motion.div>
+        <motion.div {...config.emailInputAnimation}>
           <Form.Input
             type="text"
             onChange={e => setEmail(e.target.value)}
             value={email}
-            placeholder="Email"
-            {...config.emailInputAnimation} />
+            placeholder="Email" />
         </motion.div>
 
-        <motion.div>
+        <motion.div {...config.passwordInputAnimation}>
           <Form.Input
-            type="text"
+            icon={
+              <Icon
+                name={displayPassword ? 'hide' : 'unhide'}
+                onClick={togglePassword} />
+            }
+            type={displayPassword ? 'text' : 'password'}
             onChange={e => setPassword(e.target.value)}
             value={password}
-            placeholder="Password"
-            {...config.passwordInputAnimation} />
+            placeholder="Password" />
+
+          <PasswordValidation password={password} />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Button className="submit" content="Submit" secondary />
+          <Form.Button className="submit" content="Submit" secondary />
         </motion.div>
 
-        {error && <motion.p
-          className="error-message"
-          {...config.errorMessageAnimation}>
-          {error}
-        </motion.p>}
+        {error && (
+          <motion.p
+            className="error-message"
+            {...config.errorMessageAnimation}>
+            {error}
+          </motion.p>
+        )}
       </Form>
     </section>
   )

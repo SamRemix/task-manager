@@ -18,8 +18,9 @@ const UpdateTask = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [important, setImportant] = useState(null)
+  const [boardId, setBoardId] = useState('')
 
-  let task = []
+  let task
 
   useEffect(() => {
     task = tasks.find(task => (
@@ -31,6 +32,7 @@ const UpdateTask = () => {
     setTitle(task.title)
     setDescription(task.description)
     setImportant(task.important)
+    setBoardId(task.board_id)
   }, [])
 
   const newTask = { title, description, important }
@@ -41,11 +43,11 @@ const UpdateTask = () => {
     dispatch({ type: 'LOADING' })
 
     try {
-      const response = await axios.patch(`/tasks/${task_id}`, newTask)
+      const { data } = await axios.patch(`/tasks/${task_id}`, newTask)
 
-      dispatch({ type: 'UPDATE_TASK', payload: response.data })
+      dispatch({ type: 'UPDATE_TASK', payload: data })
 
-      // navigate(`/boards/${task.board_id}`)
+      navigate(`/boards/${boardId}`)
     } catch (err) {
       dispatch({ type: 'ERROR', payload: err.response.data.error })
     }

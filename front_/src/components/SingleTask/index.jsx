@@ -3,7 +3,6 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
-import cn from 'classnames'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -40,7 +39,7 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 
   return (
     <motion.div
-      className={cn('task__content', { 'task__content--important': important })}
+      className={important ? 'task__content--important' : 'task__content'}
       layoutId={_id}
       {...config.singleTaskAnimation}>
 
@@ -51,10 +50,7 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 
       <div className="task__content-footer">
         <p className="task__content-footer-date">{setDate(createdAt)}</p>
-        <p className={cn({
-          'task-importance--high': important,
-          'task-importance--low': !important
-        })}>
+        <p className='task-importance'>
           {important ? 'high' : 'low'}
         </p>
         {status !== 'Done' && (
