@@ -45,7 +45,15 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 
       <div className="task__content-infos">
         <p className="task__content-infos-title">{title}</p>
-        {description && <p className="task__content-infos-description">{description}</p>}
+        {description.includes(';') ? (
+          <ul className="task__content-infos-description-list">
+            {description.split(';').map((item, index) => (
+              <li key={index} className="task__content-infos-description-list-item">{item}</li>
+            ))}
+          </ul>
+        ) : description && (
+          <p className="task__content-infos-description">{description}</p>
+        )}
       </div>
 
       <div className="task__content-footer">

@@ -1,3 +1,5 @@
+import './styles.scss'
+
 import { memo, useReducer } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
@@ -86,6 +88,10 @@ const AddTask = () => {
             value={newTask.description}
             placeholder="Description (optional)">
           </Form.TextArea>
+
+          <div className="create-list">
+            <p>You can create a list using <b>;</b> between each element to separate them.</p>
+          </div>
         </motion.div>
 
         <motion.div {...config.inputImportantAnimation}>

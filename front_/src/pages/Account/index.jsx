@@ -17,7 +17,7 @@ const Account = () => {
   const { user } = useAuthContext()
 
   return (
-    <section className="container">
+    <section className="container account">
       {user && (
         <>
           {isValid(parseISO(user.createdAt)) && (

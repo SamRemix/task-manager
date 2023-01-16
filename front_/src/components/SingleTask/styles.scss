@@ -32,11 +32,20 @@
       white-space: normal;
     }
 
-    &-description {
+    &-description,
+    &-description-list {
       width: 100%;
       white-space: normal;
       font-size: .8rem;
       line-height: 1rem;
+
+      &-item {
+        padding-left: 4px;
+
+        &::marker {
+          content: '•';
+        }
+      }
     }
   }
 
@@ -51,6 +60,7 @@
       width: 100%;
       font-size: .8rem;
       position: relative;
+      white-space: nowrap;
       cursor: default;
     }
 
