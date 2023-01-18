@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 const useDocumentTitle = currentPage => {
   useEffect(() => {
-    if (!currentPage) {
+    if (currentPage) {
       document.title = currentPage
     }
   }, [])
