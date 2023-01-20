@@ -1,8 +1,0 @@
-@use '../../styles/vars';
-
-.search-bar {
-  grid-area: 1 / 3 / 2 / 3;
-  height: vars.$btn-size;
-  display: flex;
-  align-items: center;
-}

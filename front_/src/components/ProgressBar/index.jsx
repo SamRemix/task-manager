@@ -33,7 +33,7 @@ const ProgressBar = ({ tasks }) => {
       {...config.progressBarAnimation}>
       {toDoLength > 0 && (
         <div
-          className="progress__bar-percent percent-to-do"
+          className="progress__bar-to-do"
           style={{ height: setPercent(toDoLength) + '%' }}>
           <p>{+setPercent(toDoLength).toFixed(1)}<span>%</span></p>
         </div>
@@ -41,7 +41,7 @@ const ProgressBar = ({ tasks }) => {
 
       {inProgressLength > 0 && (
         <div
-          className="progress__bar-percent percent-in-progress"
+          className="progress__bar-in-progress"
           style={{ height: setPercent(inProgressLength) + '%' }}>
           <p>{+setPercent(inProgressLength).toFixed(1)}<span>%</span></p>
         </div>
@@ -49,7 +49,7 @@ const ProgressBar = ({ tasks }) => {
 
       {doneLength > 0 && (
         <div
-          className="progress__bar-percent percent-done"
+          className="progress__bar-done"
           style={{ height: setPercent(doneLength) + '%' }}>
           <p>{+setPercent(doneLength).toFixed(1)}<span>%</span></p>
         </div>

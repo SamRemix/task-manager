@@ -17,9 +17,7 @@ import Home from './pages/Home'
 
 import BoardDetails from './pages/BoardDetails'
 import AddBoard from './pages/AddBoard'
-import BoardSettings from './pages/BoardSettings'
 
-import AddTask from './pages/AddTask'
 import UpdateTask from './pages/UpdateTask'
 
 import Signup from './pages/Signup'
@@ -81,9 +79,7 @@ const App = () => {
 
           <Route path="/boards/:board_id" element={<BoardDetails />} />
           <Route path="/add-board" element={<AddBoard />} />
-          <Route path="/boards/:board_id/settings" element={<BoardSettings />} />
 
-          <Route path="/add-task/:board_id" element={<AddTask />} />
           <Route path="/update-task/:task_id" element={<UpdateTask />} />
 
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />

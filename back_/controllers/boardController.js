@@ -28,8 +28,9 @@ const getBoard = async (req, res) => {
 const createBoard = async (req, res) => {
   const { title } = req.body
 
-  if (!title || title.trim().length === 0) {
-    return res.status(400).json({ error: 'Please fill in \'Title\' field' })
+  if (!title.trim()) {
+    return res.status(400).json({ error: 'Please fill in this field' })
+    // return res.status(400).json({ error: 'Please fill in \'Title\' field' })
   }
 
   if (title.length > 24) {
@@ -48,12 +49,18 @@ const createBoard = async (req, res) => {
 
 const updateBoard = async (req, res) => {
   const { id } = req.params
+  const { title } = req.body
 
   if (!Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'No such board, invalid id' })
   }
 
-  const board = await Board.findOneAndUpdate({ _id: id }, { ...req.body })
+  if (!title.trim()) {
+    return res.status(400).json({ error: 'Please fill in this field' })
+    // return res.status(400).json({ error: 'Please fill in \'Title\' field' })
+  }
+
+  const board = await Board.findOneAndUpdate({ _id: id }, { title })
 
   if (!board) {
     return res.status(400).json({ error: 'No such board' })

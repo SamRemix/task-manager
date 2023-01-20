@@ -1,0 +1,39 @@
+@use '../../styles/vars' as v;
+
+@mixin button-style {
+  padding: 10px;
+  width: fit-content;
+  border-radius: v.$radius;
+  box-shadow: 0 1px 2px #aaa;
+  cursor: pointer;
+}
+
+@mixin default {
+  @include button-style;
+  font-size: 1.4rem;
+  background: #ebdfff;
+  font-weight: 200;
+  transition: .1s;
+
+  &:hover {
+    background: #dfd1f7;
+  }
+
+  &:active {
+    background: #d3c4ee;
+  }
+}
+
+.default {
+  @include default;
+}
+
+// @mixin test {
+//   @include button-style;
+//   background: #ebdfff;
+//   display: flex
+// }
+
+// .test {
+//   @include test;
+// }

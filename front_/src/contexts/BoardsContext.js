@@ -43,7 +43,8 @@ const boardsReducer = (state = initialState, action) => {
       return {
         loading: false,
         boards: state.boards.map(board => (
-          board._id === action.payload._id ? action.payload : board
+          // board._id === action.payload._id ? action.payload : board
+          board._id === action.payload._id ? { ...board, ...action.payload } : board
         )),
         error: null
       }

@@ -1,7 +1,7 @@
 @use '../../styles/vars' as v;
 
 .progress__bar {
-  grid-area: 1 / 1 / 3 / 2;
+  grid-area: ProgressBar;
   width: 80px;
   height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
   display: flex;
@@ -12,40 +12,41 @@
   position: sticky;
   top: 0;
 
-  &-percent {
+  @mixin percent-container($color) {
     width: 40px;
-    border-radius: 6px;
+    background: $color;
+    border-radius: v.$radius;
     display: flex;
     justify-content: center;
     position: relative;
+  }
 
-    &.percent-to-do {
-      background: v.$to-do;
-    }
+  & &-to-do {
+    @include percent-container($color: #ffc0ca);
+  }
 
-    &.percent-in-progress {
-      background: v.$in-progress;
-    }
+  & &-in-progress {
+    @include percent-container($color: #dec1f2);
+  }
 
-    &.percent-done {
-      background: v.$done;
-    }
+  & &-done {
+    @include percent-container($color: #f5e39c);
+  }
 
-    p {
-      padding: 8px;
-      width: 60px;
-      text-align: center;
-      background: #fff;
-      border: 1px solid #aaa;
-      border-radius: 4px;
+  p {
+    padding: 8px;
+    width: 60px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: v.$radius;
+    color: #000;
+    position: absolute;
+    top: 10px;
+
+    span {
       color: #000;
-      position: absolute;
-      top: 10px;
-
-      span {
-        color: #000;
-        font-size: .8em;
-      }
+      font-size: .8em;
     }
   }
 

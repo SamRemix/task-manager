@@ -10,6 +10,7 @@ import config from './motion.config'
 import { formatDistanceToNowStrict } from 'date-fns'
 
 import { useTasksContext } from "../../hooks/useTasksContext"
+import capitalize from '../../utils/capitalize'
 
 import axios from '../../axios.config'
 
@@ -17,7 +18,6 @@ import { HiCheckCircle, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icon
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
   const { dispatch } = useTasksContext()
-
 
   const updateStatus = async () => {
     const response = await axios.patch(`/tasks/${_id}`, {
@@ -44,15 +44,25 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
       {...config.singleTaskAnimation}>
 
       <div className="task__content-infos">
-        <p className="task__content-infos-title">{title}</p>
-        {description.includes(';') ? (
+        <p className="task__content-infos-title">
+          {capitalize(title)}
+        </p>
+        {description.includes('\n') ? (
           <ul className="task__content-infos-description-list">
-            {description.split(';').map((item, index) => (
-              <li key={index} className="task__content-infos-description-list-item">{item}</li>
+            {description.split('\n').map((item, index) => (
+              item.trim() && (
+                <li
+                  key={index}
+                  className="task__content-infos-description-list-item">
+                  {capitalize(item)}
+                </li>
+              )
             ))}
           </ul>
         ) : description && (
-          <p className="task__content-infos-description">{description}</p>
+          <p className="task__content-infos-description">
+            {capitalize(description)}
+          </p>
         )}
       </div>
 
@@ -85,14 +95,14 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 SingleTask.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  dsecription: PropTypes.string,
+  description: PropTypes.string,
   status: PropTypes.string.isRequired,
   important: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired
 }
 
 SingleTask.defaultProps = {
-  dsecription: ''
+  description: ''
 }
 
 export default memo(SingleTask)

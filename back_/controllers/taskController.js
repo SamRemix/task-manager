@@ -2,10 +2,19 @@
 const Task = require('../models/taskModel')
 const { Types } = require('mongoose')
 
+// const getTasks = async (req, res) => {
+//   const { _id } = req.user
+//   const { id } = req.params
+
+//   const tasks = await Task.find({ user_id: _id, board_id: id }).sort({ important: -1, createdAt: -1 })
+
+//   res.status(200).json(tasks)
+// }
+
 const getTasks = async (req, res) => {
   const { _id } = req.user
-  const { id } = req.params
-  const tasks = await Task.find({ user_id: _id, board_id: id }).sort({ important: -1, createdAt: -1 })
+
+  const tasks = await Task.find({ user_id: _id }).sort({ important: -1, createdAt: -1 })
 
   res.status(200).json(tasks)
 }
@@ -29,10 +38,8 @@ const getTask = async (req, res) => {
 const createTask = async (req, res) => {
   const { title } = req.body
 
-  console.log(req.body);
-
-  if (!title || title.trim().length === 0) {
-    return res.status(400).json({ error: 'Please fill in \'Title\' field' })
+  if (!title.trim()) {
+    return res.status(400).json({ error: 'Please fill in this field' })
   }
 
   if (title.length > 36) {
@@ -41,7 +48,11 @@ const createTask = async (req, res) => {
 
   try {
     const { _id } = req.user
-    const task = await Task.create({ ...req.body, user_id: _id })
+    const task = await Task.create({
+      ...req.body,
+      status: 'To do',
+      user_id: _id
+    })
 
     // await Board.findByIdAndUpdate(board_id, {
     //   $push: {

@@ -1,79 +1,80 @@
-@use '../../styles/vars';
+@use '../../styles/vars' as v;
+
+@mixin name {
+  margin: 0 20px;
+  padding: 0 40px;
+  width: fit-content;
+  height: 40px;
+  border-radius: v.$radius;
+  font-size: 1.4em;
+  display: flex;
+  align-items: center;
+}
+
+@mixin container {
+  width: 100%;
+  margin: 20px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
 .tasks-container {
-  grid-area: 2 / 2 / 3 / 4;
+  grid-area: TasksContainer;
   display: grid;
   gap: 40px;
 
-  .status {
-    &.to-do {
-      .task-status {
-        background: vars.$to-do;
-      }
+  .to-do {
+    &-name {
+      @include name;
+      background: v.$to-do;
+    }
 
-      .grid {
+    &-container {
+      @include container;
 
-        .task__content,
-        .task__content--important {
-          &:hover {
-            background: vars.$to-do;
-            box-shadow: 0 0 0 4px vars.$to-do;
-          }
+      .task__content,
+      .task__content--important {
+        &:hover {
+          @include v.set-color(v.$to-do);
         }
       }
     }
+  }
 
-    &.in-progress {
-      .task-status {
-        background: vars.$in-progress;
-      }
+  .in-progress {
+    &-name {
+      @include name;
+      background: v.$in-progress;
+    }
 
-      .grid {
+    &-container {
+      @include container;
 
-        .task__content,
-        .task__content--important {
-          &:hover {
-            background: vars.$in-progress;
-            box-shadow: 0 0 0 4px vars.$in-progress;
-          }
+      .task__content,
+      .task__content--important {
+        &:hover {
+          @include v.set-color(v.$in-progress);
         }
       }
     }
+  }
 
-    &.done {
-      .task-status {
-        background: vars.$done;
-      }
+  .done {
+    &-name {
+      @include name;
+      background: v.$done;
+    }
 
-      .grid {
+    &-container {
+      @include container;
 
-        .task__content,
-        .task__content--important {
-          &:hover {
-            background: vars.$done;
-            box-shadow: 0 0 0 4px vars.$done;
-          }
+      .task__content,
+      .task__content--important {
+        &:hover {
+          @include v.set-color(v.$done);
         }
       }
-    }
-
-    .task-status {
-      margin: 0 20px;
-      padding: 0 40px;
-      width: fit-content;
-      height: 40px;
-      border-radius: 6px;
-      font-size: 1.4em;
-      display: flex;
-      align-items: center;
-    }
-
-    .grid {
-      width: 100%;
-      margin: 20px 0 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
     }
   }
 }

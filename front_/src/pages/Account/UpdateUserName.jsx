@@ -8,6 +8,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 
 import axios from '../../axios.config'
 
+import Button from '../../components/Button'
 import { Form } from 'semantic-ui-react'
 
 const UpdateUserName = () => {
@@ -40,7 +41,6 @@ const UpdateUserName = () => {
     <motion.div {...config.nameFormAnimation}>
       <Form onSubmit={updateUserName}>
         <div>
-          {/* <p>Update Name</p> */}
           <Form.Input
             type="text"
             value={name}
@@ -49,13 +49,9 @@ const UpdateUserName = () => {
             maxLength="36" />
         </div>
 
-        <div>
-          {!loading ? (
-            <Form.Button className="submit" content="Update name" secondary />
-          ) : (
-            <Form.Button className="submit" content="Update name" loading secondary />
-          )}
-        </div>
+        <Button>
+          <p>Update name</p>
+        </Button>
 
         {error && (
           <div

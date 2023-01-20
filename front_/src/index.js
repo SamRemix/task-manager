@@ -6,7 +6,6 @@ import App from './App'
 
 import 'semantic-ui-css/semantic.min.css'
 
-import './styles/global.dark.scss'
 import './styles/global.scss'
 import './styles/responsive.scss'
 
@@ -18,15 +17,15 @@ import { ThemeContextProvider } from './contexts/ThemeContext'
 const root = createRoot(document.getElementById('root'))
 
 root.render(
-  <AuthContextProvider>
-    <BoardsContextProvider>
-      <TasksContextProvider>
-        <ThemeContextProvider>
+  <ThemeContextProvider>
+    <AuthContextProvider>
+      <BoardsContextProvider>
+        <TasksContextProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </ThemeContextProvider>
-      </TasksContextProvider>
-    </BoardsContextProvider>
-  </AuthContextProvider >
+        </TasksContextProvider>
+      </BoardsContextProvider>
+    </AuthContextProvider >
+  </ThemeContextProvider>
 )

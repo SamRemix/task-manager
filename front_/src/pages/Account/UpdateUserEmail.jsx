@@ -8,6 +8,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 
 import axios from '../../axios.config'
 
+import Button from '../../components/Button'
 import { Form } from 'semantic-ui-react'
 
 const UpdateUserEmail = () => {
@@ -47,13 +48,9 @@ const UpdateUserEmail = () => {
             placeholder="Email" />
         </div>
 
-        <div>
-          {!loading ? (
-            <Form.Button className="submit" content="Update email" secondary />
-          ) : (
-            <Form.Button className="submit" content="Update email" loading secondary />
-          )}
-        </div>
+        <Button>
+          <p>Update email</p>
+        </Button>
 
         {error && (
           <div

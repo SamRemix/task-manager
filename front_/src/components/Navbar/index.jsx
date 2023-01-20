@@ -1,28 +1,29 @@
 import './styles.scss'
 
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import SingleBoard from '../SingleBoard'
 
+import { useThemeContext } from '../../hooks/useThemeContext'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
-import { useThemeContext } from '../../hooks/useThemeContext'
 
 import useLogout from '../../hooks/useLogout'
+
+import Button from '../Button'
 
 import {
   HiSparkles,
   HiSun,
-  HiHome,
-  HiClipboardDocumentList,
-  HiDocumentPlus,
   HiUser,
-  HiLockClosed,
-  // HiCog8Tooth,
-  HiArrowRightOnRectangle,
-  HiUserPlus,
-  HiArrowLeftOnRectangle,
+  HiHome,
+  HiLockClosed, // Error icon (Request isn't authorized)
+  HiClipboardDocumentList, // Boards icon
+  HiDocumentPlus, // Add board icon
+  HiArrowLeftOnRectangle, // Logout icon
+  HiArrowRightOnRectangle, // Login icon
+  HiUserPlus // Signup icon 
 } from 'react-icons/hi2'
 
 const Navbar = () => {
@@ -60,9 +61,10 @@ const Navbar = () => {
                 <HiUser size="1.6em" />
               )}
             </div>
-
             <NavLink to="/account" end>
-              <p className="user__card-name">{user.name}</p>
+              <Button>
+                <p>{user.name}</p>
+              </Button>
             </NavLink>
           </div>
         )}
@@ -71,18 +73,14 @@ const Navbar = () => {
           <div className="menu">
             <li className="navbar__list-item">
               <NavLink to="/" className="link">
-                <div className="icon">
-                  <HiHome size="1.6em" />
-                </div>
-                <p className="title">Home</p>
+                <HiHome className="icon" size="1.6em" />
+                <h1 className="title">Home</h1>
               </NavLink>
             </li>
 
             {error && (
               <li className="navbar__list-item error-message">
-                <div className="icon">
-                  <HiLockClosed size="1.6em" />
-                </div>
+                <HiLockClosed className="icon" size="1.6em" />
                 <p className="title">{error}</p>
               </li>
             )}
@@ -90,13 +88,10 @@ const Navbar = () => {
             {user && !error && (
               <li className="navbar__list-item boards">
                 <div className="content">
-                  <div className="icon">
-                    <HiClipboardDocumentList size="1.6em" />
-                  </div>
-                  <p className="title">Boards</p>
+                  <HiClipboardDocumentList className="icon" size="1.6em" />
+                  <h1 className="title">Boards</h1>
                 </div>
 
-                {/* {Array.isArray(boards) && ( */}
                 {boards && (
                   <ul className="boards__list">
                     {boards.map(board => (
@@ -105,24 +100,13 @@ const Navbar = () => {
 
                     <li className="boards__list-item">
                       <NavLink to="/add-board" className="link">
-                        <div className="icon">
-                          <HiDocumentPlus size="1.2em" />
-                        </div>
+                        <HiDocumentPlus className="icon" size="1.2em" />
                         <p className="title">Add board</p>
                       </NavLink>
                     </li>
                   </ul>
                 )}
               </li>
-
-              // <li className="navbar__list-item">
-              //   <div className="content">
-              //     <div className="icon">
-              //       <HiCog8Tooth size="1.6em" />
-              //     </div>
-              //     <p className="title">Settings</p>
-              //   </div>
-              // </li>
             )}
           </div>
 
@@ -130,9 +114,7 @@ const Navbar = () => {
             {user ? (
               <li className="navbar__list-item">
                 <div className="link" onClick={logout}>
-                  <div className="icon">
-                    <HiArrowLeftOnRectangle size="1.6em" />
-                  </div>
+                  <HiArrowLeftOnRectangle className="icon" size="1.6em" />
                   <p className="title">Log Out</p>
                 </div>
               </li>
@@ -140,18 +122,14 @@ const Navbar = () => {
               <>
                 <li className="navbar__list-item">
                   <NavLink to="/login" className="link">
-                    <div className="icon">
-                      <HiArrowRightOnRectangle size="1.6em" />
-                    </div>
+                    <HiArrowRightOnRectangle className="icon" size="1.6em" />
                     <p className="title">Log In</p>
                   </NavLink>
                 </li>
 
                 <li className="navbar__list-item">
                   <NavLink to="/signup" className="link">
-                    <div className="icon">
-                      <HiUserPlus size="1.6em" />
-                    </div>
+                    <HiUserPlus className="icon" size="1.6em" />
                     <p className="title">Sign Up</p>
                   </NavLink>
                 </li>

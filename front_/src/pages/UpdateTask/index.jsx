@@ -13,37 +13,50 @@ const UpdateTask = () => {
   let { task_id } = useParams()
   const navigate = useNavigate()
 
-  const { loading, tasks, error, dispatch } = useTasksContext()
+  const { dispatch } = useTasksContext()
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [important, setImportant] = useState(null)
   const [boardId, setBoardId] = useState('')
 
-  let task
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    task = tasks.find(task => (
-      task._id === task_id
-    ))
+    const getTask = async () => {
 
-    // console.log(task.board_id);
+      setLoading(true)
 
-    setTitle(task.title)
-    setDescription(task.description)
-    setImportant(task.important)
-    setBoardId(task.board_id)
+      try {
+        const { data } = await axios.get(`/tasks/${task_id}`)
+
+        setTitle(data.title)
+        setDescription(data.description)
+        setImportant(data.important)
+        setBoardId(data.board_id)
+
+        setLoading(false)
+      } catch (err) {
+        setLoading(false)
+        setError(err.response.data.error)
+      }
+    }
+
+    getTask()
   }, [])
 
-  const newTask = { title, description, important }
-
-  const handleUpdate = async e => {
+  const update = async e => {
     e.preventDefault()
 
     dispatch({ type: 'LOADING' })
 
     try {
-      const { data } = await axios.patch(`/tasks/${task_id}`, newTask)
+      const { data } = await axios.patch(`/tasks/${task_id}`, {
+        title,
+        description,
+        important
+      })
 
       dispatch({ type: 'UPDATE_TASK', payload: data })
 
@@ -59,26 +72,36 @@ const UpdateTask = () => {
 
   return (
     <section className="container">
-      <Form onSubmit={handleUpdate}>
+      <Form onSubmit={update}>
         <motion.div {...config.titleInputAnimation}>
           <Form.Input
             type="text"
-            className={`title__input${error && ' error'}`}
-            value={title}
-            onChange={e => setTitle(e.target.value)}
+            className={error ? 'title__input--error' : 'title__input'}
+            value={error ? '' : title}
+            onChange={e => {
+              setError(false)
+              setTitle(e.target.value)
+            }}
             placeholder="Title"
             maxLength="36"
             autoFocus />
-          <p className="title__input-remaining">{36 - title.length} remaining character{title.length < 35 && 's'}</p>
         </motion.div>
+
+        <p className="title__input-remaining">
+          {36 - title.length} remaining character{title.length < 35 && 's'}
+        </p>
 
         <motion.div {...config.descriptionInputAnimation}>
           <Form.TextArea
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={e => setDescription(e.target.value.replace(';', '\n'))}
             placeholder="Description (optional)">
           </Form.TextArea>
         </motion.div>
+
+        <div className="create-list">
+          <p>To create a list, use <b>;</b> between each item to separate them.</p>
+        </div>
 
         <motion.div {...config.inputImportantAnimation}>
           <Form.Checkbox
@@ -89,20 +112,12 @@ const UpdateTask = () => {
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          {!loading ? (
-            <Form.Button className="submit" content="Update task" secondary />
-          ) : (
-            <Form.Button className="submit" content="Update task" loading secondary />
-          )}
+          <Form.Button
+            className="submit"
+            content="Update task"
+            loading={loading}
+            secondary />
         </motion.div>
-
-        {error && <div
-          className="error-message">
-          <motion.p
-            {...config.errorMessageAnimation}>
-            {error}
-          </motion.p>
-        </div>}
       </Form>
     </section>
   )

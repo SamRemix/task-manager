@@ -14,21 +14,19 @@
     @extend .dark-filter;
 
     clip-path: circle(150% at 68px 68px);
+    z-index: 4;
   }
 }
 
 .navbar {
+  @include v.flex-column;
   padding: 40px;
   width: v.$navbar-width;
   height: calc(100vh - v.$app-padding * 2);
   background: v.$light;
-  display: flex;
-  flex-direction: column;
   gap: 40px;
   position: sticky;
   inset: v.$app-padding;
-  z-index: 1;
-  overflow: hidden;
 
   &::before {
     content: '';
@@ -58,14 +56,12 @@
     gap: 20px;
 
     &-picture {
+      @include v.flex-center;
       width: 60px;
       height: 60px;
       background: v.$light;
       border: 1px solid #000;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     &-name {
@@ -91,10 +87,8 @@
 
     .menu,
     .auth {
+      @include v.flex-column;
       width: 100%;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
       gap: 40px;
 
       .navbar__list-item {
@@ -108,18 +102,29 @@
           gap: 20px;
 
           .title {
-            word-wrap: break-word;
-            white-space: pre-wrap;
+            overflow-wrap: break-word;
           }
         }
+
+        // .link {
+        //   padding: 10px;
+        //   background: #efe6ff;
+        //   border-radius: 12px;
+        //   box-shadow: 0 1px 2px #aaa;
+
+        //   &:hover {
+        //     background: #ebdfff;
+        //   }
+        // }
 
         .link,
         .content {
           display: flex;
           align-items: center;
           gap: 20px;
+          overflow-wrap: break-word;
 
-          .title {
+          h1.title {
             font-weight: 600;
           }
         }
@@ -127,49 +132,21 @@
         .link {
           cursor: pointer;
 
-          &.active {
-            .icon {
-              color: v.$red;
-            }
-
-            .title {
-              color: v.$red;
-            }
-          }
-
+          &.active,
           &:hover {
-            .icon {
-              color: v.$dark-red;
-            }
 
+            .icon,
             .title {
-              color: v.$dark-red;
+              color: #34ac29;
             }
           }
         }
       }
 
       .boards__list {
+        @include v.flex-column;
         margin: 20px 0 0 10px;
-        display: flex;
-        flex-direction: column;
         gap: 20px;
-
-        &-item {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-
-          .link {
-            .title {
-              // max-width: 120px;
-              // word-wrap: break-word;
-              // white-space: pre-wrap;
-              font-weight: 400;
-            }
-          }
-        }
       }
     }
   }

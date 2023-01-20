@@ -2,7 +2,27 @@
 @media (min-width: 640px) {}
 
 // md 768px
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+
+  .dark-filter {
+    z-index: 4;
+  }
+
+  .container {
+    .modal {
+      width: auto;
+      height: auto;
+
+      &-close {
+        inset: 20px 20px auto auto;
+      }
+
+      &-content {
+        padding: 20px;
+      }
+    }
+  }
+}
 
 // lg 1024px
 @media (min-width: 1024px) {}

@@ -3,18 +3,19 @@
 .task__content {
   padding: 1rem;
   flex: 1;
-  background: #ddd;
-  border-radius: 6px;
+  background: v.$low-importance;
+  border-radius: v.$radius;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 20px;
   position: relative;
+  transition: .2s;
 
   &--important {
     @extend .task__content;
 
-    background: v.$important-task;
+    background: v.$high-importance;
 
     .task__content-footer {
       .task-importance {
@@ -28,15 +29,9 @@
     flex-direction: column;
     gap: 10px;
 
-    &-title {
-      white-space: normal;
-    }
-
     &-description,
     &-description-list {
-      width: 100%;
-      white-space: normal;
-      font-size: .8rem;
+      font-size: .9rem;
       line-height: 1rem;
 
       &-item {
@@ -122,6 +117,10 @@
       &-validate {
         &:hover {
           color: v.$blue;
+        }
+
+        &+.button-title {
+          white-space: nowrap;
         }
       }
 

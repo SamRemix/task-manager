@@ -1,49 +1,59 @@
-$green-border: #1aac83;
-$red-dark: #df0000;
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-$new: #f0f014;
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
-$blue-dark: #1863ff;
+@mixin flex-column-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 $light: #f6fafd;
 // $light: #f7ece6;
 // $light: #f2ede1;
 
 $to-do: #ffc0ca;
 $in-progress: #dec1f2;
-// $done: #f9d89c;
-// $done: #f7e991;
 $done: #f5e39c;
+
+@mixin set-color($color) {
+  background: $color;
+  box-shadow: 0 0 0 4px $color;
+}
 
 // $to-do: rgba(#FCDDB0, 1);
 // $in-progress: rgba(#FFDB89, 1);
 // $done: rgba(#ff6058, 1);
 
-$important-task: #FCDDB0;
-
-
-$black: #000;
-$white: #fff;
+$high-importance: #fcddb0;
+$low-importance: #ddd;
 
 $dark: #222;
 $green: #1eb854;
-// $red: #ff3e00;
+$green-1: #1aac83;
+// 
 
 $red: #ff6058;
-$dark-red: #D14F48;
+$red-1: #ff3e00;
+$dark-red-1: #D14F48;
 
 $blue: #40b3ff;
-$blue-test: #497ff8;
+$blue-1: #497ff8;
 
 $app-padding: 15px;
 $container-padding: 40px;
 $container-gap: 60px;
 
 $navbar-width: 280px;
-// $app-row-gap: 40px;
 
 $btn-size: 60px;
 
-$sm-shadow: 0 6px 12px rgba($color: #000, $alpha: .2);
-$lg-shadow: 0 12px 24px rgba($color: #000, $alpha: .2);
-
-// $container-bg: rgba($color: #fff, $alpha: .4);
+$radius: 12px;

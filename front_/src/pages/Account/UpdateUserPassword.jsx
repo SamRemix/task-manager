@@ -9,6 +9,7 @@ import useDisplayPassword from '../../hooks/useDisplayPassword'
 
 import axios from '../../axios.config'
 
+import Button from '../../components/Button'
 import { Form, Icon } from 'semantic-ui-react'
 
 const UpdateUserPassword = () => {
@@ -45,37 +46,31 @@ const UpdateUserPassword = () => {
   return (
     <motion.div {...config.passwordFormAnimation}>
       <Form onSubmit={updateUserPassword}>
-        <div>
-          <Form.Input
-            icon={
-              <Icon
-                name={displayPassword ? 'hide' : 'unhide'}
-                onClick={togglePassword} />
-            }
-            type={displayPassword ? 'text' : 'password'}
-            value={currentPassword}
-            onChange={e => setCurrentPassword(e.target.value)}
-            placeholder="Current Password" />
+        <Form.Input
+          icon={
+            <Icon
+              name={displayPassword ? 'hide' : 'unhide'}
+              onClick={togglePassword} />
+          }
+          type={displayPassword ? 'text' : 'password'}
+          value={currentPassword}
+          onChange={e => setCurrentPassword(e.target.value)}
+          placeholder="Current Password" />
 
-          <Form.Input
-            icon={
-              <Icon
-                name={displayPassword ? 'hide' : 'unhide'}
-                onClick={togglePassword} />
-            }
-            type={displayPassword ? 'text' : 'password'}
-            value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
-            placeholder="New Password" />
-        </div>
+        <Form.Input
+          icon={
+            <Icon
+              name={displayPassword ? 'hide' : 'unhide'}
+              onClick={togglePassword} />
+          }
+          type={displayPassword ? 'text' : 'password'}
+          value={newPassword}
+          onChange={e => setNewPassword(e.target.value)}
+          placeholder="New Password" />
 
-        <div>
-          {!loading ? (
-            <Form.Button className="submit" content="Update password" secondary />
-          ) : (
-            <Form.Button className="submit" content="Update password" loading secondary />
-          )}
-        </div>
+        <Button>
+          <p>Update password</p>
+        </Button>
 
         {error && (
           <div

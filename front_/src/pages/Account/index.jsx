@@ -5,6 +5,7 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
 import UpdateUserName from './UpdateUserName'
@@ -15,6 +16,8 @@ import { isValid, formatDistanceToNowStrict, parseISO } from 'date-fns'
 
 const Account = () => {
   const { user } = useAuthContext()
+
+  useDocumentTitle(user.name)
 
   return (
     <section className="container account">
