@@ -6,15 +6,14 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-import useDisplayPassword from '../../hooks/useDisplayPassword'
 
 import axios from '../../axios.config'
 
-import { Form, Icon } from 'semantic-ui-react'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 const Login = () => {
   const { dispatch } = useAuthContext()
-  const { displayPassword, togglePassword } = useDisplayPassword()
 
   const navigate = useNavigate()
 
@@ -43,38 +42,39 @@ const Login = () => {
       navigate('/')
     } catch (err) {
       setError(err.response.data.error)
-      // dispatch({ type: 'ERROR', payload: err.response.data.error })
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
     }
   }
 
   return (
-    // test
     <section className="container">
-      <Form onSubmit={login}>
+      <form onSubmit={login}>
         <motion.div {...config.emailInputAnimation}>
-          <Form.Input
-            type="text"
-            onChange={e => setEmail(e.target.value)}
-            value={email}
+          <Input
             placeholder="Email"
-            autoFocus />
+            value={email}
+            onChange={e => {
+              setError(false)
+              setEmail(e.target.value)
+            }}
+            focus={true}
+          />
         </motion.div>
 
         <motion.div {...config.passwordInputAnimation}>
-          <Form.Input
-            icon={
-              <Icon
-                name={displayPassword ? 'hide' : 'unhide'}
-                onClick={togglePassword} />
-            }
-            type={displayPassword ? 'text' : 'password'}
-            onChange={e => setPassword(e.target.value)}
+          <Input
+            type="password"
+            placeholder="Password"
             value={password}
-            placeholder="Password" />
+            onChange={e => {
+              setError(false)
+              setPassword(e.target.value)
+            }}
+          />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Form.Button className="submit" content="Submit" secondary />
+          <Button type="form-button" disabled={error}>Log in</Button>
         </motion.div>
 
         {error && (
@@ -84,7 +84,7 @@ const Login = () => {
             {error}
           </motion.p>
         )}
-      </Form>
+      </form>
     </section>
   )
 }

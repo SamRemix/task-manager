@@ -1,10 +1,15 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
 .backdrop {
   background: rgba($color: #000, $alpha: .4);
   position: fixed;
   inset: 0;
   z-index: 2;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .modal {
@@ -26,8 +31,8 @@
   }
 
   &-content {
+    @include mix.flex-column;
     padding: 40px;
-    @include v.flex-column;
     gap: 40px;
 
     &-title {

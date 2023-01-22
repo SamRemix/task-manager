@@ -7,7 +7,8 @@ import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
 
-import { Form, Button } from 'semantic-ui-react'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 const BoardSettings = ({ board_id, setIsOpen }) => {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ const BoardSettings = ({ board_id, setIsOpen }) => {
   const { user } = useAuthContext()
   const { dispatch } = useBoardsContext()
 
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const [title, setTitle] = useState('')
@@ -36,21 +37,21 @@ const BoardSettings = ({ board_id, setIsOpen }) => {
     }
   }, [user])
 
-  const update = async e => {
+  const updateBoard = async e => {
     e.preventDefault()
 
-    setLoading(true)
+    // setLoading(true)
 
     try {
       const { data } = await axios.patch(`/boards/${board_id}`, { title })
 
       dispatch({ type: 'UPDATE_BOARD', payload: data })
 
-      setLoading(false)
+      // setLoading(false)
 
       setIsOpen(false)
     } catch (err) {
-      setLoading(false)
+      // setLoading(false)
       setError(err.response.data.error)
     }
   }
@@ -67,30 +68,23 @@ const BoardSettings = ({ board_id, setIsOpen }) => {
 
   return (
     <>
-      <Form onSubmit={update}>
-        <Form.Input
-          type="text"
-          className={error ? 'title__input--error' : 'title__input'}
-          value={error ? '' : title}
+      <form onSubmit={updateBoard}>
+        <Input
+          placeholder="Title"
+          value={title}
           onChange={e => {
             setError(false)
             setTitle(e.target.value)
           }}
-          placeholder={error ? error : 'Title'}
           maxLength="24"
-          autoFocus />
-        <p className="title__input-remaining">
-          {24 - title.length} remaining character{title.length < 23 && 's'}
-        </p>
+          focus={true}
+          error={error}
+        />
 
-        <Form.Button
-          className="submit"
-          content="Update board"
-          loading={loading}
-          secondary />
-      </Form>
+        <Button type="form-button">Update board</Button>
+      </form>
 
-      <Button content="Delete board" onClick={deleteBoard} />
+      <Button event={deleteBoard}>Delete board</Button>
     </>
   )
 }

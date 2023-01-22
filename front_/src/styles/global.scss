@@ -16,15 +16,15 @@
 
   &::-webkit-scrollbar-thumb {
     background: #aaa !important;
-    pointer-events: none !important;
+    border-radius: 8px !important;
 
-    &:hover {
-      background: #888 !important;
-    }
+    // &:hover {
+    //   background: #aaa !important;
+    // }
   }
 
   &::-webkit-scrollbar-track {
-    margin: 20px;
+    margin: v.$scrollbar-margin;
     border-radius: 8px !important;
     background: #ddd !important;
   }
@@ -66,14 +66,13 @@ body {
       }
 
       .container {
-        margin-right: calc(v.$container-padding / 2);
+        margin-right: v.$scrollbar-margin;
         padding: v.$container-padding;
         min-height: calc(100vh - v.$container-padding * 2);
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap: v.$container-gap;
         overflow: hidden scroll;
 
         &__title {
@@ -84,23 +83,11 @@ body {
         }
 
         .ui {
-          &.loader {
-            inset: unset;
-            transform: none;
-          }
-
-          &.button,
-          &.input>input,
-          &.form .field textarea {
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 1.1em;
-            // font-weight: 200;
-          }
-
           &.form {
-            .field:not(.submit) {
-              margin: 0;
+            .field {
+              &:not(.submit) {
+                margin: 0;
+              }
             }
           }
         }
@@ -131,18 +118,15 @@ body {
             }
           }
 
-          .title__input-remaining {
-            margin: 0;
-            color: #888;
-          }
-
           textarea {
-            max-height: 200px;
-            min-height: 90px;
+            height: 200px;
+            max-height: 300px;
+            min-height: 100px;
             resize: vertical;
           }
 
           .create-list {
+            margin-top: 20px;
             padding: 20px;
             background: #ddd;
             border-radius: 6px;
@@ -171,7 +155,8 @@ body {
 
           .error-message {
             color: v.$red;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 400;
             position: absolute;
             inset: calc(100% + 20px) auto auto 20px;
           }

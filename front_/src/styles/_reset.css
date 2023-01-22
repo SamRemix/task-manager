@@ -153,12 +153,17 @@ a {
   color: inherit !important;
 }
 
-label,
-button {
+label {
   cursor: pointer;
 }
 
-input,
+input {
+  outline: 0;
+}
+
 button {
   outline: 0;
+  font-family: unset;
+  line-height: unset;
+  cursor: pointer;
 }

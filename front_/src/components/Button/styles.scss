@@ -1,10 +1,12 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
 @mixin button-style {
   padding: 10px;
   width: fit-content;
   border-radius: v.$radius;
-  box-shadow: 0 1px 2px #aaa;
+  box-shadow: 0 1px 2px rgba($color: #000, $alpha: .4);
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -20,7 +22,11 @@
   }
 
   &:active {
-    background: #d3c4ee;
+    background: #cdbdeb;
+  }
+
+  &:disabled {
+    opacity: .6
   }
 }
 
@@ -28,12 +34,7 @@
   @include default;
 }
 
-// @mixin test {
-//   @include button-style;
-//   background: #ebdfff;
-//   display: flex
-// }
-
-// .test {
-//   @include test;
-// }
+.form-button {
+  @include default;
+  margin-left: 20px;
+}

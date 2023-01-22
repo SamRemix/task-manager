@@ -8,7 +8,7 @@ const initialState = {
 
 const LOADING = 'LOADING'
 const LOGIN = 'LOGIN'
-const UPDATE = 'UPDATE'
+const UPDATE_USER = 'UPDATE_USER'
 const ERROR = 'ERROR'
 
 const AuthReducer = (state = initialState, action) => {
@@ -26,7 +26,7 @@ const AuthReducer = (state = initialState, action) => {
         user: action.payload
       }
 
-    case UPDATE:
+    case UPDATE_USER:
       return {
         ...state,
         loading: false,

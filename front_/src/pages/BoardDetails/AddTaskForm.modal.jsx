@@ -5,7 +5,8 @@ import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
 
-import { Form } from 'semantic-ui-react'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 const AddTaskForm = ({ board_id, setIsOpen }) => {
   const { dispatch } = useTasksContext()
@@ -38,71 +39,65 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
     board_id
   })
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  // const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const addTask = async e => {
     e.preventDefault()
 
-    setLoading(true)
+    // setLoading(true)
 
     try {
       const { data } = await axios.post('/tasks', newTask)
 
       dispatch({ type: 'CREATE_TASK', payload: data })
 
-      setLoading(false)
+      // setLoading(false)
 
       setIsOpen(false)
     } catch (err) {
-      setLoading(false)
+      // setLoading(false)
       setError(err.response.data.error)
     }
   }
 
   return (
-    <Form onSubmit={addTask}>
-      <Form.Input
-        type="text"
-        className={error ? 'title__input--error' : 'title__input'}
-        value={error ? '' : newTask.title}
+    <form onSubmit={addTask}>
+      <Input
+        placeholder="Title"
+        value={newTask.title}
         onChange={e => {
           setError(false)
           dispatchNewTask(actionSetField('title', e.target.value))
         }}
-        placeholder={error ? error : 'Title'}
         maxLength="36"
-        autoFocus />
+        focus={true}
+        error={error}
+      />
 
-      <p className="title__input-remaining">
-        {36 - newTask.title.length} remaining character{newTask.title.length < 35 && 's'}
-      </p>
-
-      <Form.TextArea
+      <Input
+        type="textarea"
+        placeholder="Description (optional)"
         value={newTask.description}
         onChange={e => {
           dispatchNewTask(actionSetField('description', e.target.value.replace(';', '\n')))
         }}
-        placeholder="Description (optional)" />
+      />
 
       <div className="create-list">
         <p>To create a list, use <b>;</b> between each item to separate them.</p>
       </div>
 
-      <Form.Checkbox
-        label="Important"
-        className="important__checkbox"
-        checked={newTask.important}
+      <Input
+        type="checkbox"
+        placeholder="Important"
+        value={newTask.important}
         onChange={() => {
           dispatchNewTask(actionSetField('important', !newTask.important))
         }} />
 
-      <Form.Button
-        className="submit"
-        content="Add task"
-        loading={loading}
-        secondary />
-    </Form>
+      <Button type="form-button">Add task</Button>
+    </form>
   )
 }
 

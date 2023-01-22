@@ -8,6 +8,7 @@
   grid-template-areas:
     'ProgressBar Header'
     'ProgressBar TasksContainer';
+  gap: 60px;
 
   header {
     grid-area: Header;

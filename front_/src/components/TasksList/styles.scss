@@ -1,4 +1,5 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
 @mixin name {
   margin: 0 20px;
@@ -7,6 +8,7 @@
   height: 40px;
   border-radius: v.$radius;
   font-size: 1.4em;
+  font-weight: 200;
   display: flex;
   align-items: center;
 }
@@ -17,6 +19,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+@mixin set-color($color) {
+  background: $color;
+  box-shadow: 0 0 0 4px $color;
 }
 
 .tasks-container {
@@ -36,7 +43,7 @@
       .task__content,
       .task__content--important {
         &:hover {
-          @include v.set-color(v.$to-do);
+          @include set-color(v.$to-do);
         }
       }
     }
@@ -54,7 +61,7 @@
       .task__content,
       .task__content--important {
         &:hover {
-          @include v.set-color(v.$in-progress);
+          @include set-color(v.$in-progress);
         }
       }
     }
@@ -72,7 +79,7 @@
       .task__content,
       .task__content--important {
         &:hover {
-          @include v.set-color(v.$done);
+          @include set-color(v.$done);
         }
       }
     }

@@ -5,16 +5,14 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-import useDisplayPassword from '../../hooks/useDisplayPassword'
 
 import axios from '../../axios.config'
 
+import Input from '../../components/Input'
 import Button from '../../components/Button'
-import { Form, Icon } from 'semantic-ui-react'
 
 const UpdateUserPassword = () => {
   const { user, dispatch } = useAuthContext()
-  const { displayPassword, togglePassword } = useDisplayPassword()
 
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -33,42 +31,40 @@ const UpdateUserPassword = () => {
         newPassword
       })
 
-      dispatch({ type: 'UPDATE', payload: data })
+      dispatch({ type: 'UPDATE_USER', payload: data })
 
       setError(false)
     } catch (err) {
-      setError(err.response.data.error)
-    } finally {
       setLoading(false)
+      setError(err.response.data.error)
     }
   }
 
   return (
     <motion.div {...config.passwordFormAnimation}>
-      <Form onSubmit={updateUserPassword}>
-        <Form.Input
-          icon={
-            <Icon
-              name={displayPassword ? 'hide' : 'unhide'}
-              onClick={togglePassword} />
-          }
-          type={displayPassword ? 'text' : 'password'}
+      <form onSubmit={updateUserPassword}>
+
+        <Input
+          type="password"
+          placeholder="Current password"
           value={currentPassword}
-          onChange={e => setCurrentPassword(e.target.value)}
-          placeholder="Current Password" />
+          onChange={e => {
+            setError(false)
+            setCurrentPassword(e.target.value)
+          }}
+        />
 
-        <Form.Input
-          icon={
-            <Icon
-              name={displayPassword ? 'hide' : 'unhide'}
-              onClick={togglePassword} />
-          }
-          type={displayPassword ? 'text' : 'password'}
+        <Input
+          type="password"
+          placeholder="New password"
           value={newPassword}
-          onChange={e => setNewPassword(e.target.value)}
-          placeholder="New Password" />
+          onChange={e => {
+            setError(false)
+            setNewPassword(e.target.value)
+          }}
+        />
 
-        <Button>
+        <Button type="form-button">
           <p>Update password</p>
         </Button>
 
@@ -81,7 +77,7 @@ const UpdateUserPassword = () => {
             </motion.p>
           </div>
         )}
-      </Form>
+      </form>
     </motion.div>
   )
 }

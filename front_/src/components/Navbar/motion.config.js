@@ -1,5 +1,5 @@
 const config = {
-  boardsListAnimation: {
+  navbarItemAnimation: {
     initial: {
       // x: -80,
       opacity: 0
@@ -11,13 +11,13 @@ const config = {
         duration: .6
       }
     },
-    exit: {
-      // x: -80,
-      opacity: 0,
-      transition: {
-        duration: .4
-      }
-    }
+    // exit: {
+    //   x: -80,
+    //   opacity: 0,
+    //   transition: {
+    //     duration: .4
+    //   }
+    // }
   }
 }
 

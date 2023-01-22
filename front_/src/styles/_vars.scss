@@ -1,40 +1,16 @@
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-@mixin flex-column-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
 $light: #f6fafd;
 // $light: #f7ece6;
 // $light: #f2ede1;
 
-$to-do: #ffc0ca;
+$to-do: #ff97aa;
 $in-progress: #dec1f2;
 $done: #f5e39c;
 
-@mixin set-color($color) {
-  background: $color;
-  box-shadow: 0 0 0 4px $color;
-}
-
-// $to-do: rgba(#FCDDB0, 1);
 // $in-progress: rgba(#FFDB89, 1);
 // $done: rgba(#ff6058, 1);
 
 $high-importance: #fcddb0;
-$low-importance: #ddd;
+$low-importance: #e5e8fe;
 
 $dark: #222;
 $green: #1eb854;
@@ -50,10 +26,11 @@ $blue-1: #497ff8;
 
 $app-padding: 15px;
 $container-padding: 40px;
-$container-gap: 60px;
-
-$navbar-width: 280px;
 
 $btn-size: 60px;
 
 $radius: 12px;
+
+$navbar-item-height: 50px;
+
+$scrollbar-margin: 20px;

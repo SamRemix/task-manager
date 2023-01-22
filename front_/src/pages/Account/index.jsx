@@ -23,6 +23,12 @@ const Account = () => {
     <section className="container account">
       {user && (
         <>
+          <UpdateUserName />
+
+          <UpdateUserEmail />
+
+          <UpdateUserPassword />
+
           {isValid(parseISO(user.createdAt)) && (
             <motion.div className="timestamps" {...config.timestampsAnimation}>
               <p>Account created {formatDistanceToNowStrict(parseISO(user.createdAt), { addSuffix: true })}.</p>
@@ -31,12 +37,6 @@ const Account = () => {
               )}
             </motion.div>
           )}
-
-          <UpdateUserName />
-
-          <UpdateUserEmail />
-
-          <UpdateUserPassword />
         </>
       )}
     </section>

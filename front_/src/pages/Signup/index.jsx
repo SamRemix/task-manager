@@ -9,15 +9,14 @@ import config from './motion.config'
 import PasswordValidation from './PasswordValidation'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-import useDisplayPassword from '../../hooks/useDisplayPassword'
 
 import axios from '../../axios.config'
 
-import { Form, Icon } from 'semantic-ui-react'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 const Signup = () => {
   const { dispatch } = useAuthContext()
-  const { displayPassword, togglePassword } = useDisplayPassword()
 
   const navigate = useNavigate()
 
@@ -53,41 +52,46 @@ const Signup = () => {
 
   return (
     <section className="container signup">
-      <Form onSubmit={signup}>
+      <form onSubmit={signup}>
         <motion.div {...config.nameInputAnimation}>
-          <Form.Input
-            type="text"
-            onChange={e => setName(e.target.value)}
-            value={name}
+          <Input
             placeholder="Name"
-            autoFocus />
+            value={name}
+            onChange={e => {
+              setError(false)
+              setName(e.target.value)
+            }}
+            focus={true}
+          />
         </motion.div>
 
         <motion.div {...config.emailInputAnimation}>
-          <Form.Input
-            type="text"
-            onChange={e => setEmail(e.target.value)}
+          <Input
+            placeholder="Email"
             value={email}
-            placeholder="Email" />
+            onChange={e => {
+              setError(false)
+              setEmail(e.target.value)
+            }}
+          />
         </motion.div>
 
         <motion.div {...config.passwordInputAnimation}>
-          <Form.Input
-            icon={
-              <Icon
-                name={displayPassword ? 'hide' : 'unhide'}
-                onClick={togglePassword} />
-            }
-            type={displayPassword ? 'text' : 'password'}
-            onChange={e => setPassword(e.target.value)}
+          <Input
+            type="password"
+            placeholder="Password"
             value={password}
-            placeholder="Password" />
+            onChange={e => {
+              setError(false)
+              setPassword(e.target.value)
+            }}
+          />
 
           <PasswordValidation password={password} />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Form.Button className="submit" content="Submit" secondary />
+          <Button type="form-button" disabled={error}>Sign up</Button>
         </motion.div>
 
         {error && (
@@ -97,7 +101,7 @@ const Signup = () => {
             {error}
           </motion.p>
         )}
-      </Form>
+      </form>
     </section>
   )
 }

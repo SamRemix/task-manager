@@ -14,14 +14,18 @@ import capitalize from '../../utils/capitalize'
 
 import axios from '../../axios.config'
 
-import { HiCheckCircle, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
+import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
   const { dispatch } = useTasksContext()
 
   const updateStatus = async () => {
     const response = await axios.patch(`/tasks/${_id}`, {
-      status: status === 'To do' ? 'In progress' : 'Done'
+      status: status === 'To do' ? (
+        'In progress'
+      ) : (
+        'Done'
+      )
     })
 
     dispatch({ type: 'UPDATE_TASK', payload: response.data })
@@ -73,7 +77,7 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
         </p>
         {status !== 'Done' && (
           <div className="button">
-            <HiCheckCircle size="1.4em" className="button-validate" onClick={updateStatus} />
+            <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
             <p className="button-title">{status === 'To do' ? 'In progress' : 'Done'}</p>
           </div>
         )}

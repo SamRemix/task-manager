@@ -32,8 +32,8 @@ const Cursor = () => {
     <motion.div
       className={isOut ? 'cursor--out' : 'cursor'}
       animate={{
-        x: position.x - 40,
-        y: position.y - 40
+        x: position.x - 60,
+        y: position.y - 60
       }} />
   )
 }

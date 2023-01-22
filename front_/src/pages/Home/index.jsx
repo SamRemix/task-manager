@@ -2,10 +2,12 @@ import { memo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import useDocumentTitle from '../../hooks/useDocumentTitle'
+
 const Home = () => {
-  useEffect(() => {
-    document.title = 'Home'
-  }, [])
+  useDocumentTitle('Home')
+
+
 
   return (
     <section className="container home-page">

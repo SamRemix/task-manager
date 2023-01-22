@@ -1,0 +1,108 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
+.input {
+  @include mix.flex-column;
+  position: relative;
+
+  &--error {
+    @extend .input;
+
+    input {
+      border-color: v.$red !important;
+
+      &::placeholder {
+        color: v.$red !important;
+      }
+    }
+  }
+
+  >* {
+    line-height: 1.15em;
+    outline: 0;
+  }
+
+  >input,
+  >textarea {
+    padding: 0.7rem 1rem;
+    width: 100%;
+    min-width: 160px;
+    background: #fff;
+    border: 1px solid rgba($color: #000, $alpha: .2);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1.1em;
+
+    &::placeholder {
+      color: rgba($color: #000, $alpha: .4);
+    }
+
+    &:focus {
+      border-color: #85b7d9;
+
+      &+.search-icon,
+      &::placeholder {
+        color: rgba($color: #000, $alpha: .6);
+      }
+    }
+
+    &+.search-icon,
+    &+.eye-icon {
+      @include mix.flex-center;
+      padding: 0 10px;
+      height: 100%;
+      // background: #ddd;
+      color: rgba($color: #000, $alpha: .4);
+      position: absolute;
+      right: 10px;
+      inset: 0 0 auto auto;
+    }
+  }
+
+  >.remaining {
+    margin: 20px 0 0 20px;
+    color: #888;
+  }
+
+  >textarea {
+    max-height: 200px;
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  >label {
+    display: flex;
+    gap: 1rem;
+
+    input {
+      padding-left: 2rem;
+      position: relative;
+
+      &::before,
+      &::after {
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        inset: 0;
+      }
+
+      &::before {
+        content: '';
+        background: #fff;
+        border: 1px solid rgba($color: #000, $alpha: .2);
+        border-radius: .2rem;
+      }
+
+      &::after {
+        font-size: 14px;
+        text-align: center;
+        font-family: Checkbox;
+        // opacity: 0;
+      }
+
+      &:checked::after {
+        content: '\e800';
+      }
+    }
+  }
+}

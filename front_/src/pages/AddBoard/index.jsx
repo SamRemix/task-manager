@@ -10,64 +10,61 @@ import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
 
-import { Form } from 'semantic-ui-react'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 const AddBoard = () => {
   const navigate = useNavigate()
 
   useDocumentTitle('Add board')
 
-  const { loading, error, dispatch } = useBoardsContext()
+  const { dispatch } = useBoardsContext()
+
+  // const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const [title, setTitle] = useState('')
 
-  const handleSubmit = async e => {
+  const createBoard = async e => {
     e.preventDefault()
 
-    dispatch({ type: 'LOADING' })
+    // setLoading(true)
 
     try {
       const { data } = await axios.post('/boards', { title })
 
       dispatch({ type: 'CREATE_BOARD', payload: data })
 
+      // setLoading(false)
+
       navigate(`/boards/${data._id}`)
     } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
+      // setLoading(false)
+      setError(err.response.data.error)
     }
   }
 
   return (
     <section className="container">
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={createBoard}>
         <motion.div {...config.titleInputAnimation}>
-          <Form.Input
-            type="text"
-            onChange={e => setTitle(e.target.value)}
-            className={`title__input${error && ' error'}`}
-            value={title}
+          <Input
             placeholder="Title"
+            value={title}
+            onChange={e => {
+              setError('')
+              setTitle(e.target.value)
+            }}
             maxLength="24"
-            autoFocus />
+            focus={true}
+            error={error}
+          />
         </motion.div>
-        <p className="title__input-remaining">{24 - title.length} remaining character{title.length < 23 && 's'}</p>
 
         <motion.div {...config.submitButtonAnimation}>
-          {!loading ? (
-            <Form.Button className="submit" content="Add board" secondary />
-          ) : (
-            <Form.Button className="submit" content="Add board" loading secondary />
-          )}
+          <Button type="form-button">Add board</Button>
         </motion.div>
-
-        {error && <div
-          className="error-message">
-          <motion.p
-            {...config.errorMessageAnimation}>
-            {error}
-          </motion.p>
-        </div>}
-      </Form>
+      </form>
     </section>
   )
 }

@@ -22,22 +22,22 @@
   }
 
   & &-to-do {
-    @include percent-container($color: #ffc0ca);
+    @include percent-container($color: v.$to-do);
   }
 
   & &-in-progress {
-    @include percent-container($color: #dec1f2);
+    @include percent-container($color: v.$in-progress);
   }
 
   & &-done {
-    @include percent-container($color: #f5e39c);
+    @include percent-container($color: v.$done);
   }
 
-  p {
+  p:not(.no-tasks) {
     padding: 8px;
     width: 60px;
     text-align: center;
-    background: #fff;
+    background: v.$light;
     border: 1px solid #aaa;
     border-radius: v.$radius;
     color: #000;

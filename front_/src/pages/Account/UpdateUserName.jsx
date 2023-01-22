@@ -8,8 +8,8 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 
 import axios from '../../axios.config'
 
+import Input from '../../components/Input'
 import Button from '../../components/Button'
-import { Form } from 'semantic-ui-react'
 
 const UpdateUserName = () => {
   const { user, dispatch } = useAuthContext()
@@ -39,30 +39,26 @@ const UpdateUserName = () => {
 
   return (
     <motion.div {...config.nameFormAnimation}>
-      <Form onSubmit={updateUserName}>
-        <div>
-          <Form.Input
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Name"
-            maxLength="36" />
-        </div>
+      <form onSubmit={updateUserName}>
+        <Input
+          placeholder="Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
 
-        <Button>
+        <Button type="form-button">
           <p>Update name</p>
         </Button>
 
         {error && (
-          <div
-            className="error-message">
+          <div className="error-message">
             <motion.p
               {...config.errorMessageAnimation}>
               {error}
             </motion.p>
           </div>
         )}
-      </Form>
+      </form>
     </motion.div>
   )
 }

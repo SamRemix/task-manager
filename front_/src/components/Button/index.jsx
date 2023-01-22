@@ -3,21 +3,23 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 
-const Button = ({ children, type }) => {
-
+const Button = ({ children, type, event, disabled }) => {
   return (
-    <div className={type}>
+    <button className={type} onClick={event} disabled={disabled}>
       {children}
-    </div>
+    </button>
   )
 }
 
 Button.propTypes = {
-  type: PropTypes.string
+  type: PropTypes.string,
+  event: PropTypes.func,
+  disabled: PropTypes.bool
 }
 
 Button.defaultProps = {
-  type: 'default'
+  type: 'default', // Other possible value = 'form-button'
+  event: null
 }
 
 export default memo(Button)

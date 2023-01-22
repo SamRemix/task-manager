@@ -1,7 +1,10 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
 .cursor {
-  width: 80px;
-  height: 80px;
-  box-shadow: 0 0 0 1px #444;
+  width: 120px;
+  height: 120px;
+  box-shadow: 0 0 0 1px rgba($color: #000, $alpha: .4);
   border-radius: 50%;
   position: fixed;
   inset: 0;
@@ -11,9 +14,8 @@
 
   &--out {
     @extend .cursor;
-
-    box-shadow: 0 0 0 40px #444;
     opacity: 0;
-    transition: opacity .8s, box-shadow .6s;
+    transition: opacity 1s;
+    // transition: .8s;
   }
 }
