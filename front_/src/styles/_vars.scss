@@ -9,7 +9,8 @@ $done: #f5e39c;
 // $in-progress: rgba(#FFDB89, 1);
 // $done: rgba(#ff6058, 1);
 
-$high-importance: #fcddb0;
+// $high-importance: #fcddb0;
+$high-importance: #e5e8fe;
 $low-importance: #e5e8fe;
 
 $dark: #222;
@@ -21,16 +22,10 @@ $red: #ff6058;
 $red-1: #ff3e00;
 $dark-red-1: #D14F48;
 
-$blue: #40b3ff;
+$blue: #40B3FF;
 $blue-1: #497ff8;
 
-$app-padding: 15px;
-$container-padding: 40px;
+$app-padding: 1rem;
+$container-padding: 2rem;
 
-$btn-size: 60px;
-
-$radius: 12px;
-
-$navbar-item-height: 50px;
-
-$scrollbar-margin: 20px;
+$radius: .8rem;

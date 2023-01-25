@@ -78,17 +78,13 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             value={value}
             onChange={onChange}
           />
-          <div className="eye-icon">
+          <div
+            className="eye-icon"
+            onClick={togglePassword}>
             {displayPassword ? (
-              <HiOutlineEyeSlash
-                size="1.4em"
-                onClick={togglePassword}
-              />
+              <HiOutlineEyeSlash size="1.4em" />
             ) : (
-              <HiOutlineEye
-                size="1.4em"
-                onClick={togglePassword}
-              />
+              <HiOutlineEye size="1.4em" />
             )}
           </div>
         </>

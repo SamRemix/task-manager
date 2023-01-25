@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import SingleBoard from '../SingleBoard'
@@ -38,11 +38,27 @@ const Navbar = () => {
   const { setPrefix, search } = useSearch()
   const { logout } = useLogout()
 
+  const [isOpen, setIsOpen] = useState(true)
+
+  const displayMenu = () => {
+    setIsOpen(isOpen => (
+      isOpen ? false : true
+    ))
+  }
+
   return (
     <>
       <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} />
 
-      <nav className="navbar">
+      <div
+        className={isOpen ? 'display-navbar--active' : 'display-navbar'}
+        onClick={displayMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav className={isOpen ? 'navbar--active' : 'navbar'}>
+
         <div className="header">
           <div className="header-theme-switcher" onClick={toggleTheme}>
             {theme === 'light' ? (
@@ -67,7 +83,7 @@ const Navbar = () => {
               )}
             </div>
             <NavLink to="/account" end>
-              <Button>
+              <Button type="default-2">
                 <p>{user.name}</p>
               </Button>
             </NavLink>
@@ -99,18 +115,22 @@ const Navbar = () => {
                   </div>
 
                   <ul className="boards__list">
-                    <Input type="search" setPrefix={setPrefix} />
+                    {boards.length >= 2 && (
+                      <Input type="search" setPrefix={setPrefix} />
+                    )}
 
-                    {search(boards).map(board => (
-                      <SingleBoard key={board._id} {...board} />
-                    ))}
-
-                    <li className="boards__list-item">
+                    <li className="boards__list-item" onClick={() => setIsOpen(false)}>
                       <NavLink to="/add-board" className="link">
-                        <HiOutlineDocumentPlus className="icon" size="1.4em" />
-                        <p className="title">Add board</p>
+                        <Button type="default">
+                          <HiOutlineDocumentPlus className="icon" size="1.4em" />
+                          <p className="title">Add board</p>
+                        </Button>
                       </NavLink>
                     </li>
+
+                    {search(boards).map(board => (
+                      <SingleBoard key={board._id} {...board} setIsOpen={setIsOpen} />
+                    ))}
                   </ul>
                 </li>
                 <li className="navbar__list-item soon">

@@ -18,13 +18,12 @@
   }
 
   >* {
-    line-height: 1.15em;
     outline: 0;
   }
 
   >input,
   >textarea {
-    padding: 0.7rem 1rem;
+    padding: .6rem 1rem;
     width: 100%;
     min-width: 160px;
     background: #fff;
@@ -51,28 +50,37 @@
       @include mix.flex-center;
       padding: 0 10px;
       height: 100%;
-      // background: #ddd;
+      background: #ebdfff;
+      border: 1px solid rgba($color: #000, $alpha: .2);
+      border-radius: 0 6px 6px 0;
       color: rgba($color: #000, $alpha: .4);
       position: absolute;
-      right: 10px;
       inset: 0 0 auto auto;
+    }
+
+    &+.eye-icon {
+      cursor: pointer;
+
+      &:hover {
+        background: #dfd1f7;
+      }
     }
   }
 
   >.remaining {
-    margin: 20px 0 0 20px;
+    margin: 1rem 0 0 1rem;
     color: #888;
   }
 
   >textarea {
-    max-height: 200px;
-    min-height: 90px;
+    height: 200px;
+    max-height: 300px;
+    min-height: 100px;
     resize: vertical;
   }
 
   >label {
-    display: flex;
-    gap: 1rem;
+    @include mix.flex-gap(1rem);
 
     input {
       padding-left: 2rem;
@@ -80,8 +88,8 @@
 
       &::before,
       &::after {
-        width: 17px;
-        height: 17px;
+        width: 1rem;
+        height: 1rem;
         position: absolute;
         inset: 0;
       }
@@ -94,10 +102,9 @@
       }
 
       &::after {
-        font-size: 14px;
+        font-size: 1rem;
         text-align: center;
         font-family: Checkbox;
-        // opacity: 0;
       }
 
       &:checked::after {

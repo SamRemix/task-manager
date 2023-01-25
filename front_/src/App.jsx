@@ -70,17 +70,17 @@ const App = () => {
   }, [dispatch_boards, user])
 
   return (
-    <div className={`App ${theme}`}>
+    <>
       <Cursor />
       <Navbar />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
 
-          <Route path="/boards/:board_id" element={<BoardDetails />} />
-          <Route path="/add-board" element={<AddBoard />} />
+          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
+          <Route path="/add-board" element={user && <AddBoard />} />
 
-          <Route path="/update-task/:task_id" element={<UpdateTask />} />
+          <Route path="/update-task/:task_id" element={user && <UpdateTask />} />
 
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
@@ -89,7 +89,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-    </div>
+    </>
   )
 }
 

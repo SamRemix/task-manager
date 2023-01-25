@@ -14,8 +14,9 @@
 
   &--out {
     @extend .cursor;
+    box-shadow: 0 0 0 40px rgba($color: #000, $alpha: .4);
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 1s, box-shadow .4s;
     // transition: .8s;
   }
 }

@@ -6,9 +6,9 @@ import capitalize from '../../utils/capitalize'
 
 import { HiOutlineDocumentText } from 'react-icons/hi2'
 
-const SingleBoard = ({ _id, title }) => {
+const SingleBoard = ({ _id, title, setIsOpen }) => {
   return (
-    <li className="boards__list-item">
+    <li className="boards__list-item" onClick={() => setIsOpen(false)}>
       <NavLink to={`/boards/${_id}`} className="link" end>
         <HiOutlineDocumentText className="icon" size="1.4em" style={{ strokeWidth: 1.1 }} />
         <p className="title">{capitalize(title)}</p>
@@ -19,7 +19,8 @@ const SingleBoard = ({ _id, title }) => {
 
 SingleBoard.propTypes = {
   _id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 }
 
 export default memo(SingleBoard)

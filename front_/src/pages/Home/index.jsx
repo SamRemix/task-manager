@@ -10,10 +10,8 @@ const Home = () => {
 
 
   return (
-    <section className="container home-page">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
+    <section className="container home">
+      <motion.h1 {...config.pageTitleAnimation}>
         Task Manager
       </motion.h1>
     </section>

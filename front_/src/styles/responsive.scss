@@ -3,6 +3,20 @@
 
 // md 768px
 @media (min-width: 768px) {
+  $navbar-width: 20rem;
+
+  .display-navbar {
+    &--active {
+      transform: translateX($navbar-width);
+    }
+  }
+
+  .navbar {
+    &--active {
+      width: $navbar-width;
+    }
+  }
+
   .container {
     .modal {
       width: auto;

@@ -67,7 +67,7 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
         placeholder="Title"
         value={newTask.title}
         onChange={e => {
-          setError(false)
+          setError('')
           dispatchNewTask(actionSetField('title', e.target.value))
         }}
         maxLength="36"

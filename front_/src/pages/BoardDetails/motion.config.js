@@ -39,6 +39,23 @@ const config = {
       }
     }
   },
+  taskQuickAddAnimation: {
+    initial: {
+      y: -40
+    },
+    animate: {
+      y: 0,
+      transition: {
+        duration: .4
+      }
+    },
+    exit: {
+      y: -40,
+      transition: {
+        duration: .2
+      }
+    }
+  },
   settingsButtonAnimation: {
     initial: {
       y: 80,

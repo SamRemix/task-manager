@@ -19,6 +19,8 @@ import { useTasksContext } from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
 
+import capitalize from '../../utils/capitalize'
+
 import axios from '../../axios.config'
 
 import Button from '../../components/Button'
@@ -31,7 +33,12 @@ const BoardDetails = () => {
   const { user } = useAuthContext()
   const { boards } = useBoardsContext()
   const { loading, tasks, error, dispatch } = useTasksContext()
-  const { setPrefix, search } = useSearch()
+  const { prefix, setPrefix, search } = useSearch()
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
+  const [modalTitle, setModalTitle] = useState('')
 
   const board = boards.find(board => (
     board._id === board_id
@@ -39,24 +46,17 @@ const BoardDetails = () => {
 
   useDocumentTitle(board?.title)
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-  const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
-
-  const [title, setTitle] = useState('')
-
-
-
   useEffect(() => {
     const getTasks = async () => {
       dispatch({ type: 'LOADING' })
       try {
-        // const { data } = await axios.get(`/tasks/${board_id}`)
         const { data } = await axios.get('/tasks')
 
-        // setTimeout(() => {
-        dispatch({ type: 'GET_TASKS', payload: data.filter(d => d.board_id === board_id) })
-        // }, 500)
+        dispatch({
+          type: 'GET_TASKS', payload: data.filter(d => (
+            d.board_id === board_id
+          ))
+        })
       } catch (err) {
         dispatch({ type: 'ERROR', payload: err.response.data.error })
       }
@@ -77,8 +77,29 @@ const BoardDetails = () => {
     )
   }
 
-  if (error) {
-    return <p>{error}</p>
+  const addTask = async e => {
+    e.preventDefault()
+
+    // setLoading(true)
+
+    try {
+
+      if (prefix) {
+        const { data } = await axios.post('/tasks', { title: prefix, important: false, board_id })
+
+        setPrefix('')
+
+        dispatch({ type: 'CREATE_TASK', payload: data })
+      }
+
+      // setLoading(false)
+
+      // setIsOpen(false)
+    } catch (err) {
+      dispatch({ type: 'ERROR', payload: err.response.data.error })
+      // setLoading(false)
+      // setError(err.response.data.error)
+    }
   }
 
   return (
@@ -89,14 +110,31 @@ const BoardDetails = () => {
             setIsOpen(true)
             setIsSettingsOpen(false)
             setIsTaskFormOpen(true)
-            setTitle('Add task')
+            setModalTitle('Add task')
           }}>
             + Add task
           </Button>
         </motion.div>
 
         <motion.div {...config.searchBarAnimation}>
-          <Input type="search" setPrefix={setPrefix} />
+          <form onSubmit={addTask}>
+            <Input type="search" value={prefix} setPrefix={setPrefix} />
+
+            {prefix && (
+              <motion.div
+                className={error ? 'task-quick-add--error' : 'task-quick-add'}
+                {...config.taskQuickAddAnimation}>
+                {error ? (
+                  <p>{error}</p>
+                ) : (
+                  <p>Press <b>Enter</b> to create <b>{capitalize(prefix)}</b> task.
+                    {/* <br /> */}
+                    {/* {36 - prefix.length} remaining character{prefix.length < 35 && 's'} */}
+                  </p>
+                )}
+              </motion.div>
+            )}
+          </form>
         </motion.div>
 
         <motion.div {...config.settingsButtonAnimation}>
@@ -105,7 +143,7 @@ const BoardDetails = () => {
               setIsOpen(true)
               setIsTaskFormOpen(false)
               setIsSettingsOpen(true)
-              setTitle('Settings')
+              setModalTitle('Settings')
             }}>Settings</Button>
         </motion.div>
       </header>
@@ -115,7 +153,7 @@ const BoardDetails = () => {
       <TasksList tasks={search(tasks)} />
 
       {isOpen && (
-        <Modal title={title} setIsOpen={setIsOpen}>
+        <Modal title={modalTitle} setIsOpen={setIsOpen}>
           {isSettingsOpen ? (
             <BoardSettings board_id={board_id} setIsOpen={setIsOpen} />
           ) : isTaskFormOpen && (

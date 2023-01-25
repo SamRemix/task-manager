@@ -2,39 +2,75 @@
 @use '../../styles/mixins' as mix;
 
 @mixin button-style {
-  padding: 10px;
+  @include mix.flex-align-gap(1rem);
+  padding: .6rem;
   width: fit-content;
   border-radius: v.$radius;
-  box-shadow: 0 1px 2px rgba($color: #000, $alpha: .4);
+  font-size: 1.4rem;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: .1s;
+  }
+
+  &:hover {
+    &::before {
+      opacity: .1;
+    }
+  }
+
+  &:active {
+    &::before {
+      opacity: .15;
+    }
+  }
 }
 
 @mixin default {
   @include button-style;
-  font-size: 1.4rem;
-  background: #ebdfff;
+  background: #35D5BA;
+  box-shadow: 0 2px 2px rgba($color: #000, $alpha: .4);
   font-weight: 200;
   transition: .1s;
 
-  &:hover {
-    background: #dfd1f7;
-  }
-
-  &:active {
-    background: #cdbdeb;
-  }
-
   &:disabled {
-    opacity: .6
+    opacity: .6;
   }
+}
+
+@mixin default-2 {
+  @include button-style;
+  background: #81A1C1;
+  color: #fff;
+  font-weight: 200;
+}
+
+@mixin default-3 {
+  @include button-style;
+  background: #81A1C1;
+  color: #fff;
+  font-weight: 200;
 }
 
 .default {
   @include default;
 }
 
+.default-2 {
+  @include default-2;
+}
+
 .form-button {
   @include default;
-  margin-left: 20px;
+  margin-left: 1.4rem;
 }

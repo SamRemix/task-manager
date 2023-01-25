@@ -38,6 +38,8 @@ const getTask = async (req, res) => {
 const createTask = async (req, res) => {
   const { title } = req.body
 
+  console.log(title);
+
   if (!title.trim()) {
     return res.status(400).json({ error: 'Please fill in this field' })
   }

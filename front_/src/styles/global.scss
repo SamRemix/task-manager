@@ -1,32 +1,29 @@
 @use './_reset.css';
 @use './vars' as v;
+@use './mixins' as mix;
 
 // @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;800&display=swap');
 
 * {
-  // white-space: nowrap;
-  // cursor: none !important;
-  // line-height: 1.4rem;
-
   &::-webkit-scrollbar {
-    width: 8px !important;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #aaa !important;
-    border-radius: 8px !important;
+    background: #bbb;
+    border-radius: 8px;
 
-    // &:hover {
-    //   background: #aaa !important;
-    // }
+    &:hover {
+      background: #aaa !important;
+    }
   }
 
   &::-webkit-scrollbar-track {
-    margin: v.$scrollbar-margin;
-    border-radius: 8px !important;
-    background: #ddd !important;
+    margin: v.$app-padding;
+    border-radius: 6px;
+    background: #ddd;
   }
 
   &::-webkit-scrollbar-corner {
@@ -39,137 +36,81 @@ body {
   background: v.$dark;
   font-family: 'Poppins';
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   #root {
-    .App {
-      padding: v.$app-padding;
-      height: 100vh;
-      background: v.$light;
-      color: #000;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      position: relative;
+    padding: v.$app-padding;
+    height: 100vh;
+    background: v.$light;
+    color: #000;
+    display: flex;
+    // display: grid;
+    // grid-template-columns: auto 1fr;
+    overflow: hidden;
+    position: relative;
 
-      &::before {
-        content: '';
-        width: calc(100% - 30px);
-        height: calc(100% - 30px);
-        box-shadow: 0 0 0 30px v.$dark;
-        border-radius: 16px;
-        position: fixed;
-        inset: 15px auto auto 15px;
-        z-index: 1002;
-        pointer-events: none;
-      }
+    &::before {
+      content: '';
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+      box-shadow: 0 0 0 2rem v.$dark;
+      border-radius: 1rem;
+      position: fixed;
+      inset: 1rem auto auto 1rem;
+      z-index: 7;
+      pointer-events: none;
+    }
 
-      .container {
-        margin-right: v.$scrollbar-margin;
-        padding: v.$container-padding;
-        min-height: calc(100vh - v.$container-padding * 2);
+    .container {
+      @include mix.flex-column-center;
+      // margin-right: v.$scrollbar-margin;
+      margin: 0 v.$app-padding;
+      padding: v.$container-padding;
+      width: calc(100% - v.$app-padding *2);
+      min-height: calc(100vh - v.$container-padding * 2);
+      overflow: hidden scroll;
+      transition: .4s;
+
+      form {
+        min-width: 300px;
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: column;
-        overflow: hidden scroll;
+        gap: 1rem;
+        position: relative;
 
-        &__title {
-          color: rgba($color: #000, $alpha: .3);
-          font-size: clamp(6em, 10vw, 9em);
-          font-weight: 600;
-          cursor: default;
-        }
-
-        .ui {
-          &.form {
-            .field {
-              &:not(.submit) {
-                margin: 0;
-              }
-            }
-          }
-        }
-
-        form {
-          min-width: 300px;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          position: relative;
-
-          .input {
-            .icon {
-              pointer-events: all;
-              cursor: pointer;
-            }
-          }
-
-          .title__input--error {
-            .input {
-              input {
-                border-color: v.$red;
-
-                &::placeholder {
-                  color: v.$red;
-                }
-              }
-            }
-          }
-
-          textarea {
-            height: 200px;
-            max-height: 300px;
-            min-height: 100px;
-            resize: vertical;
-          }
-
-          .create-list {
-            margin-top: 20px;
-            padding: 20px;
-            background: #ddd;
-            border-radius: 6px;
-            line-height: 1.4rem;
-            pointer-events: none;
-
-            p {
-              b {
-                padding: 2px 6px;
-                background: #444;
-                border-radius: 6px;
-                color: #fff;
-                font-weight: 800;
-              }
-            }
-          }
-
-          select,
-          input[type=checkbox] {
-            cursor: pointer;
-          }
-
-          .submit {
-            margin-left: 40px;
-          }
-
-          .error-message {
-            color: v.$red;
-            font-size: 1.2rem;
-            font-weight: 400;
-            position: absolute;
-            inset: calc(100% + 20px) auto auto 20px;
-          }
-        }
-
-        &.not-found {
-          .container__title {
-            font-size: 12em;
-          }
+        .create-list {
+          margin-top: 1rem;
+          padding: 1rem;
+          background: #ddd;
+          border-radius: 6px;
+          line-height: 1.4rem;
+          pointer-events: none;
 
           p {
-            font-size: 1.2em;
+            b {
+              padding: 2px 6px;
+              background: #444;
+              border-radius: 6px;
+              color: #fff;
+              font-weight: 800;
+            }
           }
+        }
+
+        .error-message {
+          color: v.$red;
+          font-size: 1.2rem;
+          font-weight: 400;
+          position: absolute;
+          inset: calc(100% + 20px) auto auto 20px;
+        }
+      }
+
+      &.not-found {
+        .container__title {
+          font-size: 12em;
+        }
+
+        p {
+          font-size: 1.2em;
         }
       }
     }
