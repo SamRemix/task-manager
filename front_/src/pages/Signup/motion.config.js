@@ -16,7 +16,7 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
-        delay: .3
+        delay: .4
       }
     }
   },
@@ -38,7 +38,7 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
-        delay: .2
+        delay: .3
       }
     }
   },
@@ -60,6 +60,28 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
+        delay: .2
+      }
+    }
+  },
+  passwordValidationAnimation: {
+    initial: {
+      x: -160,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .6,
+        delay: .3
+      }
+    },
+    exit: {
+      x: 80,
+      opacity: 0,
+      transition: {
+        duration: .2,
         delay: .1
       }
     }
@@ -74,7 +96,7 @@ const config = {
       opacity: 1,
       transition: {
         duration: .6,
-        delay: .3
+        delay: .4
       }
     },
     exit: {

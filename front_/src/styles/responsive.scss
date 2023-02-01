@@ -1,40 +1,73 @@
+@use './vars' as v;
+@use './mixins' as mix;
+
 // sm 640px
-@media (min-width: 640px) {}
-
-// md 768px
-@media (min-width: 768px) {
-  $navbar-width: 20rem;
-
-  .display-navbar {
+@media (min-width: 640px) {
+  .navbar-button {
     &--active {
-      transform: translateX($navbar-width);
+      transform: translateX(13rem);
     }
   }
 
   .navbar {
     &--active {
-      width: $navbar-width;
+      width: 18rem;
+    }
+  }
+}
+
+// md 768px
+@media (min-width: 768px) {
+  .navbar {
+    &+.container:not(.account) {
+      margin-right: v.$app-padding;
+      padding: v.$container-padding !important;
+
+      &.boards {
+        .boards-list {
+          gap: 2rem;
+        }
+      }
+
+      &.board__container {
+        gap: 4rem;
+      }
     }
   }
 
   .container {
     .modal {
-      width: auto;
-      height: auto;
+      width: auto !important;
+      height: auto !important;
 
       &-close {
-        inset: 20px 20px auto auto;
-      }
-
-      &-content {
-        padding: 20px;
+        inset: 1rem 1rem auto auto;
       }
     }
   }
 }
 
 // lg 1024px
-@media (min-width: 1024px) {}
+@media (min-width: 1024px) {
+  .navbar {
+    &--active {
+      &+.container:not(.account) {
+        margin-right: v.$app-padding;
+        padding: v.$container-padding !important;
+
+        &.boards {
+          .boards-list {
+            gap: 2rem;
+          }
+        }
+
+        &.board__container {
+          gap: 4rem;
+        }
+      }
+    }
+  }
+}
 
 // xl 1280px
 @media (min-width: 1280px) {}

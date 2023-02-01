@@ -1,23 +1,24 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
-.task__content {
+.task-content {
   padding: 1rem;
   flex: 1;
-  background: v.$low-importance;
+  background: v.$low;
   border-radius: v.$radius;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
   position: relative;
   transition: background .2s, box-shadow .2s;
 
-  &--important {
-    @extend .task__content;
+  &-important {
+    @extend .task-content;
 
-    background: v.$high-importance;
+    background: v.$high;
 
-    .task__content-footer {
+    .task-content-footer {
       .task-importance {
         color: #f00;
       }
@@ -27,17 +28,11 @@
   &-infos {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
-    &-title {
-      font-size: 1.1rem;
-    }
+    gap: 1rem;
 
     &-description,
     &-description-list {
-      font-size: 1.1rem;
-      font-weight: 200;
-      line-height: 1.6rem;
+      font-size: .9rem;
 
       &-item {
         padding-left: 4px;
@@ -50,11 +45,8 @@
   }
 
   &-footer {
-    display: flex;
-    align-items: center;
+    @include mix.flex-align-gap(1rem);
     justify-content: flex-end;
-    gap: 14px;
-    transition: .4s;
 
     &-date {
       width: 100%;
@@ -78,14 +70,10 @@
 
       &-title {
         padding: .6rem;
-        // background: #fff;
         background: v.$light;
-        border: 1px solid #aaa;
-        // border-radius: v.$radius;
-        border-radius: 20px;
+        border: 1px solid #444;
+        border-radius: v.$radius / 2;
         display: flex;
-        justify-content: center;
-        font-weight: 200;
         position: absolute;
         bottom: calc(100% + 10px);
         opacity: 0;
@@ -93,31 +81,9 @@
         pointer-events: none;
         z-index: 1004;
         transition: .2s;
-
-        // &::before,
-        // &::after {
-        //   content: '';
-        //   width: 0;
-        //   position: absolute;
-        // }
-
-        // &::before {
-        //   border-top: 9px solid #aaa;
-        //   border-right: 9px solid transparent;
-        //   border-left: 9px solid transparent;
-        //   bottom: -9px;
-        // }
-
-        // &::after {
-        //   border-top: 8px solid #fff;
-        //   border-right: 8px solid transparent;
-        //   border-left: 8px solid transparent;
-        //   bottom: -8px;
-        // }
       }
 
       &:hover {
-
         .button-title {
           opacity: 1;
           transform: translateY(0);
@@ -125,26 +91,10 @@
       }
 
       &-validate {
-        // &:hover {
-        //   color: v.$blue;
-        // }
-
         &+.button-title {
           white-space: nowrap;
         }
       }
-
-      // &-update {
-      //   &:hover {
-      //     color: v.$green;
-      //   }
-      // }
-
-      // &-delete {
-      //   &:hover {
-      //     color: v.$red;
-      //   }
-      // }
     }
   }
 }

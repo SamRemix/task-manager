@@ -1,23 +1,61 @@
 const config = {
-  navbarItemAnimation: {
+  userCardAnimation: {
     initial: {
-      // x: -80,
+      x: '-100%',
       opacity: 0
     },
     animate: {
-      // x: 0,
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .6,
+        delay: .2
+      }
+    },
+    exit: {
+      x: '-100%',
+      opacity: 0,
+      transition: {
+        duration: .4
+      }
+    }
+  },
+  navbarItemAnimation: {
+    initial: {
+      x: '-100%',
+      opacity: 0
+    },
+    animate: {
+      x: 0,
       opacity: 1,
       transition: {
         duration: .6
       }
     },
-    // exit: {
-    //   x: -80,
-    //   opacity: 0,
-    //   transition: {
-    //     duration: .4
-    //   }
-    // }
+    exit: {
+      x: '-100%',
+      opacity: 0,
+      transition: {
+        duration: .4
+      }
+    }
+  },
+  itemTitleAnimation: {
+    initial: {
+      opacity: 0
+    },
+    animate: {
+      opacity: 1,
+      transition: {
+        duration: .4
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: .4
+      }
+    }
   }
 }
 

@@ -76,6 +76,8 @@ const UpdateTask = () => {
 
   return (
     <section className="container">
+      <Button type="back" />
+
       <form onSubmit={updateTask}>
         <motion.div {...config.titleInputAnimation}>
           <Input
@@ -98,10 +100,12 @@ const UpdateTask = () => {
             value={description}
             onChange={e => setDescription(e.target.value.replace(';', '\n'))}
           />
+        </motion.div>
 
-          <div className="create-list">
-            <p>To create a list, use <b>;</b> between each item to separate them.</p>
-          </div>
+        <motion.div
+          className="create-list"
+          {...config.createListMessageAnimation}>
+          <p>To create a list, use <b>;</b> between each item to separate them.</p>
         </motion.div>
 
         <motion.div {...config.inputImportantAnimation}>

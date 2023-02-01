@@ -3,10 +3,9 @@
 
 @mixin button-style {
   @include mix.flex-align-gap(1rem);
-  padding: .6rem;
+  padding: .9rem 1.6rem;
   width: fit-content;
-  border-radius: v.$radius;
-  font-size: 1.4rem;
+  border-radius: v.$radius * .8;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
@@ -36,11 +35,10 @@
   }
 }
 
-@mixin default {
+.default {
   @include button-style;
-  background: #35D5BA;
-  box-shadow: 0 2px 2px rgba($color: #000, $alpha: .4);
-  font-weight: 200;
+  background: #f5e39c;
+  // color: #fff;
   transition: .1s;
 
   &:disabled {
@@ -48,29 +46,21 @@
   }
 }
 
-@mixin default-2 {
-  @include button-style;
-  background: #81A1C1;
-  color: #fff;
-  font-weight: 200;
-}
-
-@mixin default-3 {
-  @include button-style;
-  background: #81A1C1;
-  color: #fff;
-  font-weight: 200;
-}
-
-.default {
-  @include default;
-}
-
-.default-2 {
-  @include default-2;
-}
-
 .form-button {
-  @include default;
-  margin-left: 1.4rem;
+  @extend .default;
+  margin-left: 2rem;
+}
+
+.delete {
+  @include button-style;
+  background: v.$red;
+  color: #fff;
+  position: absolute;
+  inset: auto 2rem 2rem auto;
+}
+
+.back {
+  font-size: 1.2rem;
+  position: absolute;
+  inset: 2rem auto auto 4rem;
 }

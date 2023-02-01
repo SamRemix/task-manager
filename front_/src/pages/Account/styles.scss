@@ -1,5 +1,12 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
 .account {
-  gap: 2.5rem;
+  padding: 4rem !important;
+  justify-content: unset !important;
+  gap: 4rem;
+
+  .forms-container {
+    @include mix.flex-column-gap(2rem);
+  }
 }

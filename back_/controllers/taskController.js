@@ -2,15 +2,6 @@
 const Task = require('../models/taskModel')
 const { Types } = require('mongoose')
 
-// const getTasks = async (req, res) => {
-//   const { _id } = req.user
-//   const { id } = req.params
-
-//   const tasks = await Task.find({ user_id: _id, board_id: id }).sort({ important: -1, createdAt: -1 })
-
-//   res.status(200).json(tasks)
-// }
-
 const getTasks = async (req, res) => {
   const { _id } = req.user
 
@@ -37,8 +28,6 @@ const getTask = async (req, res) => {
 
 const createTask = async (req, res) => {
   const { title } = req.body
-
-  console.log(title);
 
   if (!title.trim()) {
     return res.status(400).json({ error: 'Please fill in this field' })
@@ -87,7 +76,7 @@ const updateTask = async (req, res) => {
     return res.status(404).json({ error: 'No such task, invalid id' })
   }
 
-  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body })
+  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })

@@ -3,7 +3,7 @@ const { Types } = require('mongoose')
 
 const getBoards = async (req, res) => {
   const { _id } = req.user
-  const boards = await Board.find({ user_id: _id }).sort({ createdAt: -1 })
+  const boards = await Board.find({ user_id: _id }).sort({ favorite: -1, createdAt: -1 })
 
   res.status(200).json(boards)
 }
@@ -39,7 +39,7 @@ const createBoard = async (req, res) => {
 
   try {
     const { _id } = req.user
-    const board = await Board.create({ title, user_id: _id })
+    const board = await Board.create({ ...req.body, user_id: _id })
 
     res.status(200).json(board)
   } catch (error) {
@@ -60,7 +60,7 @@ const updateBoard = async (req, res) => {
     // return res.status(400).json({ error: 'Please fill in \'Title\' field' })
   }
 
-  const board = await Board.findOneAndUpdate({ _id: id }, { title })
+  const board = await Board.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
   if (!board) {
     return res.status(400).json({ error: 'No such board' })

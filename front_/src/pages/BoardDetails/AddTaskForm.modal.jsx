@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import { memo, useState, useReducer } from 'react'
+import PropTypes from 'prop-types'
 
 import { useTasksContext } from "../../hooks/useTasksContext"
 
@@ -62,42 +62,45 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
   }
 
   return (
-    <form onSubmit={addTask}>
-      <Input
-        placeholder="Title"
-        value={newTask.title}
-        onChange={e => {
-          setError('')
-          dispatchNewTask(actionSetField('title', e.target.value))
-        }}
-        maxLength="36"
-        focus={true}
-        error={error}
-      />
+    <>
+      <h1 className="modal-content-title">Add task</h1>
+      <form onSubmit={addTask}>
+        <Input
+          placeholder="Title"
+          value={newTask.title}
+          onChange={e => {
+            setError('')
+            dispatchNewTask(actionSetField('title', e.target.value))
+          }}
+          maxLength="36"
+          focus={true}
+          error={error}
+        />
 
-      <Input
-        type="textarea"
-        placeholder="Description (optional)"
-        value={newTask.description}
-        onChange={e => {
-          dispatchNewTask(actionSetField('description', e.target.value.replace(';', '\n')))
-        }}
-      />
+        <Input
+          type="textarea"
+          placeholder="Description (optional)"
+          value={newTask.description}
+          onChange={e => {
+            dispatchNewTask(actionSetField('description', e.target.value.replace(';', '\n')))
+          }}
+        />
 
-      <div className="create-list">
-        <p>To create a list, use <b>;</b> between each item to separate them.</p>
-      </div>
+        <div className="create-list">
+          <p>To create a list, use <b>;</b> between each item to separate them.</p>
+        </div>
 
-      <Input
-        type="checkbox"
-        placeholder="Important"
-        value={newTask.important}
-        onChange={() => {
-          dispatchNewTask(actionSetField('important', !newTask.important))
-        }} />
+        <Input
+          type="checkbox"
+          placeholder="Important"
+          value={newTask.important}
+          onChange={() => {
+            dispatchNewTask(actionSetField('important', !newTask.important))
+          }} />
 
-      <Button type="form-button">Add task</Button>
-    </form>
+        <Button type="form-button">Add task</Button>
+      </form>
+    </>
   )
 }
 

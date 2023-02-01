@@ -3,15 +3,15 @@ import './styles.scss'
 import { memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import SingleBoard from '../SingleBoard'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import config from './motion.config'
 
 import { useThemeContext } from '../../hooks/useThemeContext'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
-import useSearch from '../../hooks/useSearch'
-import useLogout from '../../hooks/useLogout'
+import useToggle from '../../hooks/useToggle'
 
-import Input from '../Input'
+import SingleBoard from '../SingleBoard'
 import Button from '../Button'
 
 import {
@@ -22,167 +22,347 @@ import {
   HiOutlineLockClosed, // Error icon (Request isn't authorized)
   HiOutlineClipboardDocumentList, // Boards icon
   // HiOutlineFolder, // Boards icon
+  HiChevronDown,
+  HiChevronUp,
   HiOutlineDocumentPlus, // Add board icon
   HiOutlineUsers, // Friends icon
   HiOutlineChatBubbleLeftRight, // Messages icon
   HiOutlineCalendar, // Calendar icon
+  HiCodeBracket, // About icon
   HiArrowLeftOnRectangle, // Logout icon
   HiArrowRightOnRectangle, // Login icon
   HiOutlineUserPlus // Signup icon 
 } from 'react-icons/hi2'
 
 const Navbar = () => {
-  const { user } = useAuthContext()
+  const { user, logout } = useAuthQueries()
   const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
-  const { setPrefix, search } = useSearch()
-  const { logout } = useLogout()
 
-  const [isOpen, setIsOpen] = useState(true)
-
-  const displayMenu = () => {
-    setIsOpen(isOpen => (
-      isOpen ? false : true
-    ))
-  }
+  const { display: displayBoards, toggle: toggleBoards } = useToggle()
+  const [displayNavbar, toggleNavbar] = useState(true)
 
   return (
     <>
       <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} />
 
       <div
-        className={isOpen ? 'display-navbar--active' : 'display-navbar'}
-        onClick={displayMenu}>
+        className={displayNavbar ? 'navbar-button--active' : 'navbar-button'}
+        onClick={() => {
+          if (displayBoards && displayNavbar) {
+            toggleBoards(false)
+          }
+
+          toggleNavbar(!displayNavbar)
+        }}>
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <nav className={isOpen ? 'navbar--active' : 'navbar'}>
 
-        <div className="header">
-          <div className="header-theme-switcher" onClick={toggleTheme}>
-            {theme === 'light' ? (
-              <HiOutlineFire size="1.6em" />
-            ) : (
-              <HiOutlineSun size="1.6em" />
-            )}
-          </div>
-
-          <div className="header-lang-switcher">
-            <p>fr - en</p>
-          </div>
-        </div>
-
-        {user && (
-          <div className="user__card">
-            <div className="user__card-picture">
-              {user.profilePicture ? (
-                <></>
-              ) : (
-                <HiOutlineUser size="1.6em" />
-              )}
-            </div>
-            <NavLink to="/account" end>
-              <Button type="default-2">
-                <p>{user.name}</p>
-              </Button>
-            </NavLink>
-          </div>
-        )}
-
-        <ul className="navbar__list">
-          <div className="menu">
-            <li className="navbar__list-item">
-              <NavLink to="/" className="link">
-                <HiOutlineHome className="icon" size="1.8em" />
-                <h1 className="title">Home</h1>
-              </NavLink>
-            </li>
-
-            {error && (
-              <li className="navbar__list-item error-message">
-                <HiOutlineLockClosed className="icon" size="1.8em" />
-                <p className="title">{error}</p>
-              </li>
-            )}
-
-            {user && !error && (
-              <>
-                <li className="navbar__list-item boards">
-                  <div className="content">
-                    <HiOutlineClipboardDocumentList className="icon" size="1.8em" />
-                    <h1 className="title">Boards</h1>
-                  </div>
-
-                  <ul className="boards__list">
-                    {boards.length >= 2 && (
-                      <Input type="search" setPrefix={setPrefix} />
-                    )}
-
-                    <li className="boards__list-item" onClick={() => setIsOpen(false)}>
-                      <NavLink to="/add-board" className="link">
-                        <Button type="default">
-                          <HiOutlineDocumentPlus className="icon" size="1.4em" />
-                          <p className="title">Add board</p>
-                        </Button>
-                      </NavLink>
-                    </li>
-
-                    {search(boards).map(board => (
-                      <SingleBoard key={board._id} {...board} setIsOpen={setIsOpen} />
-                    ))}
-                  </ul>
-                </li>
-                <li className="navbar__list-item soon">
-                  <div className="link">
-                    <HiOutlineUsers className="icon" size="1.8em" />
-                    <p className="title">Friends</p>
-                  </div>
-                </li>
-                <li className="navbar__list-item soon">
-                  <div className="link">
-                    <HiOutlineChatBubbleLeftRight className="icon" size="1.8em" />
-                    <p className="title">Messages</p>
-                  </div>
-                </li>
-                <li className="navbar__list-item soon">
-                  <div className="link">
-                    <HiOutlineCalendar className="icon" size="1.8em" />
-                    <p className="title">Agenda</p>
-                  </div>
-                </li>
-              </>
-            )}
-          </div>
-
-          <div className="auth">
-            {user ? (
-              <li className="navbar__list-item">
-                <div className="link" onClick={logout}>
-                  <HiArrowLeftOnRectangle className="icon" size="1.8em" />
-                  <p className="title">Log Out</p>
+      <LayoutGroup>
+        <nav className={displayNavbar ? 'navbar--active' : 'navbar'}>
+          <AnimatePresence>
+            {displayNavbar && (
+              <motion.div
+                className="header"
+                layoutId="header"
+                {...config.userCardAnimation}>
+                <div className="header-theme-switcher" onClick={toggleTheme}>
+                  {theme === 'light' ? (
+                    <HiOutlineFire size="1.6em" />
+                  ) : (
+                    <HiOutlineSun size="1.6em" />
+                  )}
                 </div>
-              </li>
-            ) : (
-              <>
-                <li className="navbar__list-item">
-                  <NavLink to="/login" className="link">
-                    <HiArrowRightOnRectangle className="icon" size="1.8em" />
-                    <p className="title">Log In</p>
-                  </NavLink>
-                </li>
 
-                <li className="navbar__list-item">
-                  <NavLink to="/signup" className="link">
-                    <HiOutlineUserPlus className="icon" size="1.8em" />
-                    <p className="title">Sign Up</p>
-                  </NavLink>
-                </li>
-              </>
+                <div className="header-lang-switcher">
+                  <p>fr - en</p>
+                </div>
+              </motion.div>
             )}
-          </div>
-        </ul>
-      </nav>
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {user && displayNavbar && (
+              <motion.div
+                className="user-card"
+                layoutId="user"
+                {...config.userCardAnimation}>
+                <div className="user-card-picture">
+                  <HiOutlineUser size="1.6em" />
+                </div>
+
+                <NavLink to="/account" end>
+                  <Button type="default">
+                    <p>{user.name}</p>
+                  </Button>
+                </NavLink>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <ul className="navbar-list">
+            <div className="menu">
+              <motion.li layoutId="home" className="navbar-list-item">
+                <NavLink to="/" className="link">
+                  <HiOutlineHome className="icon" size="1.6em" />
+
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="homeTitle"
+                        {...config.itemTitleAnimation}>
+                        Home
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
+
+              <AnimatePresence>
+                {error ? (
+                  <motion.li
+                    className="navbar-list-item error-message"
+                    layoutId="error"
+                    {...config.navbarItemAnimation}>
+                    <div className="link">
+                      <HiOutlineLockClosed className="icon" size="1.6em" />
+
+                      <AnimatePresence>
+                        {displayNavbar && (
+                          <motion.p
+                            className="title"
+                            layoutId="errorMessage"
+                            {...config.itemTitleAnimation}>
+                            {error}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.li>
+                ) : user && (
+                  <>
+                    <motion.li
+                      className={!displayNavbar ? 'navbar-list-item disabled' : 'navbar-list-item'}
+                      layoutId="boardsHeader"
+                      {...config.navbarItemAnimation}>
+                      <div
+                        className={displayBoards ? 'link active' : 'link'}
+                        onClick={toggleBoards}>
+                        <HiOutlineClipboardDocumentList className="icon" size="1.6em" />
+
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <>
+                              <motion.p
+                                className="title"
+                                layoutId="boardsTitle"
+                                {...config.itemTitleAnimation}>
+                                Boards
+                              </motion.p>
+
+                              {boards.length > 0 && (
+                                <motion.div
+                                  layoutId="boardsChevron"
+                                  {...config.itemTitleAnimation}>
+                                  {displayBoards ? (
+                                    <HiChevronUp className="icon" size="1.2em" />
+                                  ) : (
+                                    <HiChevronDown className="icon" size="1.2em" />
+                                  )}
+                                </motion.div>
+                              )}
+                            </>
+                          )}
+                        </AnimatePresence>
+
+                      </div>
+                    </motion.li>
+                    <AnimatePresence>
+                      {displayBoards && (
+                        <motion.li
+                          className="navbar-list-item"
+                          layoutId="boardsList"
+                          {...config.navbarItemAnimation}>
+                          <ul className="boards-list">
+                            {boards.map(board => (
+                              <SingleBoard key={board._id} {...board} />
+                            ))}
+                          </ul>
+                        </motion.li>
+                      )}
+                    </AnimatePresence>
+                    <motion.li
+                      className="navbar-list-item"
+                      layoutId="addBoard"
+                      {...config.navbarItemAnimation}>
+                      <NavLink to="/add-board" className="link">
+                        <HiOutlineDocumentPlus className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="addBoardsTitle"
+                              {...config.itemTitleAnimation}>
+                              Add board
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </NavLink>
+                    </motion.li>
+                    <motion.li
+                      className="navbar-list-item disabled"
+                      layoutId="friends"
+                      {...config.navbarItemAnimation}>
+                      <div className="link">
+                        <HiOutlineUsers className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="friendsTitle"
+                              {...config.itemTitleAnimation}>
+                              Friends
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.li>
+                    <motion.li
+                      className="navbar-list-item disabled"
+                      layoutId="messages"
+                      {...config.navbarItemAnimation}>
+                      <div className="link">
+                        <HiOutlineChatBubbleLeftRight className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="messagesTitle"
+                              {...config.itemTitleAnimation}>
+                              Messages
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.li>
+                    <motion.li
+                      className="navbar-list-item disabled"
+                      layoutId="agenda"
+                      {...config.navbarItemAnimation}>
+                      <div className="link">
+                        <HiOutlineCalendar className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="agendaTitle"
+                              {...config.itemTitleAnimation}>
+                              Agenda
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.li>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="footer">
+              <AnimatePresence>
+                {user ? (
+                  <motion.li
+                    className="navbar-list-item"
+                    layoutId="logout"
+                    {...config.navbarItemAnimation}>
+                    <div className="link" onClick={() => {
+                      if (displayBoards) {
+                        toggleBoards(false)
+                      }
+
+                      logout()
+                    }}>
+                      <HiArrowLeftOnRectangle className="icon" size="1.6em" />
+                      <AnimatePresence>
+                        {displayNavbar && (
+                          <motion.p
+                            className="title"
+                            layoutId="logoutTitle"
+                            {...config.itemTitleAnimation}>
+                            Log out
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.li>
+                ) : (
+                  <>
+                    <motion.li
+                      className="navbar-list-item"
+                      layoutId="login"
+                      {...config.navbarItemAnimation}>
+                      <NavLink to="/login" className="link">
+                        <HiArrowRightOnRectangle className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="loginTitle"
+                              {...config.itemTitleAnimation}>
+                              Log in
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </NavLink>
+                    </motion.li>
+
+                    <motion.li
+                      className="navbar-list-item"
+                      layoutId="signup"
+                      {...config.navbarItemAnimation}>
+                      <NavLink to="/signup" className="link">
+                        <HiOutlineUserPlus className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="signupTitle"
+                              {...config.itemTitleAnimation}>
+                              Sign up
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </NavLink>
+                    </motion.li>
+                  </>
+                )}
+              </AnimatePresence>
+
+              <motion.li
+                className="navbar-list-item"
+                layoutId="about"
+                {...config.navbarItemAnimation}>
+                <NavLink to="/about" className="link">
+                  <HiCodeBracket className="icon" size="1.6em" />
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="aboutTitle"
+                        {...config.itemTitleAnimation}>
+                        About
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
+            </div>
+          </ul>
+        </nav>
+      </LayoutGroup>
     </>
   )
 }

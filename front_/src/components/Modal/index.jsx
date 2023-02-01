@@ -3,27 +3,54 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 
-import capitalize from '../../utils/capitalize'
+import { motion } from 'framer-motion'
+import config from './motion.config'
 
 import { HiXMark } from 'react-icons/hi2'
 
-const Modal = ({ children, title, setIsOpen }) => {
+const Modal = ({ children, type, error, setIsOpen }) => {
   return (
     <>
-      <div className="backdrop" onClick={() => setIsOpen(false)} />
-      <div className="modal">
-        <HiXMark className="modal-close" size="1.6em" onClick={() => setIsOpen(false)} />
-        <div className="modal-content">
-          <h1 className="modal-content-title">{capitalize(title)}</h1>
-          {children}
+      {!type ? (
+        <div className="modal-container">
+          <motion.div
+            className="backdrop"
+            onClick={() => setIsOpen(false)}
+            {...config.backdropAnimation}>
+          </motion.div>
+          <motion.div
+            className="modal"
+            {...config.modalAnimation}>
+            <HiXMark
+              className="modal-close"
+              onClick={() => setIsOpen(false)}
+              size="2em"
+            />
+            <div className="modal-content">
+              {children}
+            </div>
+          </motion.div>
         </div>
-      </div>
+      ) : type === 'message' && (
+        <motion.div
+          className={error ? 'modal-message-error' : 'modal-message'}
+          {...config.modalAnimation}>
+          <div className="modal-message-content">
+            {children}
+          </div>
+          <HiXMark
+            className="modal-message-close"
+            onClick={() => setIsOpen(false)}
+            size="1.4em"
+          />
+        </motion.div>
+      )}
     </>
   )
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
+  type: PropTypes.string,
   setIsOpen: PropTypes.func.isRequired
 }
 

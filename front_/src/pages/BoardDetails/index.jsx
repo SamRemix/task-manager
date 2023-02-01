@@ -3,7 +3,7 @@ import './styles.scss'
 import { memo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
 import ProgressBar from '../../components/ProgressBar'
@@ -13,13 +13,11 @@ import Modal from '../../components/Modal'
 import AddTaskForm from './AddTaskForm.modal'
 import BoardSettings from './BoardSettings.modal'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
+import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import { useTasksContext } from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
-
-import capitalize from '../../utils/capitalize'
 
 import axios from '../../axios.config'
 
@@ -27,10 +25,12 @@ import Button from '../../components/Button'
 import Input from '../../components/Input'
 import Loader from '../../components/Loader'
 
+import capitalize from '../../utils/capitalize'
+
 const BoardDetails = () => {
   let { board_id } = useParams()
 
-  const { user } = useAuthContext()
+  const { user } = useAuthQueries()
   const { boards } = useBoardsContext()
   const { loading, tasks, error, dispatch } = useTasksContext()
   const { prefix, setPrefix, search } = useSearch()
@@ -38,7 +38,6 @@ const BoardDetails = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
-  const [modalTitle, setModalTitle] = useState('')
 
   const board = boards.find(board => (
     board._id === board_id
@@ -66,8 +65,6 @@ const BoardDetails = () => {
       getTasks()
     }
   }, [dispatch, user])
-
-
 
   if (loading) {
     return (
@@ -105,18 +102,26 @@ const BoardDetails = () => {
   return (
     <section className="container board__container">
       <header>
-        <motion.div {...config.addTaskButtonAnimation}>
+        <motion.div layoutId="addBoardButton" {...config.addTaskButtonAnimation}>
           <Button event={() => {
             setIsOpen(true)
             setIsSettingsOpen(false)
             setIsTaskFormOpen(true)
-            setModalTitle('Add task')
           }}>
             + Add task
           </Button>
         </motion.div>
 
-        <motion.div {...config.searchBarAnimation}>
+        <motion.div layoutId="settingsButton" {...config.settingsButtonAnimation}>
+          <Button
+            event={() => {
+              setIsOpen(true)
+              setIsTaskFormOpen(false)
+              setIsSettingsOpen(true)
+            }}>Settings</Button>
+        </motion.div>
+
+        <motion.div layoutId="searchbar" {...config.searchBarAnimation}>
           <form onSubmit={addTask}>
             <Input type="search" value={prefix} setPrefix={setPrefix} />
 
@@ -128,39 +133,29 @@ const BoardDetails = () => {
                   <p>{error}</p>
                 ) : (
                   <p>Press <b>Enter</b> to create <b>{capitalize(prefix)}</b> task.
-                    {/* <br /> */}
-                    {/* {36 - prefix.length} remaining character{prefix.length < 35 && 's'} */}
                   </p>
                 )}
               </motion.div>
             )}
           </form>
         </motion.div>
-
-        <motion.div {...config.settingsButtonAnimation}>
-          <Button
-            event={() => {
-              setIsOpen(true)
-              setIsTaskFormOpen(false)
-              setIsSettingsOpen(true)
-              setModalTitle('Settings')
-            }}>Settings</Button>
-        </motion.div>
       </header>
 
-      <ProgressBar tasks={tasks} />
+      <ProgressBar tasks={tasks} layoutId="progressbar" />
 
-      <TasksList tasks={search(tasks)} />
+      <TasksList tasks={search(tasks)} layoutId="tasksList" />
 
-      {isOpen && (
-        <Modal title={modalTitle} setIsOpen={setIsOpen}>
-          {isSettingsOpen ? (
-            <BoardSettings board_id={board_id} setIsOpen={setIsOpen} />
-          ) : isTaskFormOpen && (
-            <AddTaskForm board_id={board_id} setIsOpen={setIsOpen} />
-          )}
-        </Modal>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <Modal setIsOpen={setIsOpen}>
+            {isSettingsOpen ? (
+              <BoardSettings board={board} board_id={board_id} setIsOpen={setIsOpen} />
+            ) : isTaskFormOpen && (
+              <AddTaskForm board_id={board_id} setIsOpen={setIsOpen} />
+            )}
+          </Modal>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

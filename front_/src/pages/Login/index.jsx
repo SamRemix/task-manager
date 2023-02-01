@@ -1,54 +1,28 @@
 import { memo, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
-
-import axios from '../../axios.config'
+import useAuthQueries from '../../hooks/useAuthQueries'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const Login = () => {
-  const { dispatch } = useAuthContext()
-
-  const navigate = useNavigate()
+  const { error, setError, login } = useAuthQueries()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const [error, setError] = useState(false)
-
-  const login = async e => {
+  const handleLogin = e => {
     e.preventDefault()
 
-    dispatch({ type: 'LOADING' })
-
-    try {
-      const { data } = await axios.post('/user/login', {
-        email,
-        password
-      })
-
-      dispatch({ type: 'LOGIN', payload: data })
-
-      localStorage.setItem('token', JSON.stringify(data.token))
-
-      setError(false)
-
-      navigate('/')
-    } catch (err) {
-      setError(err.response.data.error)
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
-    }
+    login({ email, password })
   }
 
   return (
     <section className="container">
-      <form onSubmit={login}>
+      <form onSubmit={handleLogin}>
         <motion.div {...config.emailInputAnimation}>
           <Input
             placeholder="Email"
@@ -74,7 +48,7 @@ const Login = () => {
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Button type="form-button" disabled={error}>Log in</Button>
+          <Button type="form-button">Log in</Button>
         </motion.div>
 
         {error && (

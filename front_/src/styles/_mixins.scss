@@ -9,12 +9,12 @@
   justify-content: center;
 }
 
-// @mixin flex-center-gap($gap) {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   gap: $gap;
-// }
+@mixin flex-center-gap($gap) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
 
 // @mixin flex-center-gap($gap) {
 //   display: flex;

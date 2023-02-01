@@ -14,8 +14,6 @@ router.use(requireAuth)
 
 router.get('/', getTasks)
 
-// router.get('/:id', getTasks)
-
 router.get('/:id', getTask)
 
 router.post('/', createTask)

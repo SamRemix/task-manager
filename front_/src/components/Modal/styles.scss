@@ -1,43 +1,71 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-.backdrop {
-  background: rgba($color: #000, $alpha: .4);
+.modal-container {
+  @include mix.flex-center;
   position: fixed;
   inset: 0;
-  z-index: 8;
+  z-index: 9;
 
-  &:hover {
-    cursor: pointer;
+  .backdrop {
+    background: rgba($color: #000, $alpha: .4);
+    position: fixed;
+    inset: 0;
+    // z-index: 8;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .modal {
+    // margin: auto;
+    padding: 4rem;
+    width: 100%;
+    min-width: 40vw;
+    height: 100%;
+    background: v.$light;
+    border-radius: v.$radius;
+    position: fixed;
+    z-index: 1;
+    // inset: 50% auto auto 50%;
+    // transform: translate(-50%, -50%);
+
+    &-close {
+      position: absolute;
+      inset: 2rem 2rem auto auto;
+      cursor: pointer;
+    }
+
+    &-content {
+      @include mix.flex-column;
+      gap: 2rem;
+
+      &-title {
+        margin-left: 2rem;
+        font-size: 2.4rem;
+        font-weight: 600;
+      }
+    }
   }
 }
 
-.modal {
-  padding: 2rem;
-  width: 100%;
-  height: 100%;
-  background: v.$light;
+.modal-message {
+  @include mix.flex-align-gap(1rem);
+  padding: 1rem;
+  background: v.$green;
   border-radius: v.$radius;
   position: fixed;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
+  inset: auto 2rem 2rem auto;
+  // transform: translateX(-50%);
   z-index: 9;
 
-  &-close {
-    position: absolute;
-    inset: 40px 40px auto auto;
-    cursor: pointer;
+  &-error {
+    @extend .modal-message;
+    background: v.$red;
   }
 
-  &-content {
-    @include mix.flex-column;
-    padding: 40px;
-    gap: 40px;
-
-    &-title {
-      margin-left: 1rem;
-      font-size: 2.4rem;
-      font-weight: 200;
-    }
+  &-close {
+    cursor: pointer;
   }
 }

@@ -1,11 +1,12 @@
 import './styles.scss'
 
-import PropTypes from 'prop-types'
 import { memo } from 'react'
+import PropTypes from 'prop-types'
+
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-const ProgressBar = ({ tasks }) => {
+const ProgressBar = ({ tasks, layoutId }) => {
   let [toDoLength, inProgressLength, doneLength] = Array(3).fill(0)
 
   tasks.forEach(({ status }) => {
@@ -30,6 +31,7 @@ const ProgressBar = ({ tasks }) => {
   return (
     <motion.div
       className="progress__bar"
+      layoutId={layoutId}
       {...config.progressBarAnimation}>
       {toDoLength > 0 && (
         <div

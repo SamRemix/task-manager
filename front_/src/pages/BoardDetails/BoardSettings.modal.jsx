@@ -1,5 +1,5 @@
+import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
-import { memo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../../hooks/useAuthContext'
@@ -10,32 +10,34 @@ import axios from '../../axios.config'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-const BoardSettings = ({ board_id, setIsOpen }) => {
+import formatDate from '../../utils/formatDate'
+
+const BoardSettings = ({ board, board_id, setIsOpen }) => {
   const navigate = useNavigate()
 
   const { user } = useAuthContext()
   const { dispatch } = useBoardsContext()
 
   // const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
 
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(board.title)
 
-  useEffect(() => {
-    const getBoard = async () => {
-      try {
-        const { data } = await axios.get(`/boards/${board_id}`)
+  // useEffect(() => {
+  //   const getBoard = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/boards/${board_id}`)
 
-        setTitle(data.title)
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
+  //       setTitle(data.title)
+  //     } catch (err) {
+  //       dispatch({ type: 'ERROR', payload: err.response.data.error })
+  //     }
+  //   }
 
-    if (user) {
-      getBoard()
-    }
-  }, [user])
+  //   if (user) {
+  //     getBoard()
+  //   }
+  // }, [user])
 
   const updateBoard = async e => {
     e.preventDefault()
@@ -57,23 +59,28 @@ const BoardSettings = ({ board_id, setIsOpen }) => {
   }
 
   const deleteBoard = async () => {
-    const { data } = await axios.delete(`/boards/${board_id}`)
+    try {
+      setIsOpen(false)
 
-    dispatch({ type: 'DELETE_BOARD', payload: data })
+      const { data } = await axios.delete(`/boards/${board_id}`)
 
-    setIsOpen(false)
+      dispatch({ type: 'DELETE_BOARD', payload: data })
 
-    navigate('/')
+      navigate('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
     <>
+      <h1 className="modal-content-title">Settings</h1>
       <form onSubmit={updateBoard}>
         <Input
           placeholder="Title"
           value={title}
           onChange={e => {
-            setError(false)
+            setError('')
             setTitle(e.target.value)
           }}
           maxLength="24"
@@ -84,7 +91,9 @@ const BoardSettings = ({ board_id, setIsOpen }) => {
         <Button type="form-button">Update board</Button>
       </form>
 
-      <Button event={deleteBoard}>Delete board</Button>
+      <Button type="delete" event={deleteBoard}>Delete board</Button>
+
+      <p>{formatDate(board.createdAt)}</p>
     </>
   )
 }

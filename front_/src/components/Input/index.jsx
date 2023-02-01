@@ -3,7 +3,7 @@ import './styles.scss'
 import PropTypes from 'prop-types'
 import { memo } from 'react'
 
-import useDisplayPassword from '../../hooks/useDisplayPassword'
+import useToggle from '../../hooks/useToggle'
 import capitalize from '../../utils/capitalize'
 
 import {
@@ -13,7 +13,7 @@ import {
 } from 'react-icons/hi2'
 
 const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, setPrefix }) => {
-  const { displayPassword, togglePassword } = useDisplayPassword()
+  const { display, toggle } = useToggle()
 
   return (
     <div className={error ? 'input--error' : 'input'}>
@@ -73,15 +73,15 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
       {type === 'password' && (
         <>
           <input
-            type={displayPassword ? 'text' : 'password'}
+            type={display ? 'text' : 'password'}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
           />
           <div
             className="eye-icon"
-            onClick={togglePassword}>
-            {displayPassword ? (
+            onClick={toggle}>
+            {display ? (
               <HiOutlineEyeSlash size="1.4em" />
             ) : (
               <HiOutlineEye size="1.4em" />

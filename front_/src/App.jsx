@@ -1,10 +1,9 @@
 import { memo, useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, LayoutGroup } from 'framer-motion'
 
-import { useAuthContext } from './hooks/useAuthContext'
+import useAuthQueries from './hooks/useAuthQueries'
 import { useBoardsContext } from './hooks/useBoardsContext'
-import { useThemeContext } from './hooks/useThemeContext'
 
 import axios from './axios.config'
 
@@ -24,17 +23,18 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Account from './pages/Account'
 
+import About from './pages/About'
+
 import NotFound from './pages/404'
 
 const App = () => {
   const location = useLocation()
 
-  const { user, dispatch } = useAuthContext()
-  const { dispatch: dispatch_boards } = useBoardsContext()
-  const { theme } = useThemeContext()
+  const { token, user, dispatch } = useAuthQueries()
+  const { dispatch: dispatchBoards } = useBoardsContext()
 
   useEffect(() => {
-    const getUser = async () => {
+    const getCurrentUser = async () => {
       dispatch({ type: 'LOADING' })
 
       try {
@@ -47,49 +47,55 @@ const App = () => {
       }
     }
 
-    getUser()
-  }, [dispatch])
+    if (token) {
+      getCurrentUser()
+    }
+  }, [dispatch, token])
 
   useEffect(() => {
     const getBoards = async () => {
-      dispatch_boards({ type: 'LOADING' })
+      dispatchBoards({ type: 'LOADING' })
 
       try {
         const { data } = await axios.get('/boards')
 
-        dispatch_boards({ type: 'GET_BOARDS', payload: data })
+        dispatchBoards({ type: 'GET_BOARDS', payload: data })
 
       } catch (err) {
-        dispatch_boards({ type: 'ERROR', payload: err.response.data.error })
+        dispatchBoards({ type: 'ERROR', payload: err.response.data.error })
       }
     }
 
     if (user) {
       getBoards()
     }
-  }, [dispatch_boards, user])
+  }, [dispatchBoards, user])
 
   return (
-    <>
-      <Cursor />
-      <Navbar />
-      <AnimatePresence mode="wait" initial={false}>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
+    <LayoutGroup>
+      <>
+        <Cursor />
+        <Navbar />
+        <AnimatePresence mode="wait" initial={false}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
 
-          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
-          <Route path="/add-board" element={user && <AddBoard />} />
+            <Route path="/boards/:board_id" element={user && <BoardDetails />} />
+            <Route path="/add-board" element={user && <AddBoard />} />
 
-          <Route path="/update-task/:task_id" element={user && <UpdateTask />} />
+            <Route path="/update-task/:task_id" element={user && <UpdateTask />} />
 
-          <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
-          <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-          <Route path="/account" element={user && <Account />} />
+            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+            <Route path="/account" element={user && <Account />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AnimatePresence>
-    </>
+            <Route path="*" element={<NotFound />} />
+            {/* <Route path="*" element={<Navigate to="/" />} /> */}
+          </Routes>
+        </AnimatePresence>
+      </>
+    </LayoutGroup>
   )
 }
 

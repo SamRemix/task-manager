@@ -1,12 +1,11 @@
 import { memo, useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useDocumentTitle from '../../hooks/useDocumentTitle'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 import axios from '../../axios.config'
 
@@ -20,32 +19,29 @@ const AddBoard = () => {
 
   const { dispatch } = useBoardsContext()
 
-  // const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
   const [title, setTitle] = useState('')
+  const [favorite, setFavorite] = useState(false)
+
+  const [error, setError] = useState('')
 
   const createBoard = async e => {
     e.preventDefault()
 
-    // setLoading(true)
-
     try {
-      const { data } = await axios.post('/boards', { title })
+      const { data } = await axios.post('/boards', { title, favorite })
 
       dispatch({ type: 'CREATE_BOARD', payload: data })
 
-      // setLoading(false)
-
       navigate(`/boards/${data._id}`)
     } catch (err) {
-      // setLoading(false)
       setError(err.response.data.error)
     }
   }
 
   return (
     <section className="container">
+      <Button type="back" />
+
       <form onSubmit={createBoard}>
         <motion.div {...config.titleInputAnimation}>
           <Input
@@ -58,6 +54,15 @@ const AddBoard = () => {
             maxLength="24"
             focus={true}
             error={error}
+          />
+        </motion.div>
+
+        <motion.div {...config.favCheckboxAnimation}>
+          <Input
+            type="checkbox"
+            placeholder="Favorite"
+            value={favorite}
+            onChange={() => setFavorite(!favorite)}
           />
         </motion.div>
 

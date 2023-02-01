@@ -5,84 +5,55 @@
   margin-left: 1rem;
   padding: 0 2rem;
   width: fit-content;
-  height: 40px;
+  height: 3rem;
   border-radius: v.$radius;
-  font-size: 1.4rem;
-  font-weight: 200;
+  font-size: 1.2rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  // justify-content: center;
+  justify-content: center;
 }
 
 @mixin container {
-  width: 100%;
-  margin: 20px 0 0;
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 1rem;
 }
 
 @mixin set-color($color) {
-  background: $color;
-  box-shadow: 0 0 0 4px $color;
+  &-name {
+    @include name;
+    background: $color;
+  }
+
+  &-container {
+    @include container;
+
+    .task-content,
+    .task-content-important {
+      &:hover {
+        background: $color;
+        box-shadow: 0 0 0 4px $color;
+      }
+    }
+  }
 }
 
 .tasks-container {
   grid-area: TasksContainer;
   display: grid;
-  gap: 40px;
+  gap: 3rem;
 
   .to-do {
-    &-name {
-      @include name;
-      background: v.$to-do;
-    }
-
-    &-container {
-      @include container;
-
-      .task__content,
-      .task__content--important {
-        &:hover {
-          @include set-color(v.$to-do);
-        }
-      }
-    }
+    @include set-color(v.$to-do);
   }
 
   .in-progress {
-    &-name {
-      @include name;
-      background: v.$in-progress;
-    }
-
-    &-container {
-      @include container;
-
-      .task__content,
-      .task__content--important {
-        &:hover {
-          @include set-color(v.$in-progress);
-        }
-      }
-    }
+    @include set-color(v.$in-progress);
   }
 
   .done {
-    &-name {
-      @include name;
-      background: v.$done;
-    }
-
-    &-container {
-      @include container;
-
-      .task__content,
-      .task__content--important {
-        &:hover {
-          @include set-color(v.$done);
-        }
-      }
-    }
+    @include set-color(v.$done);
   }
 }

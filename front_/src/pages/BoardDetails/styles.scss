@@ -1,4 +1,5 @@
 @use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
 
 .board__container {
   display: grid !important;
@@ -9,16 +10,13 @@
   grid-template-areas:
     'ProgressBar Header'
     'ProgressBar TasksContainer';
-  gap: 4rem;
+  gap: 1rem;
 
   header {
-    padding: 0 2rem;
+    @include mix.flex-center-gap(1rem 3rem);
+    padding-right: 2rem;
     grid-area: Header;
-    display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem 3rem;
   }
 
   .task-quick-add {

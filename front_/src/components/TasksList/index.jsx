@@ -17,7 +17,9 @@ const TasksList = ({ tasks }) => {
         <h2 className="to-do-name">To do</h2>
         <div className="to-do-container">
           {tasks.map(task => (
-            task.status === 'To do' && <SingleTask key={task._id} {...task} />
+            task.status === 'To do' && (
+              <SingleTask key={task._id} {...task} />
+            )
           ))}
         </div>
       </motion.div>
@@ -28,7 +30,9 @@ const TasksList = ({ tasks }) => {
         <h2 className="in-progress-name">In progress</h2>
         <div className="in-progress-container">
           {tasks.map(task => (
-            task.status === 'In progress' && <SingleTask key={task._id} {...task} />
+            task.status === 'In progress' && (
+              <SingleTask key={task._id} {...task} />
+            )
           ))}
         </div>
       </motion.div>
@@ -39,7 +43,9 @@ const TasksList = ({ tasks }) => {
         <h2 className="done-name">Done</h2>
         <div className="done-container">
           {tasks.map(task => (
-            task.status === 'Done' && <SingleTask key={task._id} {...task} />
+            task.status === 'Done' && (
+              <SingleTask key={task._id} {...task} />
+            )
           ))}
         </div>
       </motion.div>

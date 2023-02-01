@@ -1,58 +1,30 @@
-import './styles.scss'
-
 import { memo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import PasswordValidation from './PasswordValidation'
+import useAuthQueries from '../../hooks/useAuthQueries'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
-
-import axios from '../../axios.config'
-
+import PasswordValidation from '../../components/PasswordValidation'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const Signup = () => {
-  const { dispatch } = useAuthContext()
-
-  const navigate = useNavigate()
+  const { error, setError, signup } = useAuthQueries()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const [error, setError] = useState(false)
-
-  const signup = async e => {
+  const handleSignup = e => {
     e.preventDefault()
 
-    dispatch({ type: 'LOADING' })
-
-    try {
-      const { data } = await axios.post('/user/signup', {
-        name,
-        email,
-        password
-      })
-
-      dispatch({ type: 'LOGIN', payload: data })
-
-      localStorage.setItem('token', JSON.stringify(data.token))
-
-      setError(false)
-
-      navigate('/')
-    } catch (err) {
-      setError(err.response.data.error)
-    }
+    signup({ name, email, password })
   }
 
   return (
     <section className="container signup">
-      <form onSubmit={signup}>
+      <form onSubmit={handleSignup}>
         <motion.div {...config.nameInputAnimation}>
           <Input
             placeholder="Name"
@@ -86,12 +58,14 @@ const Signup = () => {
               setPassword(e.target.value)
             }}
           />
+        </motion.div>
 
+        <motion.div {...config.passwordValidationAnimation}>
           <PasswordValidation password={password} />
         </motion.div>
 
         <motion.div {...config.submitButtonAnimation}>
-          <Button type="form-button" disabled={error}>Sign up</Button>
+          <Button type="form-button">Sign up</Button>
         </motion.div>
 
         {error && (

@@ -2,13 +2,16 @@ import { createContext, useReducer, useEffect } from 'react'
 
 const initialState = {
   loading: null,
+  token: '',
   user: null,
   error: null
 }
 
 const LOADING = 'LOADING'
+const SET_TOKEN = 'SET_TOKEN'
 const LOGIN = 'LOGIN'
 const UPDATE_USER = 'UPDATE_USER'
+const LOGOUT = 'LOGOUT'
 const ERROR = 'ERROR'
 
 const AuthReducer = (state = initialState, action) => {
@@ -19,11 +22,25 @@ const AuthReducer = (state = initialState, action) => {
         loading: true
       }
 
+    case SET_TOKEN:
+      return {
+        ...state,
+        loading: false,
+        token: action.payload
+      }
+
     case LOGIN:
       return {
         ...state,
         loading: false,
         user: action.payload
+      }
+
+    case LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        user: null
       }
 
     case UPDATE_USER:
@@ -50,12 +67,14 @@ export const AuthContext = createContext(initialState)
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
 
-  const user = JSON.parse(localStorage.getItem('user'))
+  const token = JSON.parse(localStorage.getItem('token'))
 
   useEffect(() => {
-    dispatch({ type: 'LOADING' })
+    if (!token) {
+      return
+    }
 
-    dispatch({ type: 'LOGIN', payload: user })
+    dispatch({ type: 'SET_TOKEN', payload: token })
   }, [])
 
   console.log('Auth state : ', state)
