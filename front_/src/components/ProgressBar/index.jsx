@@ -6,7 +6,13 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-const ProgressBar = ({ tasks, layoutId }) => {
+import { useHoverContext } from '../../contexts/HoverContext'
+
+import setPercent from '../../utils/setPercent'
+
+const ProgressBar = ({ tasks }) => {
+  const { active } = useHoverContext()
+
   let [toDoLength, inProgressLength, doneLength] = Array(3).fill(0)
 
   tasks.forEach(({ status }) => {
@@ -24,36 +30,36 @@ const ProgressBar = ({ tasks, layoutId }) => {
     }
   })
 
-  const setPercent = num => (
-    num / tasks.length * 100
-  )
+  const isActive = ['To do', 'In progress', 'Done'].find(status => (
+    status === active
+  ))
+  console.log(isActive);
 
   return (
     <motion.div
-      className="progress__bar"
-      layoutId={layoutId}
+      className="progress-bar"
       {...config.progressBarAnimation}>
       {toDoLength > 0 && (
         <div
-          className="progress__bar-to-do"
-          style={{ height: setPercent(toDoLength) + '%' }}>
-          <p>{+setPercent(toDoLength).toFixed(1)}<span>%</span></p>
+          className={isActive === 'To do' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          style={{ height: setPercent(toDoLength, tasks) + '%' }}>
+          <p>{+setPercent(toDoLength, tasks).toFixed(1)}<span>%</span></p>
         </div>
       )}
 
       {inProgressLength > 0 && (
         <div
-          className="progress__bar-in-progress"
-          style={{ height: setPercent(inProgressLength) + '%' }}>
-          <p>{+setPercent(inProgressLength).toFixed(1)}<span>%</span></p>
+          className={isActive === 'In progress' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          style={{ height: setPercent(inProgressLength, tasks) + '%' }}>
+          <p>{+setPercent(inProgressLength, tasks).toFixed(1)}<span>%</span></p>
         </div>
       )}
 
       {doneLength > 0 && (
         <div
-          className="progress__bar-done"
-          style={{ height: setPercent(doneLength) + '%' }}>
-          <p>{+setPercent(doneLength).toFixed(1)}<span>%</span></p>
+          className={isActive === 'Done' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          style={{ height: setPercent(doneLength, tasks) + '%' }}>
+          <p>{+setPercent(doneLength, tasks).toFixed(1)}<span>%</span></p>
         </div>
       )}
 

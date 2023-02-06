@@ -2,44 +2,32 @@
 @use '../../styles/mixins' as mix;
 
 @mixin button-style {
-  @include mix.flex-align-gap(1rem);
-  padding: .9rem 1.6rem;
+  @include mix.flex-align-gap(.75rem);
+  padding: .75rem 1.5rem;
   width: fit-content;
-  border-radius: v.$radius * .8;
+  height: 2.5rem;
+  border-radius: v.$radius-sm;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background: #000;
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: .1s;
-  }
-
-  &:hover {
-    &::before {
-      opacity: .1;
-    }
-  }
-
-  &:active {
-    &::before {
-      opacity: .15;
-    }
-  }
 }
 
 .default {
   @include button-style;
-  background: #f5e39c;
-  // color: #fff;
+  background: v.$red-1;
+  border-radius: v.$radius-sm;
+  box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+  font-weight: 600;
   transition: .1s;
+
+  &:hover {
+    box-shadow: 0 0 0 .125rem v.$dark, .25rem .25rem 0 .125rem v.$dark;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 .125rem v.$dark, .125rem .125rem 0 .125rem v.$dark;
+  }
 
   &:disabled {
     opacity: .6;
@@ -52,15 +40,15 @@
 }
 
 .delete {
-  @include button-style;
-  background: v.$red;
-  color: #fff;
+  @extend .default;
+  background: v.$red-2;
   position: absolute;
   inset: auto 2rem 2rem auto;
 }
 
 .back {
-  font-size: 1.2rem;
+  @extend .default;
+  background: transparent;
   position: absolute;
   inset: 2rem auto auto 4rem;
 }

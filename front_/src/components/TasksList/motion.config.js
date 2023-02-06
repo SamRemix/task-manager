@@ -9,11 +9,11 @@ const config = {
       opacity: 1,
       transition: {
         duration: .6,
-        delay: .2
+        delay: .3
       }
     },
     exit: {
-      x: -80,
+      x: -40,
       opacity: 0,
       transition: {
         duration: .4
@@ -34,7 +34,7 @@ const config = {
       }
     },
     exit: {
-      x: 80,
+      x: 40,
       opacity: 0,
       transition: {
         duration: .4
@@ -51,11 +51,11 @@ const config = {
       opacity: 1,
       transition: {
         duration: .6,
-        delay: .6
+        delay: .5
       }
     },
     exit: {
-      x: 80,
+      x: 40,
       opacity: 0,
       transition: {
         duration: .4

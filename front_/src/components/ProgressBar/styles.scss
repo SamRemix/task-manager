@@ -1,48 +1,61 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-.progress__bar {
+.progress-bar {
   @include mix.flex-column-center-gap(1.4rem);
   grid-area: ProgressBar;
-  width: 80px;
-  height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
+  width: 5rem;
+  height: calc(100vh - calc(v.$app-padding + v.$container-padding / 2) * 2);
   position: sticky;
   top: 0;
+  transition: height .4s;
 
-  @mixin percent-container($color) {
+  // @mixin percent-container($color) {
+  //   @include mix.flex-justify;
+  //   width: 2.5rem;
+  //   background: $color;
+  //   border-radius: v.$radius-lg;
+  //   position: relative;
+  //   transition: .4s;
+  // }
+
+  @mixin percent-container {
     @include mix.flex-justify;
-    width: 40px;
-    background: $color;
-    border-radius: v.$radius;
+    width: 2.5rem;
+    background: v.$red-light-1;
+    border-radius: v.$radius-lg;
     position: relative;
+    transition: .2s;
   }
 
-  & &-to-do {
-    @include percent-container($color: v.$to-do);
-  }
+  & &-item {
+    @include percent-container;
+    box-shadow: 0 0 0 .125rem v.$dark;
 
-  & &-in-progress {
-    @include percent-container($color: v.$in-progress);
-  }
+    &.active {
+      background: v.$red-1;
+      box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      // transform: scale(1.05);
+    }
 
-  & &-done {
-    @include percent-container($color: v.$done);
-  }
+    &.disabled {
+      opacity: .4;
+    }
 
-  p:not(.no-tasks) {
-    padding: 8px;
-    width: 60px;
-    text-align: center;
-    background: v.$light;
-    border: 1px solid #aaa;
-    border-radius: v.$radius;
-    color: #000;
-    position: absolute;
-    top: 10px;
-
-    span {
+    >p {
+      padding: .5rem .75rem;
+      text-align: center;
+      background: v.$light;
+      border: 1px solid #aaa;
+      border-radius: v.$radius-sm;
       color: #000;
-      font-size: .8em;
+      position: absolute;
+      top: .75rem;
+
+      span {
+        color: #000;
+        font-size: .8em;
+      }
     }
   }
 

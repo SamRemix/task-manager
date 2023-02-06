@@ -35,15 +35,13 @@ const App = () => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      dispatch({ type: 'LOADING' })
-
       try {
         const { data } = await axios.get('/user')
 
         dispatch({ type: 'LOGIN', payload: data })
 
       } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
+        // dispatch({ type: 'ERROR', payload: err.response.data.error })
       }
     }
 
@@ -69,7 +67,7 @@ const App = () => {
     if (user) {
       getBoards()
     }
-  }, [dispatchBoards, user])
+  }, [dispatchBoards, token, user])
 
   return (
     <LayoutGroup>

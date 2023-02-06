@@ -1,4 +1,4 @@
-import { formatDistanceToNowStrict } from 'date-fns'
+// import { formatDistanceToNowStrict } from 'date-fns'
 
 const formatDate = date => (
   // formatDistanceToNowStrict(new Date(date), { addSuffix: true })

@@ -2,7 +2,7 @@ import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-import { useAuthContext } from '../../hooks/useAuthContext'
+import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
@@ -12,10 +12,10 @@ import Button from '../../components/Button'
 
 import formatDate from '../../utils/formatDate'
 
-const BoardSettings = ({ board, board_id, setIsOpen }) => {
+const BoardSettings = ({ board, board_id, toggle }) => {
   const navigate = useNavigate()
 
-  const { user } = useAuthContext()
+  const { user } = useAuthQueries()
   const { dispatch } = useBoardsContext()
 
   // const [loading, setLoading] = useState(false)
@@ -51,7 +51,7 @@ const BoardSettings = ({ board, board_id, setIsOpen }) => {
 
       // setLoading(false)
 
-      setIsOpen(false)
+      toggle()
     } catch (err) {
       // setLoading(false)
       setError(err.response.data.error)
@@ -60,7 +60,7 @@ const BoardSettings = ({ board, board_id, setIsOpen }) => {
 
   const deleteBoard = async () => {
     try {
-      setIsOpen(false)
+      toggle()
 
       const { data } = await axios.delete(`/boards/${board_id}`)
 
@@ -100,7 +100,7 @@ const BoardSettings = ({ board, board_id, setIsOpen }) => {
 
 BoardSettings.propTypes = {
   board_id: PropTypes.string.isRequired,
-  setIsOpen: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired
 }
 
 export default memo(BoardSettings)

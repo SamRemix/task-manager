@@ -1,34 +1,31 @@
-$light: #f6fafd;
-// $light: #E6ECF7;
-// $light: #f7ece6;
+$green-1: #1eb854;
+$green-2: #1aac83;
+$green-3: #72D2C2;
+$green-4: #7dbfa2;
 
-// $to-do: #ff97aa;
-// $in-progress: #dec1f2;
-// $done: #f5e39c;
+$red-1: #ff6058;
+$red-2: #ff3e00;
+$red-light-1: #ff9c97;
+// $red-light-2: #ff7f79;
 
-$to-do: #ff9c97;
-$in-progress: #72D2C2;
-// $done: #F7E991;
-$done: #f5e39c;
+$blue-1: #40B3FF;
+$blue-2: #497ff8;
+$blue-light-1: #dec1f2;
 
-$high: #fcddb0;
-// $high-importance: #e5e8fe;
-$low: #eee3e2;
-// $low-importance: #e5e8fe;
+$yellow-1: #fcddb0;
+$yellow-2: #f5e39c;
+$yellow-3: #f7e991;
 
-$dark: #222;
-$green: #1eb854;
-$green-1: #1aac83;
-// 
 
-$red: #ff6058;
-$red-1: #ff3e00;
-$dark-red-1: #D14F48;
 
-$blue: #40B3FF;
-$blue-1: #497ff8;
+$light: #e8e4d2;
+$dark: #211c1d;
+
+$high: $yellow-1;
+$low: #dfdac5;
 
 $app-padding: 1rem;
 $container-padding: 2rem;
 
-$radius: 1rem;
+$radius-sm: .5rem;
+$radius-lg: 1rem;

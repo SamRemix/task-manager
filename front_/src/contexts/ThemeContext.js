@@ -8,7 +8,7 @@ export const ThemeContext = createContext({
   toggleTheme: () => { }
 })
 
-export const ThemeContextProvider = ({ children }) => {
+export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useLocalStorage('theme', defaultTheme ? 'dark' : 'light')
 
   const toggleTheme = () => {

@@ -4,7 +4,10 @@ import { memo, useState, useEffect } from 'react'
 
 import { motion } from 'framer-motion'
 
+import { useHoverContext } from '../../contexts/HoverContext'
+
 const Cursor = () => {
+  const { active } = useHoverContext()
   const [position, setPosition] = useState({
     x: 0,
     y: 0
@@ -31,10 +34,11 @@ const Cursor = () => {
   return (
     <motion.div
       className={isOut ? 'cursor--out' : 'cursor'}
-      animate={{
-        x: position.x - 60,
-        y: position.y - 60
-      }} />
+      animate={{ x: position.x, y: position.y }}>
+      {active && (
+        <p className="active-status">{active}</p>
+      )}
+    </motion.div>
   )
 }
 

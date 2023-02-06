@@ -17,6 +17,7 @@ import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import { useTasksContext } from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
+import useToggle from '../../hooks/useToggle'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 import axios from '../../axios.config'
@@ -25,7 +26,7 @@ import Button from '../../components/Button'
 import Input from '../../components/Input'
 import Loader from '../../components/Loader'
 
-import capitalize from '../../utils/capitalize'
+import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
 
 const BoardDetails = () => {
   let { board_id } = useParams()
@@ -33,9 +34,9 @@ const BoardDetails = () => {
   const { user } = useAuthQueries()
   const { boards } = useBoardsContext()
   const { loading, tasks, error, dispatch } = useTasksContext()
-  const { prefix, setPrefix, search } = useSearch()
+  const { setPrefix, search } = useSearch()
+  const { display, toggle } = useToggle()
 
-  const [isOpen, setIsOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
 
@@ -52,8 +53,8 @@ const BoardDetails = () => {
         const { data } = await axios.get('/tasks')
 
         dispatch({
-          type: 'GET_TASKS', payload: data.filter(d => (
-            d.board_id === board_id
+          type: 'GET_TASKS', payload: data.filter(task => (
+            task.board_id === board_id
           ))
         })
       } catch (err) {
@@ -74,70 +75,34 @@ const BoardDetails = () => {
     )
   }
 
-  const addTask = async e => {
-    e.preventDefault()
-
-    // setLoading(true)
-
-    try {
-
-      if (prefix) {
-        const { data } = await axios.post('/tasks', { title: prefix, important: false, board_id })
-
-        setPrefix('')
-
-        dispatch({ type: 'CREATE_TASK', payload: data })
-      }
-
-      // setLoading(false)
-
-      // setIsOpen(false)
-    } catch (err) {
-      dispatch({ type: 'ERROR', payload: err.response.data.error })
-      // setLoading(false)
-      // setError(err.response.data.error)
-    }
-  }
-
   return (
     <section className="container board__container">
       <header>
-        <motion.div layoutId="addBoardButton" {...config.addTaskButtonAnimation}>
+        <motion.div
+          className="buttons"
+          {...config.headerButtonsAnimation}>
           <Button event={() => {
-            setIsOpen(true)
+            toggle()
             setIsSettingsOpen(false)
             setIsTaskFormOpen(true)
           }}>
-            + Add task
+            <HiPlus size="1.2em" />
+            Add task
+          </Button>
+
+          <Button
+            event={() => {
+              toggle()
+              setIsTaskFormOpen(false)
+              setIsSettingsOpen(true)
+            }}>
+            <HiOutlineCog6Tooth size="1.2em" />
+            Settings
           </Button>
         </motion.div>
 
-        <motion.div layoutId="settingsButton" {...config.settingsButtonAnimation}>
-          <Button
-            event={() => {
-              setIsOpen(true)
-              setIsTaskFormOpen(false)
-              setIsSettingsOpen(true)
-            }}>Settings</Button>
-        </motion.div>
-
-        <motion.div layoutId="searchbar" {...config.searchBarAnimation}>
-          <form onSubmit={addTask}>
-            <Input type="search" value={prefix} setPrefix={setPrefix} />
-
-            {prefix && (
-              <motion.div
-                className={error ? 'task-quick-add--error' : 'task-quick-add'}
-                {...config.taskQuickAddAnimation}>
-                {error ? (
-                  <p>{error}</p>
-                ) : (
-                  <p>Press <b>Enter</b> to create <b>{capitalize(prefix)}</b> task.
-                  </p>
-                )}
-              </motion.div>
-            )}
-          </form>
+        <motion.div {...config.searchBarAnimation}>
+          <Input type="search" setPrefix={setPrefix} />
         </motion.div>
       </header>
 
@@ -146,12 +111,12 @@ const BoardDetails = () => {
       <TasksList tasks={search(tasks)} layoutId="tasksList" />
 
       <AnimatePresence>
-        {isOpen && (
-          <Modal setIsOpen={setIsOpen}>
+        {display && (
+          <Modal toggle={toggle}>
             {isSettingsOpen ? (
-              <BoardSettings board={board} board_id={board_id} setIsOpen={setIsOpen} />
+              <BoardSettings board={board} board_id={board_id} toggle={toggle} />
             ) : isTaskFormOpen && (
-              <AddTaskForm board_id={board_id} setIsOpen={setIsOpen} />
+              <AddTaskForm board_id={board_id} toggle={toggle} />
             )}
           </Modal>
         )}

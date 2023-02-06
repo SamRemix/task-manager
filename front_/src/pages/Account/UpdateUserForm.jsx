@@ -29,7 +29,7 @@ const UpdateUserForm = ({ user }) => {
   if (success || error) {
     setTimeout(() => {
       setIsOpen(false)
-    }, 10000)
+    }, 6000)
   }
 
   const updateName = async e => {
@@ -172,7 +172,7 @@ const UpdateUserForm = ({ user }) => {
 }
 
 UpdateUserForm.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.objectOf(PropTypes.string).isRequired
 }
 
 export default memo(UpdateUserForm)

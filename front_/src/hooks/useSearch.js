@@ -5,11 +5,11 @@ const useSearch = () => {
 
   const search = data => (
     data.filter(({ title }) => (
-      title.toLowerCase().startsWith(prefix.trim().toLowerCase())
+      title.trim().toLowerCase().startsWith(prefix.trim().toLowerCase())
     ))
   )
 
-  return { prefix, setPrefix, search }
+  return { setPrefix, search }
 }
 
 export default useSearch

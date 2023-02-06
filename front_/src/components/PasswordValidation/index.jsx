@@ -3,7 +3,7 @@ import './styles.scss'
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import { HiCheckBadge, HiOutlineXMark } from 'react-icons/hi2'
+import { HiOutlineCheckBadge, HiOutlineXMark } from 'react-icons/hi2'
 
 import verifyPassword from '../../utils/verifyPassword'
 
@@ -17,7 +17,7 @@ const PasswordValidation = ({ password }) => {
   } = verifyPassword(password)
 
   const isValid = () => (
-    <HiCheckBadge size='1.6em' color='#1eb854' />
+    <HiOutlineCheckBadge size='1.6em' color='#000' />
   )
 
   const isNotValid = () => (

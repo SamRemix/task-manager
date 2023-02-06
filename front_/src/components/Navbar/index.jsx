@@ -9,6 +9,7 @@ import config from './motion.config'
 import { useThemeContext } from '../../hooks/useThemeContext'
 import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
+import { useHoverContext } from '../../contexts/HoverContext'
 import useToggle from '../../hooks/useToggle'
 
 import SingleBoard from '../SingleBoard'
@@ -38,6 +39,7 @@ const Navbar = () => {
   const { user, logout } = useAuthQueries()
   const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
+  const { dispatch } = useHoverContext()
 
   const { display: displayBoards, toggle: toggleBoards } = useToggle()
   const [displayNavbar, toggleNavbar] = useState(true)
@@ -105,7 +107,11 @@ const Navbar = () => {
           <ul className="navbar-list">
             <div className="menu">
               <motion.li layoutId="home" className="navbar-list-item">
-                <NavLink to="/" className="link">
+                <NavLink
+                  to="/"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Home' })) : undefined}
+                  onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                   <HiOutlineHome className="icon" size="1.6em" />
 
                   <AnimatePresence>
@@ -127,7 +133,10 @@ const Navbar = () => {
                     className="navbar-list-item error-message"
                     layoutId="error"
                     {...config.navbarItemAnimation}>
-                    <div className="link">
+                    <div
+                      className="link"
+                      onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: error })) : undefined}
+                      onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                       <HiOutlineLockClosed className="icon" size="1.6em" />
 
                       <AnimatePresence>
@@ -150,7 +159,9 @@ const Navbar = () => {
                       {...config.navbarItemAnimation}>
                       <div
                         className={displayBoards ? 'link active' : 'link'}
-                        onClick={toggleBoards}>
+                        onClick={toggleBoards}
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Boards' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineClipboardDocumentList className="icon" size="1.6em" />
 
                         <AnimatePresence>
@@ -198,7 +209,11 @@ const Navbar = () => {
                       className="navbar-list-item"
                       layoutId="addBoard"
                       {...config.navbarItemAnimation}>
-                      <NavLink to="/add-board" className="link">
+                      <NavLink
+                        to="/add-board"
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Add board' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineDocumentPlus className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -216,7 +231,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="friends"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Friends' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineUsers className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -234,7 +252,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="messages"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Messages' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineChatBubbleLeftRight className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -252,7 +273,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="agenda"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Agenda' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineCalendar className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -279,12 +303,11 @@ const Navbar = () => {
                     layoutId="logout"
                     {...config.navbarItemAnimation}>
                     <div className="link" onClick={() => {
-                      if (displayBoards) {
-                        toggleBoards(false)
-                      }
-
+                      if (displayBoards) toggleBoards(false)
                       logout()
-                    }}>
+                    }}
+                      onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Log out' })) : undefined}
+                      onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                       <HiArrowLeftOnRectangle className="icon" size="1.6em" />
                       <AnimatePresence>
                         {displayNavbar && (
@@ -304,7 +327,11 @@ const Navbar = () => {
                       className="navbar-list-item"
                       layoutId="login"
                       {...config.navbarItemAnimation}>
-                      <NavLink to="/login" className="link">
+                      <NavLink
+                        to="/login"
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Login' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiArrowRightOnRectangle className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -323,7 +350,11 @@ const Navbar = () => {
                       className="navbar-list-item"
                       layoutId="signup"
                       {...config.navbarItemAnimation}>
-                      <NavLink to="/signup" className="link">
+                      <NavLink
+                        to="/signup"
+                        className="link"
+                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Sign up' })) : undefined}
+                        onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                         <HiOutlineUserPlus className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -345,7 +376,11 @@ const Navbar = () => {
                 className="navbar-list-item"
                 layoutId="about"
                 {...config.navbarItemAnimation}>
-                <NavLink to="/about" className="link">
+                <NavLink
+                  to="/about"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'About' })) : undefined}
+                  onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
                   <HiCodeBracket className="icon" size="1.6em" />
                   <AnimatePresence>
                     {displayNavbar && (

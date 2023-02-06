@@ -38,7 +38,7 @@ const updateUser = async (req, res) => {
     return res.status(404).json({ error: 'No such user, invalid id' })
   }
 
-  if (name) {
+  if (name || name === '') {
     if (name.trim().length < 3) {
       return res.status(404).json({ error: 'Name must be at least 3 characters' })
     }
@@ -48,7 +48,6 @@ const updateUser = async (req, res) => {
 
   if (email) {
     const exists = await User.findOne({ email })
-    console.log(exists);
 
     if (exists) {
       return res.status(404).json({ error: 'Email already in use' })
@@ -93,7 +92,7 @@ const updateUser = async (req, res) => {
   const user = await User.findOneAndUpdate({ _id }, { password: hashPassword, ...req.body }, { new: true })
 
   if (!user) {
-    return res.status(400).json({ error: 'No such user' })
+    return res.status(404).json({ error: 'No such user' })
   }
 
   res.status(200).json({

@@ -3,8 +3,8 @@ const {
   getBoards,
   getBoard,
   createBoard,
-  deleteBoard,
-  updateBoard
+  updateBoard,
+  deleteBoard
 } = require('../controllers/boardController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -18,8 +18,8 @@ router.get('/:id', getBoard)
 
 router.post('/', createBoard)
 
-router.delete('/:id', deleteBoard)
-
 router.patch('/:id', updateBoard)
+
+router.delete('/:id', deleteBoard)
 
 module.exports = router

@@ -1,7 +1,7 @@
 const config = {
-  addTaskButtonAnimation: {
+  headerButtonsAnimation: {
     initial: {
-      x: -80,
+      x: 80,
       opacity: 0
     },
     animate: {
@@ -12,7 +12,7 @@ const config = {
       }
     },
     exit: {
-      x: -80,
+      x: 40,
       opacity: 0,
       transition: {
         duration: .4
@@ -21,55 +21,19 @@ const config = {
   },
   searchBarAnimation: {
     initial: {
-      y: 80,
+      x: 80,
       opacity: 0
     },
     animate: {
-      y: 0,
+      x: 0,
       opacity: 1,
       transition: {
-        duration: .6
+        duration: .6,
+        delay: .1
       }
     },
     exit: {
-      x: 80,
-      opacity: 0,
-      transition: {
-        duration: .4
-      }
-    }
-  },
-  taskQuickAddAnimation: {
-    initial: {
-      y: -40
-    },
-    animate: {
-      y: 0,
-      transition: {
-        duration: .4
-      }
-    },
-    exit: {
-      y: -40,
-      transition: {
-        duration: .2
-      }
-    }
-  },
-  settingsButtonAnimation: {
-    initial: {
-      y: 80,
-      opacity: 0
-    },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: .6
-      }
-    },
-    exit: {
-      x: 80,
+      x: 40,
       opacity: 0,
       transition: {
         duration: .4

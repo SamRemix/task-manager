@@ -1,7 +1,7 @@
 const config = {
   progressBarAnimation: {
     initial: {
-      x: -80,
+      x: -40,
       opacity: 0
     },
     animate: {
@@ -12,7 +12,7 @@ const config = {
       }
     },
     exit: {
-      x: -80,
+      x: -40,
       opacity: 0,
       transition: {
         duration: .4

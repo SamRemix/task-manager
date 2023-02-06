@@ -8,14 +8,14 @@ import config from './motion.config'
 
 import { HiXMark } from 'react-icons/hi2'
 
-const Modal = ({ children, type, error, setIsOpen }) => {
+const Modal = ({ children, type, error, toggle }) => {
   return (
     <>
       {!type ? (
         <div className="modal-container">
           <motion.div
             className="backdrop"
-            onClick={() => setIsOpen(false)}
+            onClick={toggle}
             {...config.backdropAnimation}>
           </motion.div>
           <motion.div
@@ -23,7 +23,7 @@ const Modal = ({ children, type, error, setIsOpen }) => {
             {...config.modalAnimation}>
             <HiXMark
               className="modal-close"
-              onClick={() => setIsOpen(false)}
+              onClick={toggle}
               size="2em"
             />
             <div className="modal-content">
@@ -40,7 +40,7 @@ const Modal = ({ children, type, error, setIsOpen }) => {
           </div>
           <HiXMark
             className="modal-message-close"
-            onClick={() => setIsOpen(false)}
+            onClick={toggle}
             size="1.4em"
           />
         </motion.div>
@@ -51,7 +51,7 @@ const Modal = ({ children, type, error, setIsOpen }) => {
 
 Modal.propTypes = {
   type: PropTypes.string,
-  setIsOpen: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired
 }
 
 export default memo(Modal)

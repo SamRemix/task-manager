@@ -1,60 +1,39 @@
 import { createContext, useReducer, useEffect } from 'react'
 
 const initialState = {
-  loading: null,
   token: '',
-  user: null,
-  error: null
+  user: null
 }
 
-const LOADING = 'LOADING'
 const SET_TOKEN = 'SET_TOKEN'
 const LOGIN = 'LOGIN'
 const UPDATE_USER = 'UPDATE_USER'
 const LOGOUT = 'LOGOUT'
-const ERROR = 'ERROR'
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOADING:
-      return {
-        ...state,
-        loading: true
-      }
-
     case SET_TOKEN:
       return {
         ...state,
-        loading: false,
         token: action.payload
       }
 
     case LOGIN:
       return {
         ...state,
-        loading: false,
         user: action.payload
       }
 
     case LOGOUT:
       return {
         ...state,
-        loading: false,
         user: null
       }
 
     case UPDATE_USER:
       return {
         ...state,
-        loading: false,
         user: state.user._id === action.payload._id ? action.payload : state.user
-      }
-
-    case ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload
       }
 
     default:
@@ -64,7 +43,7 @@ const AuthReducer = (state = initialState, action) => {
 
 export const AuthContext = createContext(initialState)
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
 
   const token = JSON.parse(localStorage.getItem('token'))

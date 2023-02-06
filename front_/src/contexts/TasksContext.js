@@ -67,7 +67,7 @@ const tasksReducer = (state = initialState, action) => {
 
 export const TasksContext = createContext(initialState)
 
-export const TasksContextProvider = ({ children }) => {
+export const TasksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tasksReducer, initialState)
 
   const memoizedState = useMemo(() => state, [state])

@@ -6,16 +6,23 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import { useHoverContext } from '../../contexts/HoverContext'
+
 import SingleTask from '../SingleTask'
 
 const TasksList = ({ tasks }) => {
+  const { dispatch } = useHoverContext()
+
   return (
     <div className="tasks-container">
       <motion.div
-        className="status to-do"
+        className="status"
         {...config.toDoContainerAnimation}>
-        <h2 className="to-do-name">To do</h2>
-        <div className="to-do-container">
+        <h2 className="status-name">To do</h2>
+        <div
+          className="status-container"
+          onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'To do' })}
+          onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
           {tasks.map(task => (
             task.status === 'To do' && (
               <SingleTask key={task._id} {...task} />
@@ -25,10 +32,13 @@ const TasksList = ({ tasks }) => {
       </motion.div>
 
       <motion.div
-        className="status in-progress"
+        className="status"
         {...config.inProgressContainerAnimation}>
-        <h2 className="in-progress-name">In progress</h2>
-        <div className="in-progress-container">
+        <h2 className="status-name">In progress</h2>
+        <div
+          className="status-container"
+          onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'In progress' })}
+          onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
           {tasks.map(task => (
             task.status === 'In progress' && (
               <SingleTask key={task._id} {...task} />
@@ -38,10 +48,13 @@ const TasksList = ({ tasks }) => {
       </motion.div>
 
       <motion.div
-        className="status done"
+        className="status"
         {...config.doneContainerAnimation}>
-        <h2 className="done-name">Done</h2>
-        <div className="done-container">
+        <h2 className="status-name">Done</h2>
+        <div
+          className="status-container"
+          onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'Done' })}
+          onMouseLeave={() => dispatch({ type: 'DISACTIVE' })}>
           {tasks.map(task => (
             task.status === 'Done' && (
               <SingleTask key={task._id} {...task} />

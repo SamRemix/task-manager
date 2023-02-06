@@ -6,7 +6,7 @@
   padding: 0 2rem;
   width: fit-content;
   height: 3rem;
-  border-radius: v.$radius;
+  border-radius: v.$radius-lg;
   font-size: 1.2rem;
   font-weight: 600;
   display: flex;
@@ -21,20 +21,21 @@
   gap: 1rem;
 }
 
-@mixin set-color($color) {
+@mixin set-color {
   &-name {
     @include name;
-    background: $color;
+    background: v.$red-light-1;
   }
 
   &-container {
     @include container;
+    padding: 0 1rem;
 
     .task-content,
     .task-content-important {
       &:hover {
-        background: $color;
-        box-shadow: 0 0 0 4px $color;
+        background: v.$green-4;
+        box-shadow: 0 0 0 .125rem v.$green-4;
       }
     }
   }
@@ -43,17 +44,9 @@
 .tasks-container {
   grid-area: TasksContainer;
   display: grid;
-  gap: 3rem;
+  gap: 1rem;
 
-  .to-do {
-    @include set-color(v.$to-do);
-  }
-
-  .in-progress {
-    @include set-color(v.$in-progress);
-  }
-
-  .done {
-    @include set-color(v.$done);
+  .status {
+    @include set-color;
   }
 }

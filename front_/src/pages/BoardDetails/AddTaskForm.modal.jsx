@@ -8,7 +8,7 @@ import axios from '../../axios.config'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-const AddTaskForm = ({ board_id, setIsOpen }) => {
+const AddTaskForm = ({ board_id, toggle }) => {
   const { dispatch } = useTasksContext()
 
   const SET_FIELD = 'SET_FIELD'
@@ -39,24 +39,18 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
     board_id
   })
 
-  // const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const addTask = async e => {
     e.preventDefault()
-
-    // setLoading(true)
 
     try {
       const { data } = await axios.post('/tasks', newTask)
 
       dispatch({ type: 'CREATE_TASK', payload: data })
 
-      // setLoading(false)
-
-      setIsOpen(false)
+      toggle(false)
     } catch (err) {
-      // setLoading(false)
       setError(err.response.data.error)
     }
   }
@@ -82,12 +76,12 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
           placeholder="Description (optional)"
           value={newTask.description}
           onChange={e => {
-            dispatchNewTask(actionSetField('description', e.target.value.replace(';', '\n')))
+            dispatchNewTask(actionSetField('description', e.target.value))
           }}
         />
 
         <div className="create-list">
-          <p>To create a list, use <b>;</b> between each item to separate them.</p>
+          <p>To create a list, press <b>enter</b> after each item to separate them.</p>
         </div>
 
         <Input
@@ -106,7 +100,7 @@ const AddTaskForm = ({ board_id, setIsOpen }) => {
 
 AddTaskForm.propTypes = {
   board_id: PropTypes.string.isRequired,
-  setIsOpen: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired
 }
 
 export default memo(AddTaskForm)

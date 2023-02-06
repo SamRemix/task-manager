@@ -30,7 +30,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
 
           {maxLength && (
             <p className="remaining">
-              {maxLength - value.length} remaining character{value.length < maxLength - 1 && 's'}
+              {maxLength - value.length} remaining character{value.length < maxLength - 1 && 's'}.
             </p>
           )}
         </>
@@ -61,7 +61,6 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
           <input
             type="text"
             placeholder="Search"
-            value={value}
             onChange={e => setPrefix(e.target.value)}
           />
           <div className="search-icon">
@@ -79,7 +78,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             onChange={onChange}
           />
           <div
-            className="eye-icon"
+            className={display ? 'eye-icon--display' : 'eye-icon'}
             onClick={toggle}>
             {display ? (
               <HiOutlineEyeSlash size="1.4em" />

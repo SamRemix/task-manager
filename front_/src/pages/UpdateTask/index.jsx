@@ -105,7 +105,7 @@ const UpdateTask = () => {
         <motion.div
           className="create-list"
           {...config.createListMessageAnimation}>
-          <p>To create a list, use <b>;</b> between each item to separate them.</p>
+          <p>To create a list, press <b>enter</b> after each item to separate them.</p>
         </motion.div>
 
         <motion.div {...config.inputImportantAnimation}>

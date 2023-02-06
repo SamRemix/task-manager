@@ -9,10 +9,10 @@
     @extend .input;
 
     input {
-      border-color: v.$red !important;
+      border-color: v.$red-1 !important;
 
       &::placeholder {
-        color: v.$red !important;
+        color: v.$red-1 !important;
       }
     }
   }
@@ -27,20 +27,21 @@
     min-width: 160px;
     background: #fff;
     border: 1px solid rgba($color: #000, $alpha: .2);
-    border-radius: 6px;
+    border-radius: v.$radius-sm;
     font-family: inherit;
-    font-size: 1.1em;
 
     &::placeholder {
       color: rgba($color: #000, $alpha: .4);
     }
 
     &:focus {
-      border-color: #85b7d9;
+      border-color: v.$red-light-1;
 
       &+.search-icon,
       &::placeholder {
         color: rgba($color: #000, $alpha: .6);
+        border-color: v.$red-light-1;
+        border-left-color: rgba($color: #000, $alpha: .2);
       }
     }
 
@@ -49,9 +50,9 @@
       @include mix.flex-center;
       padding: 0 10px;
       height: 100%;
-      background: #ebdfff;
+      background: v.$light;
       border: 1px solid rgba($color: #000, $alpha: .2);
-      border-radius: 0 6px 6px 0;
+      border-radius: 0 v.$radius-sm v.$radius-sm 0;
       color: rgba($color: #000, $alpha: .4);
       position: absolute;
       inset: 0 0 auto auto;
@@ -60,8 +61,13 @@
     &+.eye-icon {
       cursor: pointer;
 
+      &--display {
+        @extend .eye-icon;
+        background: v.$red-light-1;
+      }
+
       &:hover {
-        background: #dfd1f7;
+        background: v.$red-light-1;
       }
     }
   }
@@ -76,11 +82,20 @@
     max-height: 300px;
     min-height: 100px;
     resize: vertical;
+    line-height: 1.2rem;
+
+    &::-webkit-scrollbar-track {
+      margin: 0;
+    }
   }
 
   >.remaining {
     margin: 1rem 0 0 1rem;
     color: #888;
+
+    &-error {
+      @extend .remaining;
+    }
   }
 
   >label {

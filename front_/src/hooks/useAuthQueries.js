@@ -9,43 +9,48 @@ import axios from '../axios.config'
 const useAuthQueries = () => {
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  const { loading, token, user, dispatch } = useContext(AuthContext)
+  const { token, user, dispatch } = useContext(AuthContext)
   const { dispatch: dispatch_boards } = useBoardsContext()
 
-  const signup = async args => {
-    dispatch({ type: 'LOADING' })
+  const signup = async props => {
+    setLoading(true)
 
     try {
-      const { data } = await axios.post('/auth/signup', args)
+      const { data } = await axios.post('/auth/signup', props)
 
       dispatch({ type: 'SET_TOKEN', payload: data })
 
       localStorage.setItem('token', JSON.stringify(data))
 
+      setLoading(false)
       setError(false)
 
       navigate('/')
     } catch ({ response }) {
+      setLoading(false)
       setError(response.data.error)
     }
   }
 
-  const login = async args => {
-    dispatch({ type: 'LOADING' })
+  const login = async props => {
+    setLoading(true)
 
     try {
-      const { data } = await axios.post('/auth/login', args)
+      const { data } = await axios.post('/auth/login', props)
 
       dispatch({ type: 'SET_TOKEN', payload: data })
 
       localStorage.setItem('token', JSON.stringify(data))
 
+      setLoading(false)
       setError(false)
 
       navigate('/')
     } catch ({ response }) {
+      setLoading(false)
       setError(response.data.error)
     }
   }
@@ -59,7 +64,7 @@ const useAuthQueries = () => {
     navigate('/login')
   }
 
-  return { loading, token, user, error, setError, signup, login, logout, dispatch }
+  return { token, user, error, setError, signup, login, logout, dispatch }
 }
 
 export default useAuthQueries

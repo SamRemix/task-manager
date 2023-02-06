@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import { HiArrowLongLeft } from 'react-icons/hi2'
+
 const Button = ({ children, type, event }) => {
   const navigate = useNavigate()
   return (
@@ -21,6 +23,7 @@ const Button = ({ children, type, event }) => {
           className="back"
           onClick={() => navigate(-1)}
           {...config.backButtonAnimation}>
+          <HiArrowLongLeft size="1.6em" />
           Back
         </motion.button>
       )}
@@ -34,7 +37,7 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  type: 'default', // Other possible value = 'form-button'
+  type: 'default', // Other possible value = form-button - delete - back
   event: null
 }
 

@@ -1,13 +1,13 @@
 import './styles.scss'
 
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-
+// import { useHoverContext } from '../../contexts/HoverContext'
 import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
@@ -18,6 +18,7 @@ import formatDate from '../../utils/formatDate'
 import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
+  // const { active, dispatch: disHover } = useHoverContext()
   const { dispatch } = useTasksContext()
 
   const updateStatus = async () => {
@@ -60,7 +61,8 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 
         <div className="task-content-footer">
           <p className="task-content-footer-date">{formatDate(createdAt)}</p>
-          <p className='task-importance'>{important ? 'high' : 'low'}</p>
+          {/* <p className='task-importance'>{important ? 'high' : 'low'}</p> */}
+          <p className='task-importance'>{important && 'high'}</p>
           {status !== 'Done' && (
             <div className="button">
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />

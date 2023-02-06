@@ -31,6 +31,10 @@
 
       &.board__container {
         gap: 4rem;
+
+        .progress-bar {
+          height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
+        }
       }
     }
   }
@@ -63,6 +67,10 @@
 
         &.board__container {
           gap: 4rem;
+
+          .progress-bar {
+            height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
+          }
         }
       }
     }

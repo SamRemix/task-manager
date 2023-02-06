@@ -72,7 +72,7 @@ const boardsReducer = (state = initialState, action) => {
 
 export const BoardsContext = createContext(initialState)
 
-export const BoardsContextProvider = ({ children }) => {
+export const BoardsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
 
   // const { user } = useAuthContext()
