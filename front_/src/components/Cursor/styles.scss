@@ -7,7 +7,7 @@
   // box-shadow: 0 0 0 1px rgba($color: #000, $alpha: .4);
   // border-radius: 50%;
   position: fixed;
-  inset: -4rem auto auto 4rem;
+  inset: 2rem auto auto 4rem;
   z-index: 1003;
   pointer-events: none;
   transition: opacity .2s, box-shadow 0s;
@@ -20,13 +20,17 @@
     // transition: .8s;
   }
 
-  .active-status {
-    padding: .5rem .75rem;
-    width: fit-content;
-    background: v.$red-1;
-    opacity: .4;
-    // background: #ff605866;
-    box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-    border-radius: v.$radius-sm;
+  .content {
+    @include mix.flex-column-gap(.75rem);
+
+    &-item {
+      padding: .5rem .75rem;
+      width: fit-content;
+      background: v.$red-1;
+      // opacity: .4 !important;
+      // background: #ff605866;
+      box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      border-radius: v.$radius-sm;
+    }
   }
 }

@@ -78,6 +78,12 @@ const BoardDetails = () => {
   return (
     <section className="container board__container">
       <header>
+        <h1>{board?.title}</h1>
+
+        <motion.div {...config.searchBarAnimation}>
+          <Input type="search" setPrefix={setPrefix} />
+        </motion.div>
+
         <motion.div
           className="buttons"
           {...config.headerButtonsAnimation}>
@@ -99,10 +105,6 @@ const BoardDetails = () => {
             <HiOutlineCog6Tooth size="1.2em" />
             Settings
           </Button>
-        </motion.div>
-
-        <motion.div {...config.searchBarAnimation}>
-          <Input type="search" setPrefix={setPrefix} />
         </motion.div>
       </header>
 

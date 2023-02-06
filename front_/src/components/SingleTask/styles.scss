@@ -46,7 +46,7 @@
   }
 
   &-footer {
-    @include mix.flex-align-gap(1rem);
+    @include mix.flex-align-gap(.5rem);
     justify-content: flex-end;
 
     &-date {
@@ -64,32 +64,11 @@
     }
 
     .button {
+      padding: .25rem;
       display: flex;
       justify-content: center;
       position: relative;
       cursor: pointer;
-
-      &-title {
-        padding: .6rem;
-        background: v.$light;
-        border: 1px solid #444;
-        border-radius: v.$radius-sm;
-        display: flex;
-        position: absolute;
-        bottom: calc(100% + 10px);
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-        z-index: 1004;
-        transition: .2s;
-      }
-
-      &:hover {
-        .button-title {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
 
       &-validate {
         &+.button-title {

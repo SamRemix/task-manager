@@ -16,7 +16,6 @@
 .default {
   @include button-style;
   background: v.$red-1;
-  border-radius: v.$radius-sm;
   box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
   font-weight: 600;
   transition: .1s;

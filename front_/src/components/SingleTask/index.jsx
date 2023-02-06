@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-// import { useHoverContext } from '../../contexts/HoverContext'
+import { useHoverContext } from '../../contexts/HoverContext'
 import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
@@ -18,7 +18,7 @@ import formatDate from '../../utils/formatDate'
 import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
-  // const { active, dispatch: disHover } = useHoverContext()
+  const { active, dispatch: disHover } = useHoverContext()
   const { dispatch } = useTasksContext()
 
   const updateStatus = async () => {
@@ -61,23 +61,25 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
 
         <div className="task-content-footer">
           <p className="task-content-footer-date">{formatDate(createdAt)}</p>
-          {/* <p className='task-importance'>{important ? 'high' : 'low'}</p> */}
           <p className='task-importance'>{important && 'high'}</p>
           {status !== 'Done' && (
-            <div className="button">
+            <div className="button"
+              onMouseEnter={() => disHover({ type: 'ACTIVE', payload: status === 'To do' ? 'In progress' : 'Done' })}
+              onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: status === 'To do' ? 'In progress' : 'Done' })}>
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
-              <p className="button-title">{status === 'To do' ? 'In progress' : 'Done'}</p>
             </div>
           )}
 
-          <Link className="button" to={`/update-task/${_id}`}>
+          <Link className="button" to={`/update-task/${_id}`}
+            onMouseEnter={() => disHover({ type: 'ACTIVE', payload: 'Update' })}
+            onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: 'Update' })}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />
-            <p className="button-title">Update</p>
           </Link>
 
-          <div className="button">
+          <div className="button"
+            onMouseEnter={() => disHover({ type: 'ACTIVE', payload: 'Delete' })}
+            onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: 'Delete' })}>
             <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
-            <p className="button-title">Delete</p>
           </div>
         </div>
       </motion.div>

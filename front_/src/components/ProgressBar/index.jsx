@@ -3,12 +3,14 @@ import './styles.scss'
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
 import { useHoverContext } from '../../contexts/HoverContext'
 
 import setPercent from '../../utils/setPercent'
+
+import { HiChevronDoubleDown } from 'react-icons/hi2'
 
 const ProgressBar = ({ tasks }) => {
   const { active } = useHoverContext()
@@ -30,34 +32,49 @@ const ProgressBar = ({ tasks }) => {
     }
   })
 
-  const isActive = ['To do', 'In progress', 'Done'].find(status => (
-    status === active
-  ))
-  console.log(isActive);
-
   return (
     <motion.div
       className="progress-bar"
       {...config.progressBarAnimation}>
       {toDoLength > 0 && (
         <div
-          className={isActive === 'To do' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          className={active.includes('To do') ? 'progress-bar-item active' : 'progress-bar-item disabled'}
           style={{ height: setPercent(toDoLength, tasks) + '%' }}>
           <p>{+setPercent(toDoLength, tasks).toFixed(1)}<span>%</span></p>
+
+          <AnimatePresence>
+            {active.includes('To do') && active.includes('In progress') && (
+              <motion.div
+                className="progress-bar-item-arrow"
+                {...config.arrowAnimation}>
+                <HiChevronDoubleDown size="2.25em" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
       {inProgressLength > 0 && (
         <div
-          className={isActive === 'In progress' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          className={active.includes('In progress') ? 'progress-bar-item active' : 'progress-bar-item disabled'}
           style={{ height: setPercent(inProgressLength, tasks) + '%' }}>
           <p>{+setPercent(inProgressLength, tasks).toFixed(1)}<span>%</span></p>
+
+          <AnimatePresence>
+            {active.includes('In progress') && active.includes('Done') && (
+              <motion.div
+                className="progress-bar-item-arrow"
+                {...config.arrowAnimation}>
+                <HiChevronDoubleDown size="2.25em" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
       {doneLength > 0 && (
         <div
-          className={isActive === 'Done' ? 'progress-bar-item active' : 'progress-bar-item disabled'}
+          className={active.includes('Done') ? 'progress-bar-item active' : 'progress-bar-item disabled'}
           style={{ height: setPercent(doneLength, tasks) + '%' }}>
           <p>{+setPercent(doneLength, tasks).toFixed(1)}<span>%</span></p>
         </div>

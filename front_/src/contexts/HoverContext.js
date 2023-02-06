@@ -1,7 +1,7 @@
 import { createContext, useReducer, useContext } from 'react'
 
 const initialState = {
-  active: ''
+  active: []
 }
 
 const ACTIVE = 'ACTIVE'
@@ -11,12 +11,14 @@ const HoverReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIVE:
       return {
-        active: action.payload
+        active: [action.payload, ...state.active]
       }
 
     case DISACTIVE:
       return {
-        active: ''
+        active: state.active.filter(item => (
+          item !== action.payload
+        ))
       }
 
     default:

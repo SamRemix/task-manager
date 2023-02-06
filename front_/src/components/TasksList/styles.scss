@@ -1,41 +1,29 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-@mixin name {
-  margin-left: 1rem;
-  padding: 0 2rem;
-  width: fit-content;
-  height: 3rem;
-  border-radius: v.$radius-lg;
-  font-size: 1.2rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin container {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
 @mixin set-color {
   &-name {
-    @include name;
-    background: v.$red-light-1;
+    margin-left: 1rem;
+    width: fit-content;
+    border-radius: v.$radius-sm;
+    font-size: 1.75rem;
+    font-weight: 600;
   }
 
   &-container {
-    @include container;
-    padding: 0 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 
     .task-content,
     .task-content-important {
+      // box-shadow: 0 0 0 .125rem v.$dark;
+
       &:hover {
         background: v.$green-4;
-        box-shadow: 0 0 0 .125rem v.$green-4;
+        // box-shadow: 0 0 0 .125rem v.$green-4;
+        box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
       }
     }
   }
@@ -48,5 +36,6 @@
 
   .status {
     @include set-color;
+    padding: 1rem;
   }
 }

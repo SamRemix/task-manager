@@ -38,8 +38,13 @@
       // transform: scale(1.05);
     }
 
+    &-arrow {
+      position: absolute;
+      bottom: .5rem;
+    }
+
     &.disabled {
-      opacity: .4;
+      opacity: .6;
     }
 
     >p {
