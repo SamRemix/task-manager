@@ -47,6 +47,10 @@
       opacity: .6;
     }
 
+    &.preview {
+      height: 1.25rem;
+    }
+
     >p {
       padding: .5rem .75rem;
       text-align: center;

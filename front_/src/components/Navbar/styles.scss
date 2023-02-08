@@ -25,6 +25,7 @@ $navbar-transition: .4s .3s;
   @include mix.flex-center;
   width: $navbar-button-size;
   height: $navbar-button-size;
+  // background: v.$light;
   background: v.$red-1;
   // background: v.$dark;
   box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;

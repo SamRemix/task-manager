@@ -37,7 +37,7 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  type: 'default', // Other possible value = form-button - delete - back
+  type: 'default',
   event: null
 }
 

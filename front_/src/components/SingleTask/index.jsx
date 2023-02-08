@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useHoverContext } from '../../contexts/HoverContext'
+import useCursorContext from '../../hooks/useCursorContext'
 import { useTasksContext } from "../../hooks/useTasksContext"
 
 import axios from '../../axios.config'
@@ -18,7 +18,7 @@ import formatDate from '../../utils/formatDate'
 import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
-  const { active, dispatch: disHover } = useHoverContext()
+  const { addItem, removeItem } = useCursorContext()
   const { dispatch } = useTasksContext()
 
   const updateStatus = async () => {
@@ -45,7 +45,8 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
         <div className="task-content-infos">
           <p className="task-content-infos-title">{capitalize(title)}</p>
           {description?.includes('\n') ? (
-            <ul className="task-content-infos-description-list">
+            <motion.ul layoutId={`task-content-infos-description-list-${_id}`} className="task-content-infos-description-list"
+              {...config.singleTaskAnimation}>
               {description.split('\n').map((item, index) => (
                 item.trim() && (
                   <li key={index} className="task-content-infos-description-list-item">
@@ -53,9 +54,10 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
                   </li>
                 )
               ))}
-            </ul>
+            </motion.ul>
           ) : description && (
-            <p className="task-content-infos-description">{capitalize(description)}</p>
+            <motion.p layoutId={`task-content-infos-description-${_id}`} className="task-content-infos-description"
+              {...config.singleTaskAnimation}>{capitalize(description)}</motion.p>
           )}
         </div>
 
@@ -64,21 +66,21 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
           <p className='task-importance'>{important && 'high'}</p>
           {status !== 'Done' && (
             <div className="button"
-              onMouseEnter={() => disHover({ type: 'ACTIVE', payload: status === 'To do' ? 'In progress' : 'Done' })}
-              onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: status === 'To do' ? 'In progress' : 'Done' })}>
+              onMouseEnter={() => addItem(status === 'To do' ? 'In progress' : 'Done')}
+              onMouseLeave={() => removeItem(status === 'To do' ? 'In progress' : 'Done')}>
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
             </div>
           )}
 
           <Link className="button" to={`/update-task/${_id}`}
-            onMouseEnter={() => disHover({ type: 'ACTIVE', payload: 'Update' })}
-            onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: 'Update' })}>
+            onMouseEnter={() => addItem('Update')}
+            onMouseLeave={() => removeItem('Update')}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />
           </Link>
 
           <div className="button"
-            onMouseEnter={() => disHover({ type: 'ACTIVE', payload: 'Delete' })}
-            onMouseLeave={() => disHover({ type: 'DISACTIVE', payload: 'Delete' })}>
+            onMouseEnter={() => addItem('Delete')}
+            onMouseLeave={() => removeItem('Delete')}>
             <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
           </div>
         </div>

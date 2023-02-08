@@ -87,11 +87,13 @@ const BoardDetails = () => {
         <motion.div
           className="buttons"
           {...config.headerButtonsAnimation}>
-          <Button event={() => {
-            toggle()
-            setIsSettingsOpen(false)
-            setIsTaskFormOpen(true)
-          }}>
+          <Button
+            type="green"
+            event={() => {
+              toggle()
+              setIsSettingsOpen(false)
+              setIsTaskFormOpen(true)
+            }}>
             <HiPlus size="1.2em" />
             Add task
           </Button>

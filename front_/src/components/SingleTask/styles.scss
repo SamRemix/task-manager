@@ -43,6 +43,16 @@
         }
       }
     }
+
+    &-status {
+      padding: .25rem .5rem;
+      width: fit-content;
+      background: v.$red-light-1;
+      box-shadow: 0 0 0 1px v.$dark;
+      border-radius: 1rem;
+      font-size: .8rem;
+      opacity: .6;
+    }
   }
 
   &-footer {

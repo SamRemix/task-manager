@@ -103,7 +103,7 @@ Input.propTypes = {
   maxLength: PropTypes.string,
   focus: PropTypes.bool,
   error: PropTypes.string,
-  setPrefix: PropTypes.func,
+  setPrefix: PropTypes.func
 }
 
 Input.defaultProps = {

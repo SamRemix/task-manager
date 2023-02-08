@@ -9,7 +9,7 @@ import config from './motion.config'
 import { useThemeContext } from '../../hooks/useThemeContext'
 import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
-import { useHoverContext } from '../../contexts/HoverContext'
+import useCursorContext from '../../hooks/useCursorContext'
 import useToggle from '../../hooks/useToggle'
 
 import SingleBoard from '../SingleBoard'
@@ -39,7 +39,7 @@ const Navbar = () => {
   const { user, logout } = useAuthQueries()
   const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
-  const { dispatch } = useHoverContext()
+  const { addItem, removeItem } = useCursorContext()
 
   const { display: displayBoards, toggle: toggleBoards } = useToggle()
   const [displayNavbar, toggleNavbar] = useState(true)
@@ -110,8 +110,8 @@ const Navbar = () => {
                 <NavLink
                   to="/"
                   className="link"
-                  onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Home' })) : undefined}
-                  onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Home' })}>
+                  onMouseEnter={!displayNavbar ? () => addItem('Home') : undefined}
+                  onMouseLeave={() => removeItem('Home')}>
                   <HiOutlineHome className="icon" size="1.6em" />
 
                   <AnimatePresence>
@@ -135,8 +135,8 @@ const Navbar = () => {
                     {...config.navbarItemAnimation}>
                     <div
                       className="link"
-                      onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: error })) : undefined}
-                      onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: error })}>
+                      onMouseEnter={!displayNavbar ? () => addItem(error) : undefined}
+                      onMouseLeave={() => removeItem(error)}>
                       <HiOutlineLockClosed className="icon" size="1.6em" />
 
                       <AnimatePresence>
@@ -213,8 +213,8 @@ const Navbar = () => {
                       <NavLink
                         to="/add-board"
                         className="link"
-                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Add board' })) : undefined}
-                        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Add board' })}>
+                        onMouseEnter={!displayNavbar ? () => addItem('Add board') : undefined}
+                        onMouseLeave={() => removeItem('Add board')}>
                         <HiOutlineDocumentPlus className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -310,8 +310,8 @@ const Navbar = () => {
                       if (displayBoards) toggleBoards(false)
                       logout()
                     }}
-                      onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Log out' })) : undefined}
-                      onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Log out' })}>
+                      onMouseEnter={!displayNavbar ? () => addItem('Log out') : undefined}
+                      onMouseLeave={() => removeItem('Log out')}>
                       <HiArrowLeftOnRectangle className="icon" size="1.6em" />
                       <AnimatePresence>
                         {displayNavbar && (
@@ -334,8 +334,8 @@ const Navbar = () => {
                       <NavLink
                         to="/login"
                         className="link"
-                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Login' })) : undefined}
-                        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Login' })}>
+                        onMouseEnter={!displayNavbar ? () => addItem('Log in') : undefined}
+                        onMouseLeave={() => removeItem('Log in')}>
                         <HiArrowRightOnRectangle className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -357,8 +357,8 @@ const Navbar = () => {
                       <NavLink
                         to="/signup"
                         className="link"
-                        onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Sign up' })) : undefined}
-                        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Sign up' })}>
+                        onMouseEnter={!displayNavbar ? () => addItem('Sign up') : undefined}
+                        onMouseLeave={() => removeItem('Sign up')}>
                         <HiOutlineUserPlus className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -383,8 +383,8 @@ const Navbar = () => {
                 <NavLink
                   to="/about"
                   className="link"
-                  onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'About' })) : undefined}
-                  onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'About' })}>
+                  onMouseEnter={!displayNavbar ? () => addItem('About') : undefined}
+                  onMouseLeave={() => removeItem('About')}>
                   <HiCodeBracket className="icon" size="1.6em" />
                   <AnimatePresence>
                     {displayNavbar && (

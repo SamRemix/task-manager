@@ -33,6 +33,11 @@
   }
 }
 
+.green {
+  @extend .default;
+  background: v.$green-4;
+}
+
 .form-button {
   @extend .default;
   margin-left: 2rem;

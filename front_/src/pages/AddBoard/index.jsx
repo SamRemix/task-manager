@@ -35,6 +35,7 @@ const AddBoard = () => {
       navigate(`/boards/${data._id}`)
     } catch (err) {
       setError(err.response.data.error)
+      // addItem(err.response.data.error)
     }
   }
 

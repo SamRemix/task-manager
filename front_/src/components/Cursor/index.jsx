@@ -2,12 +2,13 @@ import './styles.scss'
 
 import { memo, useState, useEffect } from 'react'
 
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import config from './motion.config'
 
-import { useHoverContext } from '../../contexts/HoverContext'
+import useCursorContext from '../../hooks/useCursorContext'
 
 const Cursor = () => {
-  const { active } = useHoverContext()
+  const { items } = useCursorContext()
 
   const [position, setPosition] = useState({
     x: 0,
@@ -37,31 +38,17 @@ const Cursor = () => {
       className={isOut ? 'cursor--out' : 'cursor'}
       animate={{ x: position.x, y: position.y }}>
       <div className="content">
-        <LayoutGroup>
-          <AnimatePresence mode='wait' initial={false}>
-            {active && active.map((item, i) => (
-              <motion.p
-                key={i}
-                // layoutId={item + i}
-                className="content-item"
-                initial={{
-                  x: -20,
-                  opacity: 0
-                }}
-                animate={{
-                  x: 0,
-                  opacity: 1
-                }}
-                exit={{
-                  x: 20,
-                  opacity: 0
-                }}
-                transition={{ duration: .2 }}>
-                {item}
-              </motion.p>
-            ))}
-          </AnimatePresence>
-        </LayoutGroup>
+        <AnimatePresence>
+          {items.map((item, i) => (
+            item && <motion.p
+              key={`${item}-cursor`}
+              className="content-item"
+              // layoutId={`${item}-cursor`}
+              {...config.activeItemAnimation}>
+              {item}
+            </motion.p>
+          ))}
+        </AnimatePresence>
       </div>
     </motion.div>
   )

@@ -4,6 +4,7 @@
 .cursor {
   // width: 120px;
   // height: 120px;
+  height: 100%;
   // box-shadow: 0 0 0 1px rgba($color: #000, $alpha: .4);
   // border-radius: 50%;
   position: fixed;
@@ -22,11 +23,13 @@
 
   .content {
     @include mix.flex-column-gap(.75rem);
+    flex-wrap: wrap;
 
     &-item {
       padding: .5rem .75rem;
       width: fit-content;
       background: v.$red-1;
+      // background: v.$yellow-3;
       // opacity: .4 !important;
       // background: #ff605866;
       box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;

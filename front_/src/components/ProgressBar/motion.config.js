@@ -19,6 +19,20 @@ const config = {
       }
     }
   },
+  progressBarItemAnimation: {
+    initial: {
+      scale: 0
+    },
+    animate: {
+      scale: 1
+    },
+    exit: {
+      scale: 0
+    },
+    transition: {
+      duration: .4
+    }
+  },
   arrowAnimation: {
     initial: {
       y: -40,

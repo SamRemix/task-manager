@@ -6,19 +6,19 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useHoverContext } from '../../contexts/HoverContext'
+import useCursorContext from '../../hooks/useCursorContext'
 
 import SingleTask from '../SingleTask'
 
 const TasksList = ({ tasks }) => {
-  const { dispatch } = useHoverContext()
+  const { addItem, removeItem } = useCursorContext()
 
   return (
     <div className="tasks-container">
       <motion.div
         className="status"
-        onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'To do' })}
-        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'To do' })}
+        onMouseEnter={() => addItem('To do')}
+        onMouseLeave={() => removeItem('To do')}
         {...config.toDoContainerAnimation}>
         <h2 className="status-name">To do</h2>
         <div className="status-container">
@@ -32,8 +32,8 @@ const TasksList = ({ tasks }) => {
 
       <motion.div
         className="status"
-        onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'In progress' })}
-        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'In progress' })}
+        onMouseEnter={() => addItem('In progress')}
+        onMouseLeave={() => removeItem('In progress')}
         {...config.inProgressContainerAnimation}>
         <h2 className="status-name">In progress</h2>
         <div className="status-container">
@@ -47,8 +47,8 @@ const TasksList = ({ tasks }) => {
 
       <motion.div
         className="status"
-        onMouseEnter={() => dispatch({ type: 'ACTIVE', payload: 'Done' })}
-        onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Done' })}
+        onMouseEnter={() => addItem('Done')}
+        onMouseLeave={() => removeItem('Done')}
         {...config.doneContainerAnimation}>
         <h2 className="status-name">Done</h2>
         <div className="status-container">
