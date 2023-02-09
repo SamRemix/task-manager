@@ -6,8 +6,7 @@ module.exports = model('Task', new Schema({
     required: true
   },
   description: {
-    type: String,
-    required: false
+    type: String
   },
   status: {
     type: String,
@@ -17,6 +16,10 @@ module.exports = model('Task', new Schema({
     type: Boolean,
     required: true
   },
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }],
   board_id: {
     type: String,
     required: true

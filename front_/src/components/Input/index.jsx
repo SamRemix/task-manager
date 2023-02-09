@@ -12,7 +12,7 @@ import {
   HiOutlineEye // Display password icon
 } from 'react-icons/hi2'
 
-const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, setPrefix }) => {
+const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, setPrefix, key }) => {
   const { display, toggle } = useToggle()
 
   return (
@@ -26,6 +26,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             onChange={onChange}
             maxLength={maxLength}
             autoFocus={focus}
+            key={key}
           />
 
           {maxLength && (
@@ -41,6 +42,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
           placeholder={capitalize(placeholder)}
           value={value}
           onChange={onChange}
+          key={key}
         />
       )}
 
@@ -51,6 +53,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             // placeholder={capitalize(placeholder)}
             checked={value}
             onChange={onChange}
+            key={key}
           />
           {capitalize(placeholder)}
         </label>
@@ -62,6 +65,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             type="text"
             placeholder="Search"
             onChange={e => setPrefix(e.target.value)}
+            key={key}
           />
           <div className="search-icon">
             <HiOutlineMagnifyingGlass size="1.6em" />
@@ -76,6 +80,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            key={key}
           />
           <div
             className={display ? 'eye-icon--display' : 'eye-icon'}
@@ -103,7 +108,8 @@ Input.propTypes = {
   maxLength: PropTypes.string,
   focus: PropTypes.bool,
   error: PropTypes.string,
-  setPrefix: PropTypes.func
+  setPrefix: PropTypes.func,
+  key: PropTypes.string
 }
 
 Input.defaultProps = {

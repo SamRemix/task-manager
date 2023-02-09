@@ -23,17 +23,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-
-      .task-content,
-      .task-content-important {
-        // box-shadow: 0 0 0 .125rem v.$dark;
-
-        &:hover {
-          background: v.$green-4;
-          // box-shadow: 0 0 0 .125rem v.$green-4;
-          box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-        }
-      }
     }
   }
 }

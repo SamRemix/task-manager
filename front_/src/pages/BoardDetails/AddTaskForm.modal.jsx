@@ -1,7 +1,8 @@
 import { memo, useState, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-import { useTasksContext } from "../../hooks/useTasksContext"
+import { useTasksContext } from '../../hooks/useTasksContext'
+import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
 
@@ -10,6 +11,7 @@ import Button from '../../components/Button'
 
 const AddTaskForm = ({ board_id, toggle }) => {
   const { dispatch } = useTasksContext()
+  const { tags } = useTagsContext()
 
   const SET_FIELD = 'SET_FIELD'
   const actionSetField = (name, value) => ({
@@ -36,8 +38,11 @@ const AddTaskForm = ({ board_id, toggle }) => {
     title: '',
     description: '',
     important: false,
+    tags: [],
     board_id
   })
+
+  console.log(newTask.tags);
 
   const [error, setError] = useState('')
 
@@ -91,6 +96,25 @@ const AddTaskForm = ({ board_id, toggle }) => {
           onChange={() => {
             dispatchNewTask(actionSetField('important', !newTask.important))
           }} />
+
+        <div className="tags-input">
+          {tags.map(({ _id, title }) => (
+            <Input
+              key={_id}
+              type="checkbox"
+              placeholder={title}
+              value={newTask.tags.includes(_id)}
+              onChange={() => {
+                dispatchNewTask(actionSetField('tags', newTask.tags.includes(_id) ? (
+                  newTask.tags.filter(tag => (
+                    tag !== _id
+                  ))
+                ) : (
+                  [_id, ...newTask.tags]
+                )))
+              }} />
+          ))}
+        </div>
 
         <Button type="form-button">Add task</Button>
       </form>

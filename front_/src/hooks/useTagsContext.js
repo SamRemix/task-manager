@@ -16,8 +16,6 @@ const useTagsContext = () => {
     try {
       const { data } = await axios.get('/tags')
 
-      console.log(data);
-
       dispatch({ type: 'GET_TAGS', payload: data })
 
       setLoading(false)
@@ -46,7 +44,15 @@ const useTagsContext = () => {
     }
   }
 
-  return { tags, error, setError, getTags, createTag, dispatch }
+  const deleteTag = async id => {
+    const { data } = await axios.delete(`/tags/${id}`)
+
+    dispatch({ type: 'DELETE_TAG', payload: data })
+
+    // removeItem('Delete')
+  }
+
+  return { tags, error, setError, getTags, createTag, deleteTag, dispatch }
 }
 
 export default useTagsContext

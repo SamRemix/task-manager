@@ -9,17 +9,19 @@ import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
 import { useTasksContext } from "../../hooks/useTasksContext"
+import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
+
+import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
-import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
-
-const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
+const SingleTask = ({ _id, title, description, status, important, tags, createdAt }) => {
   const { addItem, removeItem, resetItem } = useCursorContext()
   const { dispatch } = useTasksContext()
+  const { tags: allTags } = useTagsContext()
 
   const nextStatus = status === 'To do' ? 'In progress' : 'Done'
 
@@ -65,6 +67,11 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
             <motion.p layoutId={`task-content-infos-description-${_id}`} className="task-content-infos-description"
               {...config.singleTaskAnimation}>{capitalize(description)}</motion.p>
           )}
+          <div className="task-content-infos-tags">
+            {tags && tags.map(({ _id, title }) => (
+              <p key={_id} className="tag">{title}</p>
+            ))}
+          </div>
         </div>
 
         <div className="task-content-footer">
@@ -102,6 +109,7 @@ SingleTask.propTypes = {
   description: PropTypes.string,
   status: PropTypes.string.isRequired,
   important: PropTypes.bool.isRequired,
+  tags: PropTypes.array,
   createdAt: PropTypes.string.isRequired
 }
 

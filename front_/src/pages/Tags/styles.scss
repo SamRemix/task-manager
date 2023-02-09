@@ -13,7 +13,7 @@
   grid-template-areas:
     'Header Header'
     'TagsContainer AddTagsForm';
-  gap: 1rem;
+  gap: 4rem;
 
   &-header {
     grid-area: Header;
@@ -26,9 +26,22 @@
   // }
 
   &-container {
-    @include mix.flex-center-gap(1rem);
+    @include mix.flex-gap(1rem);
     grid-area: TagsContainer;
     flex-wrap: wrap;
+
+    .tag {
+      padding: 1rem;
+      flex: 1;
+      background: v.$low;
+      border-radius: v.$radius-lg;
+      transition: background .2s, box-shadow .2s;
+
+      &:hover {
+        background: v.$green-4;
+        box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      }
+    }
   }
 
   &-form {

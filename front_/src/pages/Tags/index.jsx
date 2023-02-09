@@ -13,7 +13,7 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Tags = () => {
-  const { tags, error, setError, createTag } = useTagsContext()
+  const { tags, error, setError, createTag, deleteTag } = useTagsContext()
 
   setDocumentTitle('Tags')
 
@@ -35,7 +35,10 @@ const Tags = () => {
 
       <div className="tags-container">
         {tags.map(({ _id, title }) => (
-          <p key={_id}>{title}</p>
+          <div key={_id} className="tag">
+            <p className="tag-title">{title}</p>
+            <p onClick={() => deleteTag(_id)}>delete</p>
+          </div>
         ))}
       </div>
 

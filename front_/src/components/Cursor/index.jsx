@@ -37,7 +37,7 @@ const Cursor = () => {
     <motion.div
       className={isOut ? 'cursor--out' : 'cursor'}
       animate={{ x: position.x, y: position.y }}>
-      <div className="content">
+      {/* <div className="content">
         <AnimatePresence mode='popLayout'>
           {items.map((item, i) => (
             item && <motion.p
@@ -49,7 +49,7 @@ const Cursor = () => {
             </motion.p>
           ))}
         </AnimatePresence>
-      </div>
+      </div> */}
     </motion.div>
   )
 }
