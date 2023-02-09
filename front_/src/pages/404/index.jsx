@@ -3,10 +3,10 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const NotFound = () => {
-  useDocumentTitle('404')
+  setDocumentTitle('404')
 
   return (
     <section className="container not-found">

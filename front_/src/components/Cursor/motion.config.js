@@ -10,9 +10,10 @@ const config = {
     },
     exit: {
       scale: 0,
-      // transition: {
-      //   delay: .1
-      // }
+      transition: {
+        duration: .2
+        // delay: .1
+      }
     },
     transition: {
       duration: .3

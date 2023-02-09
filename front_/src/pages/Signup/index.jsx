@@ -9,8 +9,12 @@ import PasswordValidation from '../../components/PasswordValidation'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+
 const Signup = () => {
   const { error, setError, signup } = useAuthQueries()
+
+  setDocumentTitle('Sign up')
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

@@ -4,18 +4,21 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useTasksContext } from "../../hooks/useTasksContext"
+import { useTasksContext } from '../../hooks/useTasksContext'
 
 import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+
 const UpdateTask = () => {
   let { task_id } = useParams()
   const navigate = useNavigate()
-
   const { dispatch } = useTasksContext()
+
+  setDocumentTitle('Update task')
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')

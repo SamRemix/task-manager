@@ -6,31 +6,30 @@ import { useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
-import ProgressBar from '../../components/ProgressBar'
-import TasksList from '../../components/TasksList'
-import Modal from '../../components/Modal'
-
-import AddTaskForm from './AddTaskForm.modal'
-import BoardSettings from './BoardSettings.modal'
-
 import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import { useTasksContext } from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
 import useToggle from '../../hooks/useToggle'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 import axios from '../../axios.config'
 
+import AddTaskForm from './AddTaskForm.modal'
+import BoardSettings from './BoardSettings.modal'
+import ProgressBar from '../../components/ProgressBar'
+import TasksList from '../../components/TasksList'
+import Modal from '../../components/Modal'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import Loader from '../../components/Loader'
 
 import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+import capitalize from '../../utils/capitalize'
+
 const BoardDetails = () => {
   let { board_id } = useParams()
-
   const { user } = useAuthQueries()
   const { boards } = useBoardsContext()
   const { loading, tasks, error, dispatch } = useTasksContext()
@@ -44,7 +43,7 @@ const BoardDetails = () => {
     board._id === board_id
   ))
 
-  useDocumentTitle(board?.title)
+  setDocumentTitle(board?.title)
 
   useEffect(() => {
     const getTasks = async () => {
@@ -76,9 +75,13 @@ const BoardDetails = () => {
   }
 
   return (
-    <section className="container board__container">
-      <header>
-        <h1>{board?.title}</h1>
+    <section className="container boards">
+      <header className="boards-header">
+        <motion.h1
+          className="title"
+          {...config.boardTitleAnimation}>
+          {capitalize(board?.title)}
+        </motion.h1>
 
         <motion.div {...config.searchBarAnimation}>
           <Input type="search" setPrefix={setPrefix} />

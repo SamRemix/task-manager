@@ -6,16 +6,17 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useAuthQueries from '../../hooks/useAuthQueries'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 import UpdateUserForm from './UpdateUserForm'
 
 import formatDate from '../../utils/formatDate'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+
 const Account = () => {
   const { user } = useAuthQueries()
 
-  useDocumentTitle(user?.name)
+  setDocumentTitle(user?.name)
 
   return (
     <section className="container account">

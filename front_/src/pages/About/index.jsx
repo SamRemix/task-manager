@@ -2,10 +2,10 @@ import './styles.scss'
 
 import React from 'react'
 
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const About = () => {
-  useDocumentTitle('About')
+  setDocumentTitle('About')
 
   return (
     <section className="container about">

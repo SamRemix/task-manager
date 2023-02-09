@@ -1,0 +1,37 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
+.tags {
+  // flex-direction: row;
+  // gap: 4rem;
+
+  display: grid !important;
+  // align-items: flex-start !important;
+  // justify-content: flex-start !important;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'Header Header'
+    'TagsContainer AddTagsForm';
+  gap: 1rem;
+
+  &-header {
+    grid-area: Header;
+  }
+
+  // &-container,
+  // &-form {
+  //   display: flex;
+  //   flex: 1;
+  // }
+
+  &-container {
+    @include mix.flex-center-gap(1rem);
+    grid-area: TagsContainer;
+    flex-wrap: wrap;
+  }
+
+  &-form {
+    grid-area: AddTagsForm;
+  }
+}

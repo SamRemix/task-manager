@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 
 import useAuthQueries from './hooks/useAuthQueries'
 import { useBoardsContext } from './hooks/useBoardsContext'
+import useTagsContext from './hooks/useTagsContext'
 
 import axios from './axios.config'
 
@@ -13,18 +14,14 @@ import Cursor from './components/Cursor'
 
 // pages
 import Home from './pages/Home'
-
 import BoardDetails from './pages/BoardDetails'
 import AddBoard from './pages/AddBoard'
-
 import UpdateTask from './pages/UpdateTask'
-
+import Tags from './pages/Tags'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Account from './pages/Account'
-
 import About from './pages/About'
-
 import NotFound from './pages/404'
 
 const App = () => {
@@ -32,6 +29,7 @@ const App = () => {
 
   const { token, user, dispatch } = useAuthQueries()
   const { dispatch: dispatchBoards } = useBoardsContext()
+  const { setError, getTags, dispatch: dispatchTags } = useTagsContext()
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -69,6 +67,12 @@ const App = () => {
     }
   }, [dispatchBoards, token, user])
 
+  useEffect(() => {
+    if (user) {
+      getTags()
+    }
+  }, [dispatchTags, token, user])
+
   return (
     <>
       <Cursor />
@@ -82,6 +86,8 @@ const App = () => {
           <Route path="/add-board" element={user && <AddBoard />} />
 
           <Route path="/update-task/:task_id" element={user && <UpdateTask />} />
+
+          <Route path="/tags" element={user && <Tags />} />
 
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />

@@ -2,10 +2,10 @@ import './styles.scss'
 
 import { memo } from 'react'
 
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Home = () => {
-  useDocumentTitle('Home')
+  setDocumentTitle('Home')
 
   return (
     <section className="container home">

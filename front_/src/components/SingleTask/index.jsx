@@ -18,21 +18,27 @@ import formatDate from '../../utils/formatDate'
 import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
 
 const SingleTask = ({ _id, title, description, status, important, createdAt }) => {
-  const { addItem, removeItem } = useCursorContext()
+  const { addItem, removeItem, resetItem } = useCursorContext()
   const { dispatch } = useTasksContext()
+
+  const nextStatus = status === 'To do' ? 'In progress' : 'Done'
 
   const updateStatus = async () => {
     const { data } = await axios.patch(`/tasks/${_id}`, {
-      status: status === 'To do' ? 'In progress' : 'Done'
+      status: nextStatus
     })
 
     dispatch({ type: 'UPDATE_TASK', payload: data })
+
+    removeItem(nextStatus)
   }
 
   const deleteTask = async () => {
     const { data } = await axios.delete(`/tasks/${_id}`)
 
     dispatch({ type: 'DELETE_TASK', payload: data })
+
+    removeItem('Delete')
   }
 
   return (
@@ -66,13 +72,14 @@ const SingleTask = ({ _id, title, description, status, important, createdAt }) =
           <p className='task-importance'>{important && 'high'}</p>
           {status !== 'Done' && (
             <div className="button"
-              onMouseEnter={() => addItem(status === 'To do' ? 'In progress' : 'Done')}
-              onMouseLeave={() => removeItem(status === 'To do' ? 'In progress' : 'Done')}>
+              onMouseEnter={() => addItem(nextStatus)}
+              onMouseLeave={() => removeItem(nextStatus)}>
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
             </div>
           )}
 
           <Link className="button" to={`/update-task/${_id}`}
+            onClick={resetItem}
             onMouseEnter={() => addItem('Update')}
             onMouseLeave={() => removeItem('Update')}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />

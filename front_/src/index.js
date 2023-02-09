@@ -9,8 +9,9 @@ import './styles/responsive.scss'
 import { AuthProvider } from './contexts/AuthContext'
 import { BoardsProvider } from './contexts/BoardsContext'
 import { TasksProvider } from './contexts/TasksContext'
+import { TagsProvider } from './contexts/TagsContext'
 import { ThemeProvider } from './contexts/ThemeContext'
-import { CursorProvider } from './contexts/cursorContext'
+import { CursorProvider } from './contexts/CursorContext'
 
 const root = createRoot(document.getElementById('root'))
 
@@ -18,13 +19,15 @@ root.render(
   <AuthProvider>
     <BoardsProvider>
       <TasksProvider>
-        <ThemeProvider>
-          <CursorProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CursorProvider>
-        </ThemeProvider>
+        <TagsProvider>
+          <ThemeProvider>
+            <CursorProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CursorProvider>
+          </ThemeProvider>
+        </TagsProvider>
       </TasksProvider>
     </BoardsProvider>
   </AuthProvider>

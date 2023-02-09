@@ -1,62 +1,83 @@
 const config = {
-  boardTitleAnimation: {
+  titleInputAnimation: {
     initial: {
-      x: -80,
+      x: -160,
       opacity: 0
     },
     animate: {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6
+        duration: .6,
+        delay: .1
       }
     },
     exit: {
-      x: -40,
+      x: 120,
       opacity: 0,
       transition: {
-        duration: .4
+        duration: .2,
+        delay: .2
       }
     }
   },
-  searchBarAnimation: {
+  favCheckboxAnimation: {
     initial: {
-      x: 80,
+      x: -160,
       opacity: 0
     },
     animate: {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6
+        duration: .6,
+        delay: .2
       }
     },
     exit: {
-      x: 40,
+      x: 120,
       opacity: 0,
       transition: {
-        duration: .4
+        duration: .2,
+        delay: .1
       }
     }
   },
-  headerButtonsAnimation: {
+  submitButtonAnimation: {
     initial: {
-      x: 80,
+      x: -160,
       opacity: 0
     },
     animate: {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6
+        duration: .6,
+        delay: .3
       }
     },
     exit: {
-      x: 40,
+      x: 120,
       opacity: 0,
+      transition: {
+        duration: .2
+      }
+    }
+  },
+  errorMessageAnimation: {
+    initial: {
+      x: -120,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
       transition: {
         duration: .4
       }
+    },
+    exit: {
+      opacity: 0
     }
   }
 }

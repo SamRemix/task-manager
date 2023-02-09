@@ -8,8 +8,12 @@ import useAuthQueries from '../../hooks/useAuthQueries'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+
 const Login = () => {
   const { error, setError, login } = useAuthQueries()
+
+  setDocumentTitle('Log in')
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

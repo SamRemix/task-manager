@@ -5,17 +5,18 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import { useBoardsContext } from '../../hooks/useBoardsContext'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
+import setDocumentTitle from '../../utils/setDocumentTitle'
+
 const AddBoard = () => {
   const navigate = useNavigate()
 
-  useDocumentTitle('Add board')
+  setDocumentTitle('Add board')
 
   const { dispatch } = useBoardsContext()
 
@@ -35,7 +36,6 @@ const AddBoard = () => {
       navigate(`/boards/${data._id}`)
     } catch (err) {
       setError(err.response.data.error)
-      // addItem(err.response.data.error)
     }
   }
 

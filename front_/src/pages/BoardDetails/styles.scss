@@ -1,7 +1,7 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-.board__container {
+.boards {
   display: grid !important;
   align-items: flex-start !important;
   justify-content: flex-start !important;
@@ -12,12 +12,17 @@
     'ProgressBar TasksContainer';
   gap: 1rem;
 
-  header {
+  &-header {
     @include mix.flex-align-gap(2rem);
     grid-area: Header;
     padding: 0 2rem;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
+
+    .title {
+      font-size: 3rem;
+      font-weight: 800;
+    }
 
     .buttons {
       @include mix.flex-gap(2rem);

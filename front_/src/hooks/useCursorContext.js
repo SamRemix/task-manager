@@ -1,18 +1,22 @@
 import { useContext } from 'react'
-import { CursorContext } from '../contexts/cursorContext'
+import { CursorContext } from '../contexts/CursorContext'
 
 const useCursorContext = () => {
   const { items, dispatch } = useContext(CursorContext)
 
   const addItem = item => {
-    dispatch({ type: 'ACTIVE', payload: item })
+    dispatch({ type: 'ADD', payload: item })
   }
 
   const removeItem = item => {
-    dispatch({ type: 'DISACTIVE', payload: item })
+    dispatch({ type: 'REMOVE', payload: item })
   }
 
-  return { items, addItem, removeItem }
+  const resetItem = () => {
+    dispatch({ type: 'RESET' })
+  }
+
+  return { items, addItem, removeItem, resetItem }
 }
 
 export default useCursorContext

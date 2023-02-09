@@ -48,7 +48,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
         <label>
           <input
             type={type}
-            placeholder={capitalize(placeholder)}
+            // placeholder={capitalize(placeholder)}
             checked={value}
             onChange={onChange}
           />

@@ -34,6 +34,7 @@
       // background: #ff605866;
       box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
       border-radius: v.$radius-sm;
+      white-space: nowrap;
     }
   }
 }

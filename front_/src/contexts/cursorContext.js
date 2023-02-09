@@ -4,21 +4,27 @@ const initialState = {
   items: []
 }
 
-const ACTIVE = 'ACTIVE'
-const DISACTIVE = 'DISACTIVE'
+const ADD = 'ADD'
+const REMOVE = 'REMOVE'
+const RESET = 'RESET'
 
 const CursorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIVE:
+    case ADD:
       return {
         items: [action.payload, ...state.items]
       }
 
-    case DISACTIVE:
+    case REMOVE:
       return {
         items: state.items.filter(item => (
           item !== action.payload
         ))
+      }
+
+    case RESET:
+      return {
+        items: []
       }
 
     default:

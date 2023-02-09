@@ -29,6 +29,8 @@ import {
   HiOutlineUsers, // Friends icon
   HiOutlineChatBubbleLeftRight, // Messages icon
   HiOutlineCalendar, // Calendar icon
+  HiOutlineTag, // Tags icon
+  HiOutlineCog6Tooth, // Settings icon
   HiCodeBracket, // About icon
   HiArrowLeftOnRectangle, // Logout icon
   HiArrowRightOnRectangle, // Login icon
@@ -192,7 +194,8 @@ const Navbar = () => {
 
                       </div>
                     </motion.li>
-                    <AnimatePresence>
+
+                    <AnimatePresence mode='popLayout'>
                       {displayBoards && (
                         <motion.li
                           className="navbar-list-item"
@@ -206,6 +209,7 @@ const Navbar = () => {
                         </motion.li>
                       )}
                     </AnimatePresence>
+
                     <motion.li
                       className="navbar-list-item"
                       layoutId="addBoard"
@@ -228,15 +232,35 @@ const Navbar = () => {
                         </AnimatePresence>
                       </NavLink>
                     </motion.li>
+
+                    <motion.li
+                      className="navbar-list-item"
+                      layoutId="tags"
+                      {...config.navbarItemAnimation}>
+                      <NavLink
+                        to="/tags"
+                        className="link"
+                        onMouseEnter={!displayNavbar ? () => addItem('Tags') : undefined}
+                        onMouseLeave={() => removeItem('Tags')}>
+                        <HiOutlineTag className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="tagsTitle"
+                              {...config.itemTitleAnimation}>
+                              Tags
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </NavLink>
+                    </motion.li>
+
                     <motion.li
                       className="navbar-list-item disabled"
                       layoutId="friends"
                       {...config.navbarItemAnimation}>
-                      <div
-                        className="link"
-                      // onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Friends' })) : undefined}
-                      // onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Friends' })}
-                      >
+                      <div className="link">
                         <HiOutlineUsers className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -250,15 +274,12 @@ const Navbar = () => {
                         </AnimatePresence>
                       </div>
                     </motion.li>
+
                     <motion.li
                       className="navbar-list-item disabled"
                       layoutId="messages"
                       {...config.navbarItemAnimation}>
-                      <div
-                        className="link"
-                      // onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Messages' })) : undefined}
-                      // onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Messages' })}
-                      >
+                      <div className="link">
                         <HiOutlineChatBubbleLeftRight className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -272,15 +293,12 @@ const Navbar = () => {
                         </AnimatePresence>
                       </div>
                     </motion.li>
+
                     <motion.li
                       className="navbar-list-item disabled"
                       layoutId="agenda"
                       {...config.navbarItemAnimation}>
-                      <div
-                        className="link"
-                      // onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Agenda' })) : undefined}
-                      // onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Agenda' })}
-                      >
+                      <div className="link">
                         <HiOutlineCalendar className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -289,6 +307,25 @@ const Navbar = () => {
                               layoutId="agendaTitle"
                               {...config.itemTitleAnimation}>
                               Agenda
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.li>
+
+                    <motion.li
+                      className="navbar-list-item disabled"
+                      layoutId="settings"
+                      {...config.navbarItemAnimation}>
+                      <div className="link">
+                        <HiOutlineCog6Tooth className="icon" size="1.6em" />
+                        <AnimatePresence>
+                          {displayNavbar && (
+                            <motion.p
+                              className="title"
+                              layoutId="settingsTitle"
+                              {...config.itemTitleAnimation}>
+                              Settings
                             </motion.p>
                           )}
                         </AnimatePresence>

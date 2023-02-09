@@ -4,7 +4,7 @@
 .dark-filter {
   clip-path: ellipse(100% 0 at 50% 0);
   // clip-path: circle(0 at 50% 0);
-  backdrop-filter: brightness(78%) sepia(100%) contrast(120%);
+  backdrop-filter: brightness(75%) sepia(80%) contrast(120%);
   position: absolute;
   inset: 0;
   z-index: 10;
@@ -66,7 +66,7 @@ $navbar-transition: .4s .3s;
 
       &:nth-child(3) {
         width: 0 !important;
-        transform: translateX(15px) !important;
+        transform: translateX(1rem) !important;
         transition: .2s !important;
       }
     }
@@ -83,12 +83,12 @@ $navbar-transition: .4s .3s;
 
     &:nth-child(1) {
       width: 1.25rem;
-      transform: translateY(-10px);
+      transform: translateY(-.625rem);
     }
 
     &:nth-child(2) {
       width: 1rem;
-      transform: translateY(10px);
+      transform: translateY(.625rem);
     }
 
     &:nth-child(3) {

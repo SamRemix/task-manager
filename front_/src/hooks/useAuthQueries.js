@@ -10,7 +10,7 @@ const useAuthQueries = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
 
   const { token, user, dispatch } = useContext(AuthContext)
   const { dispatch: dispatch_boards } = useBoardsContext()

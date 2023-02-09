@@ -66,7 +66,9 @@ body {
     }
 
     .container {
-      @include mix.flex-column-center;
+
+      // @include mix.flex-column-center;
+      @include mix.flex-center;
       // margin-right: v.$app-padding;
       // margin: 0 v.$app-padding;
       padding: calc(v.$container-padding / 2);

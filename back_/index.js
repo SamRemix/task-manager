@@ -1,8 +1,6 @@
 require('dotenv').config()
 
 const express = require('express')
-// const session = require('express-session')
-// const cors = require('cors')
 
 const { connect } = require('mongoose')
 
@@ -10,6 +8,7 @@ const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const boardsRoutes = require('./routes/boards')
 const tasksRoutes = require('./routes/tasks')
+const tagsRoutes = require('./routes/tags')
 
 const app = express()
 
@@ -25,6 +24,7 @@ app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/boards', boardsRoutes)
 app.use('/tasks', tasksRoutes)
+app.use('/tags', tagsRoutes)
 
 connect(process.env.MONGO_URI)
   .then(() => {

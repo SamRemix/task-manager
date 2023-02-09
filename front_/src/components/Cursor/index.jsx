@@ -38,12 +38,12 @@ const Cursor = () => {
       className={isOut ? 'cursor--out' : 'cursor'}
       animate={{ x: position.x, y: position.y }}>
       <div className="content">
-        <AnimatePresence>
+        <AnimatePresence mode='popLayout'>
           {items.map((item, i) => (
             item && <motion.p
               key={`${item}-cursor`}
               className="content-item"
-              // layoutId={`${item}-cursor`}
+              layoutId={`${item}-cursor`}
               {...config.activeItemAnimation}>
               {item}
             </motion.p>

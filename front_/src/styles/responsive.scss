@@ -24,12 +24,6 @@
       padding: v.$container-padding !important;
 
       &.boards {
-        .boards-list {
-          gap: 2rem;
-        }
-      }
-
-      &.board__container {
         gap: 4rem;
 
         .progress-bar {
@@ -60,12 +54,6 @@
         padding: v.$container-padding !important;
 
         &.boards {
-          .boards-list {
-            gap: 2rem;
-          }
-        }
-
-        &.board__container {
           gap: 4rem;
 
           .progress-bar {
@@ -82,7 +70,7 @@
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-  .board__container {
+  .boards {
     .tasks-container {
       grid-template-columns: repeat(3, 1fr);
     }

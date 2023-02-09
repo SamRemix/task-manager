@@ -4,6 +4,7 @@
 .about {
   gap: 2rem;
   align-items: flex-start !important;
+  flex-direction: column;
 
   &-technos {
     @include mix.flex-gap(2rem);
