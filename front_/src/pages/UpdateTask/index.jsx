@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import { useTasksContext } from '../../hooks/useTasksContext'
+import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
 
@@ -17,12 +18,14 @@ const UpdateTask = () => {
   let { task_id } = useParams()
   const navigate = useNavigate()
   const { dispatch } = useTasksContext()
+  const { tags: allTags } = useTagsContext()
 
   setDocumentTitle('Update task')
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [important, setImportant] = useState(null)
+  const [tags, setTags] = useState([])
   const [boardId, setBoardId] = useState('')
 
   const [loading, setLoading] = useState(false)
@@ -39,6 +42,7 @@ const UpdateTask = () => {
         setTitle(data.title)
         setDescription(data.description)
         setImportant(data.important)
+        setTags(data.tags)
         setBoardId(data.board_id)
 
         setLoading(false)
@@ -51,28 +55,23 @@ const UpdateTask = () => {
     getTask()
   }, [])
 
+  console.log(tags)
+
   const updateTask = async e => {
     e.preventDefault()
-
-    // setLoading(true)
-
-    // dispatch({ type: 'LOADING' })
 
     try {
       const { data } = await axios.patch(`/tasks/${task_id}`, {
         title,
         description,
-        important
+        important,
+        tags
       })
 
       dispatch({ type: 'UPDATE_TASK', payload: data })
 
-      // setLoading(false)
-
       navigate(`/boards/${boardId}`)
     } catch (err) {
-      // setLoading(false)
-      // dispatch({ type: 'ERROR', payload: err.response.data.error })
       setError(err.response.data.error)
     }
   }
@@ -119,6 +118,25 @@ const UpdateTask = () => {
             onChange={() => setImportant(!important)}
           />
         </motion.div>
+
+        <div className="tags-input">
+          {allTags.map(tag => (
+            <Input
+              key={tag._id}
+              type="checkbox"
+              placeholder={tag.title}
+              value={tags.includes(tag)}
+              onChange={() => {
+                setTags(tags.includes(tag) ? (
+                  tags.filter(selected => (
+                    selected._id !== tag._id
+                  ))
+                ) : (
+                  [tag, ...tags]
+                ))
+              }} />
+          ))}
+        </div>
 
         <motion.div {...config.submitButtonAnimation}>
           <Button type="form-button">

@@ -36,6 +36,10 @@
     flex-direction: column;
     gap: 1rem;
 
+    &-title {
+      font-weight: 600;
+    }
+
     &-description,
     &-description-list {
       font-size: .9rem;
@@ -55,7 +59,7 @@
 
       .tag {
         padding: .25rem .5rem;
-        background: v.$yellow-2;
+        background: v.$yellow-3;
         border-radius: v.$radius-sm;
         font-size: .9rem
       }

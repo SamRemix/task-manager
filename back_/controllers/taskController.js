@@ -78,7 +78,9 @@ const updateTask = async (req, res) => {
     }
   }
 
-  const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
+  const task = await Task
+    .findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
+    .populate('tags')
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })
