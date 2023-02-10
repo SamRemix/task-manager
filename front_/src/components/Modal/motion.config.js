@@ -4,39 +4,27 @@ const config = {
       opacity: 0
     },
     animate: {
-      opacity: 1,
-      transition: {
-        duration: .2
-      }
+      opacity: 1
     },
     exit: {
-      opacity: 0,
-      transition: {
-        duration: .2
-      }
+      opacity: 0
+    },
+    transition: {
+      duration: .3
     }
   },
   modalAnimation: {
     initial: {
-      // y: 40,
-      x: '100%',
-      // opacity: 0,
+      x: '100%'
     },
     animate: {
-      // y: 0,
-      x: 0,
-      // opacity: 1,
-      transition: {
-        duration: .2
-      }
+      x: 0
     },
     exit: {
-      // y: 40,
-      x: '100%',
-      // opacity: 0,
-      transition: {
-        duration: .1
-      }
+      x: '100%'
+    },
+    transition: {
+      duration: .3
     }
   }
 }
