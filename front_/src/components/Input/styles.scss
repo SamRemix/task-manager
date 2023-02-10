@@ -105,30 +105,30 @@
       padding-left: 2rem;
       position: relative;
 
-      &::before,
-      &::after {
-        width: 1rem;
-        height: 1rem;
-        position: absolute;
-        inset: 0;
-      }
+      // &::before,
+      // &::after {
+      //   width: 1rem;
+      //   height: 1rem;
+      //   position: absolute;
+      //   inset: 0;
+      // }
 
-      &::before {
-        content: '';
-        background: v.$light-2;
-        border: 1px solid rgba($color: #000, $alpha: .2);
-        border-radius: .2rem;
-      }
+      // &::before {
+      //   content: '';
+      //   background: v.$light-2;
+      //   border: 1px solid rgba($color: #000, $alpha: .2);
+      //   border-radius: .2rem;
+      // }
 
-      &::after {
-        font-size: 1rem;
-        text-align: center;
-        font-family: Checkbox;
-      }
+      // &::after {
+      //   font-size: 1rem;
+      //   text-align: center;
+      //   font-family: Checkbox;
+      // }
 
-      &:checked::after {
-        content: '\e800';
-      }
+      // &:checked::after {
+      //   content: '\e800';
+      // }
     }
   }
 }

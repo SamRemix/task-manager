@@ -107,7 +107,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   maxLength: PropTypes.string,
   focus: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.any,
   setPrefix: PropTypes.func,
   key: PropTypes.string
 }

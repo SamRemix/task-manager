@@ -20,7 +20,7 @@ const getTask = async (req, res) => {
     return res.status(404).json({ error: 'No such task, invalid id' })
   }
 
-  const task = await Task.findById(id)
+  const task = await Task.findById(id).populate('tags')
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })

@@ -55,8 +55,6 @@ const UpdateTask = () => {
     getTask()
   }, [])
 
-  console.log(tags)
-
   const updateTask = async e => {
     e.preventDefault()
 

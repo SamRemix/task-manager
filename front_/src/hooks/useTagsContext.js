@@ -32,8 +32,6 @@ const useTagsContext = () => {
     try {
       const { data } = await axios.post('/tags', props)
 
-      console.log(data);
-
       dispatch({ type: 'CREATE_TAG', payload: data })
 
       setLoading(false)
