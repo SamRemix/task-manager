@@ -42,8 +42,6 @@ const AddTaskForm = ({ board_id, toggle }) => {
     board_id
   })
 
-  console.log(newTask.tags);
-
   const [error, setError] = useState('')
 
   const addTask = async e => {

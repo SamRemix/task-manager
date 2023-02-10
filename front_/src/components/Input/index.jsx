@@ -100,10 +100,7 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
 Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool
-  ]),
+  value: PropTypes.any,
   onChange: PropTypes.func,
   maxLength: PropTypes.string,
   focus: PropTypes.bool,

@@ -18,10 +18,9 @@ import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'reac
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
-const SingleTask = ({ _id, title, description, status, important, tags, createdAt }) => {
-  const { addItem, removeItem, resetItem } = useCursorContext()
+const SingleTask = ({ _id, title, description, status, important, tags, createdAt, event, setTaskId }) => {
+  const { addItem, removeItem } = useCursorContext()
   const { dispatch } = useTasksContext()
-  const { tags: allTags } = useTagsContext()
 
   const nextStatus = status === 'To do' ? 'In progress' : 'Done'
 
@@ -33,14 +32,6 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
     dispatch({ type: 'UPDATE_TASK', payload: data })
 
     removeItem(nextStatus)
-  }
-
-  const deleteTask = async () => {
-    const { data } = await axios.delete(`/tasks/${_id}`)
-
-    dispatch({ type: 'DELETE_TASK', payload: data })
-
-    removeItem('Delete')
   }
 
   return (
@@ -84,19 +75,25 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
             </div>
           )}
+          <div className="button" onClick={() => {
+            setTaskId(_id)
+            event()
+          }}>
+            <HiOutlinePencilSquare size="1.4em" className="button-update" />
+          </div>
 
-          <Link className="button" to={`/update-task/${_id}`}
+          {/* <Link className="button" to={`/update-task/${_id}`}
             onClick={resetItem}
             onMouseEnter={() => addItem('Update')}
             onMouseLeave={() => removeItem('Update')}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />
-          </Link>
+          </Link> */}
 
-          <div className="button"
+          {/* <div className="button"
             onMouseEnter={() => addItem('Delete')}
             onMouseLeave={() => removeItem('Delete')}>
             <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </>

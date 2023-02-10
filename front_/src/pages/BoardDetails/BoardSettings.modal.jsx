@@ -74,7 +74,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
 
   return (
     <>
-      <h1 className="modal-content-title">Settings</h1>
+      <h1 className="modal-content-title">Board settings</h1>
       <form onSubmit={updateBoard}>
         <Input
           placeholder="Title"

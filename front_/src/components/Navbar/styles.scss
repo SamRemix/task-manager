@@ -107,7 +107,7 @@ $navbar-transition: .4s .3s;
   width: 6rem;
   height: calc(100vh - v.$app-padding * 2);
   background: v.$light;
-  border-right: 1px solid #000;
+  border-right: 1px solid v.$dark;
   overflow: hidden scroll;
   direction: rtl;
   z-index: 1;
@@ -152,7 +152,7 @@ $navbar-transition: .4s .3s;
   }
 
   &-list {
-    @include mix.flex-column-gap(3rem);
+    @include mix.flex-column-gap(4rem);
     justify-content: space-between;
     height: 100%;
 
@@ -167,8 +167,8 @@ $navbar-transition: .4s .3s;
 
         &.disabled {
           color: rgba($color: #000, $alpha: .3);
+          pointer-events: none;
 
-          // pointer-events: none;
           .link {
             cursor: default;
           }

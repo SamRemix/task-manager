@@ -10,55 +10,46 @@ import useCursorContext from '../../hooks/useCursorContext'
 
 import SingleTask from '../SingleTask'
 
-const TasksList = ({ tasks }) => {
+const TasksList = ({ tasks, event, setTaskId }) => {
   const { addItem, removeItem } = useCursorContext()
+
+  const status = [{
+    title: 'To do',
+    motionConfig: config.toDoContainerAnimation,
+    tasks: tasks.filter(task => (
+      task.status === 'To do'
+    ))
+  }, {
+    title: 'In progress',
+    motionConfig: config.inProgressContainerAnimation,
+    tasks: tasks.filter(task => (
+      task.status === 'In progress'
+    ))
+  }, {
+    title: 'Done',
+    motionConfig: config.doneContainerAnimation,
+    tasks: tasks.filter(task => (
+      task.status === 'Done'
+    ))
+  }]
 
   return (
     <div className="tasks-container">
-      <motion.div
-        className="status"
-        onMouseEnter={() => addItem('To do')}
-        onMouseLeave={() => removeItem('To do')}
-        {...config.toDoContainerAnimation}>
-        <h2 className="status-name">To do</h2>
-        <div className="status-container">
-          {tasks.map(task => (
-            task.status === 'To do' && (
-              <SingleTask key={task._id} {...task} />
-            )
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="status"
-        onMouseEnter={() => addItem('In progress')}
-        onMouseLeave={() => removeItem('In progress')}
-        {...config.inProgressContainerAnimation}>
-        <h2 className="status-name">In progress</h2>
-        <div className="status-container">
-          {tasks.map(task => (
-            task.status === 'In progress' && (
-              <SingleTask key={task._id} {...task} />
-            )
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="status"
-        onMouseEnter={() => addItem('Done')}
-        onMouseLeave={() => removeItem('Done')}
-        {...config.doneContainerAnimation}>
-        <h2 className="status-name">Done</h2>
-        <div className="status-container">
-          {tasks.map(task => (
-            task.status === 'Done' && (
-              <SingleTask key={task._id} {...task} />
-            )
-          ))}
-        </div>
-      </motion.div>
+      {status.map(({ title, motionConfig, tasks }) => (
+        <motion.div
+          key={title}
+          className="status"
+          onMouseEnter={() => addItem(title)}
+          onMouseLeave={() => removeItem(title)}
+          {...motionConfig}>
+          <h2 className="status-title">{title}</h2>
+          <div className="status-container">
+            {tasks.map(task => (
+              <SingleTask key={task._id} {...task} event={event} setTaskId={setTaskId} />
+            ))}
+          </div>
+        </motion.div>
+      ))}
     </div>
   )
 }

@@ -16,7 +16,7 @@ import Cursor from './components/Cursor'
 import Home from './pages/Home'
 import BoardDetails from './pages/BoardDetails'
 import AddBoard from './pages/AddBoard'
-import UpdateTask from './pages/UpdateTask'
+// import UpdateTask from './pages/UpdateTask'
 import Tags from './pages/Tags'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
@@ -85,7 +85,7 @@ const App = () => {
           <Route path="/boards/:board_id" element={user && <BoardDetails />} />
           <Route path="/add-board" element={user && <AddBoard />} />
 
-          <Route path="/update-task/:task_id" element={user && <UpdateTask />} />
+          {/* <Route path="/update-task/:task_id" element={user && <UpdateTask />} /> */}
 
           <Route path="/tags" element={user && <Tags />} />
 

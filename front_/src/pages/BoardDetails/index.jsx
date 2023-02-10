@@ -16,6 +16,8 @@ import axios from '../../axios.config'
 
 import AddTaskForm from './AddTaskForm.modal'
 import BoardSettings from './BoardSettings.modal'
+import TaskSettings from './TaskSettings.modal'
+
 import ProgressBar from '../../components/ProgressBar'
 import TasksList from '../../components/TasksList'
 import Modal from '../../components/Modal'
@@ -36,8 +38,11 @@ const BoardDetails = () => {
   const { setPrefix, search } = useSearch()
   const { display, toggle } = useToggle()
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [isBoardSettingsOpen, setIsBoardSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
+  const [isTaskSettingsOpen, setIsTaskSettingsOpen] = useState(false)
+
+  const [taskId, setTaskId] = useState('')
 
   const board = boards.find(board => (
     board._id === board_id
@@ -94,7 +99,8 @@ const BoardDetails = () => {
             type="green"
             event={() => {
               toggle()
-              setIsSettingsOpen(false)
+              setIsBoardSettingsOpen(false)
+              setIsTaskSettingsOpen(false)
               setIsTaskFormOpen(true)
             }}>
             <HiPlus size="1.2em" />
@@ -105,7 +111,8 @@ const BoardDetails = () => {
             event={() => {
               toggle()
               setIsTaskFormOpen(false)
-              setIsSettingsOpen(true)
+              setIsTaskSettingsOpen(false)
+              setIsBoardSettingsOpen(true)
             }}>
             <HiOutlineCog6Tooth size="1.2em" />
             Settings
@@ -113,17 +120,32 @@ const BoardDetails = () => {
         </motion.div>
       </header>
 
-      <ProgressBar tasks={tasks} layoutId="progressbar" />
+      <ProgressBar tasks={tasks} />
 
-      <TasksList tasks={search(tasks)} layoutId="tasksList" />
+      <TasksList
+        tasks={search(tasks)}
+        event={() => {
+          toggle()
+          setIsBoardSettingsOpen(false)
+          setIsTaskFormOpen(false)
+          setIsTaskSettingsOpen(true)
+        }}
+        setTaskId={setTaskId}
+      />
 
       <AnimatePresence>
         {display && (
           <Modal toggle={toggle}>
-            {isSettingsOpen ? (
+            {isBoardSettingsOpen && (
               <BoardSettings board={board} board_id={board_id} toggle={toggle} />
-            ) : isTaskFormOpen && (
+            )}
+
+            {isTaskFormOpen && (
               <AddTaskForm board_id={board_id} toggle={toggle} />
+            )}
+
+            {isTaskSettingsOpen && (
+              <TaskSettings task={tasks.find(({ _id }) => _id === taskId)} toggle={toggle} />
             )}
           </Modal>
         )}

@@ -31,7 +31,8 @@ import {
   HiOutlineCalendar, // Calendar icon
   HiOutlineTag, // Tags icon
   HiOutlineCog6Tooth, // Settings icon
-  HiCodeBracket, // About icon
+  HiOutlineInformationCircle, // About icon
+  HiCodeBracket, // Doc icon
   HiArrowLeftOnRectangle, // Logout icon
   HiArrowRightOnRectangle, // Login icon
   HiOutlineUserPlus // Signup icon 
@@ -422,7 +423,7 @@ const Navbar = () => {
                   className="link"
                   onMouseEnter={!displayNavbar ? () => addItem('About') : undefined}
                   onMouseLeave={() => removeItem('About')}>
-                  <HiCodeBracket className="icon" size="1.6em" />
+                  <HiOutlineInformationCircle className="icon" size="1.6em" />
                   <AnimatePresence>
                     {displayNavbar && (
                       <motion.p
@@ -430,6 +431,29 @@ const Navbar = () => {
                         layoutId="aboutTitle"
                         {...config.itemTitleAnimation}>
                         About
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
+
+              <motion.li
+                className="navbar-list-item disabled"
+                layoutId="doc"
+                {...config.navbarItemAnimation}>
+                <NavLink
+                  to="/doc"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? () => addItem('Doc') : undefined}
+                  onMouseLeave={() => removeItem('Doc')}>
+                  <HiCodeBracket className="icon" size="1.6em" />
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="docTitle"
+                        {...config.itemTitleAnimation}>
+                        Doc
                       </motion.p>
                     )}
                   </AnimatePresence>
