@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { useTasksContext } from '../../hooks/useTasksContext'
+import useTasksContext from '../../hooks/useTasksContext'
 import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
@@ -49,6 +49,8 @@ const TaskSettings = ({ task, toggle }) => {
 
     dispatch({ type: 'DELETE_TASK', payload: data })
 
+    toggle()
+
     // removeItem('Delete')
   }
 
@@ -92,7 +94,6 @@ const TaskSettings = ({ task, toggle }) => {
               key={tag._id}
               type="checkbox"
               placeholder={tag.title}
-              // value={tags.includes({ ...tag })}
               value={tags.some(selected => (
                 selected._id === tag._id
               ))}

@@ -5,39 +5,39 @@ import { TagsContext } from '../contexts/TagsContext'
 import axios from '../axios.config'
 
 const useTagsContext = () => {
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const { tags, dispatch } = useContext(TagsContext)
 
   const getTags = async () => {
-    setLoading(true)
+    // setLoading(true)
 
     try {
       const { data } = await axios.get('/tags')
 
       dispatch({ type: 'GET_TAGS', payload: data })
 
-      setLoading(false)
+      // setLoading(false)
       setError(false)
     } catch ({ response }) {
-      setLoading(false)
+      // setLoading(false)
       setError(response.data.error)
     }
   }
 
   const createTag = async props => {
-    setLoading(true)
+    // setLoading(true)
 
     try {
       const { data } = await axios.post('/tags', props)
 
       dispatch({ type: 'CREATE_TAG', payload: data })
 
-      setLoading(false)
+      // setLoading(false)
       setError(false)
     } catch ({ response }) {
-      setLoading(false)
+      // setLoading(false)
       setError(response.data.error)
     }
   }

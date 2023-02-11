@@ -8,7 +8,7 @@ import config from './motion.config'
 import useCursorContext from '../../hooks/useCursorContext'
 
 const Cursor = () => {
-  const { items } = useCursorContext()
+  const { printed } = useCursorContext()
 
   const [position, setPosition] = useState({
     x: 0,
@@ -36,9 +36,25 @@ const Cursor = () => {
   return (
     <motion.div
       className={isOut ? 'cursor--out' : 'cursor'}
-      animate={{ x: position.x, y: position.y }}>
-      {/* <div className="content">
-        <AnimatePresence mode='popLayout'>
+      animate={{ x: position.x, y: position.y }}
+      transition={{
+        type: "spring",
+        damping: 10,
+        stiffness: 60,
+      }}
+    // transition={{ damping: 6 }}
+    >
+      <div className="content">
+        <AnimatePresence>
+          {printed && (
+            <motion.p
+              className="content-item"
+              {...config.activeItemAnimation}>
+              {printed}
+            </motion.p>
+          )}
+        </AnimatePresence>
+        {/* <AnimatePresence mode='popLayout'>
           {items.map((item, i) => (
             item && <motion.p
               key={`${item}-cursor`}
@@ -48,8 +64,8 @@ const Cursor = () => {
               {item}
             </motion.p>
           ))}
-        </AnimatePresence>
-      </div> */}
+        </AnimatePresence> */}
+      </div>
     </motion.div>
   )
 }

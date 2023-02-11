@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
-import { useTasksContext } from "../../hooks/useTasksContext"
+import useTasksContext from "../../hooks/useTasksContext"
 import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
@@ -19,7 +19,7 @@ import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
 const SingleTask = ({ _id, title, description, status, important, tags, createdAt, event, setTaskId }) => {
-  const { addItem, removeItem } = useCursorContext()
+  const { addItem, removeItem, printItem } = useCursorContext()
   const { dispatch } = useTasksContext()
 
   const nextStatus = status === 'To do' ? 'In progress' : 'Done'
@@ -46,9 +46,9 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
           {description?.includes('\n') ? (
             <motion.ul layoutId={`task-content-infos-description-list-${_id}`} className="task-content-infos-description-list"
               {...config.singleTaskAnimation}>
-              {description.split('\n').map((item, index) => (
+              {description.split('\n').map((item, i) => (
                 item.trim() && (
-                  <li key={index} className="task-content-infos-description-list-item">
+                  <li key={i} className="task-content-infos-description-list-item">
                     {capitalize(item)}
                   </li>
                 )
@@ -59,8 +59,14 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
               {...config.singleTaskAnimation}>{capitalize(description)}</motion.p>
           )}
           <div className="task-content-infos-tags">
-            {tags && tags.map(({ _id, title }) => (
-              <p key={_id} className="tag">{title}</p>
+            {tags.map(({ _id, title }) => (
+              <p
+                key={_id}
+                className="tag"
+                onMouseEnter={() => printItem(`sort by #${title} tag`)}
+                onMouseLeave={() => removeItem(`sort by #${title} tag`)}>
+                <span>#</span>{title}
+              </p>
             ))}
           </div>
         </div>
@@ -70,15 +76,22 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
           <p className='task-importance'>{important && 'high'}</p>
           {status !== 'Done' && (
             <div className="button"
-              onMouseEnter={() => addItem(nextStatus)}
+              onMouseEnter={() => {
+                printItem(`Switch to ${nextStatus}`)
+                addItem(nextStatus)
+              }}
               onMouseLeave={() => removeItem(nextStatus)}>
               <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
             </div>
           )}
-          <div className="button" onClick={() => {
-            setTaskId(_id)
-            event()
-          }}>
+          <div
+            className="button"
+            onClick={() => {
+              setTaskId(_id)
+              event()
+            }}
+            onMouseEnter={() => printItem('Settings')}
+            onMouseLeave={() => removeItem('Settings')}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />
           </div>
 

@@ -42,7 +42,7 @@ const Navbar = () => {
   const { user, logout } = useAuthQueries()
   const { boards, error } = useBoardsContext()
   const { theme, toggleTheme } = useThemeContext()
-  const { addItem, removeItem } = useCursorContext()
+  const { printItem, removeItem } = useCursorContext()
 
   const { display: displayBoards, toggle: toggleBoards } = useToggle()
   const [displayNavbar, toggleNavbar] = useState(true)
@@ -113,7 +113,7 @@ const Navbar = () => {
                 <NavLink
                   to="/"
                   className="link"
-                  onMouseEnter={!displayNavbar ? () => addItem('Home') : undefined}
+                  onMouseEnter={!displayNavbar ? () => printItem('Home') : undefined}
                   onMouseLeave={() => removeItem('Home')}>
                   <HiOutlineHome className="icon" size="1.6em" />
 
@@ -138,7 +138,7 @@ const Navbar = () => {
                     {...config.navbarItemAnimation}>
                     <div
                       className="link"
-                      onMouseEnter={!displayNavbar ? () => addItem(error) : undefined}
+                      onMouseEnter={!displayNavbar ? () => printItem(error) : undefined}
                       onMouseLeave={() => removeItem(error)}>
                       <HiOutlineLockClosed className="icon" size="1.6em" />
 
@@ -218,7 +218,7 @@ const Navbar = () => {
                       <NavLink
                         to="/add-board"
                         className="link"
-                        onMouseEnter={!displayNavbar ? () => addItem('Add board') : undefined}
+                        onMouseEnter={!displayNavbar ? () => printItem('Add board') : undefined}
                         onMouseLeave={() => removeItem('Add board')}>
                         <HiOutlineDocumentPlus className="icon" size="1.6em" />
                         <AnimatePresence>
@@ -241,7 +241,7 @@ const Navbar = () => {
                       <NavLink
                         to="/tags"
                         className="link"
-                        onMouseEnter={!displayNavbar ? () => addItem('Tags') : undefined}
+                        onMouseEnter={!displayNavbar ? () => printItem('Tags') : undefined}
                         onMouseLeave={() => removeItem('Tags')}>
                         <HiOutlineTag className="icon" size="1.6em" />
                         <AnimatePresence>
@@ -348,7 +348,7 @@ const Navbar = () => {
                       if (displayBoards) toggleBoards(false)
                       logout()
                     }}
-                      onMouseEnter={!displayNavbar ? () => addItem('Log out') : undefined}
+                      onMouseEnter={!displayNavbar ? () => printItem('Log out') : undefined}
                       onMouseLeave={() => removeItem('Log out')}>
                       <HiArrowLeftOnRectangle className="icon" size="1.6em" />
                       <AnimatePresence>
@@ -372,7 +372,7 @@ const Navbar = () => {
                       <NavLink
                         to="/login"
                         className="link"
-                        onMouseEnter={!displayNavbar ? () => addItem('Log in') : undefined}
+                        onMouseEnter={!displayNavbar ? () => printItem('Log in') : undefined}
                         onMouseLeave={() => removeItem('Log in')}>
                         <HiArrowRightOnRectangle className="icon" size="1.6em" />
                         <AnimatePresence>
@@ -395,7 +395,7 @@ const Navbar = () => {
                       <NavLink
                         to="/signup"
                         className="link"
-                        onMouseEnter={!displayNavbar ? () => addItem('Sign up') : undefined}
+                        onMouseEnter={!displayNavbar ? () => printItem('Sign up') : undefined}
                         onMouseLeave={() => removeItem('Sign up')}>
                         <HiOutlineUserPlus className="icon" size="1.6em" />
                         <AnimatePresence>
@@ -421,7 +421,7 @@ const Navbar = () => {
                 <NavLink
                   to="/about"
                   className="link"
-                  onMouseEnter={!displayNavbar ? () => addItem('About') : undefined}
+                  onMouseEnter={!displayNavbar ? () => printItem('About') : undefined}
                   onMouseLeave={() => removeItem('About')}>
                   <HiOutlineInformationCircle className="icon" size="1.6em" />
                   <AnimatePresence>
@@ -444,7 +444,7 @@ const Navbar = () => {
                 <NavLink
                   to="/doc"
                   className="link"
-                  onMouseEnter={!displayNavbar ? () => addItem('Doc') : undefined}
+                  onMouseEnter={!displayNavbar ? () => printItem('Doc') : undefined}
                   onMouseLeave={() => removeItem('Doc')}>
                   <HiCodeBracket className="icon" size="1.6em" />
                   <AnimatePresence>

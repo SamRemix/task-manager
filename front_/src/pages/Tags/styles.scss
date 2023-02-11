@@ -31,10 +31,12 @@
     flex-wrap: wrap;
 
     .tag {
+      @include mix.flex-column-gap(1rem);
       padding: 1rem;
-      flex: 1;
       background: v.$low;
       border-radius: v.$radius-lg;
+      flex: 1;
+      white-space: nowrap;
       transition: background .2s, box-shadow .2s;
 
       &:hover {

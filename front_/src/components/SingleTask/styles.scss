@@ -61,7 +61,12 @@
         padding: .25rem .5rem;
         background: v.$yellow-3;
         border-radius: v.$radius-sm;
-        font-size: .9rem
+        font-size: .825rem;
+        cursor: pointer;
+
+        // span {
+        //   font-size: .75rem;
+        // }
       }
     }
   }

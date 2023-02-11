@@ -5,26 +5,9 @@ const { Types } = require('mongoose')
 const getTags = async (req, res) => {
   const { _id } = req.user
 
-  const tags = await Tag.find({ user_id: _id })
-  // .sort({ title: -1 })
+  const tags = await Tag.find({ user_id: _id }).sort({ title: 1 })
 
   res.status(200).json(tags)
-}
-
-const getTag = async (req, res) => {
-  const { id } = req.params
-
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such tag, invalid id' })
-  }
-
-  const tag = await Tag.findById(id)
-
-  if (!tag) {
-    return res.status(404).json({ error: 'No such tag' })
-  }
-
-  res.status(200).json(tag)
 }
 
 const createTag = async (req, res) => {
@@ -48,33 +31,6 @@ const createTag = async (req, res) => {
   }
 }
 
-const updateTag = async (req, res) => {
-  const { id } = req.params
-  const { title, status } = req.body
-
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such tag, invalid id' })
-  }
-
-  if (!status) {
-    if (!title.trim()) {
-      return res.status(404).json({ error: 'Please fill in this field' })
-    }
-
-    if (title.length > 36) {
-      return res.status(404).json({ error: 'Title should not exceed 36 characters' })
-    }
-  }
-
-  const tag = await Tag.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
-
-  if (!tag) {
-    return res.status(404).json({ error: 'No such tag' })
-  }
-
-  res.status(200).json(tag)
-}
-
 const deleteTag = async (req, res) => {
   const { id } = req.params
 
@@ -93,8 +49,7 @@ const deleteTag = async (req, res) => {
 
 module.exports = {
   getTags,
-  getTag,
   createTag,
-  updateTag,
+  // updateTag,
   deleteTag
 }

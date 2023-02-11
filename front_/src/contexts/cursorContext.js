@@ -1,10 +1,12 @@
 import { createContext, useReducer, useContext } from 'react'
 
 const initialState = {
-  items: []
+  items: [],
+  printed: ''
 }
 
 const ADD = 'ADD'
+const PRINT = 'PRINT'
 const REMOVE = 'REMOVE'
 const RESET = 'RESET'
 
@@ -12,6 +14,7 @@ const CursorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD:
       return {
+        ...state,
         items: [action.payload, ...state.items]
       }
 
@@ -19,12 +22,20 @@ const CursorReducer = (state = initialState, action) => {
       return {
         items: state.items.filter(item => (
           item !== action.payload
-        ))
+        )),
+        printed: ''
       }
 
     case RESET:
       return {
-        items: []
+        items: [],
+        printed: ''
+      }
+
+    case PRINT:
+      return {
+        items: [action.payload, ...state.items],
+        printed: action.payload
       }
 
     default:

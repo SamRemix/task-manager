@@ -8,7 +8,7 @@ import config from './motion.config'
 
 import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
-import { useTasksContext } from '../../hooks/useTasksContext'
+import useTasksContext from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
 import useToggle from '../../hooks/useToggle'
 
@@ -34,7 +34,7 @@ const BoardDetails = () => {
   let { board_id } = useParams()
   const { user } = useAuthQueries()
   const { boards } = useBoardsContext()
-  const { loading, tasks, error, dispatch } = useTasksContext()
+  const { tasks, loading, setLoading, error, setError, dispatch } = useTasksContext()
   const { setPrefix, search } = useSearch()
   const { display, toggle } = useToggle()
 
@@ -52,7 +52,8 @@ const BoardDetails = () => {
 
   useEffect(() => {
     const getTasks = async () => {
-      dispatch({ type: 'LOADING' })
+      setLoading(true)
+
       try {
         const { data } = await axios.get('/tasks')
 
@@ -61,8 +62,13 @@ const BoardDetails = () => {
             task.board_id === board_id
           ))
         })
-      } catch (err) {
-        dispatch({ type: 'ERROR', payload: err.response.data.error })
+
+        setLoading(false)
+        setError(false)
+      } catch ({ response }) {
+        setLoading(false)
+        setError(response.data.error)
+        console.log(error)
       }
     }
 

@@ -11,6 +11,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import setDocumentTitle from '../../utils/setDocumentTitle'
+import capitalize from '../../utils/capitalize'
 
 const Tags = () => {
   const { tags, error, setError, createTag, deleteTag } = useTagsContext()
@@ -36,7 +37,7 @@ const Tags = () => {
       <div className="tags-container">
         {tags.map(({ _id, title }) => (
           <div key={_id} className="tag">
-            <p className="tag-title">{title}</p>
+            <p className="tag-title">{capitalize(title)}</p>
             <p onClick={() => deleteTag(_id)}>delete</p>
           </div>
         ))}

@@ -1,7 +1,7 @@
 import { memo, useState, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-import { useTasksContext } from '../../hooks/useTasksContext'
+import useTasksContext from '../../hooks/useTasksContext'
 import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
@@ -10,7 +10,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const AddTaskForm = ({ board_id, toggle }) => {
-  const { dispatch } = useTasksContext()
+  const { error, setError, addTask, dispatch } = useTasksContext()
   const { tags } = useTagsContext()
 
   const SET_FIELD = 'SET_FIELD'
@@ -42,9 +42,9 @@ const AddTaskForm = ({ board_id, toggle }) => {
     board_id
   })
 
-  const [error, setError] = useState('')
+  console.log(newTask.tags);
 
-  const addTask = async e => {
+  const handleAddTask = async e => {
     e.preventDefault()
 
     try {
@@ -52,7 +52,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
 
       dispatch({ type: 'CREATE_TASK', payload: data })
 
-      toggle(false)
+      toggle()
     } catch (err) {
       setError(err.response.data.error)
     }
@@ -61,7 +61,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
   return (
     <>
       <h1 className="modal-content-title">Add task</h1>
-      <form onSubmit={addTask}>
+      <form onSubmit={handleAddTask}>
         <Input
           placeholder="Title"
           value={newTask.title}

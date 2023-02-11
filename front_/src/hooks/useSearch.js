@@ -4,9 +4,34 @@ const useSearch = () => {
   const [prefix, setPrefix] = useState('')
 
   const search = data => (
-    data.filter(({ title }) => (
-      title.trim().toLowerCase().startsWith(prefix.trim().toLowerCase())
-    ))
+    prefix.startsWith('#') ? (
+      // search tasks by tag
+      data.filter(({ tags }) => (
+        tags.find(({ title }) => (
+          title
+            .trim()
+            .toLowerCase()
+            .startsWith(
+              prefix
+                .split('#')[1]
+                .trim()
+                .toLowerCase()
+            )
+        ))
+      ))
+    ) : (
+      // search tasks by title
+      data.filter(({ title }) => (
+        title
+          .trim()
+          .toLowerCase()
+          .startsWith(
+            prefix
+              .trim()
+              .toLowerCase()
+          )
+      ))
+    )
   )
 
   return { setPrefix, search }

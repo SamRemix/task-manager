@@ -8,7 +8,7 @@ const getTasks = async (req, res) => {
   const tasks = await Task
     .find({ user_id: _id })
     .sort({ important: -1, createdAt: -1 })
-    .populate('tags')
+    .populate('tags', 'title')
 
   res.status(200).json(tasks)
 }
