@@ -2,7 +2,6 @@ import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
@@ -15,29 +14,13 @@ import formatDate from '../../utils/formatDate'
 const BoardSettings = ({ board, board_id, toggle }) => {
   const navigate = useNavigate()
 
-  const { user } = useAuthQueries()
   const { dispatch } = useBoardsContext()
 
   // const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const [title, setTitle] = useState(board.title)
-
-  // useEffect(() => {
-  //   const getBoard = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/boards/${board_id}`)
-
-  //       setTitle(data.title)
-  //     } catch (err) {
-  //       dispatch({ type: 'ERROR', payload: err.response.data.error })
-  //     }
-  //   }
-
-  //   if (user) {
-  //     getBoard()
-  //   }
-  // }, [user])
+  const [favorite, setFavorite] = useState(board.favorite)
 
   const updateBoard = async e => {
     e.preventDefault()
@@ -45,7 +28,10 @@ const BoardSettings = ({ board, board_id, toggle }) => {
     // setLoading(true)
 
     try {
-      const { data } = await axios.patch(`/boards/${board_id}`, { title })
+      const { data } = await axios.patch(`/boards/${board_id}`, {
+        title,
+        favorite
+      })
 
       dispatch({ type: 'UPDATE_BOARD', payload: data })
 
@@ -86,6 +72,13 @@ const BoardSettings = ({ board, board_id, toggle }) => {
           maxLength="24"
           focus={true}
           error={error}
+        />
+
+        <Input
+          type="checkbox"
+          placeholder="Favorite"
+          value={favorite}
+          onChange={() => setFavorite(!favorite)}
         />
 
         <Button type="form-button">Update board</Button>

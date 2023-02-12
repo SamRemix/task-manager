@@ -62,7 +62,7 @@ const AddBoard = () => {
           <Input
             type="checkbox"
             placeholder="Favorite"
-            value={favorite}
+            checked={favorite}
             onChange={() => setFavorite(!favorite)}
           />
         </motion.div>

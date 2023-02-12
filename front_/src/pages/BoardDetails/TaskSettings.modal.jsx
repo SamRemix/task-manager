@@ -17,13 +17,11 @@ const TaskSettings = ({ task, toggle }) => {
 
   const [title, setTitle] = useState(task.title)
   const [description, setDescription] = useState(task.description)
+  const [status, setStatus] = useState(task.status)
   const [important, setImportant] = useState(task.important)
   const [tags, setTags] = useState(task.tags)
-  // const [boardId, setBoardId] = useState(task.board_id)
 
   const [error, setError] = useState('')
-
-  console.log(task);
 
   const updateTask = async e => {
     e.preventDefault()
@@ -32,6 +30,7 @@ const TaskSettings = ({ task, toggle }) => {
       const { data } = await axios.patch(`/tasks/${task._id}`, {
         title,
         description,
+        status,
         important,
         tags
       })
@@ -81,10 +80,26 @@ const TaskSettings = ({ task, toggle }) => {
           <p>To create a list, press <b>enter</b> after each item to separate them.</p>
         </div>
 
+        <div className="status-input">
+          {['To do', 'In progress', 'Done'].map((curr, i) => (
+            <Input
+              key={i}
+              type="radio"
+              name="status"
+              placeholder={curr}
+              value={curr}
+              checked={curr === status}
+              onChange={e => {
+                setStatus(e.target.value)
+              }}
+            />
+          ))}
+        </div>
+
         <Input
           type="checkbox"
           placeholder="Important"
-          value={important}
+          checked={important}
           onChange={() => setImportant(!important)}
         />
 
@@ -94,7 +109,7 @@ const TaskSettings = ({ task, toggle }) => {
               key={tag._id}
               type="checkbox"
               placeholder={tag.title}
-              value={tags.some(selected => (
+              checked={tags.some(selected => (
                 selected._id === tag._id
               ))}
               onChange={() => {

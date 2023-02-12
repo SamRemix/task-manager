@@ -2,30 +2,30 @@ import './styles.scss'
 
 import { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
 import useTasksContext from "../../hooks/useTasksContext"
-import useTagsContext from '../../hooks/useTagsContext'
+// import useTagsContext from '../../hooks/useTagsContext'
 
 import axios from '../../axios.config'
 
-import { HiOutlineCheckBadge, HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2'
+import { HiOutlineCheckBadge, HiOutlinePencilSquare } from 'react-icons/hi2'
 
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
-const SingleTask = ({ _id, title, description, status, important, tags, createdAt, event, setTaskId }) => {
+const SingleTask = ({ task, toggleModal, setTaskId }) => {
   const { addItem, removeItem, printItem } = useCursorContext()
   const { dispatch } = useTasksContext()
 
-  const nextStatus = status === 'To do' ? 'In progress' : 'Done'
+  const nextStatus = task.status === 'To do' ? 'In progress' : 'Done'
 
   const updateStatus = async () => {
-    const { data } = await axios.patch(`/tasks/${_id}`, {
+    const { data } = await axios.patch(`/tasks/${task._id}`, {
       status: nextStatus
     })
 
@@ -37,47 +37,45 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
   return (
     <>
       <motion.div
-        className={important ? 'task-content-important' : 'task-content'}
-        layoutId={_id}
+        className={task.important ? 'task-content-important' : 'task-content'}
+        layoutId={task._id}
         {...config.singleTaskAnimation}>
 
         <div className="task-content-infos">
-          <p className="task-content-infos-title">{capitalize(title)}</p>
-          {description?.includes('\n') ? (
-            <motion.ul layoutId={`task-content-infos-description-list-${_id}`} className="task-content-infos-description-list"
-              {...config.singleTaskAnimation}>
-              {description.split('\n').map((item, i) => (
-                item.trim() && (
-                  <li key={i} className="task-content-infos-description-list-item">
-                    {capitalize(item)}
-                  </li>
-                )
+          <p className="task-content-infos-title">{capitalize(task.title)}</p>
+          {task.description?.includes('\n') ? (
+            <ul className="task-content-infos-description-list">
+              {task.description.split('\n').map((item, i) => (
+                <li key={i} className="task-content-infos-description-list-item">
+                  {capitalize(item.trim())}
+                </li>
               ))}
-            </motion.ul>
-          ) : description && (
-            <motion.p layoutId={`task-content-infos-description-${_id}`} className="task-content-infos-description"
-              {...config.singleTaskAnimation}>{capitalize(description)}</motion.p>
+            </ul>
+          ) : task.description && (
+            <p className="task-content-infos-description">
+              {capitalize(task.description)}
+            </p>
           )}
           <div className="task-content-infos-tags">
-            {tags.map(({ _id, title }) => (
+            {task.tags.map(({ _id, title }) => (
               <p
                 key={_id}
                 className="tag"
-                onMouseEnter={() => printItem(`sort by #${title} tag`)}
-                onMouseLeave={() => removeItem(`sort by #${title} tag`)}>
-                <span>#</span>{title}
+                onMouseEnter={() => printItem(`Filter by <span>#${capitalize(title)}</span> tag`)}
+                onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag`)}>
+                <span>#</span>{capitalize(title)}
               </p>
             ))}
           </div>
         </div>
 
         <div className="task-content-footer">
-          <p className="task-content-footer-date">{formatDate(createdAt)}</p>
-          <p className='task-importance'>{important && 'high'}</p>
-          {status !== 'Done' && (
+          <p className="task-content-footer-date">{formatDate(task.createdAt)}</p>
+          <p className='task-importance'>{task.important && 'high'}</p>
+          {task.status !== 'Done' && (
             <div className="button"
               onMouseEnter={() => {
-                printItem(`Switch to ${nextStatus}`)
+                printItem(`Switch to <span>${nextStatus}</span>`)
                 addItem(nextStatus)
               }}
               onMouseLeave={() => removeItem(nextStatus)}>
@@ -87,26 +85,13 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
           <div
             className="button"
             onClick={() => {
-              setTaskId(_id)
-              event()
+              setTaskId(task._id)
+              toggleModal()
             }}
-            onMouseEnter={() => printItem('Settings')}
-            onMouseLeave={() => removeItem('Settings')}>
-            <HiOutlinePencilSquare size="1.4em" className="button-update" />
-          </div>
-
-          {/* <Link className="button" to={`/update-task/${_id}`}
-            onClick={resetItem}
-            onMouseEnter={() => addItem('Update')}
+            onMouseEnter={() => printItem('Update')}
             onMouseLeave={() => removeItem('Update')}>
             <HiOutlinePencilSquare size="1.4em" className="button-update" />
-          </Link> */}
-
-          {/* <div className="button"
-            onMouseEnter={() => addItem('Delete')}
-            onMouseLeave={() => removeItem('Delete')}>
-            <HiOutlineTrash size="1.4em" className="button-delete" onClick={deleteTask} />
-          </div> */}
+          </div>
         </div>
       </motion.div>
     </>
@@ -114,13 +99,9 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
 }
 
 SingleTask.propTypes = {
-  _id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  status: PropTypes.string.isRequired,
-  important: PropTypes.bool.isRequired,
-  tags: PropTypes.array,
-  createdAt: PropTypes.string.isRequired
+  task: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  setTaskId: PropTypes.func.isRequired
 }
 
 export default memo(SingleTask)

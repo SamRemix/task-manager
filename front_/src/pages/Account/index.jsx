@@ -22,15 +22,15 @@ const Account = () => {
     <section className="container account">
       <UpdateUserForm user={user} />
 
-      {user && (
-        <motion.div className="timestamps" {...config.timestampsAnimation}>
-          <p>Account created: {formatDate(user.createdAt)}.</p>
+      {/* {user && ( */}
+      <motion.div className="timestamps" {...config.timestampsAnimation}>
+        <p>Account created: {formatDate(user.createdAt)}.</p>
 
-          {user.createdAt !== user.updatedAt && (
-            <p>Last update: {formatDate(user.updatedAt)}.</p>
-          )}
-        </motion.div>
-      )}
+        {user.createdAt !== user.updatedAt && (
+          <p>Last update: {formatDate(user.updatedAt)}.</p>
+        )}
+      </motion.div>
+      {/* )} */}
     </section>
   )
 }

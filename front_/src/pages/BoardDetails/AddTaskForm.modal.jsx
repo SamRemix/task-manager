@@ -1,4 +1,4 @@
-import { memo, useState, useReducer } from 'react'
+import { memo, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
 import useTasksContext from '../../hooks/useTasksContext'
@@ -42,8 +42,6 @@ const AddTaskForm = ({ board_id, toggle }) => {
     board_id
   })
 
-  console.log(newTask.tags);
-
   const handleAddTask = async e => {
     e.preventDefault()
 
@@ -53,8 +51,8 @@ const AddTaskForm = ({ board_id, toggle }) => {
       dispatch({ type: 'CREATE_TASK', payload: data })
 
       toggle()
-    } catch (err) {
-      setError(err.response.data.error)
+    } catch ({ response }) {
+      setError(response.data.error)
     }
   }
 

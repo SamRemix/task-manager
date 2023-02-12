@@ -24,6 +24,8 @@ import Account from './pages/Account'
 import About from './pages/About'
 import NotFound from './pages/404'
 
+import { TasksProvider } from './contexts/TasksContext'
+
 const App = () => {
   const location = useLocation()
 
@@ -82,7 +84,11 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
+          <Route path="/boards/:board_id" element={user && (
+            <TasksProvider>
+              <BoardDetails />
+            </TasksProvider>
+          )} />
           <Route path="/add-board" element={user && <AddBoard />} />
 
           {/* <Route path="/update-task/:task_id" element={user && <UpdateTask />} /> */}

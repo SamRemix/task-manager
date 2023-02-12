@@ -20,6 +20,7 @@
     flex-wrap: wrap;
 
     .title {
+      @include mix.flex-align-gap(1rem);
       font-size: 3rem;
       font-weight: 800;
     }

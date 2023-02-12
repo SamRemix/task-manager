@@ -34,7 +34,7 @@ const CursorReducer = (state = initialState, action) => {
 
     case PRINT:
       return {
-        items: [action.payload, ...state.items],
+        ...state,
         printed: action.payload
       }
 

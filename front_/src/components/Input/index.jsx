@@ -12,7 +12,19 @@ import {
   HiOutlineEye // Display password icon
 } from 'react-icons/hi2'
 
-const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, setPrefix, key }) => {
+const Input = ({
+  type,
+  placeholder,
+  value,
+  checked,
+  onChange,
+  maxLength,
+  focus,
+  error,
+  setPrefix,
+  key,
+  name
+}) => {
   const { display, toggle } = useToggle()
 
   return (
@@ -50,8 +62,21 @@ const Input = ({ type, placeholder, value, onChange, maxLength, focus, error, se
         <label>
           <input
             type={type}
-            // placeholder={capitalize(placeholder)}
-            checked={value}
+            checked={checked}
+            onChange={onChange}
+            key={key}
+          />
+          {capitalize(placeholder)}
+        </label>
+      )}
+
+      {type === 'radio' && (
+        <label>
+          <input
+            type={type}
+            name={name}
+            value={value}
+            checked={checked}
             onChange={onChange}
             key={key}
           />
@@ -101,12 +126,14 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.any,
+  checked: PropTypes.any,
   onChange: PropTypes.func,
   maxLength: PropTypes.string,
   focus: PropTypes.bool,
   error: PropTypes.any,
   setPrefix: PropTypes.func,
-  key: PropTypes.string
+  key: PropTypes.string,
+  name: PropTypes.string
 }
 
 Input.defaultProps = {

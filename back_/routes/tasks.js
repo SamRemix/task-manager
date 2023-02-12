@@ -12,9 +12,9 @@ const router = Router()
 
 router.use(requireAuth)
 
-router.get('/', getTasks)
+// router.get('/', getTasks)
 
-router.get('/:id', getTask)
+router.get('/:id', getTasks)
 
 router.post('/', createTask)
 

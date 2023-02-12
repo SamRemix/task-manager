@@ -29,12 +29,14 @@
       padding: .5rem .75rem;
       width: fit-content;
       background: v.$red-1;
-      // background: v.$yellow-3;
-      // opacity: .4 !important;
-      // background: #ff605866;
       box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
       border-radius: v.$radius-sm;
       white-space: nowrap;
+      // font-style: italic;
+
+      span {
+        font-weight: 600;
+      }
     }
   }
 }

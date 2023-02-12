@@ -24,11 +24,15 @@ import Modal from '../../components/Modal'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import Loader from '../../components/Loader'
+import QueryStatus from '../../components/QueryStatus'
 
 import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
 
 import setDocumentTitle from '../../utils/setDocumentTitle'
 import capitalize from '../../utils/capitalize'
+
+import { TasksProvider } from '../../contexts/TasksContext'
+import { CursorContext } from '../../contexts/CursorContext'
 
 const BoardDetails = () => {
   let { board_id } = useParams()
@@ -55,20 +59,15 @@ const BoardDetails = () => {
       setLoading(true)
 
       try {
-        const { data } = await axios.get('/tasks')
+        const { data } = await axios.get(`/tasks/${board_id}`)
 
-        dispatch({
-          type: 'GET_TASKS', payload: data.filter(task => (
-            task.board_id === board_id
-          ))
-        })
+        dispatch({ type: 'GET_TASKS', payload: data })
 
         setLoading(false)
         setError(false)
       } catch ({ response }) {
         setLoading(false)
         setError(response.data.error)
-        console.log(error)
       }
     }
 
@@ -77,11 +76,9 @@ const BoardDetails = () => {
     }
   }, [dispatch, user])
 
-  if (loading) {
+  if (loading || error) {
     return (
-      <section className="container">
-        <Loader />
-      </section >
+      <QueryStatus loading={loading} error={error} />
     )
   }
 
@@ -130,7 +127,7 @@ const BoardDetails = () => {
 
       <TasksList
         tasks={search(tasks)}
-        event={() => {
+        toggleModal={() => {
           toggle()
           setIsBoardSettingsOpen(false)
           setIsTaskFormOpen(false)

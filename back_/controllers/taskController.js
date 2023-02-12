@@ -3,10 +3,15 @@ const Task = require('../models/taskModel')
 const { Types } = require('mongoose')
 
 const getTasks = async (req, res) => {
+  const { id } = req.params
   const { _id } = req.user
 
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid board id in request params' })
+  }
+
   const tasks = await Task
-    .find({ user_id: _id })
+    .find({ user_id: _id, board_id: id })
     .sort({ important: -1, createdAt: -1 })
     .populate('tags', 'title')
 
@@ -14,19 +19,19 @@ const getTasks = async (req, res) => {
 }
 
 const getTask = async (req, res) => {
-  const { id } = req.params
+  // const { id } = req.params
 
-  if (!Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such task, invalid id' })
-  }
+  // if (!Types.ObjectId.isValid(id)) {
+  //   return res.status(404).json({ error: 'No such task, invalid id' })
+  // }
 
-  const task = await Task.findById(id).populate('tags')
+  // const task = await Task.findById(id).populate('tags', 'title')
 
-  if (!task) {
-    return res.status(404).json({ error: 'No such task' })
-  }
+  // if (!task) {
+  //   return res.status(404).json({ error: 'No such task' })
+  // }
 
-  res.status(200).json(task)
+  // res.status(200).json(task)
 }
 
 const createTask = async (req, res) => {
@@ -48,13 +53,9 @@ const createTask = async (req, res) => {
       user_id: _id
     })
 
-    // await Board.findByIdAndUpdate(board_id, {
-    //   $push: {
-    //     tasks: task._id
-    //   }
-    // })
+    const populatedTask = await task.populate('tags', 'title')
 
-    res.status(200).json(task)
+    res.status(200).json(populatedTask)
   } catch (error) {
     res.status(404).json({ error: error.message })
   }
@@ -80,7 +81,7 @@ const updateTask = async (req, res) => {
 
   const task = await Task
     .findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
-    .populate('tags')
+    .populate('tags', 'title')
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })
@@ -97,12 +98,6 @@ const deleteTask = async (req, res) => {
   }
 
   const task = await Task.findOneAndDelete({ _id: id })
-
-  // await Board.updateOne({}, {
-  //   $pull: {
-  //     tasks: id
-  //   }
-  // })
 
   if (!task) {
     return res.status(404).json({ error: 'No such task' })

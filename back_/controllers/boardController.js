@@ -64,7 +64,8 @@ const updateBoard = async (req, res) => {
     return res.status(404).json({ error: 'Title should not exceed 24 characters' })
   }
 
-  const board = await Board.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
+  const board = await Board
+    .findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
   if (!board) {
     return res.status(404).json({ error: 'No such board' })

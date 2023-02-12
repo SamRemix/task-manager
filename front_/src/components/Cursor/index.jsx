@@ -42,16 +42,15 @@ const Cursor = () => {
         damping: 10,
         stiffness: 60,
       }}
-    // transition={{ damping: 6 }}
     >
       <div className="content">
         <AnimatePresence>
           {printed && (
             <motion.p
               className="content-item"
-              {...config.activeItemAnimation}>
-              {printed}
-            </motion.p>
+              dangerouslySetInnerHTML={{ __html: printed }}
+              {...config.activeItemAnimation}
+            />
           )}
         </AnimatePresence>
         {/* <AnimatePresence mode='popLayout'>

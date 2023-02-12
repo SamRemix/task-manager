@@ -46,8 +46,7 @@
 .delete {
   @extend .default;
   background: v.$red-2;
-  position: absolute;
-  inset: auto 2rem 2rem auto;
+  align-self: flex-end;
 }
 
 .back {
