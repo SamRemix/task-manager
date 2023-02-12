@@ -18,22 +18,6 @@ const getTasks = async (req, res) => {
   res.status(200).json(tasks)
 }
 
-const getTask = async (req, res) => {
-  // const { id } = req.params
-
-  // if (!Types.ObjectId.isValid(id)) {
-  //   return res.status(404).json({ error: 'No such task, invalid id' })
-  // }
-
-  // const task = await Task.findById(id).populate('tags', 'title')
-
-  // if (!task) {
-  //   return res.status(404).json({ error: 'No such task' })
-  // }
-
-  // res.status(200).json(task)
-}
-
 const createTask = async (req, res) => {
   const { title } = req.body
 
@@ -108,7 +92,6 @@ const deleteTask = async (req, res) => {
 
 module.exports = {
   getTasks,
-  getTask,
   createTask,
   updateTask,
   deleteTask

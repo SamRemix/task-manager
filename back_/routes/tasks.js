@@ -1,7 +1,6 @@
 const { Router } = require('express')
 const {
   getTasks,
-  getTask,
   createTask,
   updateTask,
   deleteTask
@@ -11,8 +10,6 @@ const requireAuth = require('../middleware/requireAuth')
 const router = Router()
 
 router.use(requireAuth)
-
-// router.get('/', getTasks)
 
 router.get('/:id', getTasks)
 
