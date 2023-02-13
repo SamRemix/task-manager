@@ -8,64 +8,39 @@
   height: calc(100vh - calc(v.$app-padding + v.$container-padding / 2) * 2);
   position: sticky;
   top: 0;
-  transition: height .4s;
 
-  // @mixin percent-container($color) {
-  //   @include mix.flex-justify;
-  //   width: 2.5rem;
-  //   background: $color;
-  //   border-radius: v.$radius-lg;
-  //   position: relative;
-  //   transition: .4s;
-  // }
-
-  @mixin percent-container {
+  & &-item {
     @include mix.flex-justify;
     width: 2.5rem;
     background: v.$red-light-1;
     border-radius: v.$radius-lg;
     position: relative;
     transition: .2s;
-  }
-
-  & &-item {
-    @include percent-container;
     box-shadow: 0 0 0 .125rem v.$dark;
 
     &.active {
       background: v.$red-1;
       box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-      // transform: scale(1.05);
-    }
-
-    &-arrow {
-      position: absolute;
-      bottom: .5rem;
     }
 
     &.disabled {
       opacity: .6;
     }
 
-    &.preview {
-      height: 1.25rem;
+    &-arrow {
+      position: absolute;
+      bottom: .125rem;
     }
 
     >p {
       padding: .5rem .75rem;
       text-align: center;
       background: v.$light;
-      border: 1px solid #aaa;
+      border: 1px solid #888;
       border-radius: v.$radius-sm;
-      color: #000;
       position: absolute;
       top: .75rem;
       z-index: 1;
-
-      span {
-        color: #000;
-        font-size: .8em;
-      }
     }
   }
 

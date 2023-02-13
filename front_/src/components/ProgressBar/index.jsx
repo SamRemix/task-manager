@@ -55,10 +55,17 @@ const ProgressBar = ({ tasks }) => {
             key={title}
             className={items.includes(title) ? 'progress-bar-item active' : 'progress-bar-item disabled'}
             style={{ height: setPercent(statusLength, tasks) + '%' }}>
-            <p>{+setPercent(statusLength, tasks).toFixed(1)}<span>%</span></p>
+            <AnimatePresence>
+              {setPercent(statusLength, tasks) >= 7 && (
+                // show the percentage only when it's greater than or equal to 7% cause of height of this element
+                <motion.p {...config.percentAnimation}>{+setPercent(statusLength, tasks).toFixed(1)}%</motion.p>
+              )}
+            </AnimatePresence>
 
             <AnimatePresence>
-              {items.includes(title) && items.includes(nextStatus) && (
+              {items.includes(title) && items.includes(nextStatus) && setPercent(statusLength, tasks) >= 11 && (
+                // show the arrow only when percentage it's greater than or equal to 11% to see it fully
+                // (hidden by the p element above)
                 <motion.div
                   className="progress-bar-item-arrow"
                   {...config.arrowAnimation}>

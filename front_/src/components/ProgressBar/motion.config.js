@@ -33,9 +33,23 @@ const config = {
       duration: .4
     }
   },
+  percentAnimation: {
+    initial: {
+      opacity: 0
+    },
+    animate: {
+      opacity: 1
+    },
+    exit: {
+      opacity: 0
+    },
+    transition: {
+      duration: .2
+    }
+  },
   arrowAnimation: {
     initial: {
-      y: -40,
+      y: -20,
       opacity: 0
     },
     animate: {
@@ -43,11 +57,11 @@ const config = {
       opacity: 1
     },
     exit: {
-      y: -40,
+      y: -20,
       opacity: 0
     },
     transition: {
-      duration: .3
+      duration: .2
     }
   }
 }

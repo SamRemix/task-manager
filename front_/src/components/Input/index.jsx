@@ -131,7 +131,10 @@ Input.propTypes = {
   checked: PropTypes.any,
   onChange: PropTypes.func,
   maxLength: PropTypes.string,
-  focus: PropTypes.bool,
+  focus: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ]),
   error: PropTypes.any,
   setPrefix: PropTypes.func,
   key: PropTypes.string,
