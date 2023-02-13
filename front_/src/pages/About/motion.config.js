@@ -1,5 +1,5 @@
 const config = {
-  homePageAnimation: {
+  aboutPageAnimation: {
     initial: {
       y: 40,
       opacity: 0

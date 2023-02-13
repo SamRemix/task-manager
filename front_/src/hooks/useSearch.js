@@ -34,7 +34,7 @@ const useSearch = () => {
     )
   )
 
-  return { setPrefix, search }
+  return { prefix, setPrefix, search }
 }
 
 export default useSearch

@@ -18,17 +18,17 @@ const root = createRoot(document.getElementById('root'))
 root.render(
   <AuthProvider>
     <BoardsProvider>
-      {/* <TasksProvider> */}
-      <TagsProvider>
-        <ThemeProvider>
-          <CursorProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CursorProvider>
-        </ThemeProvider>
-      </TagsProvider>
-      {/* </TasksProvider> */}
+      <TasksProvider>
+        <TagsProvider>
+          <ThemeProvider>
+            <CursorProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CursorProvider>
+          </ThemeProvider>
+        </TagsProvider>
+      </TasksProvider>
     </BoardsProvider>
   </AuthProvider>
 )

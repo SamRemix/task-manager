@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { motion, AnimatePresence } from 'framer-motion'
@@ -31,22 +31,30 @@ import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 import capitalize from '../../utils/capitalize'
 
-import { TasksProvider } from '../../contexts/TasksContext'
-import { CursorContext } from '../../contexts/CursorContext'
-
 const BoardDetails = () => {
   let { board_id } = useParams()
   const { user } = useAuthQueries()
   const { boards } = useBoardsContext()
   const { tasks, loading, setLoading, error, setError, dispatch } = useTasksContext()
-  const { setPrefix, search } = useSearch()
+  const { prefix, setPrefix, search } = useSearch()
   const { display, toggle } = useToggle()
 
+  // define modal content
   const [isBoardSettingsOpen, setIsBoardSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
   const [isTaskSettingsOpen, setIsTaskSettingsOpen] = useState(false)
 
+  // set which task is displayed by clicking on the task setting button
   const [taskId, setTaskId] = useState('')
+
+  // focus on search bar when prefix is set
+  const searchBar = useRef(null)
+
+  useEffect(() => {
+    if (prefix && searchBar.current) {
+      searchBar.current.focus()
+    }
+  }, [prefix])
 
   const board = boards.find(board => (
     board._id === board_id
@@ -92,7 +100,12 @@ const BoardDetails = () => {
         </motion.h1>
 
         <motion.div {...config.searchBarAnimation}>
-          <Input type="search" setPrefix={setPrefix} />
+          <Input
+            type="search"
+            focus={searchBar}
+            value={prefix}
+            setPrefix={setPrefix}
+          />
         </motion.div>
 
         <motion.div
@@ -134,21 +147,36 @@ const BoardDetails = () => {
           setIsTaskSettingsOpen(true)
         }}
         setTaskId={setTaskId}
+        prefix={prefix}
+        setPrefix={setPrefix}
+        searchBarRef={searchBar.current}
       />
 
       <AnimatePresence>
         {display && (
           <Modal toggle={toggle}>
             {isBoardSettingsOpen && (
-              <BoardSettings board={board} board_id={board_id} toggle={toggle} />
+              <BoardSettings
+                board={board}
+                board_id={board_id}
+                toggle={toggle}
+              />
             )}
 
             {isTaskFormOpen && (
-              <AddTaskForm board_id={board_id} toggle={toggle} />
+              <AddTaskForm
+                board_id={board_id}
+                toggle={toggle}
+              />
             )}
 
             {isTaskSettingsOpen && (
-              <TaskSettings task={tasks.find(({ _id }) => _id === taskId)} toggle={toggle} />
+              <TaskSettings
+                task={tasks.find(({ _id }) => (
+                  _id === taskId
+                ))}
+                toggle={toggle}
+              />
             )}
           </Modal>
         )}

@@ -20,6 +20,27 @@ const config = {
       }
     }
   },
+  nameButtonAnimation: {
+    initial: {
+      x: -160,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .4,
+        delay: .4
+      }
+    },
+    exit: {
+      x: 80,
+      opacity: 0,
+      transition: {
+        duration: .2
+      }
+    }
+  },
   emailInputAnimation: {
     initial: {
       x: -160,
@@ -39,6 +60,27 @@ const config = {
       transition: {
         duration: .2,
         delay: .4
+      }
+    }
+  },
+  emailButtonAnimation: {
+    initial: {
+      x: -160,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .4,
+        delay: .5
+      }
+    },
+    exit: {
+      x: 80,
+      opacity: 0,
+      transition: {
+        duration: .2
       }
     }
   },
@@ -108,7 +150,7 @@ const config = {
       }
     }
   },
-  submitButtonAnimation: {
+  passwordButtonAnimation: {
     initial: {
       x: -160,
       opacity: 0
@@ -117,8 +159,8 @@ const config = {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6,
-        delay: .5
+        duration: .4,
+        delay: .6
       }
     },
     exit: {

@@ -4,6 +4,7 @@
 .account {
   padding: 4rem !important;
   justify-content: unset !important;
+  flex-direction: column;
   gap: 4rem;
 
   .forms-container {

@@ -1,28 +1,25 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useTagsContext from '../../hooks/useTagsContext'
 import useCursorContext from '../../hooks/useCursorContext'
 
 import SingleTask from '../SingleTask'
-import Input from '../Input'
 
-const TasksList = ({ tasks, toggleModal, setTaskId }) => {
-  const { tags } = useTagsContext()
+const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
   const { addItem, removeItem } = useCursorContext()
 
-  const setTasks = currStatus => (
-    tasks.filter(({ status }) => (
+  const setTasks = currStatus => {
+    return tasks.filter(({ status }) => (
       status === currStatus
     )).sort((a, b) => (
       b.important - a.important
     ))
-  )
+  }
 
   const status = [{
     title: 'To do',
@@ -60,6 +57,8 @@ const TasksList = ({ tasks, toggleModal, setTaskId }) => {
                 ))}
                 toggleModal={toggleModal}
                 setTaskId={setTaskId}
+                prefix={prefix}
+                setPrefix={setPrefix}
               />
             ))}
           </div>
@@ -71,7 +70,10 @@ const TasksList = ({ tasks, toggleModal, setTaskId }) => {
 
 TasksList.propTypes = {
   tasks: PropTypes.array.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  toggleModal: PropTypes.func.isRequired,
+  setTaskId: PropTypes.func.isRequired,
+  prefix: PropTypes.string,
+  setPrefix: PropTypes.func.isRequired
 }
 
 export default memo(TasksList)

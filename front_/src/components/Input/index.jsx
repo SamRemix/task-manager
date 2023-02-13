@@ -89,8 +89,10 @@ const Input = ({
           <input
             type="text"
             placeholder="Search"
+            value={value}
             onChange={e => setPrefix(e.target.value)}
             key={key}
+            ref={focus}
           />
           <div className="search-icon">
             <HiOutlineMagnifyingGlass size="1.6em" />

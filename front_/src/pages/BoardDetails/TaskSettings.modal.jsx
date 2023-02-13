@@ -132,7 +132,13 @@ const TaskSettings = ({ task, toggle }) => {
 
       <Button type="delete" event={deleteTask}>Delete task</Button>
 
-      <p>{formatDate(task.createdAt)}</p>
+      <div className="timestamps">
+        <p>Created on {formatDate(task.createdAt)}</p>
+
+        {task.createdAt !== task.updatedAt && (
+          <p>Last update on {formatDate(task.updatedAt)}</p>
+        )}
+      </div>
     </>
   )
 }

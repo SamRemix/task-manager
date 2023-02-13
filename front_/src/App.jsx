@@ -16,7 +16,6 @@ import Cursor from './components/Cursor'
 import Home from './pages/Home'
 import BoardDetails from './pages/BoardDetails'
 import AddBoard from './pages/AddBoard'
-// import UpdateTask from './pages/UpdateTask'
 import Tags from './pages/Tags'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
@@ -24,14 +23,12 @@ import Account from './pages/Account'
 import About from './pages/About'
 import NotFound from './pages/404'
 
-import { TasksProvider } from './contexts/TasksContext'
-
 const App = () => {
   const location = useLocation()
 
   const { token, user, dispatch } = useAuthQueries()
   const { dispatch: dispatchBoards } = useBoardsContext()
-  const { setError, getTags, dispatch: dispatchTags } = useTagsContext()
+  const { getTags, dispatch: dispatchTags } = useTagsContext()
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -40,7 +37,7 @@ const App = () => {
 
         dispatch({ type: 'LOGIN', payload: data })
 
-      } catch (err) {
+      } catch ({ response }) {
         // dispatch({ type: 'ERROR', payload: err.response.data.error })
       }
     }
@@ -59,8 +56,8 @@ const App = () => {
 
         dispatchBoards({ type: 'GET_BOARDS', payload: data })
 
-      } catch (err) {
-        dispatchBoards({ type: 'ERROR', payload: err.response.data.error })
+      } catch ({ response }) {
+        dispatchBoards({ type: 'ERROR', payload: response.data.error })
       }
     }
 
@@ -84,14 +81,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/boards/:board_id" element={user && (
-            <TasksProvider>
-              <BoardDetails />
-            </TasksProvider>
-          )} />
-          <Route path="/add-board" element={user && <AddBoard />} />
+          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
 
-          {/* <Route path="/update-task/:task_id" element={user && <UpdateTask />} /> */}
+          <Route path="/add-board" element={user && <AddBoard />} />
 
           <Route path="/tags" element={user && <Tags />} />
 
@@ -100,7 +92,6 @@ const App = () => {
           <Route path="/account" element={user && <Account />} />
 
           <Route path="*" element={<NotFound />} />
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Routes>
       </AnimatePresence>
     </>

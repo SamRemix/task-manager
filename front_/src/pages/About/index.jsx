@@ -2,6 +2,9 @@ import './styles.scss'
 
 import React from 'react'
 
+import { motion } from 'framer-motion'
+import config from './motion.config'
+
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const About = () => {
@@ -9,13 +12,15 @@ const About = () => {
 
   return (
     <section className="container about">
-      <h1>About</h1>
-      <div>
+      <motion.h1 {...config.aboutPageAnimation}>About</motion.h1>
+      <motion.div {...config.aboutPageAnimation}>
         <p>I started thinking about this project in April 2022 and started it in a first version with Svelte to learn this framework.</p>
         <p>In September 2022, I start learning React as an autodidact before integrating a specialized training 3 months later.</p>
         <p>And to learn this new framework I decided to start the project from scratch with a backend made with Express and a MongoDB database.</p>
-      </div>
-      <div className="about-technos">
+      </motion.div>
+      <motion.div
+        className="about-technos"
+        {...config.aboutPageAnimation}>
         <div className="about-technos-front">
           <p>Frontend</p>
           <ul>
@@ -37,7 +42,7 @@ const About = () => {
             <li>bcrypt 5.1</li>
           </ul>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

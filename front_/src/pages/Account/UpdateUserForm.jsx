@@ -1,14 +1,13 @@
 import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useAuthQueries from '../../hooks/useAuthQueries'
 
 import axios from '../../axios.config'
 
-import Modal from '../../components/Modal'
 import PasswordValidation from '../../components/PasswordValidation'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -24,14 +23,6 @@ const UpdateUserForm = ({ user }) => {
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-  const [isOpen, setIsOpen] = useState(true)
-
-  if (success || error) {
-    setTimeout(() => {
-      setIsOpen(false)
-    }, 6000)
-  }
-
   const updateName = async e => {
     e.preventDefault()
 
@@ -45,11 +36,9 @@ const UpdateUserForm = ({ user }) => {
 
       setSuccess(data.success)
       setError('')
-      setIsOpen(true)
     } catch (err) {
       setSuccess('')
       setError(err.response.data.error)
-      setIsOpen(true)
     }
   }
 
@@ -101,7 +90,7 @@ const UpdateUserForm = ({ user }) => {
           />
         </motion.div>
 
-        <motion.div {...config.submitButtonAnimation}>
+        <motion.div {...config.nameButtonAnimation}>
           <Button type="form-button">
             <p>Update name</p>
           </Button>
@@ -117,7 +106,7 @@ const UpdateUserForm = ({ user }) => {
           />
         </motion.div>
 
-        <motion.div {...config.submitButtonAnimation}>
+        <motion.div {...config.emailButtonAnimation}>
           <Button type="form-button">
             <p>Update email</p>
           </Button>
@@ -153,20 +142,12 @@ const UpdateUserForm = ({ user }) => {
           <PasswordValidation password={newPassword} />
         </motion.div>
 
-        <motion.div {...config.submitButtonAnimation}>
+        <motion.div {...config.passwordButtonAnimation}>
           <Button type="form-button">
             <p>Update password</p>
           </Button>
         </motion.div>
       </form>
-
-      <AnimatePresence>
-        {isOpen && (success || error) && (
-          <Modal type="message" error={error} setIsOpen={setIsOpen}>
-            {success || error}
-          </Modal>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

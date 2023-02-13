@@ -2,14 +2,12 @@ import './styles.scss'
 
 import { memo } from 'react'
 import PropTypes from 'prop-types'
-// import { Link } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
-import useTasksContext from "../../hooks/useTasksContext"
-// import useTagsContext from '../../hooks/useTagsContext'
+import useTasksContext from '../../hooks/useTasksContext'
 
 import axios from '../../axios.config'
 
@@ -18,7 +16,7 @@ import { HiOutlineCheckBadge, HiOutlinePencilSquare } from 'react-icons/hi2'
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
-const SingleTask = ({ task, toggleModal, setTaskId }) => {
+const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
   const { addItem, removeItem, printItem } = useCursorContext()
   const { dispatch } = useTasksContext()
 
@@ -61,8 +59,21 @@ const SingleTask = ({ task, toggleModal, setTaskId }) => {
               <p
                 key={_id}
                 className="tag"
-                onMouseEnter={() => printItem(`Filter by <span>#${capitalize(title)}</span> tag`)}
-                onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag`)}>
+                onClick={() => {
+                  setPrefix(prefix === `#${title}` ? '' : `#${title}`)
+
+                  printItem(prefix !== `#${title}` ? (
+                    '<span>Reset</span> filter'
+                  ) : (
+                    `Filter by <span>#${capitalize(title)}</span> tag`
+                  ))
+                }}
+                onMouseEnter={() => printItem(prefix === `#${title}` ? (
+                  '<span>Reset</span> filter'
+                ) : (
+                  `Filter by <span>#${capitalize(title)}</span> tag`
+                ))}
+                onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag` || 'Reset filter')}>
                 <span>#</span>{capitalize(title)}
               </p>
             ))}
@@ -101,7 +112,8 @@ const SingleTask = ({ task, toggleModal, setTaskId }) => {
 SingleTask.propTypes = {
   task: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  setTaskId: PropTypes.func.isRequired
+  setTaskId: PropTypes.func.isRequired,
+  setPrefix: PropTypes.func.isRequired
 }
 
 export default memo(SingleTask)
