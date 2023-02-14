@@ -11,14 +11,12 @@ import useToggle from '../../hooks/useToggle'
 import TagSettingsModal from './TagSettings.modal'
 
 import Header from '../../components/Header'
+import SingleTag from '../../components/SingleTag'
 import Modal from '../../components/Modal'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import { HiOutlinePencilSquare } from 'react-icons/hi2'
-
 import setDocumentTitle from '../../utils/setDocumentTitle'
-import capitalize from '../../utils/capitalize'
 
 const Tags = () => {
   const { tags, error, setError, createTag } = useTagsContext()
@@ -82,23 +80,13 @@ const Tags = () => {
         <motion.div
           className="tags-list"
           {...config.tagsContainerAnimation}>
-          {tags.map(({ _id, title }) => (
-            <motion.div
-              key={_id}
-              className="tag"
-              layoutId={_id}
-              {...config.tagAnimation}>
-              <p className="tag-title">{capitalize(title)}</p>
-              <div className="tag-footer">
-                <div className="button"
-                  onClick={() => {
-                    setTagId(_id)
-                    toggle()
-                  }}>
-                  <HiOutlinePencilSquare size="1.4em" className="button-update" />
-                </div>
-              </div>
-            </motion.div>
+          {tags.map(tag => (
+            <SingleTag
+              key={tag._id}
+              {...tag}
+              setTagId={setTagId}
+              toggle={toggle}
+            />
           ))}
         </motion.div>
       </div>

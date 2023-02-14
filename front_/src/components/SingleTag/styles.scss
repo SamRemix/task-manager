@@ -1,0 +1,24 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
+.tag {
+  @include mix.flex-align-gap(1rem);
+  padding: 1rem;
+  background: v.$low;
+  border-radius: v.$radius-lg;
+  justify-content: space-between;
+  flex: 1;
+  white-space: nowrap;
+  transition: background .2s, box-shadow .2s;
+
+  &:hover {
+    background: v.$green-4;
+    box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+  }
+
+  &-footer {
+    .button {
+      cursor: pointer;
+    }
+  }
+}
