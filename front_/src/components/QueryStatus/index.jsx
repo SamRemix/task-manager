@@ -9,16 +9,18 @@ import Loader from '../Loader'
 const QueryStatus = ({ loading, error }) => {
   return (
     <section className="container">
-      {loading && (
-        <Loader />
-      )}
+      <div className="content">
+        {loading && (
+          <Loader />
+        )}
 
-      {error && (
-        <motion.p
-          {...config.errorMessageAnimation}>
-          {error}
-        </motion.p>
-      )}
+        {error && (
+          <motion.p
+            {...config.errorMessageAnimation}>
+            {error}
+          </motion.p>
+        )}
+      </div>
     </section >
   )
 }
