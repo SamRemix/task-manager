@@ -8,7 +8,6 @@ import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import Tips from '../../components/Tips'
 
 import formatDate from '../../utils/formatDate'
 
@@ -77,9 +76,9 @@ const TaskSettings = ({ task, toggle }) => {
           onChange={e => setDescription(e.target.value.replace(';', '\n'))}
         />
 
-        <Tips>
+        <div className="tips">
           <p>To create a list, press <b>enter</b> after each item to separate them.</p>
-        </Tips>
+        </div>
 
         <div className="status-input">
           {['To do', 'In progress', 'Done'].map((curr, i) => (
@@ -133,13 +132,13 @@ const TaskSettings = ({ task, toggle }) => {
 
       <Button type="delete" event={deleteTask}>Delete task</Button>
 
-      <Tips>
+      <div className="tips">
         <p>Created on {formatDate(task.createdAt)}</p>
 
         {task.createdAt !== task.updatedAt && (
           <p>Last update on {formatDate(task.updatedAt)}</p>
         )}
-      </Tips>
+      </div>
     </>
   )
 }

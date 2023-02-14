@@ -2,44 +2,27 @@
 @use '../../styles/mixins' as mix;
 
 .tags {
-  justify-content: flex-start !important;
-  flex-direction: column;
+  &-list {
+    @include mix.flex-gap(1rem);
+    flex-wrap: wrap;
 
-  &-header {
-    @include mix.flex-align-gap(2rem);
-    justify-content: space-between;
-    // grid-area: Header;
-    padding: 0 2rem;
-    width: 100%;
-    flex-wrap: wrap
-  }
+    .tag {
+      @include mix.flex-align-gap(1rem);
+      padding: 1rem;
+      background: v.$low;
+      border-radius: v.$radius-lg;
+      flex: 1;
+      white-space: nowrap;
+      transition: background .2s, box-shadow .2s;
 
-  &-container {
-    @include mix.flex-column-center-gap(4rem);
-    height: 100%;
+      &:hover {
+        background: v.$green-4;
+        box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      }
 
-    &-list {
-      @include mix.flex-gap(1rem);
-      flex-wrap: wrap;
-
-      .tag {
-        @include mix.flex-align-gap(1rem);
-        padding: 1rem;
-        background: v.$low;
-        border-radius: v.$radius-lg;
-        flex: 1;
-        white-space: nowrap;
-        transition: background .2s, box-shadow .2s;
-
-        &:hover {
-          background: v.$green-4;
-          box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-        }
-
-        &-footer {
-          .button {
-            cursor: pointer;
-          }
+      &-footer {
+        .button {
+          cursor: pointer;
         }
       }
     }

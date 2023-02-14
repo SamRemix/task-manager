@@ -10,10 +10,10 @@ import useToggle from '../../hooks/useToggle'
 
 import TagSettingsModal from './TagSettings.modal'
 
+import Header from '../../components/Header'
 import Modal from '../../components/Modal'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import Tips from '../../components/Tips'
 
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 
@@ -49,15 +49,17 @@ const Tags = () => {
 
   return (
     <section className="container tags">
-      <header className="tags-header">
+      {/* <header className="header"> */}
+      <Header>
         <Button type="back" />
 
-        <Tips>
+        <div className="tips">
           <p>Create tags to assign them to tasks.</p>
-        </Tips>
-      </header>
+        </div>
+      </Header>
+      {/* </header> */}
 
-      <div className="tags-container">
+      <div className="content">
         <form className="tags-form" onSubmit={handleCreateTag}>
           <motion.div {...config.titleInputAnimation}>
             <Input
@@ -78,14 +80,15 @@ const Tags = () => {
           </motion.div>
         </form>
 
-        {/* {tags.length > 0 && ( */}
-        <motion.div className="tags-container-list" {...config.submitButtonAnimation}>
+        <motion.div
+          className="tags-list"
+          {...config.tagsContainerAnimation}>
           {tags.map(({ _id, title }) => (
             <motion.div
               key={_id}
               className="tag"
               layoutId={_id}
-              {...config.submitButtonAnimation}>
+              {...config.tagAnimation}>
               <p className="tag-title">{capitalize(title)}</p>
               <div className="tag-footer">
                 <div className="button"
@@ -99,7 +102,6 @@ const Tags = () => {
             </motion.div>
           ))}
         </motion.div>
-        {/* )} */}
       </div>
 
       <AnimatePresence>

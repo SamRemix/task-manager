@@ -18,6 +18,7 @@ import AddTaskForm from './AddTaskForm.modal'
 import BoardSettings from './BoardSettings.modal'
 import TaskSettings from './TaskSettings.modal'
 
+import Header from '../../components/Header'
 import ProgressBar from '../../components/ProgressBar'
 import TasksList from '../../components/TasksList'
 import Modal from '../../components/Modal'
@@ -91,25 +92,21 @@ const BoardDetails = () => {
 
   return (
     <section className="container boards">
-      <header className="boards-header">
-        <motion.h1
-          className="title"
-          {...config.boardTitleAnimation}>
+      <Header>
+        <h1 className="title">
           {capitalize(board?.title)}
-        </motion.h1>
+        </h1>
 
-        <motion.div {...config.searchBarAnimation}>
+        <div>
           <Input
             type="search"
             focus={searchBar}
             value={prefix}
             setPrefix={setPrefix}
           />
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="buttons"
-          {...config.headerButtonsAnimation}>
+        <div className="buttons">
           <Button
             type="green"
             event={() => {
@@ -132,8 +129,8 @@ const BoardDetails = () => {
             <HiOutlineCog6Tooth size="1.2em" />
             Settings
           </Button>
-        </motion.div>
-      </header>
+        </div>
+      </Header>
 
       <ProgressBar tasks={tasks} />
 

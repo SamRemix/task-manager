@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 
 import { useNavigate } from 'react-router-dom'
 
-import { motion } from 'framer-motion'
-import config from './motion.config'
+// import { motion } from 'framer-motion'
+// import config from './motion.config'
 
 import { HiArrowLongLeft } from 'react-icons/hi2'
 
@@ -19,13 +19,12 @@ const Button = ({ children, type, event }) => {
           {children}
         </button>
       ) : (
-        <motion.button
+        <button
           className="back"
-          onClick={() => navigate(-1)}
-          {...config.backButtonAnimation}>
+          onClick={() => navigate(-1)}>
           <HiArrowLongLeft size="1.6em" />
           Back
-        </motion.button>
+        </button>
       )}
     </>
   )

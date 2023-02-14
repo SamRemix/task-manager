@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 
 import useTagsContext from '../../hooks/useTagsContext'
 
-import axios from '../../axios.config'
-
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import Tips from '../../components/Tips'
 
 import formatDate from '../../utils/formatDate'
 
@@ -51,13 +48,13 @@ const TagSettings = ({ tag, toggle }) => {
 
       <Button type="delete" event={handleDeleteTag}>Delete tag</Button>
 
-      <Tips>
+      <div className="tips">
         <p>Created on {formatDate(tag.createdAt)}</p>
 
         {tag.createdAt !== tag.updatedAt && (
           <p>Last update on {formatDate(tag.updatedAt)}</p>
         )}
-      </Tips>
+      </div>
     </>
   )
 }

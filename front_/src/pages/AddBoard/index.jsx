@@ -8,6 +8,7 @@ import { useBoardsContext } from '../../hooks/useBoardsContext'
 
 import axios from '../../axios.config'
 
+import Header from '../../components/Header'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
@@ -41,36 +42,40 @@ const AddBoard = () => {
 
   return (
     <section className="container">
-      <Button type="back" />
+      <Header>
+        <Button type="back" />
+      </Header>
 
-      <form onSubmit={createBoard}>
-        <motion.div {...config.titleInputAnimation}>
-          <Input
-            placeholder="Title"
-            value={title}
-            onChange={e => {
-              setError('')
-              setTitle(e.target.value)
-            }}
-            maxLength="24"
-            focus={true}
-            error={error}
-          />
-        </motion.div>
+      <div className="content">
+        <form onSubmit={createBoard}>
+          <motion.div {...config.titleInputAnimation}>
+            <Input
+              placeholder="Title"
+              value={title}
+              onChange={e => {
+                setError('')
+                setTitle(e.target.value)
+              }}
+              maxLength="24"
+              focus={true}
+              error={error}
+            />
+          </motion.div>
 
-        <motion.div {...config.favCheckboxAnimation}>
-          <Input
-            type="checkbox"
-            placeholder="Favorite"
-            checked={favorite}
-            onChange={() => setFavorite(!favorite)}
-          />
-        </motion.div>
+          <motion.div {...config.favCheckboxAnimation}>
+            <Input
+              type="checkbox"
+              placeholder="Favorite"
+              checked={favorite}
+              onChange={() => setFavorite(!favorite)}
+            />
+          </motion.div>
 
-        <motion.div {...config.submitButtonAnimation}>
-          <Button type="form-button">Add board</Button>
-        </motion.div>
-      </form>
+          <motion.div {...config.submitButtonAnimation}>
+            <Button type="form-button">Add board</Button>
+          </motion.div>
+        </form>
+      </div>
     </section>
   )
 }

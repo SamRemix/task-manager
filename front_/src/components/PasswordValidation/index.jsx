@@ -3,8 +3,6 @@ import './styles.scss'
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import Tips from '../Tips'
-
 import { HiOutlineCheckBadge, HiOutlineXMark } from 'react-icons/hi2'
 
 import verifyPassword from '../../utils/verifyPassword'
@@ -27,7 +25,7 @@ const PasswordValidation = ({ password }) => {
   )
 
   return (
-    <Tips classname="validation">
+    <div className="tips validation">
       <p>Password must contain :</p>
       <ul>
         <li>
@@ -51,7 +49,7 @@ const PasswordValidation = ({ password }) => {
           <p>At least 1 special character</p>
         </li>
       </ul>
-    </Tips>
+    </div>
   )
 }
 

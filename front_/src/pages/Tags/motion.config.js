@@ -8,8 +8,7 @@ const config = {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6,
-        delay: .1
+        duration: .6
       }
     },
     exit: {
@@ -18,28 +17,6 @@ const config = {
       transition: {
         duration: .2,
         delay: .2
-      }
-    }
-  },
-  favCheckboxAnimation: {
-    initial: {
-      x: -160,
-      opacity: 0
-    },
-    animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: .6,
-        delay: .2
-      }
-    },
-    exit: {
-      x: 120,
-      opacity: 0,
-      transition: {
-        duration: .2,
-        delay: .1
       }
     }
   },
@@ -53,7 +30,29 @@ const config = {
       opacity: 1,
       transition: {
         duration: .6,
-        delay: .3
+        delay: .2
+      }
+    },
+    exit: {
+      x: 120,
+      opacity: 0,
+      transition: {
+        duration: .2,
+        delay: .1
+      }
+    }
+  },
+  tagsContainerAnimation: {
+    initial: {
+      x: -160,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: .6,
+        delay: .4
       }
     },
     exit: {
@@ -64,20 +63,18 @@ const config = {
       }
     }
   },
-  errorMessageAnimation: {
+  tagAnimation: {
     initial: {
-      x: -120,
       opacity: 0
     },
     animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: .4
-      }
+      opacity: 1
     },
     exit: {
       opacity: 0
+    },
+    transition: {
+      duration: .4
     }
   }
 }
