@@ -65,22 +65,3 @@
     }
   }
 }
-
-.modal-message {
-  @include mix.flex-align-gap(1rem);
-  padding: 1rem;
-  background: v.$green-1;
-  border-radius: v.$radius-lg;
-  position: fixed;
-  inset: auto 2rem 2rem auto;
-  z-index: 9;
-
-  &-error {
-    @extend .modal-message;
-    background: v.$red-1;
-  }
-
-  &-close {
-    cursor: pointer;
-  }
-}

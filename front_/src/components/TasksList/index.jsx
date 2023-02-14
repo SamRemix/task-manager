@@ -13,13 +13,13 @@ import SingleTask from '../SingleTask'
 const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
   const { addItem, removeItem } = useCursorContext()
 
-  const setTasks = currStatus => {
-    return tasks.filter(({ status }) => (
+  const setTasks = currStatus => (
+    tasks.filter(({ status }) => (
       status === currStatus
     )).sort((a, b) => (
       b.important - a.important
     ))
-  }
+  )
 
   const status = [{
     title: 'To do',
