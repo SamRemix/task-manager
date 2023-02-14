@@ -21,11 +21,8 @@ import setDocumentTitle from '../../utils/setDocumentTitle'
 import capitalize from '../../utils/capitalize'
 
 const Tags = () => {
-  const { tags, error, setError, createTag, deleteTag } = useTagsContext()
+  const { tags, error, setError, createTag } = useTagsContext()
   const { display, toggle } = useToggle()
-
-  // define modal content
-  const [isTagSettingsOpen, setIsTagSettingsOpen] = useState(false)
 
   // set which tag is displayed by clicking on the tag setting button
   const [tagId, setTagId] = useState('')
@@ -49,15 +46,17 @@ const Tags = () => {
 
   return (
     <section className="container tags">
-      {/* <header className="header"> */}
       <Header>
-        <Button type="back" />
+        <h1 className="title">Tags</h1>
 
-        <div className="tips">
-          <p>Create tags to assign them to tasks.</p>
+        <div className="right-side">
+          <div className="tips">
+            <p>Create tags to assign them to tasks.</p>
+          </div>
+
+          <Button type="back" />
         </div>
       </Header>
-      {/* </header> */}
 
       <div className="content">
         <form className="tags-form" onSubmit={handleCreateTag}>

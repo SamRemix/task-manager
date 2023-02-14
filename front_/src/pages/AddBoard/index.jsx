@@ -43,6 +43,8 @@ const AddBoard = () => {
   return (
     <section className="container">
       <Header>
+        <h1 className="title">Add board</h1>
+
         <Button type="back" />
       </Header>
 

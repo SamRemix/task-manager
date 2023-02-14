@@ -15,6 +15,7 @@
 
 .default {
   @include button-style;
+  margin-bottom: .25rem;
   background: v.$red-1;
   box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
   font-weight: 600;

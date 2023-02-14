@@ -97,16 +97,14 @@ const BoardDetails = () => {
           {capitalize(board?.title)}
         </h1>
 
-        <div>
+
+        <div className="right-side">
           <Input
             type="search"
             focus={searchBar}
             value={prefix}
             setPrefix={setPrefix}
           />
-        </div>
-
-        <div className="buttons">
           <Button
             type="green"
             event={() => {

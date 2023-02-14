@@ -89,10 +89,12 @@ body {
           @include mix.flex-align-gap(1rem);
           font-size: 3rem;
           font-weight: 800;
+          // white-space: nowrap;
         }
 
-        .buttons {
-          @include mix.flex-gap(2rem);
+        .right-side {
+          @include mix.flex-align-gap(2rem);
+          flex-wrap: wrap-reverse;
         }
       }
 
