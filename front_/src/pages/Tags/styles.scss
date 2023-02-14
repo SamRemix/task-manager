@@ -2,51 +2,46 @@
 @use '../../styles/mixins' as mix;
 
 .tags {
-  // flex-direction: row;
-  // gap: 4rem;
-
-  display: grid !important;
-  // align-items: flex-start !important;
-  // justify-content: flex-start !important;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    'Header Header'
-    'TagsContainer AddTagsForm';
-  gap: 4rem;
+  justify-content: flex-start !important;
+  flex-direction: column;
 
   &-header {
-    grid-area: Header;
+    @include mix.flex-align-gap(2rem);
+    justify-content: space-between;
+    // grid-area: Header;
+    padding: 0 2rem;
+    width: 100%;
+    flex-wrap: wrap
   }
-
-  // &-container,
-  // &-form {
-  //   display: flex;
-  //   flex: 1;
-  // }
 
   &-container {
-    @include mix.flex-gap(1rem);
-    grid-area: TagsContainer;
-    flex-wrap: wrap;
+    @include mix.flex-column-center-gap(4rem);
+    height: 100%;
 
-    .tag {
-      @include mix.flex-column-gap(1rem);
-      padding: 1rem;
-      background: v.$low;
-      border-radius: v.$radius-lg;
-      flex: 1;
-      white-space: nowrap;
-      transition: background .2s, box-shadow .2s;
+    &-list {
+      @include mix.flex-gap(1rem);
+      flex-wrap: wrap;
 
-      &:hover {
-        background: v.$green-4;
-        box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      .tag {
+        @include mix.flex-align-gap(1rem);
+        padding: 1rem;
+        background: v.$low;
+        border-radius: v.$radius-lg;
+        flex: 1;
+        white-space: nowrap;
+        transition: background .2s, box-shadow .2s;
+
+        &:hover {
+          background: v.$green-4;
+          box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+        }
+
+        &-footer {
+          .button {
+            cursor: pointer;
+          }
+        }
       }
     }
-  }
-
-  &-form {
-    grid-area: AddTagsForm;
   }
 }

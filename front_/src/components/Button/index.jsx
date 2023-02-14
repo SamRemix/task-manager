@@ -1,7 +1,7 @@
 import './styles.scss'
 
-import PropTypes from 'prop-types'
 import { memo } from 'react'
+import PropTypes from 'prop-types'
 
 import { useNavigate } from 'react-router-dom'
 

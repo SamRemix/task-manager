@@ -31,6 +31,32 @@ const createTag = async (req, res) => {
   }
 }
 
+const updateTag = async (req, res) => {
+  const { id } = req.params
+  const { title } = req.body
+
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid tag id in request params' })
+  }
+
+  if (!title.trim()) {
+    return res.status(404).json({ error: 'Please fill in this field' })
+  }
+
+  if (title.length > 24) {
+    return res.status(404).json({ error: 'Title should not exceed 24 characters' })
+  }
+
+  const tag = await Tag
+    .findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
+
+  if (!tag) {
+    return res.status(404).json({ error: 'No such tag' })
+  }
+
+  res.status(200).json(tag)
+}
+
 const deleteTag = async (req, res) => {
   const { id } = req.params
 
@@ -50,6 +76,6 @@ const deleteTag = async (req, res) => {
 module.exports = {
   getTags,
   createTag,
-  // updateTag,
+  updateTag,
   deleteTag
 }

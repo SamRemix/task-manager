@@ -1,6 +1,20 @@
 @use './vars' as v;
 @use './mixins' as mix;
 
+$progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
+
+@mixin container {
+  margin-right: v.$app-padding;
+  padding: v.$container-padding !important;
+  gap: 2rem !important;
+
+  &.boards {
+    .progress-bar {
+      height: $progress-bar-height;
+    }
+  }
+}
+
 // sm 640px
 @media (min-width: 640px) {
   .navbar-button {
@@ -19,24 +33,14 @@
 // md 768px
 @media (min-width: 768px) {
   .navbar {
-    &+.container:not(.account) {
-      margin-right: v.$app-padding;
-      padding: v.$container-padding !important;
-
-      &.boards {
-        gap: 2rem;
-
-        .progress-bar {
-          height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
-        }
-      }
+    &+.container {
+      @include container;
     }
   }
 
   .container {
     .modal {
       width: auto !important;
-      // height: auto !important;
 
       &-close {
         inset: 1rem 1rem auto auto;
@@ -49,17 +53,8 @@
 @media (min-width: 1024px) {
   .navbar {
     &--active {
-      &+.container:not(.account) {
-        margin-right: v.$app-padding;
-        padding: v.$container-padding !important;
-
-        &.boards {
-          gap: 2rem;
-
-          .progress-bar {
-            height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
-          }
-        }
+      &+.container {
+        @include container;
       }
     }
   }

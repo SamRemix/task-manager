@@ -42,6 +42,16 @@ const useTagsContext = () => {
     }
   }
 
+  const updateTag = async (id, props) => {
+    try {
+      const { data } = await axios.patch(`/tags/${id}`, props)
+
+      dispatch({ type: 'UPDATE_TAG', payload: data })
+    } catch ({ response }) {
+      setError(response.data.error)
+    }
+  }
+
   const deleteTag = async id => {
     const { data } = await axios.delete(`/tags/${id}`)
 
@@ -50,7 +60,7 @@ const useTagsContext = () => {
     // removeItem('Delete')
   }
 
-  return { tags, error, setError, getTags, createTag, deleteTag, dispatch }
+  return { tags, error, setError, getTags, createTag, updateTag, deleteTag, dispatch }
 }
 
 export default useTagsContext

@@ -2,16 +2,6 @@
 @use '../../styles/mixins' as mix;
 
 .validation {
-  padding: 1rem;
-  background: v.$red-light-1;
-  border-radius: v.$radius-lg;
-  line-height: 1.4rem;
-  pointer-events: none;
-
-  &>p {
-    margin-bottom: 10px;
-  }
-
   ul {
     @include mix.flex-column-gap(1rem);
 

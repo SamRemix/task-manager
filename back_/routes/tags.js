@@ -2,7 +2,7 @@ const { Router } = require('express')
 const {
   getTags,
   createTag,
-  // updateTag,
+  updateTag,
   deleteTag
 } = require('../controllers/tagController')
 const requireAuth = require('../middleware/requireAuth')
@@ -15,7 +15,7 @@ router.get('/', getTags)
 
 router.post('/', createTag)
 
-// router.patch('/:id', updateTag)
+router.patch('/:id', updateTag)
 
 router.delete('/:id', deleteTag)
 

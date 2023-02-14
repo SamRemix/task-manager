@@ -23,7 +23,6 @@ import TasksList from '../../components/TasksList'
 import Modal from '../../components/Modal'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
-import Loader from '../../components/Loader'
 import QueryStatus from '../../components/QueryStatus'
 
 import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
@@ -56,12 +55,6 @@ const BoardDetails = () => {
     }
   }, [prefix])
 
-  const board = boards.find(board => (
-    board._id === board_id
-  ))
-
-  setDocumentTitle(board?.title)
-
   useEffect(() => {
     const getTasks = async () => {
       setLoading(true)
@@ -89,6 +82,12 @@ const BoardDetails = () => {
       <QueryStatus loading={loading} error={error} />
     )
   }
+
+  const board = boards.find(board => (
+    board._id === board_id
+  ))
+
+  setDocumentTitle(board?.title)
 
   return (
     <section className="container boards">

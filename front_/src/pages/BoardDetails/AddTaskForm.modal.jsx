@@ -8,6 +8,7 @@ import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import Tips from '../../components/Tips'
 
 const AddTaskForm = ({ board_id, toggle }) => {
   const { error, setError, addTask, dispatch } = useTasksContext()
@@ -81,9 +82,9 @@ const AddTaskForm = ({ board_id, toggle }) => {
           }}
         />
 
-        <div className="create-list">
+        <Tips>
           <p>To create a list, press <b>enter</b> after each item to separate them.</p>
-        </div>
+        </Tips>
 
         <Input
           type="checkbox"

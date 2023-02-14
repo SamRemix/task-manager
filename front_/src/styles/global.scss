@@ -68,7 +68,7 @@ body {
     .container {
 
       // @include mix.flex-column-center;
-      @include mix.flex-center;
+      @include mix.flex-center-gap(1rem);
       // margin-right: v.$app-padding;
       // margin: 0 v.$app-padding;
       padding: calc(v.$container-padding / 2);
@@ -84,23 +84,6 @@ body {
         flex-direction: column;
         gap: 2rem;
         position: relative;
-
-        .create-list {
-          padding: 1rem;
-          background: v.$red-light-1;
-          border-radius: v.$radius-lg;
-          pointer-events: none;
-
-          p {
-            b {
-              padding: 2px 6px;
-              background: #444;
-              border-radius: 6px;
-              color: #fff;
-              font-weight: 600;
-            }
-          }
-        }
 
         .error-message {
           color: v.$red-2;

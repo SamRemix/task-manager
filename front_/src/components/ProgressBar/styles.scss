@@ -8,6 +8,8 @@
   height: calc(100vh - calc(v.$app-padding + v.$container-padding / 2) * 2);
   position: sticky;
   top: 0;
+  // transition for responsive (on resize)
+  transition: height .4s;
 
   & &-item {
     @include mix.flex-justify;
