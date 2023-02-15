@@ -6,11 +6,15 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import useCursorContext from '../../hooks/useCursorContext'
+
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 
 import capitalize from '../../utils/capitalize'
 
 const SingleTag = ({ _id, title, setTagId, toggle }) => {
+  const { removeItem, printItem } = useCursorContext()
+
   return (
     <motion.div
       className="tag"
@@ -22,7 +26,9 @@ const SingleTag = ({ _id, title, setTagId, toggle }) => {
           onClick={() => {
             setTagId(_id)
             toggle()
-          }}>
+          }}
+          onMouseEnter={() => printItem('Update')}
+          onMouseLeave={() => removeItem('Update')}>
           <HiOutlinePencilSquare size="1.4em" className="button-update" />
         </div>
       </div>

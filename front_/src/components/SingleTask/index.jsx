@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useCursorContext from '../../hooks/useCursorContext'
 import useTasksContext from '../../hooks/useTasksContext'
+import useCursorContext from '../../hooks/useCursorContext'
 
 import axios from '../../axios.config'
 
@@ -17,8 +17,8 @@ import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
 const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
-  const { addItem, removeItem, printItem } = useCursorContext()
   const { dispatch } = useTasksContext()
+  const { addItem, removeItem, printItem } = useCursorContext()
 
   const nextStatus = task.status === 'To do' ? 'In progress' : 'Done'
 
