@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useRef } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
@@ -17,15 +17,33 @@ const Cursor = () => {
 
   const [isOut, setIsOut] = useState(true)
 
+  const cursor = useRef(null)
+
   useEffect(() => {
+    const { addEventListener, innerWidth, innerHeight } = window
+
     const event = (type, listener) => (
-      window.addEventListener(type, listener)
+      addEventListener(type, listener)
     )
 
-    event('mousemove', e => {
+    event('mousemove', ({ clientX, clientY }) => {
+      const { offsetWidth, offsetHeight } = cursor.current
+
+      const top = 32 // 2.5rem
+      const left = 64 // 4rem
+      const margin = 16 // 1rem
+
+      const set = (inner, client, max, position) => (
+        inner - client > max + position + margin ? (
+          client + position
+        ) : (
+          client - max - position
+        )
+      )
+
       setPosition({
-        x: e.clientX,
-        y: e.clientY
+        x: set(innerWidth, clientX, offsetWidth, left),
+        y: set(innerHeight, clientY, offsetHeight, top)
       })
     })
 
@@ -36,6 +54,7 @@ const Cursor = () => {
   return (
     <motion.div
       className={isOut ? 'cursor--out' : 'cursor'}
+      ref={cursor}
       animate={{ x: position.x, y: position.y }}
       transition={{
         type: "spring",

@@ -2,23 +2,15 @@
 @use '../../styles/mixins' as mix;
 
 .cursor {
-  // width: 120px;
-  // height: 120px;
-  height: 100%;
-  // box-shadow: 0 0 0 1px rgba($color: #000, $alpha: .4);
-  // border-radius: 50%;
   position: fixed;
-  inset: 2rem auto auto 4rem;
   z-index: 1003;
   pointer-events: none;
   transition: opacity .2s, box-shadow 0s;
 
   &--out {
     @extend .cursor;
-    // box-shadow: 0 0 0 40px rgba($color: #000, $alpha: .4);
     opacity: 0;
     transition: opacity .8s, box-shadow .6s;
-    // transition: .8s;
   }
 
   .content {
@@ -32,7 +24,6 @@
       box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
       border-radius: v.$radius-sm;
       white-space: nowrap;
-      // font-style: italic;
 
       span {
         font-weight: 600;
