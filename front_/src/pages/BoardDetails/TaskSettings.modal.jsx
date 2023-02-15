@@ -8,6 +8,7 @@ import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 
 import formatDate from '../../utils/formatDate'
 
@@ -130,7 +131,7 @@ const TaskSettings = ({ task, toggle }) => {
         <Button type="form-button">Update task</Button>
       </form>
 
-      <Button type="delete" event={deleteTask}>Delete task</Button>
+      <ConfirmAndDelete context="task" event={deleteTask} />
 
       <div className="tips">
         <p>Created on {formatDate(task.createdAt)}</p>

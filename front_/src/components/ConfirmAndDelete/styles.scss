@@ -1,0 +1,24 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
+.delete-container {
+  @include mix.flex-gap(2rem);
+  padding: 1rem;
+  border-radius: v.$radius-lg;
+  align-self: flex-end;
+  justify-content: center;
+  position: relative;
+  transition: .2s;
+
+  &-confirm {
+    @extend .delete-container;
+    background: v.$red-light-1;
+  }
+
+  .confirm-message {
+    display: flex;
+    align-self: center;
+    position: absolute;
+    top: -2rem;
+  }
+}

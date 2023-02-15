@@ -14,13 +14,15 @@ const Button = ({ children, type, event }) => {
   const navigate = useNavigate()
   return (
     <>
-      {type !== 'back' ? (
+      {['default', 'green', 'form-button', 'delete'].includes(type) && (
         <button className={type} onClick={event}>
           {children}
         </button>
-      ) : (
+      )}
+
+      {type === 'back' && (
         <button
-          className="back"
+          className={type}
           onClick={() => navigate(-1)}>
           <HiArrowLongLeft size="1.6em" />
           Back

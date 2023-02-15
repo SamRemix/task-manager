@@ -8,6 +8,7 @@ import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 
 import formatDate from '../../utils/formatDate'
 
@@ -84,7 +85,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
         <Button type="form-button">Update board</Button>
       </form>
 
-      <Button type="delete" event={deleteBoard}>Delete board</Button>
+      <ConfirmAndDelete context="board" event={deleteBoard} />
 
       <p>{formatDate(board.createdAt)}</p>
     </>

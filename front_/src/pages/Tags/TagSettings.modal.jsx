@@ -5,6 +5,7 @@ import useTagsContext from '../../hooks/useTagsContext'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 
 import formatDate from '../../utils/formatDate'
 
@@ -46,7 +47,7 @@ const TagSettings = ({ tag, toggle }) => {
         <Button type="form-button">Update tag</Button>
       </form>
 
-      <Button type="delete" event={handleDeleteTag}>Delete tag</Button>
+      <ConfirmAndDelete context="tag" event={handleDeleteTag} />
 
       <div className="tips">
         <p>Created on {formatDate(tag.createdAt)}</p>
