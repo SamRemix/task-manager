@@ -36,7 +36,8 @@ const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
     <>
       <motion.div
         className={task.important ? 'task-content-important' : 'task-content'}
-        layoutId={task._id}
+        // layoutId={task._id}
+        layoutId={`test-${task._id}`}
         {...config.singleTaskAnimation}>
 
         <div className="task-content-infos">
