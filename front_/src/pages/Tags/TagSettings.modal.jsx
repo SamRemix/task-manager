@@ -30,31 +30,35 @@ const TagSettings = ({ tag, toggle }) => {
 
   return (
     <>
-      <h1 className="modal-content-title">Tag settings</h1>
-      <form onSubmit={handleUpdateTag}>
-        <Input
-          placeholder="Title"
-          value={title}
-          onChange={e => {
-            setError('')
-            setTitle(e.target.value)
-          }}
-          maxLength="24"
-          focus={true}
-          error={error}
-        />
+      <div className="modal-content">
+        <h1 className="modal-content-title">Tag settings</h1>
+        <form onSubmit={handleUpdateTag}>
+          <Input
+            placeholder="Title"
+            value={title}
+            onChange={e => {
+              setError('')
+              setTitle(e.target.value)
+            }}
+            maxLength="24"
+            focus={true}
+            error={error}
+          />
 
-        <Button type="form-button">Update tag</Button>
-      </form>
+          <Button type="form-button">Update tag</Button>
+        </form>
+      </div>
 
-      <ConfirmAndDelete context="tag" event={handleDeleteTag} />
+      <div className="modal-footer">
+        <ConfirmAndDelete context="tag" event={handleDeleteTag} />
 
-      <div className="tips">
-        <p>Created on {formatDate(tag.createdAt)}</p>
+        <div className="tips">
+          <p>Created on {formatDate(tag.createdAt)}</p>
 
-        {tag.createdAt !== tag.updatedAt && (
-          <p>Last update on {formatDate(tag.updatedAt)}</p>
-        )}
+          {tag.createdAt !== tag.updatedAt && (
+            <p>Last update on {formatDate(tag.updatedAt)}</p>
+          )}
+        </div>
       </div>
     </>
   )

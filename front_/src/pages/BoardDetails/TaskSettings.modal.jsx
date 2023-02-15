@@ -56,89 +56,93 @@ const TaskSettings = ({ task, toggle }) => {
 
   return (
     <>
-      <h1 className="modal-content-title">Task settings</h1>
-      <form onSubmit={updateTask}>
-        <Input
-          placeholder="Title"
-          value={title}
-          onChange={e => {
-            setError('')
-            setTitle(e.target.value)
-          }}
-          maxLength="36"
-          focus={true}
-          error={error}
-        />
+      <div className="modal-content">
+        <h1 className="modal-content-title">Task settings</h1>
+        <form onSubmit={updateTask}>
+          <Input
+            placeholder="Title"
+            value={title}
+            onChange={e => {
+              setError('')
+              setTitle(e.target.value)
+            }}
+            maxLength="36"
+            focus={true}
+            error={error}
+          />
 
-        <Input
-          type="textarea"
-          placeholder="Description (optional)"
-          value={description}
-          onChange={e => setDescription(e.target.value.replace(';', '\n'))}
-        />
+          <Input
+            type="textarea"
+            placeholder="Description (optional)"
+            value={description}
+            onChange={e => setDescription(e.target.value.replace(';', '\n'))}
+          />
+
+          <div className="tips">
+            <p>To create a list, press <b>enter</b> after each item to separate them.</p>
+          </div>
+
+          <div className="status-input">
+            {['To do', 'In progress', 'Done'].map((curr, i) => (
+              <Input
+                key={i}
+                type="radio"
+                name="status"
+                placeholder={curr}
+                value={curr}
+                checked={curr === status}
+                onChange={e => {
+                  setStatus(e.target.value)
+                }}
+              />
+            ))}
+          </div>
+
+          <Input
+            type="checkbox"
+            placeholder="Important"
+            checked={important}
+            onChange={() => setImportant(!important)}
+          />
+
+          <div className="tags-input">
+            {allTags.map(tag => (
+              <Input
+                key={tag._id}
+                type="checkbox"
+                placeholder={tag.title}
+                checked={tags.some(selected => (
+                  selected._id === tag._id
+                ))}
+                onChange={() => {
+                  setTags(tags.some(selected => (
+                    selected._id === tag._id
+                  )) ? (
+                    tags.filter(selected => (
+                      selected._id !== tag._id
+                    ))
+                  ) : (
+                    [tag, ...tags]
+                  ))
+                }}
+              />
+            ))}
+          </div>
+
+          <Button type="form-button">Update task</Button>
+        </form>
+      </div>
+
+      <div className="modal-footer">
+        <ConfirmAndDelete context="task" event={deleteTask} />
 
         <div className="tips">
-          <p>To create a list, press <b>enter</b> after each item to separate them.</p>
+          <p>Created on {formatDate(task.createdAt)}</p>
+
+          {task.createdAt !== task.updatedAt && (
+            <p>Last update on {formatDate(task.updatedAt)}</p>
+          )}
         </div>
-
-        <div className="status-input">
-          {['To do', 'In progress', 'Done'].map((curr, i) => (
-            <Input
-              key={i}
-              type="radio"
-              name="status"
-              placeholder={curr}
-              value={curr}
-              checked={curr === status}
-              onChange={e => {
-                setStatus(e.target.value)
-              }}
-            />
-          ))}
-        </div>
-
-        <Input
-          type="checkbox"
-          placeholder="Important"
-          checked={important}
-          onChange={() => setImportant(!important)}
-        />
-
-        <div className="tags-input">
-          {allTags.map(tag => (
-            <Input
-              key={tag._id}
-              type="checkbox"
-              placeholder={tag.title}
-              checked={tags.some(selected => (
-                selected._id === tag._id
-              ))}
-              onChange={() => {
-                setTags(tags.some(selected => (
-                  selected._id === tag._id
-                )) ? (
-                  tags.filter(selected => (
-                    selected._id !== tag._id
-                  ))
-                ) : (
-                  [tag, ...tags]
-                ))
-              }}
-            />
-          ))}
-        </div>
-
-        <Button type="form-button">Update task</Button>
-      </form>
-
-      <ConfirmAndDelete context="task" event={deleteTask} />
-
-      <div className="tips">
-        <p>Created on {formatDate(task.createdAt)}</p>
-
-        {task.createdAt !== task.updatedAt && (
-          <p>Last update on {formatDate(task.updatedAt)}</p>
-        )}
       </div>
     </>
   )

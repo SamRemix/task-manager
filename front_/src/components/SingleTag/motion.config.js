@@ -1,19 +1,22 @@
 const config = {
   tagAnimation: {
     initial: {
-      // opacity: 0,
-      scale: 0
+      opacity: 0,
+      scale: .4
     },
     animate: {
-      // opacity: 1,
+      opacity: 1,
       scale: 1
     },
     exit: {
-      // opacity: 0,
-      scale: 0
+      opacity: 0,
+      scale: .4,
+      transition: {
+        duration: .1
+      }
     },
     transition: {
-      duration: .4
+      duration: .3
     }
   }
 }

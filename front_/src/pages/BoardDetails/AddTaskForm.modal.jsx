@@ -57,7 +57,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
   }
 
   return (
-    <>
+    <div className="modal-content">
       <h1 className="modal-content-title">Add task</h1>
       <form onSubmit={handleAddTask}>
         <Input
@@ -114,7 +114,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
 
         <Button type="form-button">Add task</Button>
       </form>
-    </>
+    </div>
   )
 }
 

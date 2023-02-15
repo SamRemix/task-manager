@@ -61,33 +61,44 @@ const BoardSettings = ({ board, board_id, toggle }) => {
 
   return (
     <>
-      <h1 className="modal-content-title">Board settings</h1>
-      <form onSubmit={updateBoard}>
-        <Input
-          placeholder="Title"
-          value={title}
-          onChange={e => {
-            setError('')
-            setTitle(e.target.value)
-          }}
-          maxLength="24"
-          focus={true}
-          error={error}
-        />
+      <div className="modal-content">
+        <h1 className="modal-content-title">Board settings</h1>
+        <form onSubmit={updateBoard}>
+          <Input
+            placeholder="Title"
+            value={title}
+            onChange={e => {
+              setError('')
+              setTitle(e.target.value)
+            }}
+            maxLength="24"
+            focus={true}
+            error={error}
+          />
 
-        <Input
-          type="checkbox"
-          placeholder="Favorite"
-          value={favorite}
-          onChange={() => setFavorite(!favorite)}
-        />
+          <Input
+            type="checkbox"
+            placeholder="Favorite"
+            value={favorite}
+            onChange={() => setFavorite(!favorite)}
+          />
 
-        <Button type="form-button">Update board</Button>
-      </form>
+          <Button type="form-button">Update board</Button>
+        </form>
+      </div>
 
-      <ConfirmAndDelete context="board" event={deleteBoard} />
+      <div className="modal-footer">
+        <ConfirmAndDelete context="board" event={deleteBoard} />
 
-      <p>{formatDate(board.createdAt)}</p>
+
+        <div className="tips">
+          <p>Created on {formatDate(board.createdAt)}</p>
+
+          {board.createdAt !== board.updatedAt && (
+            <p>Last update on {formatDate(board.updatedAt)}</p>
+          )}
+        </div>
+      </div>
     </>
   )
 }
