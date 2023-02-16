@@ -18,7 +18,7 @@ const TaskSettings = ({ task, toggle }) => {
 
   const [title, setTitle] = useState(task.title)
   const [description, setDescription] = useState(task.description)
-  const [status, setStatus] = useState(task.status)
+  const [currStatus, setCurrStatus] = useState(task.status)
   const [important, setImportant] = useState(task.important)
   const [tags, setTags] = useState(task.tags)
 
@@ -31,7 +31,7 @@ const TaskSettings = ({ task, toggle }) => {
       const { data } = await axios.patch(`/tasks/${task._id}`, {
         title,
         description,
-        status,
+        status: currStatus,
         important,
         tags
       })
@@ -83,16 +83,16 @@ const TaskSettings = ({ task, toggle }) => {
           </div>
 
           <div className="status-input">
-            {['To do', 'In progress', 'Done'].map((curr, i) => (
+            {['To do', 'In progress', 'Done'].map((status, i) => (
               <Input
                 key={i}
                 type="radio"
                 name="status"
-                placeholder={curr}
-                value={curr}
-                checked={curr === status}
+                placeholder={status}
+                value={status}
+                checked={status === currStatus}
                 onChange={e => {
-                  setStatus(e.target.value)
+                  setCurrStatus(e.target.value)
                 }}
               />
             ))}

@@ -36,11 +36,86 @@
 
 :root[theme='dark'] {
   body {
-    font-family: 'Source Code Pro';
+    background: v.$red-1;
 
-    // #root {
-    //   background: #f00;
-    // }
+    #root {
+      background: v.$dark;
+      // color: #fff;
+
+      &::before {
+        box-shadow: 0 0 0 2rem v.$red-1;
+      }
+
+      .cursor {
+        .content {
+          &-item {
+            background: v.$dark;
+            box-shadow: 0 0 0 .125rem v.$red-1, .375rem .375rem 0 .125rem v.$red-1;
+            color: #fff;
+          }
+        }
+      }
+
+      .container {
+        .header {
+          .title {
+            color: #fff;
+          }
+        }
+
+        &.board {
+          .status {
+            &-title {
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .navbar {
+        background: v.$dark;
+        border-color: v.$red-1;
+        color: #fff;
+
+        &--active {
+          @extend .navbar;
+        }
+
+        .user-card {
+          &-picture {
+            background: v.$dark;
+            border: 1px solid #fff;
+          }
+        }
+
+        &-list-item {
+          &.disabled {
+            color: rgba($color: #fff, $alpha: .3);
+          }
+        }
+      }
+
+      button.default {
+        // background: v.$yellow-1;
+        box-shadow: 0 0 0 .125rem v.$yellow-1, .375rem .375rem 0 .125rem v.$yellow-1;
+      }
+
+      .green {
+        @extend .default;
+      }
+    }
+  }
+}
+
+:root[font='Poppins'] {
+  body {
+    font-family: 'Poppins';
+  }
+}
+
+:root[font='Source Code Pro'] {
+  body {
+    font-family: 'Source Code Pro';
   }
 }
 

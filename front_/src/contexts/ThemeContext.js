@@ -36,13 +36,16 @@ export const ThemeProvider = ({ children }) => {
 
   const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
+  const storeData = (key, value) => {
+    localStorage.setItem(key, value)
+    document.documentElement.setAttribute(key, value)
+  }
+
   useEffect(() => {
     if (!theme) {
       dispatch({ type: 'SET_THEME', payload: browserTheme })
 
-      localStorage.setItem('theme', browserTheme)
-
-      document.documentElement.setAttribute('theme', browserTheme)
+      storeData('theme', browserTheme)
 
       return
     }
@@ -51,6 +54,22 @@ export const ThemeProvider = ({ children }) => {
 
     document.documentElement.setAttribute('theme', theme)
   }, [theme])
+
+  const font = localStorage.getItem('font')
+
+  useEffect(() => {
+    if (!font) {
+      dispatch({ type: 'SET_FONT', payload: 'Poppins' })
+
+      storeData('font', 'Poppins')
+
+      return
+    }
+
+    dispatch({ type: 'SET_FONT', payload: font })
+
+    document.documentElement.setAttribute('font', font)
+  }, [font])
 
   return (
     <ThemeContext.Provider value={{ ...state, dispatch }}>

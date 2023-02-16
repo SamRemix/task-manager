@@ -26,6 +26,18 @@ const Cursor = () => {
       addEventListener(type, listener)
     )
 
+    let windowSize = {
+      width: innerWidth,
+      height: innerHeight
+    }
+
+    event('resize', () => {
+      windowSize = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    })
+
     event('mousemove', ({ clientX, clientY }) => {
       const { offsetWidth, offsetHeight } = cursor.current
 
@@ -42,8 +54,8 @@ const Cursor = () => {
       )
 
       setPosition({
-        x: set(innerWidth, clientX, offsetWidth, left),
-        y: set(innerHeight, clientY, offsetHeight, top)
+        x: set(windowSize.width, clientX, offsetWidth, left),
+        y: set(windowSize.height, clientY, offsetHeight, top)
       })
     })
 

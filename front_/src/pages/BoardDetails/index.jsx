@@ -91,7 +91,7 @@ const BoardDetails = () => {
   setDocumentTitle(board?.title)
 
   return (
-    <section className="container boards">
+    <section className="container board">
       <Header>
         <h1 className="title">
           {capitalize(board?.title)}

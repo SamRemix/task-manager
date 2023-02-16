@@ -8,7 +8,7 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
   padding: v.$container-padding !important;
   gap: 3rem 2rem !important;
 
-  &.boards {
+  &.board {
     .progress-bar {
       height: $progress-bar-height;
     }
@@ -65,7 +65,7 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-  .boards {
+  .board {
     .tasks-container {
       grid-template-columns: repeat(3, 1fr);
     }

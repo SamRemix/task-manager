@@ -1,7 +1,7 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-.boards {
+.board {
   display: grid !important;
   align-items: flex-start !important;
   justify-content: flex-start !important;

@@ -315,10 +315,14 @@ const Navbar = () => {
                     </motion.li>
 
                     <motion.li
-                      className="navbar-list-item disabled"
+                      className="navbar-list-item"
                       layoutId="settings"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <NavLink
+                        to="/settings"
+                        className="link"
+                        onMouseEnter={!displayNavbar ? () => printItem('Settings') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Settings') : undefined}>
                         <HiOutlineCog6Tooth className="icon" size="1.6em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -330,7 +334,7 @@ const Navbar = () => {
                             </motion.p>
                           )}
                         </AnimatePresence>
-                      </div>
+                      </NavLink>
                     </motion.li>
                   </>
                 )}

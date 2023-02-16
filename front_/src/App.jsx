@@ -14,13 +14,14 @@ import Cursor from './components/Cursor'
 
 // pages
 import Home from './pages/Home'
+import About from './pages/About'
+import Settings from './pages/Settings'
 import BoardDetails from './pages/BoardDetails'
 import AddBoard from './pages/AddBoard'
 import Tags from './pages/Tags'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Account from './pages/Account'
-import About from './pages/About'
 import NotFound from './pages/404'
 
 const App = () => {
@@ -80,6 +81,7 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/settings" element={user && <Settings />} />
 
           <Route path="/boards/:board_id" element={user && <BoardDetails />} />
 
