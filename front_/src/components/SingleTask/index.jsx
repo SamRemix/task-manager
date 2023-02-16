@@ -111,6 +111,7 @@ const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
 
 SingleTask.propTypes = {
   task: PropTypes.object.isRequired,
+  tasks: PropTypes.array.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setTaskId: PropTypes.func.isRequired,
   setPrefix: PropTypes.func.isRequired

@@ -3,7 +3,7 @@ import './styles.scss'
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
@@ -53,6 +53,7 @@ const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
                 <SingleTask
                   key={task._id}
                   task={task}
+                  tasks={tasks}
                   tags={task.tags?.sort((a, b) => (
                     a.title < b.title ? -1 : a.title > b.title && 1
                   ))}

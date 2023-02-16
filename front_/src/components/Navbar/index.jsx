@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} />
+      {/* <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} /> */}
 
       <div
         className={displayNavbar ? 'navbar-button--active' : 'navbar-button'}

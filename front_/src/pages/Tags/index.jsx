@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import { memo, useState, useRef } from 'react'
+import { memo, useState } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
@@ -27,17 +27,12 @@ const Tags = () => {
 
   const [title, setTitle] = useState('')
 
-  // focus input on submit
-  const titleInput = useRef(null)
-
   const handleCreateTag = e => {
     e.preventDefault()
 
     createTag({ title })
 
     setTitle('')
-
-    titleInput.current.focus()
   }
 
   setDocumentTitle('Tags')
@@ -67,7 +62,6 @@ const Tags = () => {
                 setTitle(e.target.value)
               }}
               maxLength="24"
-              focus={titleInput}
               error={error}
             />
           </motion.div>

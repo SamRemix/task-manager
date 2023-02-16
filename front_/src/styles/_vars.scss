@@ -16,6 +16,18 @@ $yellow-1: #fcddb0;
 // $yellow-2: #f5e39c;
 $yellow-3: #f7e991;
 
+:root {
+  $test: #e8e4d2;
+}
+
+:root[theme='light'] {
+  $light: #e8e4d2;
+}
+
+:root[theme='dark'] {
+  $light: #211c1d !important;
+}
+
 $light: #e8e4d2;
 $light-2: #f1eee0;
 $dark: #211c1d;
