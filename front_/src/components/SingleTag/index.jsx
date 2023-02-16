@@ -8,7 +8,7 @@ import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
 
-import { HiOutlinePencilSquare } from 'react-icons/hi2'
+import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
 import capitalize from '../../utils/capitalize'
 
@@ -29,7 +29,7 @@ const SingleTag = ({ _id, title, setTagId, toggle }) => {
           }}
           onMouseEnter={() => printItem('Update')}
           onMouseLeave={() => removeItem('Update')}>
-          <HiOutlinePencilSquare size="1.4em" className="button-update" />
+          <PencilSquareIcon width="1.5em" className="button-update" />
         </div>
       </div>
     </motion.div>

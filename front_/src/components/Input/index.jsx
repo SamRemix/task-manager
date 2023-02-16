@@ -7,10 +7,10 @@ import useToggle from '../../hooks/useToggle'
 import capitalize from '../../utils/capitalize'
 
 import {
-  HiOutlineMagnifyingGlass, // Search icon
-  HiOutlineEyeSlash, // Hide password icon
-  HiOutlineEye // Display password icon
-} from 'react-icons/hi2'
+  MagnifyingGlassIcon, // Search icon
+  EyeSlashIcon, // Hide password icon
+  EyeIcon // Display password icon
+} from '@heroicons/react/24/outline'
 
 const Input = ({
   type,
@@ -59,7 +59,7 @@ const Input = ({
       )}
 
       {type === 'checkbox' && (
-        <label>
+        <label className={checked ? 'checkbox-checked' : 'checkbox'}>
           <input
             type={type}
             checked={checked}
@@ -71,7 +71,7 @@ const Input = ({
       )}
 
       {type === 'radio' && (
-        <label>
+        <label className={checked ? 'radio-checked' : 'radio'}>
           <input
             type={type}
             name={name}
@@ -95,7 +95,7 @@ const Input = ({
             ref={focus}
           />
           <div className="search-icon">
-            <HiOutlineMagnifyingGlass size="1.6em" />
+            <MagnifyingGlassIcon width="1.5em" />
           </div>
         </>
       )}
@@ -113,9 +113,9 @@ const Input = ({
             className={display ? 'eye-icon--display' : 'eye-icon'}
             onClick={toggle}>
             {display ? (
-              <HiOutlineEyeSlash size="1.4em" />
+              <EyeSlashIcon width="1.5em" />
             ) : (
-              <HiOutlineEye size="1.4em" />
+              <EyeIcon width="1.5em" />
             )}
           </div>
         </>
@@ -128,7 +128,7 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.any,
-  checked: PropTypes.any,
+  checked: PropTypes.bool,
   onChange: PropTypes.func,
   maxLength: PropTypes.string,
   focus: PropTypes.oneOfType([

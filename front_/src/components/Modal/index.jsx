@@ -6,7 +6,7 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { HiXMark } from 'react-icons/hi2'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const Modal = ({ children, type, error, toggle }) => {
   return (
@@ -19,10 +19,10 @@ const Modal = ({ children, type, error, toggle }) => {
       <motion.div
         className="modal"
         {...config.modalAnimation}>
-        <HiXMark
+        <XMarkIcon
           className="modal-close"
           onClick={toggle}
-          size="2em"
+          width="2.5em"
         />
         {children}
       </motion.div>

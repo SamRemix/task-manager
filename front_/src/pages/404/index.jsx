@@ -3,6 +3,9 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
+import Header from '../../components/Header'
+import Button from '../../components/Button'
+
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const NotFound = () => {
@@ -10,15 +13,18 @@ const NotFound = () => {
 
   return (
     <section className="container not-found">
-      <motion.h1
-        className="container__title"
-        {...config.pageTitleAnimation}>
-        404
-      </motion.h1>
-      <motion.p
-        {...config.errorMessageAnimation}>
-        Page Not Found
-      </motion.p>
+      <Header>
+        <h1 className="title">404</h1>
+
+        <Button type="back" />
+      </Header>
+
+      <div className="content">
+        <motion.p
+          {...config.errorMessageAnimation}>
+          Page Not Found
+        </motion.p>
+      </div>
     </section>
   )
 }

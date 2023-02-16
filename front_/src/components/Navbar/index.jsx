@@ -16,27 +16,28 @@ import SingleBoard from '../SingleBoard'
 import Button from '../Button'
 
 import {
-  HiOutlineMoon, // dark theme icon
-  HiOutlineSun, // light theme icon
-  HiOutlineUser,
-  HiOutlineHome,
-  HiOutlineLockClosed, // error icon (Request isn't authorized)
-  HiOutlineClipboardDocumentList, // boards icon
-  // HiOutlineFolder, // boards icon
-  HiChevronDown,
-  HiChevronUp,
-  HiOutlineDocumentPlus, // add board icon
-  HiOutlineUsers, // friends icon
-  HiOutlineChatBubbleLeftRight, // messages icon
-  HiOutlineCalendar, // calendar icon
-  HiOutlineTag, // tags icon
-  HiOutlineCog6Tooth, // settings icon
-  HiOutlineInformationCircle, // about icon
-  HiCodeBracket, // doc icon
-  HiArrowLeftOnRectangle, // logout icon
-  HiArrowRightOnRectangle, // login icon
-  HiOutlineUserPlus // signup icon 
-} from 'react-icons/hi2'
+  MoonIcon, // dark theme icon
+  SunIcon, // light theme icon
+  UserIcon,
+  HomeIcon,
+  LockClosedIcon, // error icon (Request isn't authorized)
+  ClipboardDocumentListIcon, // boards icon
+  ChevronDownIcon,
+  ChevronUpIcon,
+  DocumentPlusIcon, // add board icon
+  UsersIcon, // friends icon
+  ChatBubbleLeftRightIcon, // messages icon
+  CalendarIcon, // calendar icon
+  TagIcon, // tags icon
+  Cog6ToothIcon, // settings icon
+  InformationCircleIcon, // about icon
+  CodeBracketIcon, // doc icon
+  ArrowLeftOnRectangleIcon, // logout icon
+  ArrowRightOnRectangleIcon, // login icon
+  UserPlusIcon  // signup icon 
+} from '@heroicons/react/24/outline'
+
+// 12k 3.5k
 
 const Navbar = () => {
   const { user, logout } = useAuthQueries()
@@ -75,9 +76,9 @@ const Navbar = () => {
                 {...config.userCardAnimation}>
                 <div className="header-theme-switcher" onClick={switchTheme}>
                   {theme === 'light' ? (
-                    <HiOutlineMoon size="1.6em" />
+                    <MoonIcon width="1.75em" />
                   ) : (
-                    <HiOutlineSun size="1.6em" />
+                    <SunIcon width="1.75em" />
                   )}
                 </div>
 
@@ -95,7 +96,7 @@ const Navbar = () => {
                 layoutId="user"
                 {...config.userCardAnimation}>
                 <div className="user-card-picture">
-                  <HiOutlineUser size="1.6em" />
+                  <UserIcon width="1.75em" />
                 </div>
 
                 <NavLink to="/account" end>
@@ -115,7 +116,7 @@ const Navbar = () => {
                   className="link"
                   onMouseEnter={!displayNavbar ? () => printItem('Home') : undefined}
                   onMouseLeave={!displayNavbar ? () => removeItem('Home') : undefined}>
-                  <HiOutlineHome className="icon" size="1.6em" />
+                  <HomeIcon className="icon" width="1.75em" />
 
                   <AnimatePresence>
                     {displayNavbar && (
@@ -140,7 +141,7 @@ const Navbar = () => {
                       className="link"
                       onMouseEnter={!displayNavbar ? () => printItem(error) : undefined}
                       onMouseLeave={!displayNavbar ? () => removeItem(error) : undefined}>
-                      <HiOutlineLockClosed className="icon" size="1.6em" />
+                      <LockClosedIcon className="icon" width="1.75em" />
 
                       <AnimatePresence>
                         {displayNavbar && (
@@ -166,7 +167,7 @@ const Navbar = () => {
                       // onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Boards' })) : undefined}
                       // onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Boards' })}
                       >
-                        <HiOutlineClipboardDocumentList className="icon" size="1.6em" />
+                        <ClipboardDocumentListIcon className="icon" width="1.75em" />
 
                         <AnimatePresence>
                           {displayNavbar && (
@@ -183,9 +184,9 @@ const Navbar = () => {
                                   layoutId="boardsChevron"
                                   {...config.itemTitleAnimation}>
                                   {displayBoards ? (
-                                    <HiChevronUp className="icon" size="1.2em" />
+                                    <ChevronUpIcon className="icon" width="1.25em" />
                                   ) : (
-                                    <HiChevronDown className="icon" size="1.2em" />
+                                    <ChevronDownIcon className="icon" width="1.25em" />
                                   )}
                                 </motion.div>
                               )}
@@ -220,7 +221,7 @@ const Navbar = () => {
                         className="link"
                         onMouseEnter={!displayNavbar ? () => printItem('Add board') : undefined}
                         onMouseLeave={!displayNavbar ? () => removeItem('Add board') : undefined}>
-                        <HiOutlineDocumentPlus className="icon" size="1.6em" />
+                        <DocumentPlusIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -243,7 +244,7 @@ const Navbar = () => {
                         className="link"
                         onMouseEnter={!displayNavbar ? () => printItem('Tags') : undefined}
                         onMouseLeave={!displayNavbar ? () => removeItem('Tags') : undefined}>
-                        <HiOutlineTag className="icon" size="1.6em" />
+                        <TagIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -262,7 +263,7 @@ const Navbar = () => {
                       layoutId="friends"
                       {...config.navbarItemAnimation}>
                       <div className="link">
-                        <HiOutlineUsers className="icon" size="1.6em" />
+                        <UsersIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -281,7 +282,7 @@ const Navbar = () => {
                       layoutId="messages"
                       {...config.navbarItemAnimation}>
                       <div className="link">
-                        <HiOutlineChatBubbleLeftRight className="icon" size="1.6em" />
+                        <ChatBubbleLeftRightIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -300,7 +301,7 @@ const Navbar = () => {
                       layoutId="agenda"
                       {...config.navbarItemAnimation}>
                       <div className="link">
-                        <HiOutlineCalendar className="icon" size="1.6em" />
+                        <CalendarIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -326,7 +327,7 @@ const Navbar = () => {
                   className="link"
                   onMouseEnter={!displayNavbar ? () => printItem('Settings') : undefined}
                   onMouseLeave={!displayNavbar ? () => removeItem('Settings') : undefined}>
-                  <HiOutlineCog6Tooth className="icon" size="1.6em" />
+                  <Cog6ToothIcon className="icon" width="1.75em" />
                   <AnimatePresence>
                     {displayNavbar && (
                       <motion.p
@@ -354,7 +355,7 @@ const Navbar = () => {
                     }}
                       onMouseEnter={!displayNavbar ? () => printItem('Log out') : undefined}
                       onMouseLeave={!displayNavbar ? () => removeItem('Log out') : undefined}>
-                      <HiArrowLeftOnRectangle className="icon" size="1.6em" />
+                      <ArrowLeftOnRectangleIcon className="icon" width="1.75em" />
                       <AnimatePresence>
                         {displayNavbar && (
                           <motion.p
@@ -378,7 +379,7 @@ const Navbar = () => {
                         className="link"
                         onMouseEnter={!displayNavbar ? () => printItem('Log in') : undefined}
                         onMouseLeave={!displayNavbar ? () => removeItem('Log in') : undefined}>
-                        <HiArrowRightOnRectangle className="icon" size="1.6em" />
+                        <ArrowRightOnRectangleIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -401,7 +402,7 @@ const Navbar = () => {
                         className="link"
                         onMouseEnter={!displayNavbar ? () => printItem('Sign up') : undefined}
                         onMouseLeave={!displayNavbar ? () => removeItem('Sign up') : undefined}>
-                        <HiOutlineUserPlus className="icon" size="1.6em" />
+                        <UserPlusIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
                             <motion.p
@@ -427,7 +428,7 @@ const Navbar = () => {
                   className="link"
                   onMouseEnter={!displayNavbar ? () => printItem('About') : undefined}
                   onMouseLeave={!displayNavbar ? () => removeItem('About') : undefined}>
-                  <HiOutlineInformationCircle className="icon" size="1.6em" />
+                  <InformationCircleIcon className="icon" width="1.75em" />
                   <AnimatePresence>
                     {displayNavbar && (
                       <motion.p
@@ -450,7 +451,7 @@ const Navbar = () => {
                   className="link"
                   onMouseEnter={!displayNavbar ? () => printItem('Doc') : undefined}
                   onMouseLeave={!displayNavbar ? () => removeItem('Doc') : undefined}>
-                  <HiCodeBracket className="icon" size="1.6em" />
+                  <CodeBracketIcon className="icon" width="1.75em" />
                   <AnimatePresence>
                     {displayNavbar && (
                       <motion.p

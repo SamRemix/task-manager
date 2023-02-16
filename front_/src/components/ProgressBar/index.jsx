@@ -10,7 +10,7 @@ import useCursorContext from '../../hooks/useCursorContext'
 
 import setPercent from '../../utils/setPercent'
 
-import { HiChevronDoubleDown } from 'react-icons/hi2'
+import { ChevronDoubleDownIcon } from '@heroicons/react/24/outline'
 
 const ProgressBar = ({ tasks }) => {
   const { items } = useCursorContext()
@@ -69,7 +69,7 @@ const ProgressBar = ({ tasks }) => {
                 <motion.div
                   className="progress-bar-item-arrow"
                   {...config.arrowAnimation}>
-                  <HiChevronDoubleDown size="2.25em" />
+                  <ChevronDoubleDownIcon width="2.25em" />
                 </motion.div>
               )}
             </AnimatePresence>

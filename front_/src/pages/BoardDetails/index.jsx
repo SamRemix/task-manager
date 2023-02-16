@@ -26,7 +26,7 @@ import Button from '../../components/Button'
 import Input from '../../components/Input'
 import QueryStatus from '../../components/QueryStatus'
 
-import { HiPlus, HiOutlineCog6Tooth } from 'react-icons/hi2'
+import { PlusIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 import setDocumentTitle from '../../utils/setDocumentTitle'
 import capitalize from '../../utils/capitalize'
@@ -113,7 +113,7 @@ const BoardDetails = () => {
               setIsTaskSettingsOpen(false)
               setIsTaskFormOpen(true)
             }}>
-            <HiPlus size="1.2em" />
+            <PlusIcon width="1.5em" />
             Add task
           </Button>
 
@@ -124,7 +124,7 @@ const BoardDetails = () => {
               setIsTaskSettingsOpen(false)
               setIsBoardSettingsOpen(true)
             }}>
-            <HiOutlineCog6Tooth size="1.2em" />
+            <Cog6ToothIcon width="1.5em" />
             Settings
           </Button>
         </div>

@@ -11,7 +11,7 @@ import useCursorContext from '../../hooks/useCursorContext'
 
 import axios from '../../axios.config'
 
-import { HiOutlineCheckBadge, HiOutlinePencilSquare } from 'react-icons/hi2'
+import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
@@ -90,7 +90,7 @@ const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
                 addItem(nextStatus)
               }}
               onMouseLeave={() => removeItem(nextStatus)}>
-              <HiOutlineCheckBadge size="1.4em" className="button-validate" onClick={updateStatus} />
+              <CheckBadgeIcon width="1.5em" className="button-validate" onClick={updateStatus} />
             </div>
           )}
           <div
@@ -101,7 +101,7 @@ const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
             }}
             onMouseEnter={() => printItem('Update')}
             onMouseLeave={() => removeItem('Update')}>
-            <HiOutlinePencilSquare size="1.4em" className="button-update" />
+            <PencilSquareIcon width="1.5em" className="button-update" />
           </div>
         </div>
       </motion.div>

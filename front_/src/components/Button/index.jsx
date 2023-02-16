@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 // import { motion } from 'framer-motion'
 // import config from './motion.config'
 
-import { HiArrowLongLeft } from 'react-icons/hi2'
+import { ArrowLongLeftIcon } from '@heroicons/react/24/outline'
 
 const Button = ({ children, type, event }) => {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ const Button = ({ children, type, event }) => {
         <button
           className={type}
           onClick={() => navigate(-1)}>
-          <HiArrowLongLeft size="1.6em" />
+          <ArrowLongLeftIcon width="2em" />
           Back
         </button>
       )}

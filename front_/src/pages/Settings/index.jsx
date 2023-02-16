@@ -9,9 +9,9 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import {
-  HiOutlineMoon, // dark theme icon
-  HiOutlineSun, // light theme icon
-} from 'react-icons/hi2'
+  MoonIcon, // dark theme icon
+  SunIcon, // light theme icon
+} from '@heroicons/react/24/outline'
 
 const Settings = () => {
   const { theme, font: currFont, switchTheme, setFont } = useThemeContext()
@@ -28,9 +28,9 @@ const Settings = () => {
         <div className="theme-switcher" onClick={switchTheme}>
           Current theme: <Button>
             {theme === 'light' ? (
-              <HiOutlineSun size="1.6em" />
+              <SunIcon width="1.75em" />
             ) : (
-              <HiOutlineMoon size="1.6em" />
+              <MoonIcon width="1.75em" />
             )}
             {theme}
           </Button>
