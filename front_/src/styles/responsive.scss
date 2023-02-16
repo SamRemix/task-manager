@@ -40,7 +40,6 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
 
   .container {
     .modal {
-      width: auto !important;
       max-width: 60%;
 
       &-close {

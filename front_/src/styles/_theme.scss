@@ -1,6 +1,16 @@
 @use './vars' as v;
 
 :root[theme='dark'] {
+  * {
+    &::-webkit-scrollbar-thumb {
+      background: v.$red-1;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: v.$dark;
+    }
+  }
+
   body {
     background: v.$red-1;
 
@@ -35,6 +45,26 @@
 
         &.board {
           .status {
+            &-title {
+              color: #fff;
+            }
+          }
+        }
+
+        .loader {
+          &::before {
+            background: linear-gradient(v.$light 50%, rgba($color: v.$light, $alpha: .2) 50%);
+          }
+
+          &::after {
+            background: v.$dark;
+          }
+        }
+
+        .modal {
+          background: v.$dark;
+
+          &-content {
             &-title {
               color: #fff;
             }
