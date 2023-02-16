@@ -81,7 +81,7 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/settings" element={user && <Settings />} />
+          <Route path="/settings" element={<Settings />} />
 
           <Route path="/boards/:board_id" element={user && <BoardDetails />} />
 

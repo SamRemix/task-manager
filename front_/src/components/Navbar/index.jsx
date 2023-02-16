@@ -16,26 +16,26 @@ import SingleBoard from '../SingleBoard'
 import Button from '../Button'
 
 import {
-  HiOutlineFire,
-  HiOutlineSun,
+  HiOutlineMoon, // dark theme icon
+  HiOutlineSun, // light theme icon
   HiOutlineUser,
   HiOutlineHome,
-  HiOutlineLockClosed, // Error icon (Request isn't authorized)
-  HiOutlineClipboardDocumentList, // Boards icon
-  // HiOutlineFolder, // Boards icon
+  HiOutlineLockClosed, // error icon (Request isn't authorized)
+  HiOutlineClipboardDocumentList, // boards icon
+  // HiOutlineFolder, // boards icon
   HiChevronDown,
   HiChevronUp,
-  HiOutlineDocumentPlus, // Add board icon
-  HiOutlineUsers, // Friends icon
-  HiOutlineChatBubbleLeftRight, // Messages icon
-  HiOutlineCalendar, // Calendar icon
-  HiOutlineTag, // Tags icon
-  HiOutlineCog6Tooth, // Settings icon
-  HiOutlineInformationCircle, // About icon
-  HiCodeBracket, // Doc icon
-  HiArrowLeftOnRectangle, // Logout icon
-  HiArrowRightOnRectangle, // Login icon
-  HiOutlineUserPlus // Signup icon 
+  HiOutlineDocumentPlus, // add board icon
+  HiOutlineUsers, // friends icon
+  HiOutlineChatBubbleLeftRight, // messages icon
+  HiOutlineCalendar, // calendar icon
+  HiOutlineTag, // tags icon
+  HiOutlineCog6Tooth, // settings icon
+  HiOutlineInformationCircle, // about icon
+  HiCodeBracket, // doc icon
+  HiArrowLeftOnRectangle, // logout icon
+  HiArrowRightOnRectangle, // login icon
+  HiOutlineUserPlus // signup icon 
 } from 'react-icons/hi2'
 
 const Navbar = () => {
@@ -75,7 +75,7 @@ const Navbar = () => {
                 {...config.userCardAnimation}>
                 <div className="header-theme-switcher" onClick={switchTheme}>
                   {theme === 'light' ? (
-                    <HiOutlineFire size="1.6em" />
+                    <HiOutlineMoon size="1.6em" />
                   ) : (
                     <HiOutlineSun size="1.6em" />
                   )}
@@ -313,32 +313,32 @@ const Navbar = () => {
                         </AnimatePresence>
                       </div>
                     </motion.li>
-
-                    <motion.li
-                      className="navbar-list-item"
-                      layoutId="settings"
-                      {...config.navbarItemAnimation}>
-                      <NavLink
-                        to="/settings"
-                        className="link"
-                        onMouseEnter={!displayNavbar ? () => printItem('Settings') : undefined}
-                        onMouseLeave={!displayNavbar ? () => removeItem('Settings') : undefined}>
-                        <HiOutlineCog6Tooth className="icon" size="1.6em" />
-                        <AnimatePresence>
-                          {displayNavbar && (
-                            <motion.p
-                              className="title"
-                              layoutId="settingsTitle"
-                              {...config.itemTitleAnimation}>
-                              Settings
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
-                      </NavLink>
-                    </motion.li>
                   </>
                 )}
               </AnimatePresence>
+
+              <motion.li
+                className="navbar-list-item"
+                layoutId="settings"
+                {...config.navbarItemAnimation}>
+                <NavLink
+                  to="/settings"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? () => printItem('Settings') : undefined}
+                  onMouseLeave={!displayNavbar ? () => removeItem('Settings') : undefined}>
+                  <HiOutlineCog6Tooth className="icon" size="1.6em" />
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="settingsTitle"
+                        {...config.itemTitleAnimation}>
+                        Settings
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
             </div>
 
             <div className="footer">

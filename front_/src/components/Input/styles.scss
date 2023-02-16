@@ -100,6 +100,10 @@
 
   >label {
     @include mix.flex-gap(1rem);
+    padding: .5rem 1rem;
+    background: v.$red-light-1;
+    box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+    border-radius: v.$radius-sm;
 
     input {
       padding-left: 2rem;
