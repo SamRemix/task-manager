@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import config from './motion.config'
 
-import { useThemeContext } from '../../hooks/useThemeContext'
+import useThemeContext from '../../hooks/useThemeContext'
 import useAuthQueries from '../../hooks/useAuthQueries'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import useCursorContext from '../../hooks/useCursorContext'
@@ -41,7 +41,7 @@ import {
 const Navbar = () => {
   const { user, logout } = useAuthQueries()
   const { boards, error } = useBoardsContext()
-  const { theme, toggleTheme } = useThemeContext()
+  const { theme, switchTheme } = useThemeContext()
   const { printItem, removeItem } = useCursorContext()
 
   const { display: displayBoards, toggle: toggleBoards } = useToggle()
@@ -73,7 +73,7 @@ const Navbar = () => {
                 className="header"
                 layoutId="header"
                 {...config.userCardAnimation}>
-                <div className="header-theme-switcher" onClick={toggleTheme}>
+                <div className="header-theme-switcher" onClick={switchTheme}>
                   {theme === 'light' ? (
                     <HiOutlineFire size="1.6em" />
                   ) : (

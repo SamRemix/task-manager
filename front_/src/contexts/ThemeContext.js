@@ -1,34 +1,59 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useReducer } from 'react'
 
-const defaultTheme = matchMedia('(prefers-color-scheme: dark)').matches
+const initialState = {
+  theme: '',
+  font: 'Poppins'
+}
 
-export const ThemeContext = createContext()
+const SET_THEME = 'SET_THEME'
+const SET_FONT = 'SET_FONT'
+
+const themeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_THEME:
+      return {
+        ...state,
+        theme: action.payload
+      }
+
+    case SET_FONT:
+      return {
+        ...state,
+        font: action.payload
+      }
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`)
+  }
+}
+
+export const ThemeContext = createContext(initialState)
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    const currTheme = localStorage.getItem('theme')
+  const [state, dispatch] = useReducer(themeReducer, initialState)
 
-    if (!currTheme) {
-      return defaultTheme
-    }
+  const theme = localStorage.getItem('theme')
 
-    return currTheme
-  })
-
-  const toggleTheme = () => {
-    setTheme(curr => (
-      curr === 'light' ? 'dark' : 'light'
-    ))
-  }
+  const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
   useEffect(() => {
-    localStorage.setItem('theme', theme)
+    if (!theme) {
+      dispatch({ type: 'SET_THEME', payload: browserTheme })
+
+      localStorage.setItem('theme', browserTheme)
+
+      document.documentElement.setAttribute('theme', browserTheme)
+
+      return
+    }
+
+    dispatch({ type: 'SET_THEME', payload: theme })
 
     document.documentElement.setAttribute('theme', theme)
   }, [theme])
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ ...state, dispatch }}>
       {children}
     </ThemeContext.Provider>
   )
