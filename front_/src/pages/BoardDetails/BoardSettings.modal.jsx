@@ -76,12 +76,17 @@ const BoardSettings = ({ board, board_id, toggle }) => {
             error={error}
           />
 
-          <Input
-            type="checkbox"
-            placeholder="Favorite"
-            value={favorite}
-            onChange={() => setFavorite(!favorite)}
-          />
+          <div className="item-container">
+            <p>Favorite:</p>
+            <div className="item-container-input">
+              <Input
+                type="checkbox"
+                placeholder="Favorite"
+                value={favorite}
+                onChange={() => setFavorite(!favorite)}
+              />
+            </div>
+          </div>
 
           <Button type="form-button">Update board</Button>
         </form>

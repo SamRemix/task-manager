@@ -65,12 +65,17 @@ const AddBoard = () => {
           </motion.div>
 
           <motion.div {...config.favCheckboxAnimation}>
-            <Input
-              type="checkbox"
-              placeholder="Favorite"
-              checked={favorite}
-              onChange={() => setFavorite(!favorite)}
-            />
+            <div className="item-container">
+              <p>Favorite:</p>
+              <div className="item-container-input">
+                <Input
+                  type="checkbox"
+                  placeholder="Favorite"
+                  checked={favorite}
+                  onChange={() => setFavorite(!favorite)}
+                />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div {...config.submitButtonAnimation}>

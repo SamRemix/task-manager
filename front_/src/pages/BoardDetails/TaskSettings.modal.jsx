@@ -82,56 +82,68 @@ const TaskSettings = ({ task, toggle }) => {
             <p>To create a list, press <b>enter</b> after each item to separate them.</p>
           </div>
 
-          <div className="status-input">
-            {['To do', 'In progress', 'Done'].map((status, i) => (
-              <Input
-                key={i}
-                type="radio"
-                name="status"
-                placeholder={status}
-                value={status}
-                checked={status === currStatus}
-                onChange={e => {
-                  setCurrStatus(e.target.value)
-                }}
-              />
-            ))}
+
+          <div className="list-container">
+            <p>Status:</p>
+            <div className="list-container-input">
+              {['To do', 'In progress', 'Done'].map((status, i) => (
+                <Input
+                  key={i}
+                  type="radio"
+                  name="status"
+                  placeholder={status}
+                  value={status}
+                  checked={status === currStatus}
+                  onChange={e => {
+                    setCurrStatus(e.target.value)
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
-          <Input
-            type="checkbox"
-            placeholder="Important"
-            checked={important}
-            onChange={() => setImportant(!important)}
-          />
-
-          <div className="tags-input">
-            {allTags.map(tag => (
+          <div className="item-container">
+            <p>Important:</p>
+            <div className="item-container-input">
               <Input
-                key={tag._id}
                 type="checkbox"
-                placeholder={tag.title}
-                checked={tags.some(selected => (
-                  selected._id === tag._id
-                ))}
-                onChange={() => {
-                  setTags(tags.some(selected => (
-                    selected._id === tag._id
-                  )) ? (
-                    tags.filter(selected => (
-                      selected._id !== tag._id
-                    ))
-                  ) : (
-                    [tag, ...tags]
-                  ))
-                }}
+                placeholder="Important"
+                checked={important}
+                onChange={() => setImportant(!important)}
               />
-            ))}
+            </div>
+          </div>
+
+          <div className="list-container">
+            <p>Tags:</p>
+            <div className="list-container-input">
+              {allTags.map(tag => (
+                <Input
+                  key={tag._id}
+                  type="checkbox"
+                  placeholder={tag.title}
+                  checked={tags.some(selected => (
+                    selected._id === tag._id
+                  ))}
+                  onChange={() => {
+                    setTags(tags.some(selected => (
+                      selected._id === tag._id
+                    )) ? (
+                      tags.filter(selected => (
+                        selected._id !== tag._id
+                      ))
+                    ) : (
+                      [tag, ...tags]
+                    ))
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           <Button type="form-button">Update task</Button>
         </form>
-      </div>
+      </div >
 
       <div className="modal-footer">
         <ConfirmAndDelete context="task" event={deleteTask} />

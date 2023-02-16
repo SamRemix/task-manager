@@ -85,31 +85,41 @@ const AddTaskForm = ({ board_id, toggle }) => {
           <p>To create a list, press <b>enter</b> after each item to separate them.</p>
         </div>
 
-        <Input
-          type="checkbox"
-          placeholder="Important"
-          value={newTask.important}
-          onChange={() => {
-            dispatchNewTask(actionSetField('important', !newTask.important))
-          }} />
-
-        <div className="tags-input">
-          {tags.map(({ _id, title }) => (
+        <div className="item-container">
+          <p>Important:</p>
+          <div className="item-container-input">
             <Input
-              key={_id}
               type="checkbox"
-              placeholder={title}
-              value={newTask.tags.includes(_id)}
+              placeholder="Important"
+              value={newTask.important}
               onChange={() => {
-                dispatchNewTask(actionSetField('tags', newTask.tags.includes(_id) ? (
-                  newTask.tags.filter(tag => (
-                    tag !== _id
-                  ))
-                ) : (
-                  [_id, ...newTask.tags]
-                )))
-              }} />
-          ))}
+                dispatchNewTask(actionSetField('important', !newTask.important))
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="list-container">
+          <p>Tags:</p>
+          <div className="list-container-input">
+            {tags.map(({ _id, title }) => (
+              <Input
+                key={_id}
+                type="checkbox"
+                placeholder={title}
+                value={newTask.tags.includes(_id)}
+                onChange={() => {
+                  dispatchNewTask(actionSetField('tags', newTask.tags.includes(_id) ? (
+                    newTask.tags.filter(tag => (
+                      tag !== _id
+                    ))
+                  ) : (
+                    [_id, ...newTask.tags]
+                  )))
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         <Button type="form-button">Add task</Button>

@@ -99,20 +99,28 @@
   }
 
   >label {
-    @include mix.flex-gap(1rem);
+    @include mix.flex-align-gap(1rem);
     padding: .5rem 1rem;
-    background: v.$red-light-1;
-    box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+    background: v.$light-2;
+    border: 1px solid rgba($color: #000, $alpha: .2);
     border-radius: v.$radius-sm;
+    justify-content: space-between;
+    white-space: nowrap;
 
-    input {
+    .input {
       padding-left: 2rem;
       position: relative;
+
+      label {
+        flex: 1;
+      }
 
       // &::before,
       // &::after {
       //   width: 1rem;
       //   height: 1rem;
+      //   // border-radius: v.$radius-sm / 2;
+      //   border-radius: v.$radius-sm / 2;
       //   position: absolute;
       //   inset: 0;
       // }
@@ -127,10 +135,12 @@
       // &::after {
       //   font-size: 1rem;
       //   text-align: center;
-      //   font-family: Checkbox;
+      //   font-family: 'Checkbox';
       // }
 
       // &:checked::after {
+      //   // content: '';
+      //   // background: v.$dark;
       //   content: '\e800';
       // }
     }
