@@ -17,11 +17,11 @@ const PasswordValidation = ({ password }) => {
   } = verifyPassword(password)
 
   const isValid = () => (
-    <CheckBadgeIcon width='1.75em' />
+    <CheckBadgeIcon className="icon" width='1.75em' />
   )
 
   const isNotValid = () => (
-    <XMarkIcon width='1.75em' />
+    <XMarkIcon className="icon" width='1.75em' />
   )
 
   return (

@@ -30,22 +30,23 @@ const About = () => {
           <div className="about-technos-front">
             <p>Frontend</p>
             <ul>
-              <li>react 18.2</li>
-              <li>react router 6.3</li>
-              <li>framer motion 8.2</li>
-              <li>sass 1.54.4</li>
-              <li>axios 1.2.1</li>
+              <li>react 18</li>
+              <li>react router 6</li>
+              <li>framer motion 8</li>
+              <li>heroicons 2</li>
+              <li>sass</li>
+              <li>axios</li>
             </ul>
           </div>
           <div className="about-technos-back">
             <p>Backend</p>
             <ul>
               <li>node js</li>
-              <li>express 4.18.2</li>
+              <li>express 4.18</li>
               <li>mongodb</li>
-              <li>mongoose 6.8.1</li>
+              <li>mongoose 6.8</li>
               <li>jwt 9</li>
-              <li>bcrypt 5.1</li>
+              <li>bcrypt 5</li>
             </ul>
           </div>
         </motion.div>

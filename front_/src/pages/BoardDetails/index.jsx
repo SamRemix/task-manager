@@ -106,7 +106,7 @@ const BoardDetails = () => {
             setPrefix={setPrefix}
           />
           <Button
-            type="green"
+            type="secondary"
             event={() => {
               toggle()
               setIsBoardSettingsOpen(false)

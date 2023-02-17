@@ -8,7 +8,7 @@ import config from './motion.config'
 
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-const Modal = ({ children, type, error, toggle }) => {
+const Modal = ({ children, toggle }) => {
   return (
     <div className="modal-container">
       <motion.div

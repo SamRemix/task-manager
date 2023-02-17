@@ -8,7 +8,7 @@
   z-index: 9;
 
   .backdrop {
-    background: rgba($color: #000, $alpha: .4);
+    background: rgba($color: #000, $alpha: .6);
     position: fixed;
     inset: 0;
 
@@ -23,7 +23,8 @@
     width: 100%;
     min-width: 50%;
     height: 100%;
-    background: v.$light;
+    // background: v.$light;
+    background: var(--background);
     border-left: 1px solid v.$dark;
     justify-content: space-between;
     position: fixed;
@@ -32,7 +33,8 @@
     z-index: 1;
 
     &-close {
-      box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      // box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      box-shadow: var(--box-shadow);
       border-radius: v.$radius-sm;
       position: fixed;
       inset: 2rem 2rem auto auto;

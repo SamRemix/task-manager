@@ -16,7 +16,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #c7c1ab;
+    background: var(--scrollbar-thumb);
     border-radius: 8px;
 
     // &:hover {
@@ -27,7 +27,7 @@
   &::-webkit-scrollbar-track {
     margin: v.$app-padding;
     border-radius: 6px;
-    background: #dfdac5;
+    // background: #dfdac5;
   }
 
   &::-webkit-scrollbar-corner {
@@ -37,7 +37,7 @@
 
 body {
   // dark cause of resize (resize console)
-  background: v.$dark;
+  background: var(--border-window-color);
   // font-family: 'Overpass';
   // font-family: 'Fira Mono';
   // font-family: 'Fira Sans';
@@ -47,8 +47,10 @@ body {
   #root {
     padding: v.$app-padding;
     height: 100vh;
-    background: v.$light;
-    color: #000;
+    background: var(--background);
+    // background: v.$light;
+    // color: #000;
+    color: var(--color);
     display: flex;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -59,13 +61,17 @@ body {
       content: '';
       width: calc(100% - 2rem);
       height: calc(100% - 2rem);
-      box-shadow: 0 0 0 2rem v.$dark;
+      box-shadow: 0 0 0 2rem var(--border-window-color);
       border-radius: v.$radius-lg;
       position: fixed;
       inset: 1rem auto auto 1rem;
       z-index: 7;
       pointer-events: none;
     }
+
+    // *:not(.timestamps) {
+    //   color: var(--color);
+    // }
 
     .container {
       // @include mix.flex-column-center;
@@ -108,11 +114,16 @@ body {
       .tips {
         @include mix.flex-column-gap(1rem);
         padding: 1rem;
-        background: v.$red-light-1;
+        background: var(--tips);
+        // background: v.$red-light-1;
+        border: var(--task-border);
         border-radius: v.$radius-lg;
         pointer-events: none;
 
+        .icon,
         p {
+          // color: #000;
+
           b {
             padding: 2px 6px;
             background: #444;

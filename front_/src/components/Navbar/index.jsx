@@ -50,8 +50,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* <div className={theme === 'dark' ? 'dark-filter--active' : 'dark-filter'} /> */}
-
       <div
         className={displayNavbar ? 'navbar-button--active' : 'navbar-button'}
         onClick={() => {
@@ -100,7 +98,7 @@ const Navbar = () => {
                 </div>
 
                 <NavLink to="/account" end>
-                  <Button type="default">
+                  <Button>
                     <p>{user.name}</p>
                   </Button>
                 </NavLink>

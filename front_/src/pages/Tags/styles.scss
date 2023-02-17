@@ -4,6 +4,7 @@
 .tags {
   &-list {
     @include mix.flex-gap(1rem);
+    color: #000;
     flex-wrap: wrap;
   }
 }

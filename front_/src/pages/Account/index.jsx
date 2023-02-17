@@ -10,7 +10,6 @@ import useAuthQueries from '../../hooks/useAuthQueries'
 import UpdateUserForm from './UpdateUserForm'
 
 import formatDate from '../../utils/formatDate'
-
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Account = () => {
@@ -23,7 +22,7 @@ const Account = () => {
       <UpdateUserForm user={user} />
 
       {/* {user && ( */}
-      <motion.div className="timestamps" {...config.timestampsAnimation}>
+      <motion.div className="tips timestamps" {...config.timestampsAnimation}>
         <p>Account created: {formatDate(user.createdAt)}.</p>
 
         {user.createdAt !== user.updatedAt && (

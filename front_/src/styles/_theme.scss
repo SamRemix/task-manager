@@ -1,110 +1,95 @@
 @use './vars' as v;
 
+:root {
+  --light: #e8e4d2;
+  --dark: #1b1014;
+  --dark-2: #161b22;
+  --dark-3: #0d1117;
+  --red: #ff6058;
+  --red-2: #ff3e00;
+  --red-light: #ff9c97;
+  --blue: #5F8EBD;
+  --blue-light: #dec1f2;
+  --green: #7dbfa2;
+  --green-light: #7adbb4;
+  --yellow-light: #fcddb0;
+  --yellow-3: #f7e991;
+
+  --black-alpha: rgba(0, 0, 0, .3);
+  --white-alpha: rgba(255, 255, 255, .3);
+
+  --box-shadow:
+    0 0 0 .125rem #000,
+    .375rem .375rem 0 .125rem #000;
+  --box-shadow-md:
+    0 0 0 .125rem #000,
+    .25rem .25rem 0 .125rem #000;
+  --box-shadow-sm:
+    0 0 0 .125rem #000,
+    .125rem .125rem 0 .125rem #000;
+}
+
+:root[theme='light'] {
+  --primary: var(--red);
+  // --secondary: var(--green);
+  // --secondary: var(--dark-2);
+  --cursor: var(--red);
+  --tips: var(--red-light);
+  // --task-low: #dfdac5;
+  // --task-high: var(--yellow-light);
+  // --task-low: #fff;
+  // --task-high: #fff;
+  --task-low: #f1eee0;
+  --task-high: #f1eee0;
+  // --task-border: 1px solid #acaeb1;
+  // --task-border: none;
+  // --task-border: 1px solid #30363d;
+  --task-border: 1px solid #acaeb1;
+  // --task-hover: var(--green);
+  --task-hover: #f1eee0;
+
+  --tag-background: var(--yellow-3);
+
+  --input-background: #f1eee0;
+  --input-color: #8b949e;
+  --input-border: 1px solid #acaeb1;
+
+  --background: var(--light);
+  // --background: #fff;
+  --border-window-color: var(--dark);
+
+  --color: #000;
+
+  --disabled: var(--black-alpha);
+
+  --scrollbar-thumb: var(--red-light);
+}
+
 :root[theme='dark'] {
-  * {
-    &::-webkit-scrollbar-thumb {
-      background: v.$red-1;
-    }
+  --primary: var(--blue);
+  // --secondary: var(--dark-2);
+  --cursor: var(--dark-2);
+  --tips: var(--dark-2);
+  --task-low: var(--dark-2);
+  --task-high: var(--dark-2);
+  --task-border: 1px solid #30363d;
+  --task-hover: var(--dark-2);
 
-    &::-webkit-scrollbar-track {
-      background: v.$dark;
-    }
-  }
+  // --tag-background: var(--green);
+  --tag-background: var(--yellow-3);
 
-  body {
-    background: v.$red-1;
+  --input-background: #010409;
+  --input-color: #8b949e;
+  --input-border: 1px solid #30363d;
 
-    #root {
-      background: v.$dark;
-      // color: #fff;
+  --background: var(--dark-3);
+  --border-window-color: var(--dark-2);
 
-      &::before {
-        box-shadow: 0 0 0 2rem v.$red-1;
-      }
+  --color: #fff;
 
-      .cursor {
-        .content {
-          &-item {
-            background: v.$dark;
-            box-shadow: 0 0 0 .125rem v.$red-1, .375rem .375rem 0 .125rem v.$red-1;
-            color: #fff;
-          }
-        }
-      }
+  --disabled: var(--white-alpha);
 
-      .container {
-        .header {
-          .title {
-            color: #fff;
-          }
-        }
-
-        &:not(.board) {
-          color: #fff;
-        }
-
-        &.board {
-          .status {
-            &-title {
-              color: #fff;
-            }
-          }
-        }
-
-        .loader {
-          &::before {
-            background: linear-gradient(v.$light 50%, rgba($color: v.$light, $alpha: .2) 50%);
-          }
-
-          &::after {
-            background: v.$dark;
-          }
-        }
-
-        .modal {
-          background: v.$dark;
-
-          &-content {
-            &-title {
-              color: #fff;
-            }
-          }
-        }
-      }
-
-      .navbar {
-        background: v.$dark;
-        border-color: v.$red-1;
-        color: #fff;
-
-        &--active {
-          @extend .navbar;
-        }
-
-        .user-card {
-          &-picture {
-            background: v.$dark;
-            border: 1px solid #fff;
-          }
-        }
-
-        &-list-item {
-          &.disabled {
-            color: rgba($color: #fff, $alpha: .3);
-          }
-        }
-      }
-
-      button.default {
-        // background: v.$yellow-1;
-        box-shadow: 0 0 0 .125rem v.$yellow-1, .375rem .375rem 0 .125rem v.$yellow-1;
-      }
-
-      .green {
-        @extend .default;
-      }
-    }
-  }
+  --scrollbar-thumb: #000;
 }
 
 :root[font='Poppins'] {

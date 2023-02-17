@@ -14,7 +14,7 @@ const Button = ({ children, type, event }) => {
   const navigate = useNavigate()
   return (
     <>
-      {['default', 'green', 'form-button', 'delete'].includes(type) && (
+      {['primary', 'secondary', 'form-button', 'delete'].includes(type) && (
         <button className={type} onClick={event}>
           {children}
         </button>
@@ -38,7 +38,7 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  type: 'default',
+  type: 'primary',
   event: null
 }
 

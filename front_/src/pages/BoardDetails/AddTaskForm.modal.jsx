@@ -91,7 +91,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
             <Input
               type="checkbox"
               placeholder="Important"
-              value={newTask.important}
+              checked={newTask.important}
               onChange={() => {
                 dispatchNewTask(actionSetField('important', !newTask.important))
               }}
@@ -107,7 +107,7 @@ const AddTaskForm = ({ board_id, toggle }) => {
                 key={_id}
                 type="checkbox"
                 placeholder={title}
-                value={newTask.tags.includes(_id)}
+                checked={newTask.tags.includes(_id)}
                 onChange={() => {
                   dispatchNewTask(actionSetField('tags', newTask.tags.includes(_id) ? (
                     newTask.tags.filter(tag => (
