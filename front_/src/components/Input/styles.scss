@@ -25,37 +25,24 @@
   >textarea {
     width: 100%;
     min-width: 160px;
-    // background: v.$light-2 !important;
     background: var(--input-background);
-    // border: 1px solid rgba($color: #000, $alpha: .2);
     border: var(--input-border);
     border-radius: v.$radius-sm;
     color: var(--color);
     font-family: inherit;
 
     &::placeholder {
-      // color: rgba($color: #000, $alpha: .4);
-      color: var(--input-color);
+      color: v.$input-color;
     }
 
     &:focus {
-      // border-color: v.$red-light-1;
-      // border-color: v.$red;
       border-color: var(--primary);
 
       &+.search-icon,
       &+.eye-icon {
-        // color: rgba($color: #000, $alpha: .6);
         color: var(--color);
-        // border-color: v.$red-light-1;
-        // border-color: v.$red;
         border-color: var(--primary);
-        // border-left-color: rgba($color: #000, $alpha: .2);
       }
-
-      // &::placeholder {
-      //   border-color: var(--primary);
-      // }
     }
 
     &+.search-icon,
@@ -63,13 +50,10 @@
       @include mix.flex-center;
       padding: 0 10px;
       height: 100%;
-      // background: v.$light;
       background: var(--input-background);
-      // border: 1px solid rgba($color: #000, $alpha: .2);
       border: var(--input-border);
       border-radius: 0 v.$radius-sm v.$radius-sm 0;
-      // color: rgba($color: #000, $alpha: .4);
-      color: var(--input-color);
+      color: v.$input-color;
       position: absolute;
       inset: 0 0 auto auto;
     }
@@ -77,13 +61,7 @@
     &+.eye-icon {
       cursor: pointer;
 
-      &--display {
-        @extend .eye-icon;
-        background: v.$red-light-1;
-      }
-
       &:hover {
-        // background: v.$red-light-1;
         color: var(--color);
       }
     }
@@ -119,9 +97,7 @@
   .checkbox {
     @include mix.flex-align-gap(1rem);
     padding: .5rem 1rem;
-    // background: v.$light-2;
     background: var(--tips);
-    // border: 1px solid rgba($color: #000, $alpha: .2);
     border: var(--task-border);
     border-radius: v.$radius-sm;
     justify-content: space-between;
@@ -150,8 +126,7 @@
       width: 1.25rem;
       height: 1.25rem;
       border-radius: v.$radius-sm / 2;
-      background: var(--task-low);
-      // border: 1px solid rgba($color: #000, $alpha: .2);
+      background: var(--task-background);
       border: var(--input-border);
     }
 

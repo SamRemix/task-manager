@@ -2,7 +2,6 @@
 @use '../../styles/mixins' as mix;
 
 .delete-container {
-  // @include mix.flex-gap(2rem);
   flex-direction: row !important;
   border-radius: v.$radius-lg;
   align-self: flex-end;
@@ -12,7 +11,6 @@
 
   &-confirm {
     @extend .delete-container;
-    background: v.$red-light-1;
   }
 
   .confirm-message {

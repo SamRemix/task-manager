@@ -2,22 +2,15 @@
 @use '../../styles/mixins' as mix;
 
 $navbar-button-size: 3rem;
-$navbar-transition: .4s .3s;
+$navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4s .3s;
 
 .navbar-button {
   @include mix.flex-center;
   width: $navbar-button-size;
   height: $navbar-button-size;
-  // background: v.$light;
-  // background: v.$red;
   background: var(--primary);
-  // background: v.$dark;
-  // box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-  box-shadow: var(--box-shadow);
-  // box-shadow: .375rem .375rem 0 .125rem v.$dark;
-  // border: 2px solid v.$dark;
+  box-shadow: v.$box-shadow-lg;
   border-radius: v.$radius-lg;
-  // border-radius: 0 0 v.$radius-lg v.$radius-lg;
   position: absolute;
   inset: .5rem auto auto 5.5rem;
   z-index: 8;
@@ -25,20 +18,17 @@ $navbar-transition: .4s .3s;
   transition: $navbar-transition, box-shadow .1s;
 
   &:hover {
-    // box-shadow: 0 0 0 .125rem v.$dark, .25rem .25rem 0 .125rem v.$dark;
-    box-shadow: var(--box-shadow-md);
+    box-shadow: v.$box-shadow-md;
   }
 
   &:active {
-    // box-shadow: 0 0 0 .125rem v.$dark, .125rem .125rem 0 .125rem v.$dark;
-    box-shadow: var(--box-shadow-sm);
+    box-shadow: v.$box-shadow-sm;
   }
 
   &--active {
     @extend .navbar-button;
-    // transform: translateX(calc(100vw - v.$app-padding - 50px));
     transform: translateX(calc(100vw - 5.5rem - $navbar-button-size));
-    transition: .4s, box-shadow .1s;
+    transition: transform .4s, box-shadow .1s;
 
     span {
       width: 2rem !important;
@@ -61,7 +51,6 @@ $navbar-transition: .4s .3s;
 
   span {
     height: 3px;
-    // background: v.$dark;
     background: #000;
     border-radius: 3px;
     position: absolute;
@@ -91,17 +80,14 @@ $navbar-transition: .4s .3s;
   @include mix.flex-column-gap(3rem);
   margin-left: 0;
   padding: 3rem 1rem;
-  // padding-right: 2rem;
   width: 6rem;
   height: calc(100vh - v.$app-padding * 2);
-  // background: v.$light;
   background: var(--background);
-  // border-right: 1px solid v.$dark;
   border-right: 1px solid var(--border-window-color);
   overflow: hidden scroll;
   direction: rtl;
   z-index: 1;
-  transition: $navbar-transition, background 0s;
+  transition: $navbar-transition;
 
   &--active {
     @extend .navbar;
@@ -134,9 +120,7 @@ $navbar-transition: .4s .3s;
       @include mix.flex-center;
       width: 4rem;
       height: 4rem;
-      // background: v.$light;
       background: var(--background);
-      // border: 1px solid v.$dark;
       border: 1px solid var(--border-window-color);
       border-radius: 50%;
     }
@@ -156,7 +140,6 @@ $navbar-transition: .4s .3s;
         position: relative;
 
         &.disabled {
-          // color: rgba($color: #000, $alpha: .3);
           color: var(--disabled);
           pointer-events: none;
 
@@ -193,7 +176,6 @@ $navbar-transition: .4s .3s;
           width: fit-content;
           height: fit-content;
           white-space: wrap;
-          // overflow-wrap: break-word;
           cursor: pointer;
 
           .title {
@@ -204,7 +186,6 @@ $navbar-transition: .4s .3s;
 
             .icon,
             .title {
-              // color: v.$red;
               color: var(--primary);
             }
           }

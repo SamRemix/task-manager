@@ -22,7 +22,7 @@
     box-shadow: 0 0 0 .125rem #000;
 
     &.active {
-      box-shadow: var(--box-shadow);
+      box-shadow: v.$box-shadow-lg;
     }
 
     &.disabled {
@@ -37,11 +37,9 @@
     >p {
       padding: .5rem .75rem;
       text-align: center;
-      // background: v.$light;
       background: var(--background);
       color: var(--color);
       border: var(--input-border);
-      // border: 1px solid #888;
       border-radius: v.$radius-sm;
       position: absolute;
       top: .75rem;

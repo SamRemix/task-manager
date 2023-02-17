@@ -11,6 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap');
 
 * {
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -18,16 +19,11 @@
   &::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
     border-radius: 8px;
-
-    // &:hover {
-    //   background: #b6af9b;
-    // }
   }
 
   &::-webkit-scrollbar-track {
     margin: v.$app-padding;
     border-radius: 6px;
-    // background: #dfdac5;
   }
 
   &::-webkit-scrollbar-corner {
@@ -48,8 +44,6 @@ body {
     padding: v.$app-padding;
     height: 100vh;
     background: var(--background);
-    // background: v.$light;
-    // color: #000;
     color: var(--color);
     display: flex;
     display: grid;
@@ -69,18 +63,10 @@ body {
       pointer-events: none;
     }
 
-    // *:not(.timestamps) {
-    //   color: var(--color);
-    // }
-
     .container {
-      // @include mix.flex-column-center;
       @include mix.flex-column-center-gap(1rem);
       justify-content: flex-start;
-      // margin-right: v.$app-padding;
-      // margin: 0 v.$app-padding;
       padding: calc(v.$container-padding / 2);
-      // width: calc(100% - v.$app-padding *2);
       // min-height: calc(100vh - v.$container-padding * 2);
       position: relative;
       overflow: hidden scroll;
@@ -97,7 +83,6 @@ body {
           @include mix.flex-align-gap(1rem);
           font-size: 3rem;
           font-weight: 800;
-          // white-space: nowrap;
         }
 
         .right-side {
@@ -115,14 +100,11 @@ body {
         @include mix.flex-column-gap(1rem);
         padding: 1rem;
         background: var(--tips-background);
-        // background: v.$red-light-1;
         border: var(--tips-border);
         border-radius: v.$radius-lg;
 
         .icon,
         p {
-          // color: #000;
-
           b {
             padding: 2px 6px;
             background: #444;
@@ -149,12 +131,6 @@ body {
             flex-wrap: wrap;
           }
         }
-
-        // .list-container {
-        //   .input {
-        //     flex: 1;
-        //   }
-        // }
       }
 
       p,

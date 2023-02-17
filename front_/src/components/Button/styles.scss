@@ -15,21 +15,17 @@
 
 .primary {
   @include button-style;
-  // background: v.$red;
   background: var(--primary);
-  box-shadow: var(--box-shadow);
-  // box-shadow: 0 0 0 .125rem #000;
+  box-shadow: v.$box-shadow-lg;
   font-weight: 600;
   transition: .1s;
 
   &:hover {
-    // box-shadow: 0 0 0 .125rem v.$dark, .25rem .25rem 0 .125rem v.$dark;
-    box-shadow: var(--box-shadow-md);
-  }
+    box-shadow: v.$box-shadow-md;
 
-  &:active {
-    // box-shadow: 0 0 0 .125rem v.$dark, .125rem .125rem 0 .125rem v.$dark;
-    box-shadow: var(--box-shadow-sm);
+    &:active {
+      box-shadow: v.$box-shadow-sm;
+    }
   }
 
   &:disabled {
@@ -38,14 +34,10 @@
 }
 
 .secondary {
-  // @extend .primary;
   @include button-style;
-  background: v.$dark-2;
-  // background: var(--secondary);
+  background: var(--border-window-color);
   box-shadow: 0 0 0 .125rem #000;
   border: var(--task-border);
-  // border: 1px solid #30363d;
-  // color: var(--color);
   color: #fff;
 }
 
@@ -64,6 +56,4 @@
   @extend .primary;
   background: transparent;
   color: var(--color);
-  // position: absolute;
-  // inset: 2rem auto auto 4rem;
 }

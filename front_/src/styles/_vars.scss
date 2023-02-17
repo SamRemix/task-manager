@@ -1,33 +1,26 @@
-// $green-1: #1eb854;
-// $green-2: #1aac83;
-// $green-3: #72D2C2;
-$green-4: #7dbfa2;
-$green-5: #b1c5bd;
+// $green-4: #7dbfa2;
+// $green-5: #b1c5bd;
 
-$red: #ff6058;
+// $red: #ff6058;
 $red-2: #ff3e00;
-$red-light-1: #ff9c97;
-// $red-light-2: #ff7f79;
+// $red-light-1: #ff9c97;
 
-$blue-1: #40B3FF;
-$blue-2: #497ff8;
-// $blue-light-1: #dec1f2;
+$yellow: #f7e991;
 
-$yellow-1: #fcddb0;
-// $yellow-2: #f5e39c;
-$yellow-3: #f7e991;
-
-$light: #e8e4d2;
-$light-2: #f1eee0;
+// $light: #e8e4d2;
+// $light-2: #f1eee0;
 $dark: #1b1014;
 $dark-2: #161b22;
 $dark-3: #0d1117;
 
-$high: $yellow-1;
-$low: #dfdac5;
+// $high: #fcddb0;
+// $low: #dfdac5;
 
-// $high: $light-2;
-// $low: $light-2;
+$input-color: #8b949e; // placeholder & label color
+
+$box-shadow-sm: 0 0 0 .125rem #000, .125rem .125rem 0 .125rem #000;
+$box-shadow-md: 0 0 0 .125rem #000, .25rem .25rem 0 .125rem #000;
+$box-shadow-lg: 0 0 0 .125rem #000, .375rem .375rem 0 .125rem #000;
 
 $app-padding: 1rem;
 $container-padding: 2.5rem;

@@ -20,11 +20,8 @@
     &-item {
       padding: .5rem .75rem;
       width: fit-content;
-      // background: v.$red;
       background: var(--primary);
-      // box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
-      box-shadow: var(--box-shadow);
-      // border: var(--task-border);
+      box-shadow: v.$box-shadow-lg;
       border-radius: v.$radius-sm;
       color: #000;
       white-space: nowrap;

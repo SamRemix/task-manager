@@ -110,7 +110,7 @@ const Input = ({
             key={key}
           />
           <div
-            className={display ? 'eye-icon--display' : 'eye-icon'}
+            className="eye-icon"
             onClick={toggle}>
             {display ? (
               <EyeSlashIcon width="1.5em" />
