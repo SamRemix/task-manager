@@ -8,7 +8,7 @@
   --red: #ff6058;
   --red-2: #ff3e00;
   --red-light: #ff9c97;
-  --blue: #5F8EBD;
+  --blue: #6897c3;
   --blue-light: #dec1f2;
   --green: #7dbfa2;
   --green-light: #7adbb4;
@@ -34,7 +34,6 @@
   // --secondary: var(--green);
   // --secondary: var(--dark-2);
   --cursor: var(--red);
-  --tips: var(--red-light);
   // --task-low: #dfdac5;
   // --task-high: var(--yellow-light);
   // --task-low: #fff;
@@ -54,11 +53,16 @@
   --input-color: #8b949e;
   --input-border: 1px solid #acaeb1;
 
+  --tips-background: var(--red-light);
+  --tips-border: none;
+
   --background: var(--light);
   // --background: #fff;
   --border-window-color: var(--dark);
 
   --color: #000;
+
+  --loader: linear-gradient(var(--color) 50%, transparent 50%);
 
   --disabled: var(--black-alpha);
 
@@ -69,7 +73,6 @@
   --primary: var(--blue);
   // --secondary: var(--dark-2);
   --cursor: var(--dark-2);
-  --tips: var(--dark-2);
   --task-low: var(--dark-2);
   --task-high: var(--dark-2);
   --task-border: 1px solid #30363d;
@@ -82,10 +85,15 @@
   --input-color: #8b949e;
   --input-border: 1px solid #30363d;
 
+  --tips-background: var(--dark-2);
+  --tips-border: 1px solid #30363d;
+
   --background: var(--dark-3);
   --border-window-color: var(--dark-2);
 
   --color: #fff;
+
+  --loader: linear-gradient(var(--color) 50%, transparent 50%);
 
   --disabled: var(--white-alpha);
 

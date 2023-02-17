@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import Header from '../../components/Header'
+import Button from '../../components/Button'
 
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
@@ -16,6 +17,8 @@ const About = () => {
     <section className="container about">
       <Header>
         <h1 className="title">About</h1>
+
+        <Button type="back" />
       </Header>
 
       <div className="content">

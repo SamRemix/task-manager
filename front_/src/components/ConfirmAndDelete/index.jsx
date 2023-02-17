@@ -12,7 +12,7 @@ const ConfirmAndDelete = ({ context, event }) => {
   const [confirm, setConfirm] = useState(false)
 
   return (
-    <div className={confirm ? 'delete-container-confirm' : 'delete-container'}>
+    <div className={confirm ? 'tips delete-container-confirm' : ' tips delete-container'}>
       <LayoutGroup>
         <motion.div
           layoutId={`delete-${context}-button`}

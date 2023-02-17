@@ -114,11 +114,10 @@ body {
       .tips {
         @include mix.flex-column-gap(1rem);
         padding: 1rem;
-        background: var(--tips);
+        background: var(--tips-background);
         // background: v.$red-light-1;
-        border: var(--task-border);
+        border: var(--tips-border);
         border-radius: v.$radius-lg;
-        pointer-events: none;
 
         .icon,
         p {

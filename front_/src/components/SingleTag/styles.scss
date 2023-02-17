@@ -5,16 +5,18 @@
   .tag {
     @include mix.flex-align-gap(1rem);
     padding: 1rem;
-    background: v.$low;
+    // background: v.$low;
+    background: var(--task-low);
+    border: var(--task-border);
     border-radius: v.$radius-lg;
+    color: var(--color);
     justify-content: space-between;
     flex: 1;
     white-space: nowrap;
     transition: background .2s, box-shadow .2s;
 
     &:hover {
-      background: v.$green-4;
-      box-shadow: 0 0 0 .125rem v.$dark, .375rem .375rem 0 .125rem v.$dark;
+      border-color: var(--primary);
     }
 
     &-footer {
