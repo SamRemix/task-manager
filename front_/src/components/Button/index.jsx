@@ -5,9 +5,6 @@ import PropTypes from 'prop-types'
 
 import { useNavigate } from 'react-router-dom'
 
-// import { motion } from 'framer-motion'
-// import config from './motion.config'
-
 import { ArrowLongLeftIcon } from '@heroicons/react/24/outline'
 
 const Button = ({ children, type, event }) => {
@@ -22,7 +19,7 @@ const Button = ({ children, type, event }) => {
 
       {type === 'back' && (
         <button
-          className={type}
+          className="secondary"
           onClick={() => navigate(-1)}>
           <ArrowLongLeftIcon width="2em" />
           Back

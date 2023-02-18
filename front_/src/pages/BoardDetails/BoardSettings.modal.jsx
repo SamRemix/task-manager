@@ -82,7 +82,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
               <Input
                 type="checkbox"
                 placeholder="Favorite"
-                value={favorite}
+                checked={favorite}
                 onChange={() => setFavorite(!favorite)}
               />
             </div>

@@ -14,7 +14,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 const Settings = () => {
-  const { theme, font: currFont, switchTheme, setFont } = useThemeContext()
+  const { theme: currTheme, font: currFont, switchTheme, setFont } = useThemeContext()
 
   return (
     <section className="container settings">
@@ -25,15 +25,16 @@ const Settings = () => {
       </Header>
 
       <div className="content">
-        <div className="theme-switcher" onClick={switchTheme}>
-          <p>Current theme:</p>
-          <Button>
-            {theme === 'light' ? (
+        <div className="theme-switcher">
+          <p>Theme</p>
+
+          <Button type="secondary" event={switchTheme}>
+            {currTheme === 'light' ? (
               <SunIcon width="1.75em" />
             ) : (
               <MoonIcon width="1.75em" />
             )}
-            {theme}
+            {currTheme}
           </Button>
         </div>
 
