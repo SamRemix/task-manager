@@ -84,17 +84,6 @@ const Cursor = () => {
             />
           )}
         </AnimatePresence>
-        {/* <AnimatePresence mode='popLayout'>
-          {items.map((item, i) => (
-            item && <motion.p
-              key={`${item}-cursor`}
-              className="content-item"
-              layoutId={`${item}-cursor`}
-              {...config.activeItemAnimation}>
-              {item}
-            </motion.p>
-          ))}
-        </AnimatePresence> */}
       </div>
     </motion.div>
   )
