@@ -16,8 +16,6 @@ export const useThemeContext = () => {
     dispatch({ type: 'SET_FONT', payload: props })
 
     localStorage.setItem('font', props)
-
-    // document.documentElement.setAttribute('font', props)
   }
 
   return { theme, font, switchTheme, setFont, dispatch }

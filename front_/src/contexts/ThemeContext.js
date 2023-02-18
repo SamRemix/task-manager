@@ -32,8 +32,6 @@ export const ThemeContext = createContext(initialState)
 export const ThemeProvider = ({ children }) => {
   const [state, dispatch] = useReducer(themeReducer, initialState)
 
-  const theme = localStorage.getItem('theme')
-
   const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
   const storeData = (key, value) => {
@@ -41,34 +39,34 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.setAttribute(key, value)
   }
 
+  const theme = localStorage.getItem('theme')
+
+  // set theme
   useEffect(() => {
     if (!theme) {
       dispatch({ type: 'SET_THEME', payload: browserTheme })
-
       storeData('theme', browserTheme)
 
       return
     }
 
     dispatch({ type: 'SET_THEME', payload: theme })
-
-    document.documentElement.setAttribute('theme', theme)
+    storeData('theme', theme)
   }, [theme])
 
   const font = localStorage.getItem('font')
 
+  // set font family
   useEffect(() => {
     if (!font) {
       dispatch({ type: 'SET_FONT', payload: 'Poppins' })
-
       storeData('font', 'Poppins')
 
       return
     }
 
     dispatch({ type: 'SET_FONT', payload: font })
-
-    document.documentElement.setAttribute('font', font)
+    storeData('font', font)
   }, [font])
 
   return (

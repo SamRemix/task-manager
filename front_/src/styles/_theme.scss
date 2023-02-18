@@ -1,16 +1,15 @@
 @use './vars' as v;
 
 :root {
-  --light: #f1eee0;
-  --dark: #161b22; // border window dark theme
-  --red-light: #ff9c97;
-  --yellow: #f7e991;
+  --light: #f1eee0; // task & tag background (dark) +input (light)
+  --dark: #161b22; // border window (dark)
+  --red-light: #ff9c97; // tips & scrollbar-thumb background (light)
 
   --light-border: #acaeb1;
   --dark-border: #30363d;
 }
 
-:root[theme='light'] {
+@mixin lightTheme {
   --primary: #ff6058;
 
   --background: #e8e4d2;
@@ -33,8 +32,8 @@
   --scrollbar-thumb: var(--red-light);
 }
 
-:root[theme='dark'] {
-  --primary: #6897c3;
+@mixin darkTheme {
+  --primary: #4290da;
 
   --background: #0d1117;
   --border-window-color: var(--dark);
@@ -56,14 +55,60 @@
   --scrollbar-thumb: #000;
 }
 
-:root[font='Poppins'] {
-  body {
-    font-family: 'Poppins';
+// prefers-color-scheme
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include lightTheme;
+    color-scheme: light;
   }
 }
 
-:root[font='Source Code Pro'] {
-  body {
-    font-family: 'Source Code Pro';
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include darkTheme;
+    color-scheme: dark;
   }
+}
+
+// light theme
+
+:root[theme='light'] {
+  @include lightTheme;
+  color-scheme: light;
+}
+
+// dark theme
+
+:root[theme='dark'] {
+  @include darkTheme;
+  color-scheme: dark;
+}
+
+// font
+
+@mixin font($font) {
+  body {
+    font-family: $font;
+  }
+}
+
+:root[font='Poppins'] {
+  @include font('Poppins');
+}
+
+:root[font='Source Code Pro'] {
+  @include font('Source Code Pro')
+}
+
+:root[font='Itim'] {
+  @include font('Itim');
+}
+
+:root[font='Comfortaa'] {
+  @include font('Comfortaa');
+}
+
+:root[font='Patrick Hand'] {
+  @include font('Patrick Hand');
 }

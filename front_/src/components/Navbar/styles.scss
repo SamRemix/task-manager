@@ -209,7 +209,9 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
 
               .icon,
               .title {
-                transition: .1s, color 0s;
+                // color: switch theme
+                // font-size: switch font (Itim)
+                transition: .1s, color 0s, font-size 0s;
               }
             }
           }

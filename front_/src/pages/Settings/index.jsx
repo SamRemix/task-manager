@@ -26,7 +26,8 @@ const Settings = () => {
 
       <div className="content">
         <div className="theme-switcher" onClick={switchTheme}>
-          Current theme: <Button>
+          <p>Current theme:</p>
+          <Button>
             {theme === 'light' ? (
               <SunIcon width="1.75em" />
             ) : (
@@ -39,18 +40,19 @@ const Settings = () => {
         <div className="font-family-switcher">
           <p>Font family</p>
 
-          {['Poppins', 'Source Code Pro'].map((font, i) => (
-            <Input
-              key={i}
-              type="radio"
-              name="status"
-              placeholder={font}
-              value={font}
-              checked={font === currFont}
-              onChange={e => {
-                setFont(e.target.value)
-              }}
-            />
+          {['Poppins', 'Source Code Pro', 'Comfortaa'].map((font, i) => (
+            <div key={i} className="font-input" style={{ fontFamily: font }}>
+              <Input
+                type="radio"
+                name="font"
+                placeholder={font}
+                value={font}
+                checked={font === currFont}
+                onChange={e => {
+                  setFont(e.target.value)
+                }}
+              />
+            </div>
           ))}
         </div>
       </div>
