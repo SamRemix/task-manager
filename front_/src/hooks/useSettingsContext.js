@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { SettingsContext } from '../contexts/SettingsContext'
 
-export const useThemeContext = () => {
-  const { theme, font, dispatch } = useContext(ThemeContext)
+export const useSettingsContext = () => {
+  const { theme, font, dispatch } = useContext(SettingsContext)
 
   const switchTheme = props => {
     dispatch({ type: 'SET_THEME', payload: props })
@@ -19,4 +19,4 @@ export const useThemeContext = () => {
   return { theme, font, switchTheme, setFont, dispatch }
 }
 
-export default useThemeContext
+export default useSettingsContext

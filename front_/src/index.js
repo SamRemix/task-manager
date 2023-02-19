@@ -10,7 +10,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { BoardsProvider } from './contexts/BoardsContext'
 import { TasksProvider } from './contexts/TasksContext'
 import { TagsProvider } from './contexts/TagsContext'
-import { ThemeProvider } from './contexts/ThemeContext'
+import { SettingsProvider } from './contexts/SettingsContext'
 import { CursorProvider } from './contexts/CursorContext'
 
 const root = createRoot(document.getElementById('root'))
@@ -20,13 +20,13 @@ root.render(
     <BoardsProvider>
       <TasksProvider>
         <TagsProvider>
-          <ThemeProvider>
+          <SettingsProvider>
             <CursorProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
             </CursorProvider>
-          </ThemeProvider>
+          </SettingsProvider>
         </TagsProvider>
       </TasksProvider>
     </BoardsProvider>

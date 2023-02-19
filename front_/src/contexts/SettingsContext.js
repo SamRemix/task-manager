@@ -8,7 +8,7 @@ const initialState = {
 const SET_THEME = 'SET_THEME'
 const SET_FONT = 'SET_FONT'
 
-const themeReducer = (state = initialState, action) => {
+const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_THEME:
       return {
@@ -27,51 +27,36 @@ const themeReducer = (state = initialState, action) => {
   }
 }
 
-export const ThemeContext = createContext(initialState)
+export const SettingsContext = createContext(initialState)
 
-export const ThemeProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(themeReducer, initialState)
+export const SettingsProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(settingsReducer, initialState)
 
   const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
   const storeData = (key, value) => {
     localStorage.setItem(key, value)
     document.documentElement.setAttribute(key, value)
+    dispatch({ type: `SET_${key.toUpperCase()}`, payload: value })
   }
 
+  // set default theme
   const theme = localStorage.getItem('theme')
 
-  // set theme
   useEffect(() => {
-    if (!theme) {
-      dispatch({ type: 'SET_THEME', payload: browserTheme })
-      storeData('theme', browserTheme)
-
-      return
-    }
-
-    dispatch({ type: 'SET_THEME', payload: theme })
-    storeData('theme', theme)
+    storeData('theme', theme ?? browserTheme)
   }, [theme])
 
+  // set font family
   const font = localStorage.getItem('font')
 
-  // set font family
   useEffect(() => {
-    if (!font) {
-      dispatch({ type: 'SET_FONT', payload: 'Poppins' })
-      storeData('font', 'Poppins')
-
-      return
-    }
-
-    dispatch({ type: 'SET_FONT', payload: font })
-    storeData('font', font)
+    storeData('font', font ?? 'Poppins')
   }, [font])
 
   return (
-    <ThemeContext.Provider value={{ ...state, dispatch }}>
+    <SettingsContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </ThemeContext.Provider>
+    </SettingsContext.Provider>
   )
 }

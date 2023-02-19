@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import config from './motion.config'
 
-import useThemeContext from '../../hooks/useThemeContext'
+import useSettingsContext from '../../hooks/useSettingsContext'
 import useAuthContext from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import useCursorContext from '../../hooks/useCursorContext'
@@ -42,7 +42,7 @@ import {
 const Navbar = () => {
   const { user, logout } = useAuthContext()
   const { boards, error } = useBoardsContext()
-  const { theme, switchTheme } = useThemeContext()
+  const { theme, switchTheme } = useSettingsContext()
   const { printItem, removeItem } = useCursorContext()
 
   const { display: displayBoards, toggle: toggleBoards } = useToggle()

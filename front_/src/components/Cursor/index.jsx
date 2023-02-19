@@ -79,6 +79,8 @@ const Cursor = () => {
           {printed && (
             <motion.p
               className="content-item"
+              // span element can be set in printed item for bolder font weight
+              // render html element (span)
               dangerouslySetInnerHTML={{ __html: printed }}
               {...config.activeItemAnimation}
             />

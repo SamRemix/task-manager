@@ -5,14 +5,14 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useThemeContext from '../../hooks/useThemeContext'
+import useSettingsContext from '../../hooks/useSettingsContext'
 
 import Header from '../../components/Header'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const Settings = () => {
-  const { theme: currTheme, font: currFont, switchTheme, setFont } = useThemeContext()
+  const { theme: currTheme, font: currFont, switchTheme, setFont } = useSettingsContext()
 
   return (
     <section className="container settings">

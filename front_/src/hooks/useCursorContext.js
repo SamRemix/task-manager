@@ -1,9 +1,8 @@
-import { useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { CursorContext } from '../contexts/CursorContext'
 
 const useCursorContext = () => {
   const { items, printed, dispatch } = useContext(CursorContext)
-  // span element can be set in item property for bolder font weight
 
   // activate an item without displaying it (items)
   const addItem = item => {
@@ -24,6 +23,11 @@ const useCursorContext = () => {
   const printItem = item => {
     dispatch({ type: 'PRINT', payload: item })
   }
+
+  // reset when rendering a new component
+  useEffect(() => {
+    dispatch({ type: 'RESET' })
+  }, [])
 
   return { items, printed, addItem, removeItem, resetItem, printItem }
 }
