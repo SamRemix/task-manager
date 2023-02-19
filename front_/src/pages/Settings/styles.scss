@@ -4,11 +4,17 @@
 .settings {
   .content {
     align-items: flex-start !important;
-  }
 
-  .theme-switcher,
-  .font-family-switcher {
-    @include mix.flex-column-gap(1rem);
-    align-items: flex-start;
+    .theme-switcher,
+    .font-family-switcher {
+      @include mix.flex-column-gap(1rem);
+      // align-items: flex-start;
+
+      .themes-container,
+      .fonts-container {
+        @include mix.flex-gap(1rem);
+        flex-wrap: wrap;
+      }
+    }
   }
 }

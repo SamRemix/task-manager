@@ -12,37 +12,49 @@ const ConfirmAndDelete = ({ context, event }) => {
   const [confirm, setConfirm] = useState(false)
 
   return (
-    <div className={confirm ? 'tips delete-container-confirm' : ' tips delete-container'}>
-      <LayoutGroup>
-        <motion.div
-          layoutId={`delete-${context}-button`}
-          {...config.deleteButtonAnimation}>
-          <Button
-            type="delete"
-            event={confirm ? event : () => setConfirm(true)}>
-            Delete {context}
-          </Button>
-        </motion.div>
+    <LayoutGroup>
+      <motion.div
+        className={confirm ? 'tips delete-container-confirm' : ' tips delete-container'}
+        layoutId={`delete-container-${context}`}
+        {...config.deleteButtonAnimation}>
+        <LayoutGroup>
+          <motion.div
+            layoutId={`delete-${context}-button`}
+            {...config.deleteButtonAnimation}>
+            <Button
+              type="delete"
+              event={confirm ? event : () => setConfirm(true)}>
+              {confirm ? 'Yes, delete' : 'Delete'} {context}
+            </Button>
+          </motion.div>
 
-        <AnimatePresence>
-          {confirm && (
-            <>
+          <AnimatePresence mode='popLayout'>
+            {confirm && (
               <motion.div
                 layoutId={`cancel-delete-${context}-button`}
-                {...config.cancelButtonAnimation}>
-                <Button event={() => setConfirm(false)}>Cancel</Button>
+                {...config.cancelAnimation}>
+                <Button
+                  type="secondary"
+                  event={() => setConfirm(false)}>
+                  Cancel
+                </Button>
               </motion.div>
+            )}
+          </AnimatePresence>
 
+          <AnimatePresence>
+            {confirm && (
               <motion.p
                 className="confirm-message"
-                {...config.confirmMessageAnimation}>
+                layoutId={`cancel-delete-${context}-message`}
+                {...config.cancelAnimation}>
                 Are you sure?
               </motion.p>
-            </>
-          )}
-        </AnimatePresence>
-      </LayoutGroup>
-    </div>
+            )}
+          </AnimatePresence>
+        </LayoutGroup>
+      </motion.div>
+    </LayoutGroup>
   )
 }
 

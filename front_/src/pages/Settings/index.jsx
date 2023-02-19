@@ -2,6 +2,9 @@ import './styles.scss'
 
 import { memo } from 'react'
 
+import { motion, AnimatePresence } from 'framer-motion'
+import config from './motion.config'
+
 import useThemeContext from '../../hooks/useThemeContext'
 
 import Header from '../../components/Header'
@@ -25,37 +28,51 @@ const Settings = () => {
       </Header>
 
       <div className="content">
-        <div className="theme-switcher">
+        <motion.div
+          className="theme-switcher"
+          {...config.themeInputAnimation}>
           <p>Theme</p>
 
-          <Button type="secondary" event={switchTheme}>
-            {currTheme === 'light' ? (
-              <SunIcon width="1.75em" />
-            ) : (
-              <MoonIcon width="1.75em" />
-            )}
-            {currTheme}
-          </Button>
-        </div>
+          <div className="themes-container">
+            {['light', 'dark'].map((theme, i) => (
+              <div key={i} className="theme-input">
+                <Input
+                  type="radio"
+                  name="theme"
+                  placeholder={theme}
+                  value={theme}
+                  checked={theme === currTheme}
+                  onChange={e => {
+                    switchTheme(e.target.value)
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
-        <div className="font-family-switcher">
+        <motion.div
+          className="font-family-switcher"
+          {...config.fontInputAnimation}>
           <p>Font family</p>
 
-          {['Poppins', 'Source Code Pro', 'Comfortaa'].map((font, i) => (
-            <div key={i} className="font-input" style={{ fontFamily: font }}>
-              <Input
-                type="radio"
-                name="font"
-                placeholder={font}
-                value={font}
-                checked={font === currFont}
-                onChange={e => {
-                  setFont(e.target.value)
-                }}
-              />
-            </div>
-          ))}
-        </div>
+          <div className="fonts-container">
+            {['Poppins', 'Source Code Pro', 'Comfortaa'].map((font, i) => (
+              <div key={i} className="font-input" style={{ fontFamily: font }}>
+                <Input
+                  type="radio"
+                  name="font"
+                  placeholder={font}
+                  value={font}
+                  checked={font === currFont}
+                  onChange={e => {
+                    setFont(e.target.value)
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )

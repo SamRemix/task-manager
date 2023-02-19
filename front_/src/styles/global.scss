@@ -152,5 +152,12 @@ body {
         }
       }
     }
+
+    // reset autofill input background
+    input {
+      &:-webkit-autofill {
+        box-shadow: inset 0 0 0 30px v.$dark-4;
+      }
+    }
   }
 }

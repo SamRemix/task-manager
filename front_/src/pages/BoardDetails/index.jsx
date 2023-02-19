@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthQueries from '../../hooks/useAuthQueries'
+import useAuthContext from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import useTasksContext from '../../hooks/useTasksContext'
 import useSearch from '../../hooks/useSearch'
@@ -33,7 +33,7 @@ import capitalize from '../../utils/capitalize'
 
 const BoardDetails = () => {
   let { board_id } = useParams()
-  const { user } = useAuthQueries()
+  const { user } = useAuthContext()
   const { boards } = useBoardsContext()
   const { tasks, loading, setLoading, error, setError, dispatch } = useTasksContext()
   const { prefix, setPrefix, search } = useSearch()

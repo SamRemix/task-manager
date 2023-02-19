@@ -101,16 +101,8 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
     direction: ltr;
   }
 
-  .header {
-    margin-right: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &-theme-switcher,
-    &-lang-switcher {
-      cursor: pointer;
-    }
+  .lang-switcher {
+    cursor: pointer;
   }
 
   .user-card {

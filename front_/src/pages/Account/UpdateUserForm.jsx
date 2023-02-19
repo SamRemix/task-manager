@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthQueries from '../../hooks/useAuthQueries'
+import useAuthContext from '../../hooks/useAuthContext'
 
 import axios from '../../axios.config'
 
@@ -13,7 +13,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const UpdateUserForm = ({ user }) => {
-  const { dispatch } = useAuthQueries()
+  const { dispatch } = useAuthContext()
 
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)

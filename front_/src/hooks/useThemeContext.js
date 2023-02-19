@@ -4,12 +4,12 @@ import { ThemeContext } from '../contexts/ThemeContext'
 export const useThemeContext = () => {
   const { theme, font, dispatch } = useContext(ThemeContext)
 
-  const switchTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light'
+  const switchTheme = props => {
+    // const nextTheme = theme === 'light' ? 'dark' : 'light'
 
-    dispatch({ type: 'SET_THEME', payload: nextTheme })
+    dispatch({ type: 'SET_THEME', payload: props })
 
-    localStorage.setItem('theme', nextTheme)
+    localStorage.setItem('theme', props)
   }
 
   const setFont = props => {

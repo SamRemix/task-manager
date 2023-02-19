@@ -2,7 +2,7 @@ import { memo, useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
-import useAuthQueries from './hooks/useAuthQueries'
+import useAuthContext from './hooks/useAuthContext'
 import { useBoardsContext } from './hooks/useBoardsContext'
 import useTagsContext from './hooks/useTagsContext'
 
@@ -27,7 +27,7 @@ import NotFound from './pages/404'
 const App = () => {
   const location = useLocation()
 
-  const { token, user, dispatch } = useAuthQueries()
+  const { token, user, dispatch } = useAuthContext()
   const { dispatch: dispatchBoards } = useBoardsContext()
   const { getTags, dispatch: dispatchTags } = useTagsContext()
 

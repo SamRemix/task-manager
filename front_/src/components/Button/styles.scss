@@ -48,7 +48,9 @@
 }
 
 .delete {
-  @extend .primary;
-  background: v.$red-2;
+  @extend .secondary;
+  color: v.$red-2;
+  font-weight: 600;
+  // background: v.$red-2;
   align-self: flex-end;
 }

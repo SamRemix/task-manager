@@ -7,7 +7,7 @@ import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import config from './motion.config'
 
 import useThemeContext from '../../hooks/useThemeContext'
-import useAuthQueries from '../../hooks/useAuthQueries'
+import useAuthContext from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'
 import useCursorContext from '../../hooks/useCursorContext'
 import useToggle from '../../hooks/useToggle'
@@ -40,7 +40,7 @@ import {
 // 12k 3.5k
 
 const Navbar = () => {
-  const { user, logout } = useAuthQueries()
+  const { user, logout } = useAuthContext()
   const { boards, error } = useBoardsContext()
   const { theme, switchTheme } = useThemeContext()
   const { printItem, removeItem } = useCursorContext()
@@ -69,20 +69,10 @@ const Navbar = () => {
           <AnimatePresence>
             {displayNavbar && (
               <motion.div
-                className="header"
-                layoutId="header"
+                className="lang-switcher"
+                layoutId="lang-switcher"
                 {...config.userCardAnimation}>
-                <div className="header-theme-switcher" onClick={switchTheme}>
-                  {theme === 'light' ? (
-                    <MoonIcon width="1.75em" />
-                  ) : (
-                    <SunIcon width="1.75em" />
-                  )}
-                </div>
-
-                <div className="header-lang-switcher">
-                  <p>fr - en</p>
-                </div>
+                <p>fr - en</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -338,6 +328,52 @@ const Navbar = () => {
                   </AnimatePresence>
                 </NavLink>
               </motion.li>
+
+              <motion.li
+                className="navbar-list-item"
+                layoutId="about"
+                {...config.navbarItemAnimation}>
+                <NavLink
+                  to="/about"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? () => printItem('About') : undefined}
+                  onMouseLeave={!displayNavbar ? () => removeItem('About') : undefined}>
+                  <InformationCircleIcon className="icon" width="1.75em" />
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="aboutTitle"
+                        {...config.itemTitleAnimation}>
+                        About
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
+
+              <motion.li
+                className="navbar-list-item disabled"
+                layoutId="doc"
+                {...config.navbarItemAnimation}>
+                <NavLink
+                  to="/doc"
+                  className="link"
+                  onMouseEnter={!displayNavbar ? () => printItem('Doc') : undefined}
+                  onMouseLeave={!displayNavbar ? () => removeItem('Doc') : undefined}>
+                  <CodeBracketIcon className="icon" width="1.75em" />
+                  <AnimatePresence>
+                    {displayNavbar && (
+                      <motion.p
+                        className="title"
+                        layoutId="docTitle"
+                        {...config.itemTitleAnimation}>
+                        Doc
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              </motion.li>
             </div>
 
             <div className="footer">
@@ -416,52 +452,6 @@ const Navbar = () => {
                   </>
                 )}
               </AnimatePresence>
-
-              <motion.li
-                className="navbar-list-item"
-                layoutId="about"
-                {...config.navbarItemAnimation}>
-                <NavLink
-                  to="/about"
-                  className="link"
-                  onMouseEnter={!displayNavbar ? () => printItem('About') : undefined}
-                  onMouseLeave={!displayNavbar ? () => removeItem('About') : undefined}>
-                  <InformationCircleIcon className="icon" width="1.75em" />
-                  <AnimatePresence>
-                    {displayNavbar && (
-                      <motion.p
-                        className="title"
-                        layoutId="aboutTitle"
-                        {...config.itemTitleAnimation}>
-                        About
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
-              </motion.li>
-
-              <motion.li
-                className="navbar-list-item disabled"
-                layoutId="doc"
-                {...config.navbarItemAnimation}>
-                <NavLink
-                  to="/doc"
-                  className="link"
-                  onMouseEnter={!displayNavbar ? () => printItem('Doc') : undefined}
-                  onMouseLeave={!displayNavbar ? () => removeItem('Doc') : undefined}>
-                  <CodeBracketIcon className="icon" width="1.75em" />
-                  <AnimatePresence>
-                    {displayNavbar && (
-                      <motion.p
-                        className="title"
-                        layoutId="docTitle"
-                        {...config.itemTitleAnimation}>
-                        Doc
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
-              </motion.li>
             </div>
           </ul>
         </nav>

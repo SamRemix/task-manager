@@ -33,79 +33,77 @@ const SingleTask = ({ task, toggleModal, setTaskId, prefix, setPrefix }) => {
   }
 
   return (
-    <>
-      <motion.div
-        className={task.important ? 'task-content-important' : 'task-content'}
-        layoutId={task._id}
-        {...config.singleTaskAnimation}>
+    <motion.div
+      className={task.important ? 'task-content-important' : 'task-content'}
+      layoutId={task._id}
+      {...config.singleTaskAnimation}>
 
-        <div className="task-content-infos">
-          <p className="task-content-infos-title">{capitalize(task.title)}</p>
-          {task.description?.includes('\n') ? (
-            <ul className="task-content-infos-description-list">
-              {task.description.split('\n').map((item, i) => (
-                <li key={i} className="task-content-infos-description-list-item">
-                  {capitalize(item.trim())}
-                </li>
-              ))}
-            </ul>
-          ) : task.description && (
-            <p className="task-content-infos-description">
-              {capitalize(task.description)}
-            </p>
-          )}
-          <div className="task-content-infos-tags">
-            {task.tags.map(({ _id, title }) => (
-              <p
-                key={_id}
-                className="tag"
-                onClick={() => {
-                  setPrefix(prefix === `#${title}` ? '' : `#${title}`)
+      <div className="task-content-infos">
+        <p className="task-content-infos-title">{capitalize(task.title)}</p>
+        {task.description?.includes('\n') ? (
+          <ul className="task-content-infos-description-list">
+            {task.description.split('\n').map((item, i) => (
+              <li key={i} className="task-content-infos-description-list-item">
+                {capitalize(item.trim())}
+              </li>
+            ))}
+          </ul>
+        ) : task.description && (
+          <p className="task-content-infos-description">
+            {capitalize(task.description)}
+          </p>
+        )}
+        <div className="task-content-infos-tags">
+          {task.tags.map(({ _id, title }) => (
+            <p
+              key={_id}
+              className="tag"
+              onClick={() => {
+                setPrefix(prefix === `#${title}` ? '' : `#${title}`)
 
-                  printItem(prefix !== `#${title}` ? (
-                    '<span>Reset</span> filter'
-                  ) : (
-                    `Filter by <span>#${capitalize(title)}</span> tag`
-                  ))
-                }}
-                onMouseEnter={() => printItem(prefix === `#${title}` ? (
+                printItem(prefix !== `#${title}` ? (
                   '<span>Reset</span> filter'
                 ) : (
                   `Filter by <span>#${capitalize(title)}</span> tag`
-                ))}
-                onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag` || 'Reset filter')}>
-                <span>#</span>{capitalize(title)}
-              </p>
-            ))}
-          </div>
-        </div>
-
-        <div className="task-content-footer">
-          <p className="task-content-footer-date">{formatDate(task.createdAt)}</p>
-          <p className='task-importance'>{task.important && 'high'}</p>
-          {task.status !== 'Done' && (
-            <div className="button"
-              onMouseEnter={() => {
-                printItem(`Switch to <span>${nextStatus}</span>`)
-                addItem(nextStatus)
+                ))
               }}
-              onMouseLeave={() => removeItem(nextStatus)}>
-              <CheckBadgeIcon width="1.5em" className="button-validate" onClick={updateStatus} />
-            </div>
-          )}
-          <div
-            className="button"
-            onClick={() => {
-              setTaskId(task._id)
-              toggleModal()
-            }}
-            onMouseEnter={() => printItem('Update')}
-            onMouseLeave={() => removeItem('Update')}>
-            <PencilSquareIcon width="1.5em" className="button-update" />
-          </div>
+              onMouseEnter={() => printItem(prefix === `#${title}` ? (
+                '<span>Reset</span> filter'
+              ) : (
+                `Filter by <span>#${capitalize(title)}</span> tag`
+              ))}
+              onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag` || 'Reset filter')}>
+              <span>#</span>{capitalize(title)}
+            </p>
+          ))}
         </div>
-      </motion.div>
-    </>
+      </div>
+
+      <div className="task-content-footer">
+        <p className="task-content-footer-date">{formatDate(task.createdAt)}</p>
+        <p className='task-importance'>{task.important && 'high'}</p>
+        {task.status !== 'Done' && (
+          <div className="button"
+            onMouseEnter={() => {
+              printItem(`Switch to <span>${nextStatus}</span>`)
+              addItem(nextStatus)
+            }}
+            onMouseLeave={() => removeItem(nextStatus)}>
+            <CheckBadgeIcon width="1.5em" className="button-validate" onClick={updateStatus} />
+          </div>
+        )}
+        <div
+          className="button"
+          onClick={() => {
+            setTaskId(task._id)
+            toggleModal()
+          }}
+          onMouseEnter={() => printItem('Update')}
+          onMouseLeave={() => removeItem('Update')}>
+          <PencilSquareIcon width="1.5em" className="button-update" />
+        </div>
+      </div>
+    </motion.div>
   )
 }
 

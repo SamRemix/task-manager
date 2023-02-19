@@ -5,7 +5,7 @@ import { memo } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthQueries from '../../hooks/useAuthQueries'
+import useAuthContext from '../../hooks/useAuthContext'
 
 import UpdateUserForm from './UpdateUserForm'
 import Header from '../../components/Header'
@@ -15,7 +15,7 @@ import formatDate from '../../utils/formatDate'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Account = () => {
-  const { user } = useAuthQueries()
+  const { user } = useAuthContext()
 
   setDocumentTitle(user?.name)
 

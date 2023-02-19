@@ -3,7 +3,7 @@ import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthQueries from '../../hooks/useAuthQueries'
+import useAuthContext from '../../hooks/useAuthContext'
 
 import Header from '../../components/Header'
 import Input from '../../components/Input'
@@ -12,7 +12,7 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Login = () => {
-  const { error, setError, login } = useAuthQueries()
+  const { error, setError, login } = useAuthContext()
 
   setDocumentTitle('Log in')
 

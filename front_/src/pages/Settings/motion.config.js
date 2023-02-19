@@ -1,5 +1,5 @@
 const config = {
-  titleInputAnimation: {
+  themeInputAnimation: {
     initial: {
       x: -160,
       opacity: 0
@@ -16,11 +16,11 @@ const config = {
       opacity: 0,
       transition: {
         duration: .2,
-        delay: .2
+        delay: .1
       }
     }
   },
-  favCheckboxAnimation: {
+  fontInputAnimation: {
     initial: {
       x: -160,
       opacity: 0
@@ -31,28 +31,6 @@ const config = {
       transition: {
         duration: .6,
         delay: .1
-      }
-    },
-    exit: {
-      x: 120,
-      opacity: 0,
-      transition: {
-        duration: .2,
-        delay: .1
-      }
-    }
-  },
-  submitButtonAnimation: {
-    initial: {
-      x: -160,
-      opacity: 0
-    },
-    animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: .6,
-        delay: .2
       }
     },
     exit: {
