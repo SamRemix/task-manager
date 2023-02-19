@@ -3,8 +3,7 @@ import './styles.scss'
 import { memo, useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import config from './motion.config'
+import { AnimatePresence } from 'framer-motion'
 
 import useAuthContext from '../../hooks/useAuthContext'
 import { useBoardsContext } from '../../hooks/useBoardsContext'

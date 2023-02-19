@@ -1,8 +1,4 @@
-import { createContext, useReducer, useEffect, useMemo } from 'react'
-
-import { useAuthContext } from '../hooks/useAuthContext'
-
-import axios from '../axios.config'
+import { createContext, useReducer, useMemo } from 'react'
 
 const initialState = {
   loading: null,
@@ -43,7 +39,6 @@ const boardsReducer = (state = initialState, action) => {
       return {
         loading: false,
         boards: state.boards.map(board => (
-          // board._id === action.payload._id ? action.payload : board
           board._id === action.payload._id ? { ...board, ...action.payload } : board
         )),
         error: null
@@ -75,34 +70,12 @@ export const BoardsContext = createContext(initialState)
 export const BoardsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
 
-  // const { user } = useAuthContext()
+  const memoizedState = useMemo(() => state, [state])
 
-  // useEffect(() => {
-  //   const getBoards = async () => {
-  //     dispatch({ type: 'LOADING' })
-
-  //     try {
-  //       const { data } = await axios.get('/boards')
-
-  //       // dispatch({ type: 'GET_BOARDS', payload: user ? data : null })
-  //       dispatch({ type: 'GET_BOARDS', payload: data })
-
-  //     } catch (err) {
-  //       dispatch({ type: 'ERROR', payload: err.response.data.error || err.message })
-  //     }
-  //   }
-
-  //   if (user) {
-  //     getBoards()
-  //   }
-  // }, [dispatch, user])
-
-  // const memoizedState = useMemo(() => state, [state])
-
-  console.log('Boards memoized state : ', state)
+  console.log('Boards memoized state : ', memoizedState)
 
   return (
-    <BoardsContext.Provider value={{ ...state, dispatch }}>
+    <BoardsContext.Provider value={{ ...memoizedState, dispatch }}>
       {children}
     </BoardsContext.Provider>
   )

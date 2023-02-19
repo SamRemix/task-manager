@@ -20,7 +20,6 @@ const UpdateUserForm = ({ user }) => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
-  const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
   const updateName = async e => {
@@ -34,11 +33,10 @@ const UpdateUserForm = ({ user }) => {
 
       dispatch({ type: 'UPDATE_USER', payload: data.user })
 
-      setSuccess(data.success)
       setError('')
     } catch (err) {
-      setSuccess('')
       setError(err.response.data.error)
+      console.log(error);
     }
   }
 

@@ -9,15 +9,12 @@ import axios from '../axios.config'
 const useAuthContext = () => {
   const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const { token, user, dispatch } = useContext(AuthContext)
   const { dispatch: dispatch_boards } = useBoardsContext()
 
   const signup = async props => {
-    setLoading(true)
-
     try {
       const { data } = await axios.post('/auth/signup', props)
 
@@ -25,19 +22,15 @@ const useAuthContext = () => {
 
       localStorage.setItem('token', JSON.stringify(data))
 
-      setLoading(false)
       setError(false)
 
       navigate('/')
     } catch ({ response }) {
-      setLoading(false)
       setError(response.data.error)
     }
   }
 
   const login = async props => {
-    setLoading(true)
-
     try {
       const { data } = await axios.post('/auth/login', props)
 
@@ -45,12 +38,10 @@ const useAuthContext = () => {
 
       localStorage.setItem('token', JSON.stringify(data))
 
-      setLoading(false)
       setError(false)
 
       navigate('/')
     } catch ({ response }) {
-      setLoading(false)
       setError(response.data.error)
     }
   }

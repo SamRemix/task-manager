@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { memo } from 'react'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import config from './motion.config'
 
 import useThemeContext from '../../hooks/useThemeContext'
@@ -10,11 +10,6 @@ import useThemeContext from '../../hooks/useThemeContext'
 import Header from '../../components/Header'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-
-import {
-  MoonIcon, // dark theme icon
-  SunIcon, // light theme icon
-} from '@heroicons/react/24/outline'
 
 const Settings = () => {
   const { theme: currTheme, font: currFont, switchTheme, setFont } = useThemeContext()

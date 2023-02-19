@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from 'react'
+import { createContext, useReducer } from 'react'
 
 const initialState = {
   items: [],

@@ -5,8 +5,6 @@ export const useThemeContext = () => {
   const { theme, font, dispatch } = useContext(ThemeContext)
 
   const switchTheme = props => {
-    // const nextTheme = theme === 'light' ? 'dark' : 'light'
-
     dispatch({ type: 'SET_THEME', payload: props })
 
     localStorage.setItem('theme', props)

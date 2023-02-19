@@ -68,12 +68,12 @@ export const TagsContext = createContext(initialState)
 export const TagsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tagsReducer, initialState)
 
-  // const memoizedState = useMemo(() => state, [state])
+  const memoizedState = useMemo(() => state, [state])
 
-  console.log('Tags state : ', state)
+  console.log('Tags memoized state : ', memoizedState)
 
   return (
-    <TagsContext.Provider value={{ ...state, dispatch }}>
+    <TagsContext.Provider value={{ ...memoizedState, dispatch }}>
       {children}
     </TagsContext.Provider>
   )

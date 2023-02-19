@@ -19,7 +19,7 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
 @media (min-width: 640px) {
   .navbar-button {
     &--active {
-      transform: translateX(13rem);
+      transform: translateX(18rem);
     }
   }
 
@@ -27,15 +27,22 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
     &--active {
       width: 18rem;
     }
+
+    &+.container {
+      @include container;
+    }
   }
 }
 
 // md 768px
 @media (min-width: 768px) {
+  .navbar-button {
+    transform: translateX(5rem);
+  }
+
   .navbar {
-    &+.container {
-      @include container;
-    }
+    padding: 3rem 1rem;
+    width: 6rem;
   }
 
   .container {

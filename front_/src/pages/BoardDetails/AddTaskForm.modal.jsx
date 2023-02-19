@@ -10,7 +10,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const AddTaskForm = ({ board_id, toggle }) => {
-  const { error, setError, addTask, dispatch } = useTasksContext()
+  const { error, setError, dispatch } = useTasksContext()
   const { tags } = useTagsContext()
 
   const SET_FIELD = 'SET_FIELD'
