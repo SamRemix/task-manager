@@ -3,7 +3,7 @@ import './styles.scss'
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import config from './motion.config'
 
 import useCursorContext from '../../hooks/useCursorContext'
@@ -47,16 +47,15 @@ const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
               <span>{setTasks(title).length} {setTasks(title).length > 1 ? 'tasks' : 'task'}</span>
             )}
           </h2>
+
           <div className="status-container">
             <AnimatePresence>
-              {setTasks(title).map(task => (
+              {setTasks(title).map(({ _id, ...rest }) => (
                 <SingleTask
-                  key={task._id}
-                  task={task}
+                  key={_id}
+                  _id={_id}
+                  {...rest}
                   tasks={tasks}
-                  tags={task.tags?.sort((a, b) => (
-                    a.title < b.title ? -1 : a.title > b.title && 1
-                  ))}
                   toggleModal={toggleModal}
                   setTaskId={setTaskId}
                   prefix={prefix}

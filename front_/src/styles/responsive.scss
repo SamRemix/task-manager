@@ -74,7 +74,8 @@ $progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) *
 @media (min-width: 1536px) {
   .board {
     .tasks-container {
-      grid-template-columns: repeat(3, 1fr);
+      // grid-template-columns: repeat(3, 1fr);
+      flex-direction: row;
     }
   }
 }
