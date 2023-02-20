@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import React from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { motion } from 'framer-motion'
@@ -43,4 +43,4 @@ SingleTag.propTypes = {
   toggle: PropTypes.func.isRequired
 }
 
-export default SingleTag
+export default memo(SingleTag)
