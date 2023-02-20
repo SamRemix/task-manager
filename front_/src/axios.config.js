@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const token = JSON.parse(localStorage.getItem('token'))
+const token = localStorage.getItem('token')
 
 const instance = axios.create({
   headers: {

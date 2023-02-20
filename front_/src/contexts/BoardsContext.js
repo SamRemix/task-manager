@@ -8,7 +8,7 @@ const initialState = {
 
 const LOADING = 'LOADING'
 const GET_BOARDS = 'GET_BOARDS'
-const CREATE_BOARD = 'CREATE_BOARD'
+const ADD_BOARD = 'ADD_BOARD'
 const DELETE_BOARD = 'DELETE_BOARD'
 const UPDATE_BOARD = 'UPDATE_BOARD'
 const ERROR = 'ERROR'
@@ -28,7 +28,7 @@ const boardsReducer = (state = initialState, action) => {
         error: null
       }
 
-    case CREATE_BOARD:
+    case ADD_BOARD:
       return {
         loading: false,
         boards: [action.payload, ...state.boards],

@@ -8,7 +8,7 @@ const initialState = {
 
 const LOADING = 'LOADING'
 const GET_TASKS = 'GET_TASKS'
-const CREATE_TASK = 'CREATE_TASK'
+const ADD_TASK = 'ADD_TASK'
 const DELETE_TASK = 'DELETE_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const ERROR = 'ERROR'
@@ -28,7 +28,7 @@ const tasksReducer = (state = initialState, action) => {
         error: null
       }
 
-    case CREATE_TASK:
+    case ADD_TASK:
       return {
         loading: false,
         tasks: [action.payload, ...state.tasks],

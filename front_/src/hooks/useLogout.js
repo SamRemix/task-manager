@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import { BoardsContext } from '../contexts/BoardsContext'
 
-const useAuthContext = () => {
-  const navigate = useNavigate()
-
-  const { token, user, dispatch: dispatchAuth } = useContext(AuthContext)
+const useLogout = () => {
+  const { dispatch: dispatchAuth } = useContext(AuthContext)
   const { dispatch: dispatchBoards } = useContext(BoardsContext)
+
+  const navigate = useNavigate()
 
   const logout = () => {
     dispatchAuth({ type: 'LOGOUT' })
@@ -19,7 +19,7 @@ const useAuthContext = () => {
     navigate('/login')
   }
 
-  return { token, user, logout, dispatch: dispatchAuth }
+  return { logout }
 }
 
-export default useAuthContext
+export default useLogout

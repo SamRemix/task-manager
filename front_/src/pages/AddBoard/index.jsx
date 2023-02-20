@@ -1,12 +1,9 @@
 import { memo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { useBoardsContext } from '../../hooks/useBoardsContext'
-
-import axios from '../../axios.config'
+import useFetch from '../../hooks/useFetch'
 
 import Header from '../../components/Header'
 import Input from '../../components/Input'
@@ -15,29 +12,21 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const AddBoard = () => {
-  const navigate = useNavigate()
-
   setDocumentTitle('Add board')
-
-  const { dispatch } = useBoardsContext()
 
   const [title, setTitle] = useState('')
   const [favorite, setFavorite] = useState(false)
 
-  const [error, setError] = useState('')
+  const { error, setError, fetchData } = useFetch({
+    method: 'post',
+    url: '/boards',
+    type: 'ADD_BOARD'
+  })
 
-  const createBoard = async e => {
+  const createBoard = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.post('/boards', { title, favorite })
-
-      dispatch({ type: 'CREATE_BOARD', payload: data })
-
-      navigate(`/boards/${data._id}`)
-    } catch (err) {
-      setError(err.response.data.error)
-    }
+    fetchData({ title, favorite })
   }
 
   return (

@@ -1,16 +1,16 @@
 import './styles.scss'
 
-import { memo, useState } from 'react'
+import { memo, useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import config from './motion.config'
 
-import useSettingsContext from '../../hooks/useSettingsContext'
 import useAuthContext from '../../hooks/useAuthContext'
-import { useBoardsContext } from '../../hooks/useBoardsContext'
+import { BoardsContext } from '../../contexts/BoardsContext'
+import useFetch from '../../hooks/useFetch'
+import useSettingsContext from '../../hooks/useSettingsContext'
 import useCursorContext from '../../hooks/useCursorContext'
-import useToggle from '../../hooks/useToggle'
 
 import SingleBoard from '../SingleBoard'
 import Button from '../Button'
@@ -40,13 +40,13 @@ import {
 // 12k 3.5k
 
 const Navbar = () => {
-  const { user, logout } = useAuthContext()
-  const { boards, error } = useBoardsContext()
+  const [displayBoards, toggleBoards] = useState(false)
+  const [displayNavbar, toggleNavbar] = useState(true)
+
+  const { token, user, logout } = useAuthContext()
+  const { boards, error } = useContext(BoardsContext)
   const { theme, switchTheme } = useSettingsContext()
   const { printItem, removeItem } = useCursorContext()
-
-  const { display: displayBoards, toggle: toggleBoards } = useToggle()
-  const [displayNavbar, toggleNavbar] = useState(true)
 
   return (
     <>
@@ -90,7 +90,7 @@ const Navbar = () => {
           </AnimatePresence>
 
           <AnimatePresence>
-            {user && displayNavbar && (
+            {token && user && displayNavbar && (
               <motion.div
                 className="user-card"
                 layoutId="user"
@@ -155,7 +155,7 @@ const Navbar = () => {
                       </AnimatePresence>
                     </div>
                   </motion.li>
-                ) : user && (
+                ) : token && user && (
                   <>
                     <motion.li
                       className={!displayNavbar ? 'navbar-list-item disabled' : 'navbar-list-item'}
@@ -163,10 +163,9 @@ const Navbar = () => {
                       {...config.navbarItemAnimation}>
                       <div
                         className={displayBoards ? 'link active' : 'link'}
-                        onClick={displayNavbar ? toggleBoards : undefined}
-                      // onMouseEnter={!displayNavbar ? (() => dispatch({ type: 'ACTIVE', payload: 'Boards' })) : undefined}
-                      // onMouseLeave={() => dispatch({ type: 'DISACTIVE', payload: 'Boards' })}
-                      >
+                        onClick={displayNavbar ? () => toggleBoards(!displayBoards) : undefined}
+                        onMouseEnter={!displayNavbar ? () => printItem('Open navbar to view boards') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Open navbar to view boards') : undefined}>
                         <ClipboardDocumentListIcon className="icon" width="1.75em" />
 
                         <AnimatePresence>
@@ -262,7 +261,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="friends"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? () => printItem('Soon') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Soon') : undefined}>
                         <UsersIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -281,7 +283,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="messages"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? () => printItem('Soon') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Soon') : undefined}>
                         <ChatBubbleLeftRightIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -300,7 +305,10 @@ const Navbar = () => {
                       className="navbar-list-item disabled"
                       layoutId="agenda"
                       {...config.navbarItemAnimation}>
-                      <div className="link">
+                      <div
+                        className="link"
+                        onMouseEnter={!displayNavbar ? () => printItem('Soon') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Soon') : undefined}>
                         <CalendarIcon className="icon" width="1.75em" />
                         <AnimatePresence>
                           {displayNavbar && (
@@ -368,11 +376,10 @@ const Navbar = () => {
                 className="navbar-list-item disabled"
                 layoutId="doc"
                 {...config.navbarItemAnimation}>
-                <NavLink
-                  to="/doc"
+                <div
                   className="link"
-                  onMouseEnter={!displayNavbar ? () => printItem('Doc') : undefined}
-                  onMouseLeave={!displayNavbar ? () => removeItem('Doc') : undefined}>
+                  onMouseEnter={!displayNavbar ? () => printItem('Soon') : undefined}
+                  onMouseLeave={!displayNavbar ? () => removeItem('Soon') : undefined}>
                   <CodeBracketIcon className="icon" width="1.75em" />
                   <AnimatePresence>
                     {displayNavbar && (
@@ -384,13 +391,13 @@ const Navbar = () => {
                       </motion.p>
                     )}
                   </AnimatePresence>
-                </NavLink>
+                </div>
               </motion.li>
             </div>
 
             <div className="footer">
               <AnimatePresence>
-                {user ? (
+                {token && user ? (
                   <motion.li
                     className="navbar-list-item"
                     layoutId="logout"

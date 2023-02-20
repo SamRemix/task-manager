@@ -2,9 +2,10 @@ import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-import { useBoardsContext } from '../../hooks/useBoardsContext'
+// import { useBoardsContext } from '../../hooks/useBoardsContext'
+import useFetch from '../../hooks/useFetch'
 
-import axios from '../../axios.config'
+// import axios from '../../axios.config'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -13,50 +14,37 @@ import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 import formatDate from '../../utils/formatDate'
 
 const BoardSettings = ({ board, board_id, toggle }) => {
-  const navigate = useNavigate()
-
-  const { dispatch } = useBoardsContext()
-
   // const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const [title, setTitle] = useState(board.title)
   const [favorite, setFavorite] = useState(board.favorite)
 
-  const updateBoard = async e => {
+  const navigate = useNavigate()
+
+  // const { dispatch } = useBoardsContext()
+  const { fetchData: updateData } = useFetch({
+    method: 'patch',
+    url: `/boards/${board_id}`,
+    type: 'UPDATE_BOARD'
+  })
+  const { fetchData: deleteData } = useFetch({
+    method: 'delete',
+    url: `/boards/${board_id}`,
+    type: 'DELETE_BOARD'
+  })
+
+  const updateBoard = e => {
     e.preventDefault()
 
-    // setLoading(true)
+    updateData({ title, favorite })
 
-    try {
-      const { data } = await axios.patch(`/boards/${board_id}`, {
-        title,
-        favorite
-      })
-
-      dispatch({ type: 'UPDATE_BOARD', payload: data })
-
-      // setLoading(false)
-
-      toggle()
-    } catch (err) {
-      // setLoading(false)
-      setError(err.response.data.error)
-    }
+    toggle()
   }
 
-  const deleteBoard = async () => {
-    try {
-      toggle()
-
-      const { data } = await axios.delete(`/boards/${board_id}`)
-
-      dispatch({ type: 'DELETE_BOARD', payload: data })
-
-      navigate('/')
-    } catch (err) {
-      console.log(err)
-    }
+  const deleteBoard = () => {
+    deleteData()
+    toggle()
   }
 
   return (

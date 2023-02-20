@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import useTagsContext from '../../hooks/useTagsContext'
+import useFetch from '../../hooks/useFetch'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -10,20 +10,30 @@ import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 import formatDate from '../../utils/formatDate'
 
 const TagSettings = ({ tag, toggle }) => {
-  const { error, setError, updateTag, deleteTag } = useTagsContext()
-
   const [title, setTitle] = useState(tag.title)
 
-  const handleUpdateTag = e => {
+  const { error, setError, fetchData: updateData } = useFetch({
+    method: 'patch',
+    url: `/tags/${tag._id}`,
+    type: 'UPDATE_TAG'
+  })
+
+  const { fetchData: deleteData } = useFetch({
+    method: 'delete',
+    url: `/tags/${tag._id}`,
+    type: 'DELETE_TAG'
+  })
+
+  const updateTag = e => {
     e.preventDefault()
 
-    updateTag(tag._id, { title })
+    updateData({ title })
 
     toggle()
   }
 
-  const handleDeleteTag = () => {
-    deleteTag(tag._id)
+  const deleteTag = () => {
+    deleteData()
 
     toggle()
   }
@@ -32,7 +42,7 @@ const TagSettings = ({ tag, toggle }) => {
     <>
       <div className="modal-content">
         <h1 className="modal-content-title">Tag settings</h1>
-        <form onSubmit={handleUpdateTag}>
+        <form onSubmit={updateTag}>
           <Input
             placeholder="Title"
             value={title}
@@ -50,7 +60,7 @@ const TagSettings = ({ tag, toggle }) => {
       </div>
 
       <div className="modal-footer">
-        <ConfirmAndDelete context="tag" event={handleDeleteTag} />
+        <ConfirmAndDelete context="tag" event={deleteTag} />
 
         <div className="tips">
           <p>Created on {formatDate(tag.createdAt)}</p>

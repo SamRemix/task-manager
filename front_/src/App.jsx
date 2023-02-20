@@ -1,13 +1,9 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import useAuthContext from './hooks/useAuthContext'
-import { useBoardsContext } from './hooks/useBoardsContext'
-import useTagsContext from './hooks/useTagsContext'
 import useFetch from './hooks/useFetch'
-
-import axios from './axios.config'
 
 // components
 import Navbar from './components/Navbar'
@@ -28,80 +24,25 @@ import NotFound from './pages/404'
 const App = () => {
   const location = useLocation()
 
-  const { token, user, dispatch } = useAuthContext()
-  const { dispatch: dispatchBoards } = useBoardsContext()
-  const { getTags, dispatch: dispatchTags } = useTagsContext()
+  const { token, user } = useAuthContext()
+
+  useFetch({
+    method: 'get',
+    url: '/user',
+    type: 'LOGIN'
+  })
 
   useFetch({
     method: 'get',
     url: '/boards',
-    // dispatch: dispatchBoards,
     type: 'GET_BOARDS'
   })
 
-  // useEffect(() => {
-  //   response ? (
-  //     dispatchBoards({ type: 'GET_BOARDS', payload: response })
-  //   ) : error && (
-  //     console.log(error)
-  //   )
-  // }, [response, dispatchBoards, token, user])
-
-
-
-  // useFetch({
-  //   method: 'get',
-  //   url: '/user',
-  //   headers: {
-  //     'Authorization': `Bearer ${token}`
-  //   }
-  // })
-
-  useEffect(() => {
-    // if (response) {
-    //   dispatch({ type: 'LOGIN', payload: response.data })
-    // }
-
-    const getCurrentUser = async () => {
-      try {
-        const { data } = await axios.get('/user')
-
-        dispatch({ type: 'LOGIN', payload: data })
-
-      } catch ({ response }) {
-        // dispatch({ type: 'ERROR', payload: err.response.data.error })
-      }
-    }
-
-    if (token) {
-      getCurrentUser()
-    }
-  }, [dispatch, token])
-
-  // useEffect(() => {
-  //   const getBoards = async () => {
-  //     dispatchBoards({ type: 'LOADING' })
-
-  //     try {
-  //       const { data } = await axios.get('/boards')
-
-  //       dispatchBoards({ type: 'GET_BOARDS', payload: data })
-
-  //     } catch ({ response }) {
-  //       dispatchBoards({ type: 'ERROR', payload: response.data.error })
-  //     }
-  //   }
-
-  //   if (user) {
-  //     getBoards()
-  //   }
-  // }, [dispatchBoards, token, user])
-
-  useEffect(() => {
-    if (user) {
-      getTags()
-    }
-  }, [dispatchTags, token, user])
+  useFetch({
+    method: 'get',
+    url: '/tags',
+    type: 'GET_TAGS'
+  })
 
   return (
     <>
@@ -113,15 +54,15 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
 
-          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
+          <Route path="/boards/:board_id" element={token && <BoardDetails />} />
 
-          <Route path="/add-board" element={user && <AddBoard />} />
+          <Route path="/add-board" element={token && <AddBoard />} />
 
-          <Route path="/tags" element={user && <Tags />} />
+          <Route path="/tags" element={token && <Tags />} />
 
-          <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
-          <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-          <Route path="/account" element={user && <Account />} />
+          <Route path="/signup" element={!token ? <Signup /> : <Navigate to="/" />} />
+          <Route path="/login" element={!token ? <Login /> : <Navigate to="/" />} />
+          <Route path="/account" element={token && <Account />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

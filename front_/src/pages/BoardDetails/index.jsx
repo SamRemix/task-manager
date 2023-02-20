@@ -5,13 +5,9 @@ import { useParams } from 'react-router-dom'
 
 import { AnimatePresence } from 'framer-motion'
 
-import useAuthContext from '../../hooks/useAuthContext'
-import { useBoardsContext } from '../../hooks/useBoardsContext'
-import useTasksContext from '../../hooks/useTasksContext'
+import useFetch from '../../hooks/useFetch'
 import useSearch from '../../hooks/useSearch'
 import useToggle from '../../hooks/useToggle'
-
-import axios from '../../axios.config'
 
 import AddTaskForm from './AddTaskForm.modal'
 import BoardSettings from './BoardSettings.modal'
@@ -31,20 +27,25 @@ import setDocumentTitle from '../../utils/setDocumentTitle'
 import capitalize from '../../utils/capitalize'
 
 const BoardDetails = () => {
-  let { board_id } = useParams()
-  const { user } = useAuthContext()
-  const { boards } = useBoardsContext()
-  const { tasks, loading, setLoading, error, setError, dispatch } = useTasksContext()
-  const { prefix, setPrefix, search } = useSearch()
-  const { display, toggle } = useToggle()
-
   // define modal content
   const [isBoardSettingsOpen, setIsBoardSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
   const [isTaskSettingsOpen, setIsTaskSettingsOpen] = useState(false)
-
   // set which task is displayed by clicking on the task setting button
   const [taskId, setTaskId] = useState('')
+
+  let { board_id } = useParams()
+
+  const { boards, tasks, loading, error } = useFetch({
+    method: 'get',
+    url: `/tasks/${board_id}`,
+    type: 'GET_TASKS',
+    params: {
+      id: board_id
+    }
+  })
+  const { prefix, setPrefix, search } = useSearch()
+  const { display, toggle } = useToggle()
 
   // focus on search bar when prefix is set
   const searchBar = useRef(null)
@@ -54,28 +55,6 @@ const BoardDetails = () => {
       searchBar.current.focus()
     }
   }, [prefix])
-
-  useEffect(() => {
-    const getTasks = async () => {
-      setLoading(true)
-
-      try {
-        const { data } = await axios.get(`/tasks/${board_id}`)
-
-        dispatch({ type: 'GET_TASKS', payload: data })
-
-        setLoading(false)
-        setError(false)
-      } catch ({ response }) {
-        setLoading(false)
-        setError(response.data.error)
-      }
-    }
-
-    if (user) {
-      getTasks()
-    }
-  }, [dispatch, user])
 
   if (loading || error) {
     return (

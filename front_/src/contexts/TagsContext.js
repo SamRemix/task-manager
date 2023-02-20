@@ -6,7 +6,7 @@ const initialState = {
 
 const LOADING = 'LOADING'
 const GET_TAGS = 'GET_TAGS'
-const CREATE_TAG = 'CREATE_TAG'
+const ADD_TAG = 'ADD_TAG'
 const DELETE_TAG = 'DELETE_TAG'
 const UPDATE_TAG = 'UPDATE_TAG'
 const ERROR = 'ERROR'
@@ -26,7 +26,7 @@ const tagsReducer = (state = initialState, action) => {
         error: null
       }
 
-    case CREATE_TAG:
+    case ADD_TAG:
       return {
         loading: false,
         tags: [action.payload, ...state.tags],
@@ -37,7 +37,7 @@ const tagsReducer = (state = initialState, action) => {
       return {
         loading: false,
         tags: state.tags.map(tag => (
-          tag._id === action.payload._id ? { ...tag, ...action.payload } : tag
+          tag._id === action.payload._id ? action.payload : tag
         )),
         error: null
       }

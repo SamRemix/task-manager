@@ -1,11 +1,13 @@
 import './styles.scss'
 
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthContext from '../../hooks/useAuthContext'
+// import useAuthContext from '../../hooks/useAuthContext'
+import { AuthContext } from '../../contexts/AuthContext'
+import useFetch from '../../hooks/useFetch'
 
 import UpdateUserForm from './UpdateUserForm'
 import Header from '../../components/Header'
@@ -15,7 +17,8 @@ import formatDate from '../../utils/formatDate'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Account = () => {
-  const { user } = useAuthContext()
+  const { user } = useContext(AuthContext)
+  // const { user } = useFetch()
 
   setDocumentTitle(user?.name)
 
@@ -32,10 +35,10 @@ const Account = () => {
 
         {/* {user && ( */}
         <motion.div className="tips timestamps" {...config.timestampsAnimation}>
-          <p>Account created: {formatDate(user.createdAt)}.</p>
+          <p>Account created: {formatDate(user?.createdAt)}.</p>
 
-          {user.createdAt !== user.updatedAt && (
-            <p>Last update: {formatDate(user.updatedAt)}.</p>
+          {user?.createdAt !== user?.updatedAt && (
+            <p>Last update: {formatDate(user?.updatedAt)}.</p>
           )}
         </motion.div>
         {/* )} */}

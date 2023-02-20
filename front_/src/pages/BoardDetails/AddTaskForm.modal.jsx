@@ -1,71 +1,47 @@
-import { memo, useReducer } from 'react'
+import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import useTasksContext from '../../hooks/useTasksContext'
-import useTagsContext from '../../hooks/useTagsContext'
-
-import axios from '../../axios.config'
+import useFetch from '../../hooks/useFetch'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const AddTaskForm = ({ board_id, toggle }) => {
-  const { error, setError, dispatch } = useTasksContext()
-  const { tags } = useTagsContext()
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [important, setImportant] = useState(false)
+  const [currTags, setCurrTags] = useState([])
 
-  const SET_FIELD = 'SET_FIELD'
-  const actionSetField = (name, value) => ({
-    type: SET_FIELD, payload: {
-      name,
-      value
-    }
+  const { tags, error, setError, fetchData } = useFetch({
+    method: 'post',
+    url: '/tasks',
+    type: 'ADD_TASK'
   })
 
-  const newTaskReducer = (state, action) => {
-    switch (action.type) {
-      case SET_FIELD:
-        return {
-          ...state,
-          [action.payload.name]: action.payload.value
-        }
-
-      default:
-        throw new Error('Action not recognized')
-    }
-  }
-
-  const [newTask, dispatchNewTask] = useReducer(newTaskReducer, {
-    title: '',
-    description: '',
-    important: false,
-    tags: [],
-    board_id
-  })
-
-  const handleAddTask = async e => {
+  const addTask = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.post('/tasks', newTask)
+    fetchData({
+      title,
+      description,
+      important,
+      tags: currTags,
+      board_id
+    })
 
-      dispatch({ type: 'CREATE_TASK', payload: data })
-
-      toggle()
-    } catch ({ response }) {
-      setError(response.data.error)
-    }
+    toggle()
   }
 
   return (
     <div className="modal-content">
       <h1 className="modal-content-title">Add task</h1>
-      <form onSubmit={handleAddTask}>
+      <form onSubmit={addTask}>
         <Input
           placeholder="Title"
-          value={newTask.title}
+          value={title}
           onChange={e => {
             setError('')
-            dispatchNewTask(actionSetField('title', e.target.value))
+            setTitle(e.target.value)
           }}
           maxLength="36"
           focus={true}
@@ -75,9 +51,9 @@ const AddTaskForm = ({ board_id, toggle }) => {
         <Input
           type="textarea"
           placeholder="Description (optional)"
-          value={newTask.description}
+          value={description}
           onChange={e => {
-            dispatchNewTask(actionSetField('description', e.target.value))
+            setDescription(e.target.value)
           }}
         />
 
@@ -91,9 +67,9 @@ const AddTaskForm = ({ board_id, toggle }) => {
             <Input
               type="checkbox"
               placeholder="Important"
-              checked={newTask.important}
+              checked={important}
               onChange={() => {
-                dispatchNewTask(actionSetField('important', !newTask.important))
+                setImportant(!important)
               }}
             />
           </div>
@@ -107,15 +83,15 @@ const AddTaskForm = ({ board_id, toggle }) => {
                 key={_id}
                 type="checkbox"
                 placeholder={title}
-                checked={newTask.tags.includes(_id)}
+                checked={currTags.includes(_id)}
                 onChange={() => {
-                  dispatchNewTask(actionSetField('tags', newTask.tags.includes(_id) ? (
-                    newTask.tags.filter(tag => (
+                  setCurrTags(currTags.includes(_id) ? (
+                    currTags.filter(tag => (
                       tag !== _id
                     ))
                   ) : (
-                    [_id, ...newTask.tags]
-                  )))
+                    [_id, ...currTags]
+                  ))
                 }}
               />
             ))}

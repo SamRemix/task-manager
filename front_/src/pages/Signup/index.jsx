@@ -3,7 +3,7 @@ import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthContext from '../../hooks/useAuthContext'
+import useFetch from '../../hooks/useFetch'
 
 import Header from '../../components/Header'
 import PasswordValidation from '../../components/PasswordValidation'
@@ -13,18 +13,22 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Signup = () => {
-  const { error, setError, signup } = useAuthContext()
-
-  setDocumentTitle('Sign up')
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSignup = e => {
+  const { error, setError, fetchData } = useFetch({
+    method: 'post',
+    url: '/auth/signup',
+    type: 'SET_TOKEN'
+  })
+
+  setDocumentTitle('Sign up')
+
+  const signup = e => {
     e.preventDefault()
 
-    signup({ name, email, password })
+    fetchData({ name, email, password })
   }
 
   return (
@@ -34,7 +38,7 @@ const Signup = () => {
       </Header>
 
       <div className="content">
-        <form onSubmit={handleSignup}>
+        <form onSubmit={signup}>
           <motion.div {...config.nameInputAnimation}>
             <Input
               placeholder="Name"

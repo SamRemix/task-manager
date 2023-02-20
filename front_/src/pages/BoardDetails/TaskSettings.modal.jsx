@@ -1,10 +1,7 @@
 import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import useTasksContext from '../../hooks/useTasksContext'
-import useTagsContext from '../../hooks/useTagsContext'
-
-import axios from '../../axios.config'
+import useFetch from '../../hooks/useFetch'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -13,45 +10,41 @@ import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 import formatDate from '../../utils/formatDate'
 
 const TaskSettings = ({ task, toggle }) => {
-  const { dispatch } = useTasksContext()
-  const { tags: allTags } = useTagsContext()
-
   const [title, setTitle] = useState(task.title)
   const [description, setDescription] = useState(task.description)
   const [currStatus, setCurrStatus] = useState(task.status)
   const [important, setImportant] = useState(task.important)
-  const [tags, setTags] = useState(task.tags)
+  const [currTags, setCurrTags] = useState(task.tags)
 
-  const [error, setError] = useState('')
+  const { tags, error, setError, fetchData: updateData } = useFetch({
+    method: 'patch',
+    url: `/tasks/${task._id}`,
+    type: 'UPDATE_TASK'
+  })
+  const { fetchData: deleteData } = useFetch({
+    method: 'delete',
+    url: `/tasks/${task._id}`,
+    type: 'DELETE_TASK'
+  })
 
-  const updateTask = async e => {
+  const updateTask = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.patch(`/tasks/${task._id}`, {
-        title,
-        description,
-        status: currStatus,
-        important,
-        tags
-      })
-
-      dispatch({ type: 'UPDATE_TASK', payload: data })
-
-      toggle()
-    } catch (err) {
-      setError(err.response.data.error)
-    }
-  }
-
-  const deleteTask = async () => {
-    const { data } = await axios.delete(`/tasks/${task._id}`)
-
-    dispatch({ type: 'DELETE_TASK', payload: data })
+    updateData({
+      title,
+      description,
+      status: currStatus,
+      important,
+      tags: currTags
+    })
 
     toggle()
+  }
 
-    // removeItem('Delete')
+  const deleteTask = () => {
+    deleteData()
+
+    toggle()
   }
 
   return (
@@ -117,23 +110,23 @@ const TaskSettings = ({ task, toggle }) => {
           <div className="list-container">
             <p>Tags:</p>
             <div className="list-container-input">
-              {allTags.map(tag => (
+              {tags.map(tag => (
                 <Input
                   key={tag._id}
                   type="checkbox"
                   placeholder={tag.title}
-                  checked={tags.some(selected => (
+                  checked={currTags.some(selected => (
                     selected._id === tag._id
                   ))}
                   onChange={() => {
-                    setTags(tags.some(selected => (
+                    setCurrTags(currTags.some(selected => (
                       selected._id === tag._id
                     )) ? (
-                      tags.filter(selected => (
+                      currTags.filter(selected => (
                         selected._id !== tag._id
                       ))
                     ) : (
-                      [tag, ...tags]
+                      [tag, ...currTags]
                     ))
                   }}
                 />

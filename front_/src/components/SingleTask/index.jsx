@@ -6,10 +6,8 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useTasksContext from '../../hooks/useTasksContext'
+import useFetch from '../../hooks/useFetch'
 import useCursorContext from '../../hooks/useCursorContext'
-
-import axios from '../../axios.config'
 
 import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 
@@ -17,17 +15,17 @@ import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
 const SingleTask = ({ _id, title, description, status, important, tags, createdAt, toggleModal, setTaskId, prefix, setPrefix }) => {
-  const { dispatch } = useTasksContext()
+  const { fetchData } = useFetch({
+    method: 'patch',
+    url: `/tasks/${_id}`,
+    type: 'UPDATE_TASK'
+  })
   const { addItem, removeItem, printItem } = useCursorContext()
 
   const nextStatus = status === 'To do' ? 'In progress' : 'Done'
 
-  const updateStatus = async () => {
-    const { data } = await axios.patch(`/tasks/${_id}`, {
-      status: nextStatus
-    })
-
-    dispatch({ type: 'UPDATE_TASK', payload: data })
+  const updateStatus = () => {
+    fetchData({ status: nextStatus })
 
     removeItem(nextStatus)
   }

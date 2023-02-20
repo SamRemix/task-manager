@@ -26,7 +26,8 @@ const AuthReducer = (state = initialState, action) => {
 
     case LOGOUT:
       return {
-        ...state,
+        // ...state,
+        token: '',
         user: null
       }
 
@@ -46,7 +47,7 @@ export const AuthContext = createContext(initialState)
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
 
-  const token = JSON.parse(localStorage.getItem('token'))
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (!token) {
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     dispatch({ type: 'SET_TOKEN', payload: token })
-  }, [])
+  }, [token])
 
   console.log('Auth state : ', state)
 

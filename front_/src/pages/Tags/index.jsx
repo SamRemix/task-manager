@@ -5,7 +5,7 @@ import { memo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
-import useTagsContext from '../../hooks/useTagsContext'
+import useFetch from '../../hooks/useFetch'
 import useToggle from '../../hooks/useToggle'
 
 import TagSettingsModal from './TagSettings.modal'
@@ -19,18 +19,21 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Tags = () => {
-  const { tags, error, setError, createTag } = useTagsContext()
-  const { display, toggle } = useToggle()
-
   // set which tag is displayed by clicking on the tag setting button
   const [tagId, setTagId] = useState('')
-
   const [title, setTitle] = useState('')
+
+  const { tags, error, setError, fetchData } = useFetch({
+    method: 'post',
+    url: '/tags',
+    type: 'ADD_TAG'
+  })
+  const { display, toggle } = useToggle()
 
   const handleCreateTag = e => {
     e.preventDefault()
 
-    createTag({ title })
+    fetchData({ title })
 
     setTitle('')
   }
