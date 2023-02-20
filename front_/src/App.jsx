@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion'
 import useAuthContext from './hooks/useAuthContext'
 import { useBoardsContext } from './hooks/useBoardsContext'
 import useTagsContext from './hooks/useTagsContext'
+import useFetch from './hooks/useFetch'
 
 import axios from './axios.config'
 
@@ -31,7 +32,36 @@ const App = () => {
   const { dispatch: dispatchBoards } = useBoardsContext()
   const { getTags, dispatch: dispatchTags } = useTagsContext()
 
+  useFetch({
+    method: 'get',
+    url: '/boards',
+    // dispatch: dispatchBoards,
+    type: 'GET_BOARDS'
+  })
+
+  // useEffect(() => {
+  //   response ? (
+  //     dispatchBoards({ type: 'GET_BOARDS', payload: response })
+  //   ) : error && (
+  //     console.log(error)
+  //   )
+  // }, [response, dispatchBoards, token, user])
+
+
+
+  // useFetch({
+  //   method: 'get',
+  //   url: '/user',
+  //   headers: {
+  //     'Authorization': `Bearer ${token}`
+  //   }
+  // })
+
   useEffect(() => {
+    // if (response) {
+    //   dispatch({ type: 'LOGIN', payload: response.data })
+    // }
+
     const getCurrentUser = async () => {
       try {
         const { data } = await axios.get('/user')
@@ -48,24 +78,24 @@ const App = () => {
     }
   }, [dispatch, token])
 
-  useEffect(() => {
-    const getBoards = async () => {
-      dispatchBoards({ type: 'LOADING' })
+  // useEffect(() => {
+  //   const getBoards = async () => {
+  //     dispatchBoards({ type: 'LOADING' })
 
-      try {
-        const { data } = await axios.get('/boards')
+  //     try {
+  //       const { data } = await axios.get('/boards')
 
-        dispatchBoards({ type: 'GET_BOARDS', payload: data })
+  //       dispatchBoards({ type: 'GET_BOARDS', payload: data })
 
-      } catch ({ response }) {
-        dispatchBoards({ type: 'ERROR', payload: response.data.error })
-      }
-    }
+  //     } catch ({ response }) {
+  //       dispatchBoards({ type: 'ERROR', payload: response.data.error })
+  //     }
+  //   }
 
-    if (user) {
-      getBoards()
-    }
-  }, [dispatchBoards, token, user])
+  //   if (user) {
+  //     getBoards()
+  //   }
+  // }, [dispatchBoards, token, user])
 
   useEffect(() => {
     if (user) {
