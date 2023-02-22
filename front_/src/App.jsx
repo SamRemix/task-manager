@@ -1,8 +1,9 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
-import useAuthContext from './hooks/useAuthContext'
+import { AuthContext } from './contexts/AuthContext'
+
 import useFetch from './hooks/useFetch'
 
 // components
@@ -24,12 +25,12 @@ import NotFound from './pages/404'
 const App = () => {
   const location = useLocation()
 
-  const { token, user } = useAuthContext()
+  const { token } = useContext(AuthContext)
 
-  useFetch({
+  const { loading, error } = useFetch({
     method: 'get',
     url: '/user',
-    type: 'LOGIN'
+    type: 'GET_CURRENT_USER'
   })
 
   useFetch({
@@ -50,7 +51,7 @@ const App = () => {
       <Navbar />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home loading={loading} error={error} />} />
           <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
 

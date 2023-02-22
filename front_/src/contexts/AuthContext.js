@@ -1,13 +1,10 @@
 import { createContext, useReducer, useEffect } from 'react'
 
 const initialState = {
-  token: '',
-  user: null
+  token: ''
 }
 
 const SET_TOKEN = 'SET_TOKEN'
-const LOGIN = 'LOGIN'
-const UPDATE_USER = 'UPDATE_USER'
 const LOGOUT = 'LOGOUT'
 
 const AuthReducer = (state = initialState, action) => {
@@ -18,23 +15,11 @@ const AuthReducer = (state = initialState, action) => {
         token: action.payload
       }
 
-    case LOGIN:
-      return {
-        ...state,
-        user: action.payload
-      }
-
     case LOGOUT:
       return {
         // ...state,
         token: '',
         user: null
-      }
-
-    case UPDATE_USER:
-      return {
-        ...state,
-        user: state.user._id === action.payload._id ? action.payload : state.user
       }
 
     default:
@@ -57,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'SET_TOKEN', payload: token })
   }, [token])
 
-  console.log('Auth state : ', state)
+  console.log('Token: ', state)
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

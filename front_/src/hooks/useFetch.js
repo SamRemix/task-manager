@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '../contexts/AuthContext'
+import { UserContext } from '../contexts/UserContext'
 import { BoardsContext } from '../contexts/BoardsContext'
 import { TasksContext } from '../contexts/TasksContext'
 import { TagsContext } from '../contexts/TagsContext'
@@ -15,7 +16,8 @@ const useFetch = ({ method = null, url = null, params = null, type = null }) => 
 
   const navigate = useNavigate()
 
-  const { user, token, dispatch: dispatchAuth } = useContext(AuthContext)
+  const { token, dispatch: dispatchAuth } = useContext(AuthContext)
+  const { user, dispatch: dispatchUser } = useContext(UserContext)
   const { boards, dispatch: dispatchBoards } = useContext(BoardsContext)
   const { tasks, dispatch: dispatchTasks } = useContext(TasksContext)
   const { tags, dispatch: dispatchTags } = useContext(TagsContext)
@@ -48,7 +50,7 @@ const useFetch = ({ method = null, url = null, params = null, type = null }) => 
 
         case '/user':
         case `/user/${res._id}`:
-          return dispatch(dispatchAuth)
+          return dispatch(dispatchUser)
 
         case '/boards':
         case `/boards/${res._id}`:
@@ -73,9 +75,8 @@ const useFetch = ({ method = null, url = null, params = null, type = null }) => 
           throw new Error(`Unrecognized URL: ${url}`)
       }
     } catch (err) {
-      console.log(err);
-      console.log(err.response?.data.error);
-      setError(err.response?.data.error)
+      console.log(err)
+      setError(err?.response.data.error)
     } finally {
       setLoading(false)
     }

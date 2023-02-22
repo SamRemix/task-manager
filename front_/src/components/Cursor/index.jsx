@@ -39,14 +39,9 @@ const Cursor = () => {
     })
 
     event('mousemove', ({ clientX, clientY }) => {
-      const { offsetWidth, offsetHeight } = cursor.current
-
-      const top = 32 // 2.5rem
-      const left = 64 // 4rem
-      const margin = 16 // 1rem
-
-      const set = (inner, client, max, position) => (
-        inner - client > max + position + margin ? (
+      const set = ({ inner, client, max, position }) => (
+        // 16 = margin: 1rem
+        inner - client > max + position + 16 ? (
           client + position
         ) : (
           client - max - position
@@ -54,8 +49,18 @@ const Cursor = () => {
       )
 
       setPosition({
-        x: set(windowSize.width, clientX, offsetWidth, left),
-        y: set(windowSize.height, clientY, offsetHeight, top)
+        x: set({
+          inner: windowSize.width,
+          client: clientX,
+          max: cursor.current?.offsetWidth,
+          position: 64 // left: 4rem
+        }),
+        y: set({
+          inner: windowSize.height,
+          client: clientY,
+          max: cursor.current?.offsetHeight,
+          position: 32 // top: 2.5rem
+        }),
       })
     })
 

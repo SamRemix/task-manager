@@ -4,77 +4,40 @@ import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import useAuthContext from '../../hooks/useAuthContext'
-
-import axios from '../../axios.config'
+import useFetch from '../../hooks/useFetch'
 
 import PasswordValidation from '../../components/PasswordValidation'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const UpdateUserForm = ({ user }) => {
-  const { dispatch } = useAuthContext()
-
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
-  const [error, setError] = useState('')
+  const { error, setError, fetchData } = useFetch({
+    method: 'patch',
+    url: `/user/${user._id}`,
+    type: 'UPDATE_USER'
+  })
 
-  const updateName = async e => {
+  const updateName = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.patch(`/user/${user._id}`, {
-        name
-      })
-      console.log(data);
-
-      dispatch({ type: 'UPDATE_USER', payload: data.user })
-
-      setError('')
-    } catch (err) {
-      setError(err.response.data.error)
-      console.log(error);
-    }
+    fetchData({ name })
   }
 
-  const updateEmail = async e => {
+  const updateEmail = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.patch(`/user/${user._id}`, {
-        email
-      })
-
-      console.log(data);
-
-      dispatch({ type: 'UPDATE_USER', payload: data.user })
-
-      setError(false)
-    } catch (err) {
-      setError(err.response.data.error)
-    }
+    fetchData({ email })
   }
 
-  const updatePassword = async e => {
+  const updatePassword = e => {
     e.preventDefault()
 
-    try {
-      const { data } = await axios.patch(`/user/${user._id}`, {
-        currentPassword,
-        newPassword
-      })
-
-      console.log(data);
-
-      dispatch({ type: 'UPDATE_USER', payload: data.user })
-
-      setError(false)
-    } catch (err) {
-      setError(err.response.data.error)
-    }
+    fetchData({ currentPassword, newPassword })
   }
 
   return (

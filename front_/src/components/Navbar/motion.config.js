@@ -1,5 +1,5 @@
 const config = {
-  userCardAnimation: {
+  headerAnimation: {
     initial: {
       x: '-100%',
       opacity: 0
@@ -8,8 +8,8 @@ const config = {
       x: 0,
       opacity: 1,
       transition: {
-        duration: .6,
-        delay: .2
+        duration: .4,
+        delay: .3
       }
     },
     exit: {
@@ -27,17 +27,14 @@ const config = {
     },
     animate: {
       x: 0,
-      opacity: 1,
-      transition: {
-        duration: .6
-      }
+      opacity: 1
     },
     exit: {
       x: '-100%',
-      opacity: 0,
-      transition: {
-        duration: .4
-      }
+      opacity: 0
+    },
+    transition: {
+      duration: .4
     }
   },
   itemTitleAnimation: {
@@ -45,16 +42,13 @@ const config = {
       opacity: 0
     },
     animate: {
-      opacity: 1,
-      transition: {
-        duration: .4
-      }
+      opacity: 1
     },
     exit: {
-      opacity: 0,
-      transition: {
-        duration: .4
-      }
+      opacity: 0
+    },
+    transition: {
+      duration: .4
     }
   }
 }
