@@ -1,9 +1,12 @@
 import './styles.scss'
 
-import { memo, useState, useEffect, useRef } from 'react'
+import { memo, useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AnimatePresence } from 'framer-motion'
+
+import { BoardsContext } from '../../contexts/BoardsContext'
+import { TasksContext } from '../../contexts/TasksContext'
 
 import useFetch from '../../hooks/useFetch'
 import useSearch from '../../hooks/useSearch'
@@ -36,7 +39,10 @@ const BoardDetails = () => {
 
   let { board_id } = useParams()
 
-  const { boards, tasks, loading, error } = useFetch({
+  const { boards } = useContext(BoardsContext)
+  const { tasks } = useContext(TasksContext)
+
+  const { loading, error } = useFetch({
     method: 'get',
     url: `/tasks/${board_id}`,
     type: 'GET_TASKS',

@@ -1,9 +1,11 @@
 import './styles.scss'
 
-import { memo, useState } from 'react'
+import { memo, useState, useContext } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
+
+import { TagsContext } from '../../contexts/TagsContext'
 
 import useFetch from '../../hooks/useFetch'
 import useToggle from '../../hooks/useToggle'
@@ -19,11 +21,13 @@ import Button from '../../components/Button'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Tags = () => {
-  // set which tag is displayed by clicking on the tag setting button
+  // set which tag is displayed in modal
   const [tagId, setTagId] = useState('')
   const [title, setTitle] = useState('')
 
-  const { tags, error, setError, fetchData } = useFetch({
+  const { tags } = useContext(TagsContext)
+
+  const { error, setError, fetchData } = useFetch({
     method: 'post',
     url: '/tags',
     type: 'ADD_TAG'

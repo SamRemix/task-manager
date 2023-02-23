@@ -40,8 +40,8 @@ const createTask = async (req, res) => {
     const populatedTask = await task.populate('tags', 'title')
 
     res.status(200).json(populatedTask)
-  } catch (error) {
-    res.status(404).json({ error: error.message })
+  } catch ({ message }) {
+    res.status(404).json({ error: message })
   }
 }
 

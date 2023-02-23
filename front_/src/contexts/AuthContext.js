@@ -11,15 +11,12 @@ const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TOKEN:
       return {
-        ...state,
         token: action.payload
       }
 
     case LOGOUT:
       return {
-        // ...state,
-        token: '',
-        user: null
+        token: ''
       }
 
     default:
@@ -40,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     dispatch({ type: 'SET_TOKEN', payload: token })
-  }, [token])
+  }, [])
 
   console.log('Token: ', state)
 

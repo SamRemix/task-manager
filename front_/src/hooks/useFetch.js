@@ -9,7 +9,7 @@ import { TagsContext } from '../contexts/TagsContext'
 
 import axios from '../axios.config'
 
-const useFetch = ({ method = null, url = null, params = null, type = null }) => {
+const useFetch = ({ method, url, params = null, type }) => {
   const [loading, setLoading] = useState(false)
   const [response, setResponse] = useState(null)
   const [error, setError] = useState('')
@@ -17,68 +17,55 @@ const useFetch = ({ method = null, url = null, params = null, type = null }) => 
   const navigate = useNavigate()
 
   const { token, dispatch: dispatchAuth } = useContext(AuthContext)
-  const { user, dispatch: dispatchUser } = useContext(UserContext)
-  const { boards, dispatch: dispatchBoards } = useContext(BoardsContext)
-  const { tasks, dispatch: dispatchTasks } = useContext(TasksContext)
-  const { tags, dispatch: dispatchTags } = useContext(TagsContext)
+  const { dispatch: dispatchUser } = useContext(UserContext)
+  const { dispatch: dispatchBoards } = useContext(BoardsContext)
+  const { dispatch: dispatchTasks } = useContext(TasksContext)
+  const { dispatch: dispatchTags } = useContext(TagsContext)
 
   const fetchData = async (data = null) => {
     setLoading(true)
 
     try {
-      const { data: res } = await axios[method](url, data, params)
+      const { data: result } = await axios[method](url, data, params)
 
-      setResponse(res)
-
-      setLoading(false)
+      setResponse(result)
 
       const dispatch = dispatch => (
-        dispatch({ type: type, payload: res })
+        dispatch({ type, payload: result })
       )
 
-      // set the dispatch function to use based on the url
-      switch (url) {
-        case '/auth/signup':
-        case '/auth/login':
-          dispatch(dispatchAuth)
-
-          localStorage.setItem('token', res)
-
-          navigate('/')
-
-          return
-
-        case '/user':
-        case `/user/${res._id}`:
-          return dispatch(dispatchUser)
-
-        case '/boards':
-        case `/boards/${res._id}`:
-          if (type === 'ADD_BOARD') {
-            navigate(`/boards/${res._id}`)
-          } else if (type === 'DELETE_BOARD') {
-            navigate(`/`)
-          }
-
-          dispatch(dispatchBoards)
-          return
-
-        case '/tasks':
-        case `/tasks/${params?.id || res._id}`:
-          return dispatch(dispatchTasks)
-
-        case '/tags':
-        case `/tags/${res._id}`:
-          return dispatch(dispatchTags)
-
-        default:
-          throw new Error(`Unrecognized URL: ${url}`)
-      }
-    } catch (err) {
-      console.log(err)
-      setError(err?.response.data.error)
-    } finally {
       setLoading(false)
+
+      return {
+        auth: () => {
+          dispatch(dispatchAuth)
+          localStorage.setItem('token', result)
+          navigate('/')
+        },
+        user: () => {
+          dispatch(dispatchUser)
+        },
+        boards: () => {
+          dispatch(dispatchBoards)
+
+          return {
+            post: () => {
+              navigate(`/boards/${result._id}`)
+            },
+            delete: () => {
+              navigate('/')
+            }
+          }[method]()
+        },
+        tasks: () => {
+          dispatch(dispatchTasks)
+        },
+        tags: () => {
+          dispatch(dispatchTags)
+        }
+      }[url.split('/')[1]]()
+    } catch ({ response }) {
+      setError(response?.data.error)
     }
   }
 
@@ -87,18 +74,8 @@ const useFetch = ({ method = null, url = null, params = null, type = null }) => 
       fetchData()
     }
   }, [method, url, token])
-  // }, [method, url, token, dispatchAuth, dispatchBoards, dispatchTasks, dispatchTags])
 
-  return {
-    boards,
-    tasks,
-    tags,
-    loading,
-    response,
-    error,
-    setError,
-    fetchData
-  }
+  return { loading, response, error, setError, fetchData }
 }
 
 export default useFetch

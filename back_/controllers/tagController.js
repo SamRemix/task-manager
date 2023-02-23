@@ -26,8 +26,8 @@ const createTag = async (req, res) => {
     const tag = await Tag.create({ title, user_id: _id })
 
     res.status(200).json(tag)
-  } catch (error) {
-    res.status(404).json({ error: error.message })
+  } catch ({ message }) {
+    res.status(404).json({ error: message })
   }
 }
 

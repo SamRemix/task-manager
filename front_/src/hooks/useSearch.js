@@ -3,35 +3,24 @@ import { useState } from 'react'
 const useSearch = () => {
   const [prefix, setPrefix] = useState('')
 
+  const format = string => {
+    let filter = prefix.trim().toLowerCase()
+
+    if (prefix.startsWith('#')) {
+      filter = filter.split('#')[1]
+    }
+
+    return string.trim().toLowerCase().startsWith(filter)
+  }
+
   const search = data => (
-    prefix.startsWith('#') ? (
-      // search tasks by tag
-      data.filter(({ tags }) => (
-        tags.find(({ title }) => (
-          title
-            .trim()
-            .toLowerCase()
-            .startsWith(
-              prefix
-                .split('#')[1]
-                .trim()
-                .toLowerCase()
-            )
+    data.filter(d => (
+      prefix.startsWith('#') ? (
+        d.tags.find(({ title }) => (
+          format(title) // search tasks by tag title
         ))
-      ))
-    ) : (
-      // search tasks by title
-      data.filter(({ title }) => (
-        title
-          .trim()
-          .toLowerCase()
-          .startsWith(
-            prefix
-              .trim()
-              .toLowerCase()
-          )
-      ))
-    )
+      ) : format(d.title) // search tasks by title
+    ))
   )
 
   return { prefix, setPrefix, search }

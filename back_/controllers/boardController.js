@@ -3,6 +3,7 @@ const { Types } = require('mongoose')
 
 const getBoards = async (req, res) => {
   const { _id } = req.user
+
   const boards = await Board.find({ user_id: _id }).sort({ favorite: -1, createdAt: -1 })
 
   res.status(200).json(boards)
@@ -42,8 +43,8 @@ const createBoard = async (req, res) => {
     const board = await Board.create({ ...req.body, user_id: _id })
 
     res.status(200).json(board)
-  } catch (error) {
-    res.status(404).json({ error: error.message })
+  } catch ({ message }) {
+    res.status(404).json({ error: message })
   }
 }
 
