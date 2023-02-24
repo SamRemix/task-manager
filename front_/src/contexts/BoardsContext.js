@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useMemo } from 'react'
+import { createContext, useReducer, useMemo } from 'react'
 
 const initialState = {
   boards: []
@@ -44,16 +44,6 @@ export const BoardsContext = createContext(initialState)
 
 export const BoardsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boardsReducer, initialState)
-
-  // const token = localStorage.getItem('token')
-
-  // useEffect(() => {
-  //   if (!token) {
-  //     return
-  //   }
-
-  //   dispatch({ type: 'GET_BOARDS', payload: [] })
-  // }, [token])
 
   const memoizedState = useMemo(() => state, [state])
 

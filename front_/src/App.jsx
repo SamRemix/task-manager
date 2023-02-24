@@ -25,9 +25,11 @@ import NotFound from './pages/404'
 const App = () => {
   const location = useLocation()
 
-  const { token } = useContext(AuthContext)
+  const token = localStorage.getItem('token')
 
-  const { loading, error } = useFetch({
+  // const { token } = useContext(AuthContext)
+
+  const { loading, response: user, error } = useFetch({
     method: 'get',
     url: '/user',
     type: 'GET_CURRENT_USER'
@@ -48,18 +50,20 @@ const App = () => {
   return (
     <>
       <Cursor />
+
       <Navbar />
+
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home loading={loading} error={error} />} />
           <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
 
-          <Route path="/boards/:board_id" element={token && <BoardDetails />} />
+          <Route path="/boards/:board_id" element={user && <BoardDetails />} />
 
-          <Route path="/add-board" element={token && <AddBoard />} />
+          <Route path="/add-board" element={user && <AddBoard />} />
 
-          <Route path="/tags" element={token && <Tags />} />
+          <Route path="/tags" element={user && <Tags />} />
 
           <Route path="/signup" element={!token ? <Signup /> : <Navigate to="/" />} />
           <Route path="/login" element={!token ? <Login /> : <Navigate to="/" />} />

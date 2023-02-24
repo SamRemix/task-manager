@@ -1,5 +1,7 @@
-import { memo, useState } from 'react'
+import { memo, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+
+import { TagsContext } from '../../contexts/TagsContext'
 
 import useFetch from '../../hooks/useFetch'
 
@@ -12,7 +14,9 @@ const AddTaskForm = ({ board_id, toggle }) => {
   const [important, setImportant] = useState(false)
   const [currTags, setCurrTags] = useState([])
 
-  const { tags, error, setError, fetchData } = useFetch({
+  const { tags } = useContext(TagsContext)
+
+  const { error, setError, fetchData } = useFetch({
     method: 'post',
     url: '/tasks',
     type: 'ADD_TASK'

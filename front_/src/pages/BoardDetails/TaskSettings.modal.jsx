@@ -1,5 +1,7 @@
-import { memo, useState } from 'react'
+import { memo, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+
+import { TagsContext } from '../../contexts/TagsContext'
 
 import useFetch from '../../hooks/useFetch'
 
@@ -16,7 +18,9 @@ const TaskSettings = ({ task, toggle }) => {
   const [important, setImportant] = useState(task.important)
   const [currTags, setCurrTags] = useState(task.tags)
 
-  const { tags, error, setError, fetchData: updateData } = useFetch({
+  const { tags } = useContext(TagsContext)
+
+  const { error, setError, fetchData: updateData } = useFetch({
     method: 'patch',
     url: `/tasks/${task._id}`,
     type: 'UPDATE_TASK'
