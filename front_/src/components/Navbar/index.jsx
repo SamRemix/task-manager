@@ -57,13 +57,7 @@ const Navbar = () => {
     <>
       <div
         className={displayNavbar ? 'navbar-button--active' : 'navbar-button'}
-        onClick={() => {
-          if (displayBoards && displayNavbar) {
-            toggleBoards(false)
-          }
-
-          toggleNavbar(!displayNavbar)
-        }}>
+        onClick={() => toggleNavbar(!displayNavbar)}>
         <span></span>
         <span></span>
         <span></span>
@@ -130,7 +124,6 @@ const Navbar = () => {
                     {displayNavbar && (
                       <motion.p
                         className="title"
-                        layoutId="navbar-item-homeTitle"
                         {...config.itemTitleAnimation}>
                         Home
                       </motion.p>
@@ -143,41 +136,37 @@ const Navbar = () => {
                 {token && user && (
                   <>
                     <motion.li
-                      className={!displayNavbar ? 'navbar-list-item disabled' : 'navbar-list-item'}
+                      // className={!displayNavbar ? 'navbar-list-item disabled' : 'navbar-list-item'}
+                      className="navbar-list-item"
                       layoutId="navbar-item-boardsHeader"
                       {...config.navbarItemAnimation}>
                       <div
-                        className={displayBoards ? 'link active' : 'link'}
-                        onClick={displayNavbar ? () => toggleBoards(!displayBoards) : undefined}
-                        onMouseEnter={!displayNavbar ? () => printItem('Open navbar to view boards') : undefined}
-                        onMouseLeave={!displayNavbar ? () => removeItem('Open navbar to view boards') : undefined}>
+                        className={`link boards${displayBoards ? ' active' : ''}${displayNavbar ? ' open' : ''}`}
+                        onClick={() => toggleBoards(!displayBoards)}
+                        onMouseEnter={!displayNavbar ? () => printItem('Boards') : undefined}
+                        onMouseLeave={!displayNavbar ? () => removeItem('Boards') : undefined}>
                         <ClipboardDocumentListIcon className="icon" width="1.75em" />
-
-                        <AnimatePresence>
+                        <AnimatePresence mode='popLayout'>
                           {displayNavbar && (
-                            <>
-                              <motion.p
-                                className="title"
-                                layoutId="navbar-item-boardsTitle"
-                                {...config.itemTitleAnimation}>
-                                Boards
-                              </motion.p>
-
-                              {boards.length > 0 && (
-                                <motion.div
-                                  layoutId="navbar-item-boardsChevron"
-                                  {...config.itemTitleAnimation}>
-                                  {displayBoards ? (
-                                    <ChevronUpIcon className="icon" width="1.25em" />
-                                  ) : (
-                                    <ChevronDownIcon className="icon" width="1.25em" />
-                                  )}
-                                </motion.div>
-                              )}
-                            </>
+                            <motion.p
+                              className="title"
+                              {...config.itemTitleAnimation}>
+                              Boards
+                            </motion.p>
                           )}
                         </AnimatePresence>
 
+                        {boards.length > 0 && (
+                          <motion.div
+                            layoutId="navbar-item-boardsChevron"
+                            {...config.itemTitleAnimation}>
+                            {displayBoards ? (
+                              <ChevronUpIcon className="icon" width="1.25em" />
+                            ) : (
+                              <ChevronDownIcon className="icon" width="1.25em" />
+                            )}
+                          </motion.div>
+                        )}
                       </div>
                     </motion.li>
 
@@ -187,9 +176,13 @@ const Navbar = () => {
                           className="navbar-list-item"
                           layoutId="navbar-item-boardsList"
                           {...config.navbarItemAnimation}>
-                          <ul className="boards-list">
+                          <ul className={displayNavbar ? 'boards-list open' : 'boards-list'}>
                             {boards.map(board => (
-                              <SingleBoard key={board._id} {...board} />
+                              <SingleBoard
+                                key={board._id}
+                                {...board}
+                                displayNavbar={displayNavbar}
+                              />
                             ))}
                           </ul>
                         </motion.li>
@@ -210,7 +203,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-addBoardsTitle"
                               {...config.itemTitleAnimation}>
                               Add board
                             </motion.p>
@@ -233,7 +225,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-tagsTitle"
                               {...config.itemTitleAnimation}>
                               Tags
                             </motion.p>
@@ -255,7 +246,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-friendsTitle"
                               {...config.itemTitleAnimation}>
                               Friends
                             </motion.p>
@@ -277,7 +267,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-messagesTitle"
                               {...config.itemTitleAnimation}>
                               Messages
                             </motion.p>
@@ -299,7 +288,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-agendaTitle"
                               {...config.itemTitleAnimation}>
                               Agenda
                             </motion.p>
@@ -325,7 +313,6 @@ const Navbar = () => {
                     {displayNavbar && (
                       <motion.p
                         className="title"
-                        layoutId="navbar-item-settingsTitle"
                         {...config.itemTitleAnimation}>
                         Settings
                       </motion.p>
@@ -348,7 +335,6 @@ const Navbar = () => {
                     {displayNavbar && (
                       <motion.p
                         className="title"
-                        layoutId="navbar-item-aboutTitle"
                         {...config.itemTitleAnimation}>
                         About
                       </motion.p>
@@ -370,7 +356,6 @@ const Navbar = () => {
                     {displayNavbar && (
                       <motion.p
                         className="title"
-                        layoutId="navbar-item-docTitle"
                         {...config.itemTitleAnimation}>
                         Doc
                       </motion.p>
@@ -398,7 +383,6 @@ const Navbar = () => {
                         {displayNavbar && (
                           <motion.p
                             className="title"
-                            layoutId="navbar-item-logoutTitle"
                             {...config.itemTitleAnimation}>
                             Log out
                           </motion.p>
@@ -422,7 +406,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-loginTitle"
                               {...config.itemTitleAnimation}>
                               Log in
                             </motion.p>
@@ -445,7 +428,6 @@ const Navbar = () => {
                           {displayNavbar && (
                             <motion.p
                               className="title"
-                              layoutId="navbar-item-signupTitle"
                               {...config.itemTitleAnimation}>
                               Sign up
                             </motion.p>

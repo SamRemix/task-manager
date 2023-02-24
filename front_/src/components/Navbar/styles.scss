@@ -139,20 +139,6 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
         transform-origin: 50% 50% 0 !important;
         position: relative;
 
-        &.error-message {
-          // pointer-events: none;
-
-          .link {
-            background: var(--tips-background);
-            border-radius: v.$radius-lg;
-            cursor: default;
-
-            .title {
-              white-space: pre-wrap;
-            }
-          }
-        }
-
         &.disabled {
           color: var(--disabled);
           // pointer-events: none;
@@ -171,6 +157,14 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
           // white-space: pre-wrap;
           cursor: pointer;
 
+          &.boards {
+            gap: .25rem;
+
+            &.open {
+              gap: 1rem;
+            }
+          }
+
           .title {
             white-space: nowrap;
           }
@@ -186,9 +180,15 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
 
         .boards-list {
           @include mix.flex-column-gap(1rem);
+          // align w/ other icons
+          margin-left: .125rem;
+          transition: margin .2s;
+
+          &.open {
+            margin-left: 1rem;
+          }
 
           .boards-item {
-            margin-left: 1rem;
             position: relative;
 
             .link {

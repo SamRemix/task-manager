@@ -39,6 +39,12 @@
   justify-content: center;
 }
 
+@mixin flex-justify-gap($gap) {
+  display: flex;
+  justify-content: center;
+  gap: $gap;
+}
+
 @mixin flex-align-gap($gap) {
   display: flex;
   align-items: center;

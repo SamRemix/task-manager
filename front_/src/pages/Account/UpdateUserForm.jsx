@@ -11,38 +11,54 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const UpdateUserForm = ({ user }) => {
-  const [name, setName] = useState(user.name)
-  const [email, setEmail] = useState(user.email)
+  const [name, setName] = useState(user?.name)
+  const [email, setEmail] = useState(user?.email)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
   const { error, setError, fetchData } = useFetch({
     method: 'patch',
-    url: `/user/${user._id}`,
+    url: `/user/${user?._id}`,
     type: 'UPDATE_USER'
   })
 
-  const updateName = e => {
+  const update = (e, context) => {
     e.preventDefault()
 
-    fetchData({ name })
+    return {
+      name: () => {
+        fetchData({ name })
+      },
+      email: () => {
+        fetchData({ email })
+      },
+      password: () => {
+        fetchData({ currentPassword, newPassword })
+      }
+    }[context]()
   }
 
-  const updateEmail = e => {
-    e.preventDefault()
+  // const updateName = e => {
+  //   e.preventDefault()
 
-    fetchData({ email })
-  }
+  //   fetchData({ name })
+  // }
 
-  const updatePassword = e => {
-    e.preventDefault()
+  // const updateEmail = e => {
+  //   e.preventDefault()
 
-    fetchData({ currentPassword, newPassword })
-  }
+  //   fetchData({ email })
+  // }
+
+  // const updatePassword = e => {
+  //   e.preventDefault()
+
+  //   fetchData({ currentPassword, newPassword })
+  // }
 
   return (
     <div className="forms-container">
-      <form onSubmit={updateName}>
+      <form onSubmit={e => update(e, 'name')}>
         <motion.div {...config.nameInputAnimation}>
           <Input
             placeholder="Name"
@@ -58,7 +74,7 @@ const UpdateUserForm = ({ user }) => {
         </motion.div>
       </form>
 
-      <form onSubmit={updateEmail}>
+      <form onSubmit={e => update(e, 'email')}>
         <motion.div {...config.emailInputAnimation}>
           <Input
             placeholder="Email"
@@ -74,7 +90,7 @@ const UpdateUserForm = ({ user }) => {
         </motion.div>
       </form>
 
-      <form onSubmit={updatePassword}>
+      <form onSubmit={e => update(e, 'password')}>
         <motion.div {...config.currentPasswordInputAnimation}>
           <Input
             type="password"
@@ -114,7 +130,7 @@ const UpdateUserForm = ({ user }) => {
 }
 
 UpdateUserForm.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string).isRequired
+  user: PropTypes.object
 }
 
 export default memo(UpdateUserForm)

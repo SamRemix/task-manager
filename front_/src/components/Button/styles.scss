@@ -6,6 +6,7 @@
   padding: 0 1.5rem;
   width: fit-content;
   height: 2.5rem;
+  background: unset;
   border-radius: v.$radius-sm;
   color: #000;
   white-space: nowrap;
@@ -38,7 +39,7 @@
   @include button-style;
   background: var(--border-window-color);
   box-shadow: 0 0 0 .125rem #000;
-  border: var(--task-border);
+  // border: var(--task-border);
   color: #fff;
 }
 
@@ -49,8 +50,9 @@
 
 .delete {
   @extend .secondary;
-  color: v.$red-2;
+  color: #000;
+  // color: v.$red-2;
   font-weight: 600;
-  // background: v.$red-2;
+  background: v.$red-2;
   align-self: flex-end;
 }

@@ -12,7 +12,10 @@ module.exports = model('Board', new Schema({
   // }],
   favorite: {
     type: Boolean,
-    // default: false,
+    required: true
+  },
+  icon: {
+    type: String,
     required: true
   },
   user_id: {

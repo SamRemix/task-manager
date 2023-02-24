@@ -2,7 +2,7 @@
 @use '../../styles/mixins' as mix;
 
 .delete-container {
-  flex-direction: row !important;
+  @include mix.flex-justify-gap(1rem);
   border-radius: v.$radius-lg;
   align-self: flex-end;
   justify-content: center;

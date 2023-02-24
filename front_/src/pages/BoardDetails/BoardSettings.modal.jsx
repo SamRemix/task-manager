@@ -11,6 +11,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 
+import displayIcon, { icons } from '../../utils/displayIcon'
 import formatDate from '../../utils/formatDate'
 
 const BoardSettings = ({ board, board_id, toggle }) => {
@@ -19,6 +20,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
 
   const [title, setTitle] = useState(board.title)
   const [favorite, setFavorite] = useState(board.favorite)
+  const [icon, setIcon] = useState(board.icon)
 
   const navigate = useNavigate()
 
@@ -37,7 +39,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
   const updateBoard = e => {
     e.preventDefault()
 
-    updateData({ title, favorite })
+    updateData({ title, favorite, icon })
 
     toggle()
   }
@@ -73,6 +75,24 @@ const BoardSettings = ({ board, board_id, toggle }) => {
                 checked={favorite}
                 onChange={() => setFavorite(!favorite)}
               />
+            </div>
+          </div>
+
+          <div className="list-container">
+            <p>Icon:</p>
+            <div className="list-container-input">
+              {icons.map((iconName, i) => (
+                <Input
+                  key={i}
+                  type="radio"
+                  placeholder={displayIcon(iconName, { width: '1.75em' })}
+                  value={iconName}
+                  checked={icon === iconName}
+                  onChange={e => {
+                    setIcon(e.target.value)
+                  }}
+                />
+              ))}
             </div>
           </div>
 

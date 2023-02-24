@@ -24,7 +24,7 @@
   >input,
   >textarea {
     width: 100%;
-    min-width: 160px;
+    min-width: 20rem;
     background: var(--input-background);
     border: var(--input-border);
     border-radius: v.$radius-sm;
@@ -96,7 +96,7 @@
   .radio,
   .checkbox {
     @include mix.flex-align-gap(1rem);
-    padding: .5rem 1rem;
+    padding: .5rem;
     background: var(--tips);
     border: var(--task-border);
     border-radius: v.$radius-sm;
@@ -118,7 +118,7 @@
     &::before,
     &::after {
       position: absolute;
-      inset: .375rem auto auto .375rem;
+      // inset: .375rem auto auto .375rem;
     }
 
     &::before {

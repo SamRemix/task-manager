@@ -5,9 +5,7 @@ import { memo, useContext } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-// import useAuthContext from '../../hooks/useAuthContext'
-import { AuthContext } from '../../contexts/AuthContext'
-import useFetch from '../../hooks/useFetch'
+import { UserContext } from '../../contexts/UserContext'
 
 import UpdateUserForm from './UpdateUserForm'
 import Header from '../../components/Header'
@@ -17,8 +15,7 @@ import formatDate from '../../utils/formatDate'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Account = () => {
-  const { user } = useContext(AuthContext)
-  // const { user } = useFetch()
+  const { user } = useContext(UserContext)
 
   setDocumentTitle(user?.name)
 

@@ -120,10 +120,7 @@ body {
       }
 
       form {
-        min-width: 300px;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        @include mix.flex-column-gap(2rem);
         position: relative;
 
         .error-message {

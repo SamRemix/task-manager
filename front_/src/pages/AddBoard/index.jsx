@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useState, createElement } from 'react'
 
 import { motion } from 'framer-motion'
 import config from './motion.config'
@@ -10,12 +10,14 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import setDocumentTitle from '../../utils/setDocumentTitle'
+import displayIcon, { icons } from '../../utils/displayIcon'
 
 const AddBoard = () => {
   setDocumentTitle('Add board')
 
   const [title, setTitle] = useState('')
   const [favorite, setFavorite] = useState(false)
+  const [icon, setIcon] = useState(icons[0])
 
   const { error, setError, fetchData } = useFetch({
     method: 'post',
@@ -26,7 +28,7 @@ const AddBoard = () => {
   const createBoard = e => {
     e.preventDefault()
 
-    fetchData({ title, favorite })
+    fetchData({ title, favorite, icon })
   }
 
   return (
@@ -63,6 +65,26 @@ const AddBoard = () => {
                   checked={favorite}
                   onChange={() => setFavorite(!favorite)}
                 />
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div {...config.favCheckboxAnimation}>
+            <div className="list-container">
+              <p>Icon:</p>
+              <div className="list-container-input">
+                {icons.map((iconName, i) => (
+                  <Input
+                    key={i}
+                    type="radio"
+                    placeholder={displayIcon(iconName, { width: '1.75em' })}
+                    value={iconName}
+                    checked={icon === iconName}
+                    onChange={e => {
+                      setIcon(e.target.value)
+                    }}
+                  />
+                ))}
               </div>
             </div>
           </motion.div>

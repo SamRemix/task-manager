@@ -66,7 +66,10 @@ const Input = ({
             onChange={onChange}
             key={key}
           />
-          {capitalize(placeholder)}
+
+          {typeof placeholder === 'string' ? (
+            capitalize(placeholder)
+          ) : placeholder}
         </label>
       )}
 
@@ -80,7 +83,10 @@ const Input = ({
             onChange={onChange}
             key={key}
           />
-          {capitalize(placeholder)}
+
+          {typeof placeholder === 'string' ? (
+            capitalize(placeholder)
+          ) : placeholder}
         </label>
       )}
 
@@ -126,7 +132,7 @@ const Input = ({
 
 Input.propTypes = {
   type: PropTypes.string,
-  placeholder: PropTypes.string,
+  // placeholder: PropTypes.string,
   value: PropTypes.any,
   checked: PropTypes.bool,
   onChange: PropTypes.func,

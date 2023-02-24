@@ -14,7 +14,7 @@ const ConfirmAndDelete = ({ context, event }) => {
   return (
     <LayoutGroup>
       <motion.div
-        className={confirm ? 'tips delete-container-confirm' : ' tips delete-container'}
+        className={confirm ? 'delete-container-confirm' : ' delete-container'}
         layoutId={`delete-container-${context}`}
         {...config.deleteButtonAnimation}>
         <LayoutGroup>
