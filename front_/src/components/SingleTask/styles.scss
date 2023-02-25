@@ -35,6 +35,10 @@
     gap: 1rem;
 
     &-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // gap: 1rem;
       font-weight: 600;
     }
 
@@ -90,6 +94,7 @@
       justify-content: center;
       position: relative;
       cursor: pointer;
+      transition: .1s;
 
       &-validate {
         &+.button-title {

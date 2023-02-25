@@ -6,8 +6,9 @@ const initialState = {
 
 const GET_TASKS = 'GET_TASKS'
 const ADD_TASK = 'ADD_TASK'
-const DELETE_TASK = 'DELETE_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
+const DELETE_TASK = 'DELETE_TASK'
+const DELETE_MANY_TASK = 'DELETE_MANY_TASK'
 
 const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,8 +31,15 @@ const tasksReducer = (state = initialState, action) => {
 
     case DELETE_TASK:
       return {
-        tasks: state.tasks.filter(task => (
-          task._id !== action.payload._id
+        tasks: state.tasks.filter(({ _id }) => (
+          _id !== action.payload._id
+        ))
+      }
+
+    case DELETE_MANY_TASK:
+      return {
+        tasks: state.tasks.filter(({ _id }) => (
+          !action.payload.includes(_id)
         ))
       }
 

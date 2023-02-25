@@ -90,9 +90,30 @@ const deleteTask = async (req, res) => {
   res.status(200).json(task)
 }
 
+const deleteTasks = async (req, res) => {
+  const { _ids } = req.body
+
+  console.log(_ids);
+
+  const tasks = await Task.deleteMany({
+    _id: {
+      $in: _ids
+    }
+  })
+
+  if (!tasks) {
+    return res.status(404).json({ error: 'No such tasks' })
+  }
+
+  console.log(tasks);
+
+  res.status(200).json(_ids)
+}
+
 module.exports = {
   getTasks,
   createTask,
   updateTask,
-  deleteTask
+  deleteTask,
+  deleteTasks
 }

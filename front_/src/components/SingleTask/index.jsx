@@ -9,12 +9,28 @@ import config from './motion.config'
 import useFetch from '../../hooks/useFetch'
 import useCursorContext from '../../hooks/useCursorContext'
 
+import Input from '../Input'
+
 import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 
 import capitalize from '../../utils/capitalize'
 import formatDate from '../../utils/formatDate'
 
-const SingleTask = ({ _id, title, description, status, important, tags, createdAt, toggleModal, setTaskId, prefix, setPrefix }) => {
+const SingleTask = ({
+  _id,
+  title,
+  description,
+  status,
+  important,
+  tags,
+  createdAt,
+  toggleModal,
+  setTaskId,
+  taskIds,
+  setTaskIds,
+  prefix,
+  setPrefix
+}) => {
   const { fetchData } = useFetch({
     method: 'patch',
     url: `/tasks/${_id}`,
@@ -37,7 +53,23 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
       {...config.singleTaskAnimation}>
 
       <div className="task-content-infos">
-        <p className="task-content-infos-title">{capitalize(title)}</p>
+        <div className="task-content-infos-title">
+          {capitalize(title)}
+
+          <Input
+            type="checkbox"
+            checked={taskIds.includes(_id)}
+            onChange={() => {
+              setTaskIds(taskIds.includes(_id) ? (
+                taskIds.filter(id => (
+                  id !== _id
+                ))
+              ) : (
+                [_id, ...taskIds]
+              ))
+            }}
+          />
+        </div>
         {description?.includes('\n') ? (
           <ul className="task-content-infos-description-list">
             {description.split('\n').map((item, i) => (
@@ -70,7 +102,9 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
               ) : (
                 `Filter by <span>#${capitalize(title)}</span> tag`
               ))}
-              onMouseLeave={() => removeItem(`Filter by <span>#${capitalize(title)}</span> tag` || 'Reset filter')}>
+              onMouseLeave={() => {
+                removeItem(`Filter by <span>#${capitalize(title)}</span> tag` || 'Reset filter')
+              }}>
               <span>#</span>{capitalize(title)}
             </p>
           ))}
@@ -79,7 +113,9 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
 
       <div className="task-content-footer">
         <p className="task-content-footer-date">{formatDate(createdAt)}</p>
+
         <p className='task-importance'>{important && 'high'}</p>
+
         {status !== 'Done' && (
           <div className="button"
             onMouseEnter={() => {
@@ -90,6 +126,7 @@ const SingleTask = ({ _id, title, description, status, important, tags, createdA
             <CheckBadgeIcon width="1.5em" className="button-validate" onClick={updateStatus} />
           </div>
         )}
+
         <div
           className="button"
           onClick={() => {
@@ -116,6 +153,8 @@ SingleTask.propTypes = {
   tasks: PropTypes.array.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setTaskId: PropTypes.func.isRequired,
+  taskIds: PropTypes.array.isRequired,
+  setTaskIds: PropTypes.func.isRequired,
   setPrefix: PropTypes.func.isRequired
 }
 

@@ -3,7 +3,8 @@ const {
   getTasks,
   createTask,
   updateTask,
-  deleteTask
+  deleteTask,
+  deleteTasks
 } = require('../controllers/taskController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -18,5 +19,7 @@ router.post('/', createTask)
 router.patch('/:id', updateTask)
 
 router.delete('/:id', deleteTask)
+
+router.delete('/', deleteTasks)
 
 module.exports = router

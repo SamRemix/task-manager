@@ -30,12 +30,6 @@ const useFetch = ({ method, url, params = null, type }) => {
   const fetchData = async (data = null) => {
     setLoading(true)
 
-    // const instance = axios.create({
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // })
-
     try {
       const { data: result } = await instance[method](url, data, params)
 
