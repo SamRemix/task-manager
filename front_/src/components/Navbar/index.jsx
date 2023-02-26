@@ -68,10 +68,10 @@ const Navbar = () => {
           <AnimatePresence>
             {displayNavbar && (
               <motion.div
-                className="header"
+                className="navbar-header"
                 layoutId="navbar-item-header"
                 {...config.headerAnimation}>
-                <div className="header-theme-switcher" onClick={() => {
+                <div className="navbar-header-theme-switcher" onClick={() => {
                   switchTheme(theme === 'light' ? 'dark' : 'light')
                 }}>
                   {theme === 'light' ? (
@@ -81,7 +81,7 @@ const Navbar = () => {
                   )}
                 </div>
 
-                <div className="header-lang-switcher">
+                <div className="navbar-header-lang-switcher">
                   <p>fr - en</p>
                 </div>
               </motion.div>

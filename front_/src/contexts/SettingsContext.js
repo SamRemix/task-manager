@@ -2,11 +2,13 @@ import { useEffect, createContext, useReducer } from 'react'
 
 const initialState = {
   theme: '',
-  font: 'Poppins'
+  fontFamily: 'Poppins',
+  fontSize: 100
 }
 
 const SET_THEME = 'SET_THEME'
-const SET_FONT = 'SET_FONT'
+const SET_FONT_FAMILY = 'SET_FONT_FAMILY'
+const SET_FONT_SIZE = 'SET_FONT_SIZE'
 
 const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,10 +18,16 @@ const settingsReducer = (state = initialState, action) => {
         theme: action.payload
       }
 
-    case SET_FONT:
+    case SET_FONT_FAMILY:
       return {
         ...state,
-        font: action.payload
+        fontFamily: action.payload
+      }
+
+    case SET_FONT_SIZE:
+      return {
+        ...state,
+        fontSize: action.payload
       }
 
     default:
@@ -34,9 +42,11 @@ export const SettingsProvider = ({ children }) => {
 
   const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
+  const html = document.documentElement
+
   const storeData = (key, value) => {
     localStorage.setItem(key, value)
-    document.documentElement.setAttribute(key, value)
+    html.setAttribute(key, value)
     dispatch({ type: `SET_${key.toUpperCase()}`, payload: value })
   }
 
@@ -48,11 +58,20 @@ export const SettingsProvider = ({ children }) => {
   }, [theme])
 
   // set font family
-  const font = localStorage.getItem('font')
+  const fontFamily = localStorage.getItem('font_family')
 
   useEffect(() => {
-    storeData('font', font ?? 'Poppins')
-  }, [font])
+    storeData('font_family', fontFamily ?? 'Poppins')
+  }, [fontFamily])
+
+  // set font size
+  const fontSize = localStorage.getItem('font_size')
+
+  useEffect(() => {
+    storeData('font_size', fontSize ?? 100)
+
+    html.style.fontSize = html.getAttribute('font_size') + '%'
+  }, [fontSize])
 
   return (
     <SettingsContext.Provider value={{ ...state, dispatch }}>

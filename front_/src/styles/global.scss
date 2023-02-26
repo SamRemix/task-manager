@@ -35,8 +35,15 @@
   }
 }
 
+// html {
+//   font-size: 87.5%;
+//   // 1rem = 14px
+//   // 1.5rem = 21px
+//   // 2rem = 28px
+// }
+
 body {
-  // dark cause of resize (resize console)
+  // set background cause of resize (resize console)
   background: var(--border-window-color);
   // font-family: 'Overpass';
   // font-family: 'Fira Mono';
@@ -70,30 +77,11 @@ body {
     .container {
       @include mix.flex-column-center-gap(1rem);
       justify-content: flex-start;
-      padding: calc(v.$container-padding / 2);
+      padding: 1rem calc(v.$container-padding / 2);
       // min-height: calc(100vh - v.$container-padding * 2);
       position: relative;
       overflow: hidden scroll;
       transition: .4s;
-
-      .header {
-        @include mix.flex-align-gap(2rem);
-        justify-content: space-between;
-        padding: 0 2rem;
-        width: 100%;
-        flex-wrap: wrap;
-
-        .title {
-          @include mix.flex-align-gap(1rem);
-          font-size: 3rem;
-          font-weight: 800;
-        }
-
-        .right-side {
-          @include mix.flex-align-gap(2rem);
-          flex-wrap: wrap-reverse;
-        }
-      }
 
       .content {
         @include mix.flex-column-center-gap(4rem);

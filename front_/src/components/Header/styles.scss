@@ -1,0 +1,22 @@
+@use '../../styles/vars' as v;
+@use '../../styles/mixins' as mix;
+
+.header {
+  @include mix.flex-align-gap(2rem);
+  grid-area: Header;
+  justify-content: space-between;
+  padding: 0 2rem;
+  width: 100%;
+  flex-wrap: wrap;
+
+  .title {
+    @include mix.flex-align-gap(1rem);
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+
+  .right-side {
+    @include mix.flex-align-gap(2rem);
+    flex-wrap: wrap-reverse;
+  }
+}

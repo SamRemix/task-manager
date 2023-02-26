@@ -23,7 +23,10 @@ const Input = ({
   error,
   setPrefix,
   key,
-  name
+  name,
+  min,
+  max,
+  step
 }) => {
   const { display, toggle } = useToggle()
 
@@ -90,6 +93,21 @@ const Input = ({
         </label>
       )}
 
+      {type === 'range' && (
+        <label className="range">
+          <input
+            type={type}
+            name={name}
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onChange={onChange}
+          />
+          {value}%
+        </label>
+      )}
+
       {type === 'search' && (
         <>
           <input
@@ -144,7 +162,10 @@ Input.propTypes = {
   error: PropTypes.any,
   setPrefix: PropTypes.func,
   key: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number
 }
 
 Input.defaultProps = {

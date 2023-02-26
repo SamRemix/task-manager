@@ -3,9 +3,9 @@
 
 @mixin button-style {
   @include mix.flex-align-gap(.75rem);
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   width: fit-content;
-  height: 2.5rem;
+  height: 2.25rem;
   background: unset;
   border-radius: v.$radius-sm;
   color: #000;

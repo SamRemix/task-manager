@@ -85,7 +85,7 @@
   color-scheme: dark;
 }
 
-// font
+// font family
 
 @mixin font($font) {
   body {
@@ -93,22 +93,22 @@
   }
 }
 
-:root[font='Poppins'] {
+:root[font_family='Poppins'] {
   @include font('Poppins');
 }
 
-:root[font='Source Code Pro'] {
+:root[font_family='Source Code Pro'] {
   @include font('Source Code Pro')
 }
 
-:root[font='Itim'] {
+:root[font_family='Itim'] {
   @include font('Itim');
 }
 
-:root[font='Comfortaa'] {
+:root[font_family='Comfortaa'] {
   @include font('Comfortaa');
 }
 
-:root[font='Patrick Hand'] {
+:root[font_family='Patrick Hand'] {
   @include font('Patrick Hand');
 }

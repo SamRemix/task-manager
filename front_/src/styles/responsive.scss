@@ -1,18 +1,10 @@
 @use './vars' as v;
 @use './mixins' as mix;
 
-$progress-bar-height: calc(100vh - calc(v.$app-padding + v.$container-padding) * 2);
-
 @mixin container {
   margin-right: v.$app-padding;
-  padding: v.$container-padding !important;
+  padding: 1rem v.$container-padding !important;
   gap: 3rem 2rem !important;
-
-  &.board {
-    .progress-bar {
-      height: $progress-bar-height;
-    }
-  }
 }
 
 // sm 640px

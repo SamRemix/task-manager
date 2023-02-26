@@ -12,7 +12,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 const Settings = () => {
-  const { theme: currTheme, font: currFont, switchTheme, setFont } = useSettingsContext()
+  const { theme: currTheme, fontFamily: currFontFamily, fontSize, switchTheme, setFontFamily, setFontSize } = useSettingsContext()
 
   return (
     <section className="container settings">
@@ -59,14 +59,32 @@ const Settings = () => {
                   name="font"
                   placeholder={font}
                   value={font}
-                  checked={font === currFont}
+                  checked={font === currFontFamily}
                   onChange={e => {
-                    setFont(e.target.value)
+                    setFontFamily(e.target.value)
                   }}
                 />
               </div>
             ))}
           </div>
+        </motion.div>
+
+        <motion.div
+          className="font-family-switcher"
+          {...config.fontInputAnimation}>
+          <p>Font size</p>
+
+          <Input
+            type="range"
+            name="font"
+            min={80}
+            max={110}
+            step={5}
+            value={fontSize}
+            onChange={e => {
+              setFontSize(e.target.value)
+            }}
+          />
         </motion.div>
       </div>
     </section>
