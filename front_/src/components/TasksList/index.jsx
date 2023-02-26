@@ -16,8 +16,6 @@ const TasksList = ({ tasks, toggleModal, setTaskId, tasksIds, setTasksIds, prefi
   const setTasks = currStatus => (
     tasks.filter(({ status }) => (
       status === currStatus
-    )).sort((a, b) => (
-      b.important - a.important
     ))
   )
 

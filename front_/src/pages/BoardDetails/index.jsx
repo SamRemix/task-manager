@@ -86,9 +86,24 @@ const BoardDetails = () => {
           {capitalize(board?.title)}
         </h1>
 
+        <Button
+          event={() => {
+            toggle()
+            setIsTaskFormOpen(false)
+            setIsTaskSettingsOpen(false)
+            setIsDeleteMessageOpen(false)
+            setIsBoardSettingsOpen(true)
+          }}>
+          <Cog6ToothIcon width="1.5em" />
+          Settings
+        </Button>
+      </Header>
 
-        <div className="right-side">
-          <AnimatePresence>
+      <motion.div
+        className="top-bar"
+        {...config.topBarAnimation}>
+        <div className="left-side">
+          <AnimatePresence mode='popLayout'>
             {tasksIds.length > 0 && (
               <motion.div
                 layoutId="deleteManyTasksButton"
@@ -116,37 +131,23 @@ const BoardDetails = () => {
               setPrefix={setPrefix}
             />
           </motion.div>
-
-          <motion.div layoutId="AddTaskButton">
-            <Button
-              type="secondary"
-              event={() => {
-                toggle()
-                setIsBoardSettingsOpen(false)
-                setIsTaskSettingsOpen(false)
-                setIsDeleteMessageOpen(false)
-                setIsTaskFormOpen(true)
-              }}>
-              <PlusIcon width="1.5em" />
-              Add task
-            </Button>
-          </motion.div>
-
-          <motion.div layoutId="boardSettingsButton">
-            <Button
-              event={() => {
-                toggle()
-                setIsTaskFormOpen(false)
-                setIsTaskSettingsOpen(false)
-                setIsDeleteMessageOpen(false)
-                setIsBoardSettingsOpen(true)
-              }}>
-              <Cog6ToothIcon width="1.5em" />
-              Settings
-            </Button>
-          </motion.div>
         </div>
-      </Header>
+
+        <motion.div layoutId="AddTaskButton">
+          <Button
+            type="secondary"
+            event={() => {
+              toggle()
+              setIsBoardSettingsOpen(false)
+              setIsTaskSettingsOpen(false)
+              setIsDeleteMessageOpen(false)
+              setIsTaskFormOpen(true)
+            }}>
+            <PlusIcon width="1.5em" />
+            Add task
+          </Button>
+        </motion.div>
+      </motion.div>
 
       <ProgressBar tasks={tasks} />
 

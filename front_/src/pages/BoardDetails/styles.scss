@@ -6,11 +6,23 @@
   align-items: flex-start !important;
   justify-content: flex-start !important;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
     'ProgressBar Header'
+    'ProgressBar Options'
     'ProgressBar TasksContainer';
-  gap: 1rem;
+  gap: 4rem 2rem !important;
+
+  .top-bar {
+    @include mix.flex-align-gap(2rem);
+    grid-area: Options;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .left-side {
+      @include mix.flex-align-gap(2rem);
+    }
+  }
 
   .modal {
     &-content {

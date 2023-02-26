@@ -1,6 +1,6 @@
 import { memo, useContext } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, LayoutGroup } from 'framer-motion'
 
 import { AuthContext } from './contexts/AuthContext'
 
@@ -48,11 +48,10 @@ const App = () => {
   })
 
   return (
-    <>
+    <LayoutGroup>
       <Cursor />
 
       <Navbar />
-
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home loading={loading} error={error} />} />
@@ -72,7 +71,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-    </>
+    </LayoutGroup>
   )
 }
 

@@ -1,9 +1,8 @@
 import './styles.scss'
 
 import { memo } from 'react'
-// import PropTypes from 'prop-types'
 
-import { motion, LayoutGroup } from 'framer-motion'
+import { motion } from 'framer-motion'
 import config from './motion.config'
 
 const Header = ({ children }) => {
@@ -11,13 +10,9 @@ const Header = ({ children }) => {
     <motion.header
       className="header"
       {...config.headerAnimation}>
-      <LayoutGroup>
-        {children}
-      </LayoutGroup>
+      {children}
     </motion.header>
   )
 }
-
-Header.propTypes = {}
 
 export default memo(Header)

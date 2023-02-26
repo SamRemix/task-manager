@@ -4,7 +4,6 @@
 @mixin container {
   margin-right: v.$app-padding;
   padding: 1rem v.$container-padding !important;
-  gap: 3rem 2rem !important;
 }
 
 // sm 640px

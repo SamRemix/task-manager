@@ -36,6 +36,7 @@ const DeleteTasks = ({ tasks, tasksIds, setTasksIds, toggle }) => {
                     setTasksIds(ids => (
                       ids.filter(id => id !== _id)
                     ))
+                    removeItem('Remove')
                   }}
                   onMouseEnter={() => printItem('Remove')}
                   onMouseLeave={() => removeItem('Remove')}

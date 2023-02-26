@@ -21,8 +21,8 @@ const SingleBoard = ({ _id, title, favorite, icon, displayNavbar }) => {
       <NavLink
         to={`/boards/${_id}`}
         className="link"
-        onMouseEnter={!displayNavbar ? () => printItem(title) : undefined}
-        onMouseLeave={!displayNavbar ? () => removeItem(title) : undefined}>
+        onMouseEnter={!displayNavbar ? () => printItem(`<span>${title}</span> (board)`) : undefined}
+        onMouseLeave={!displayNavbar ? () => removeItem(`<span>${title}</span> (board)`) : undefined}>
         {displayIcon(icon, { className: 'icon', width: '1.375em' })}
 
         <AnimatePresence>
