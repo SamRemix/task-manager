@@ -3,7 +3,8 @@ import './styles.scss'
 import { memo, useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import config from './motion.config'
 
 import { BoardsContext } from '../../contexts/BoardsContext'
 import { TasksContext } from '../../contexts/TasksContext'
@@ -15,6 +16,7 @@ import useToggle from '../../hooks/useToggle'
 import AddTaskForm from './AddTaskForm.modal'
 import BoardSettings from './BoardSettings.modal'
 import TaskSettings from './TaskSettings.modal'
+import DeleteTasks from './DeleteTasks.modal'
 
 import Header from '../../components/Header'
 import ProgressBar from '../../components/ProgressBar'
@@ -34,8 +36,11 @@ const BoardDetails = () => {
   const [isBoardSettingsOpen, setIsBoardSettingsOpen] = useState(false)
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false)
   const [isTaskSettingsOpen, setIsTaskSettingsOpen] = useState(false)
+  const [isDeleteMessageOpen, setIsDeleteMessageOpen] = useState(false)
   // set which task is displayed by clicking on the task setting button
   const [taskId, setTaskId] = useState('')
+  // selected tasks (delete many)
+  const [tasksIds, setTasksIds] = useState([])
 
   let { board_id } = useParams()
 
@@ -83,34 +88,63 @@ const BoardDetails = () => {
 
 
         <div className="right-side">
-          <Input
-            type="search"
-            focus={searchBar}
-            value={prefix}
-            setPrefix={setPrefix}
-          />
-          <Button
-            type="secondary"
-            event={() => {
-              toggle()
-              setIsBoardSettingsOpen(false)
-              setIsTaskSettingsOpen(false)
-              setIsTaskFormOpen(true)
-            }}>
-            <PlusIcon width="1.5em" />
-            Add task
-          </Button>
+          <AnimatePresence>
+            {tasksIds.length > 0 && (
+              <motion.div
+                layoutId="deleteManyTasksButton"
+                {...config.deleteManyButtonAnimation}>
+                <Button
+                  type="delete"
+                  event={() => {
+                    toggle()
+                    setIsBoardSettingsOpen(false)
+                    setIsTaskSettingsOpen(false)
+                    setIsTaskFormOpen(false)
+                    setIsDeleteMessageOpen(true)
+                  }}>
+                  Delete
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          <Button
-            event={() => {
-              toggle()
-              setIsTaskFormOpen(false)
-              setIsTaskSettingsOpen(false)
-              setIsBoardSettingsOpen(true)
-            }}>
-            <Cog6ToothIcon width="1.5em" />
-            Settings
-          </Button>
+          <motion.div layoutId="SearchBar">
+            <Input
+              type="search"
+              focus={searchBar}
+              value={prefix}
+              setPrefix={setPrefix}
+            />
+          </motion.div>
+
+          <motion.div layoutId="AddTaskButton">
+            <Button
+              type="secondary"
+              event={() => {
+                toggle()
+                setIsBoardSettingsOpen(false)
+                setIsTaskSettingsOpen(false)
+                setIsDeleteMessageOpen(false)
+                setIsTaskFormOpen(true)
+              }}>
+              <PlusIcon width="1.5em" />
+              Add task
+            </Button>
+          </motion.div>
+
+          <motion.div layoutId="boardSettingsButton">
+            <Button
+              event={() => {
+                toggle()
+                setIsTaskFormOpen(false)
+                setIsTaskSettingsOpen(false)
+                setIsDeleteMessageOpen(false)
+                setIsBoardSettingsOpen(true)
+              }}>
+              <Cog6ToothIcon width="1.5em" />
+              Settings
+            </Button>
+          </motion.div>
         </div>
       </Header>
 
@@ -122,9 +156,12 @@ const BoardDetails = () => {
           toggle()
           setIsBoardSettingsOpen(false)
           setIsTaskFormOpen(false)
+          setIsDeleteMessageOpen(false)
           setIsTaskSettingsOpen(true)
         }}
         setTaskId={setTaskId}
+        tasksIds={tasksIds}
+        setTasksIds={setTasksIds}
         prefix={prefix}
         setPrefix={setPrefix}
         searchBarRef={searchBar.current}
@@ -136,7 +173,6 @@ const BoardDetails = () => {
             {isBoardSettingsOpen && (
               <BoardSettings
                 board={board}
-                board_id={board_id}
                 toggle={toggle}
               />
             )}
@@ -153,6 +189,15 @@ const BoardDetails = () => {
                 task={tasks.find(({ _id }) => (
                   _id === taskId
                 ))}
+                toggle={toggle}
+              />
+            )}
+
+            {isDeleteMessageOpen && (
+              <DeleteTasks
+                tasks={tasks}
+                tasksIds={tasksIds}
+                setTasksIds={setTasksIds}
                 toggle={toggle}
               />
             )}

@@ -20,7 +20,7 @@
   background: var(--primary);
   box-shadow: v.$box-shadow-lg;
   font-weight: 600;
-  transition: .1s;
+  transition: box-shadow .1s;
 
   &:hover {
     box-shadow: v.$box-shadow-md;
@@ -54,5 +54,4 @@
   // color: v.$red-2;
   font-weight: 600;
   background: v.$red-2;
-  align-self: flex-end;
 }

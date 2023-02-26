@@ -14,7 +14,7 @@ import ConfirmAndDelete from '../../components/ConfirmAndDelete'
 import displayIcon, { icons } from '../../utils/displayIcon'
 import formatDate from '../../utils/formatDate'
 
-const BoardSettings = ({ board, board_id, toggle }) => {
+const BoardSettings = ({ board, toggle }) => {
   // const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -27,12 +27,12 @@ const BoardSettings = ({ board, board_id, toggle }) => {
   // const { dispatch } = useBoardsContext()
   const { fetchData: updateData } = useFetch({
     method: 'patch',
-    url: `/boards/${board_id}`,
+    url: `/boards/${board._id}`,
     type: 'UPDATE_BOARD'
   })
   const { fetchData: deleteData } = useFetch({
     method: 'delete',
-    url: `/boards/${board_id}`,
+    url: `/boards/${board._id}`,
     type: 'DELETE_BOARD'
   })
 
@@ -117,7 +117,7 @@ const BoardSettings = ({ board, board_id, toggle }) => {
 }
 
 BoardSettings.propTypes = {
-  board_id: PropTypes.string.isRequired,
+  board: PropTypes.object.isRequired,
   toggle: PropTypes.func.isRequired
 }
 

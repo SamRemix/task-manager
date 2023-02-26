@@ -1,27 +1,16 @@
 import './styles.scss'
 
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
-import useFetch from '../../hooks/useFetch'
-
 import useCursorContext from '../../hooks/useCursorContext'
 
 import SingleTask from '../SingleTask'
-import Button from '../Button'
 
-const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
-  // selected tasks (delete many)
-  const [taskIds, setTaskIds] = useState([])
-
-  const { fetchData: deleteData } = useFetch({
-    method: 'delete',
-    url: `/tasks`,
-    type: 'DELETE_MANY_TASK'
-  })
+const TasksList = ({ tasks, toggleModal, setTaskId, tasksIds, setTasksIds, prefix, setPrefix }) => {
   const { addItem, removeItem } = useCursorContext()
 
   const setTasks = currStatus => (
@@ -45,18 +34,6 @@ const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
 
   return (
     <div className="tasks-container">
-      <AnimatePresence>
-        {taskIds.length > 0 && (
-          <Button
-            // type="delete"
-            event={() => {
-              deleteData({ data: { _ids: taskIds } })
-            }}>
-            Delete
-          </Button>
-        )}
-      </AnimatePresence>
-
       {status.map(({ title, motionConfig }) => (
         <motion.div
           key={title}
@@ -81,8 +58,8 @@ const TasksList = ({ tasks, toggleModal, setTaskId, prefix, setPrefix }) => {
                   tasks={tasks}
                   toggleModal={toggleModal}
                   setTaskId={setTaskId}
-                  taskIds={taskIds}
-                  setTaskIds={setTaskIds}
+                  tasksIds={tasksIds}
+                  setTasksIds={setTasksIds}
                   prefix={prefix}
                   setPrefix={setPrefix}
                 />
@@ -99,8 +76,10 @@ TasksList.propTypes = {
   tasks: PropTypes.array.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setTaskId: PropTypes.func.isRequired,
+  tasksIds: PropTypes.array,
+  setTasksIds: PropTypes.func.isRequired,
   prefix: PropTypes.string,
-  setPrefix: PropTypes.func.isRequired
+  setPrefix: PropTypes.func.isRequired,
 }
 
 export default memo(TasksList)

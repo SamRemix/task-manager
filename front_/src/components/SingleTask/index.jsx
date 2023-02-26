@@ -26,8 +26,8 @@ const SingleTask = ({
   createdAt,
   toggleModal,
   setTaskId,
-  taskIds,
-  setTaskIds,
+  tasksIds,
+  setTasksIds,
   prefix,
   setPrefix
 }) => {
@@ -58,14 +58,14 @@ const SingleTask = ({
 
           <Input
             type="checkbox"
-            checked={taskIds.includes(_id)}
+            checked={tasksIds.includes(_id)}
             onChange={() => {
-              setTaskIds(taskIds.includes(_id) ? (
-                taskIds.filter(id => (
+              setTasksIds(tasksIds.includes(_id) ? (
+                tasksIds.filter(id => (
                   id !== _id
                 ))
               ) : (
-                [_id, ...taskIds]
+                [_id, ...tasksIds]
               ))
             }}
           />
@@ -153,8 +153,8 @@ SingleTask.propTypes = {
   tasks: PropTypes.array.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setTaskId: PropTypes.func.isRequired,
-  taskIds: PropTypes.array.isRequired,
-  setTaskIds: PropTypes.func.isRequired,
+  tasksIds: PropTypes.array.isRequired,
+  setTasksIds: PropTypes.func.isRequired,
   setPrefix: PropTypes.func.isRequired
 }
 

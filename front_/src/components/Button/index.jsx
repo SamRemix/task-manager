@@ -12,7 +12,9 @@ const Button = ({ children, type, event }) => {
   return (
     <>
       {['primary', 'secondary', 'form-button', 'delete'].includes(type) && (
-        <button className={type} onClick={event}>
+        <button
+          className={type}
+          onClick={event}>
           {children}
         </button>
       )}

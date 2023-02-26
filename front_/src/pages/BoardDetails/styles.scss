@@ -11,4 +11,29 @@
     'ProgressBar Header'
     'ProgressBar TasksContainer';
   gap: 1rem;
+
+  .modal {
+    &-content {
+      .selected {
+        @include mix.flex-column-gap(1rem);
+
+        &-item {
+          @include mix.flex-align-gap(1rem);
+          padding: .5rem;
+          padding-left: 1rem;
+          background: var(--tips-background);
+          border-radius: v.$radius-lg;
+          justify-content: space-between;
+
+          .title {
+            font-weight: 600;
+          }
+
+          .remove-item {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }
