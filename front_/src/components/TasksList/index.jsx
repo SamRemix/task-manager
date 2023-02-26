@@ -35,38 +35,38 @@ const TasksList = ({ tasks, toggleModal, setTaskId, tasksIds, setTasksIds, prefi
   return (
     <div className="tasks-container">
       {status.map(({ title, motionConfig }) => (
-        <motion.div
-          key={title}
-          className="status"
-          onMouseEnter={() => addItem(title)}
-          onMouseLeave={() => removeItem(title)}
-          {...motionConfig}>
-          <h2 className="status-title">
-            {title}
-            {setTasks(title).length > 0 && (
+        setTasks(title).length > 0 && (
+          <motion.div
+            key={title}
+            className="status"
+            onMouseEnter={() => addItem(title)}
+            onMouseLeave={() => removeItem(title)}
+            {...motionConfig}>
+            <h2 className="status-title">
+              {title}
               <span>{setTasks(title).length} {setTasks(title).length > 1 ? 'tasks' : 'task'}</span>
-            )}
-          </h2>
+            </h2>
 
-          <div className="status-container">
-            <AnimatePresence>
-              {setTasks(title).map(({ _id, ...rest }) => (
-                <SingleTask
-                  key={_id}
-                  _id={_id}
-                  {...rest}
-                  tasks={tasks}
-                  toggleModal={toggleModal}
-                  setTaskId={setTaskId}
-                  tasksIds={tasksIds}
-                  setTasksIds={setTasksIds}
-                  prefix={prefix}
-                  setPrefix={setPrefix}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+            <div className="status-container">
+              <AnimatePresence>
+                {setTasks(title).map(({ _id, ...rest }) => (
+                  <SingleTask
+                    key={_id}
+                    _id={_id}
+                    {...rest}
+                    tasks={tasks}
+                    toggleModal={toggleModal}
+                    setTaskId={setTaskId}
+                    tasksIds={tasksIds}
+                    setTasksIds={setTasksIds}
+                    prefix={prefix}
+                    setPrefix={setPrefix}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )
       ))}
     </div>
   )

@@ -60,14 +60,25 @@
 }
 
 // xl 1280px
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+  .navbar {
+    &+.board {
+      .tasks-container {
+        flex-direction: row;
+      }
+    }
+  }
+}
 
 // 2xl 1536px
 @media (min-width: 1536px) {
-  .board {
-    .tasks-container {
-      // grid-template-columns: repeat(3, 1fr);
-      flex-direction: row;
+  .navbar {
+    &--active {
+      &+.board {
+        .tasks-container {
+          flex-direction: row;
+        }
+      }
     }
   }
 }
