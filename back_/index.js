@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', authRoutes)
-app.use('/user', userRoutes)
+app.use('/users', userRoutes)
 app.use('/boards', boardsRoutes)
 app.use('/tasks', tasksRoutes)
 app.use('/tags', tagsRoutes)

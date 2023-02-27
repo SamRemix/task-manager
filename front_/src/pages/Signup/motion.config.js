@@ -64,7 +64,7 @@ const config = {
       }
     }
   },
-  passwordValidationAnimation: {
+  passwordVerifierAnimation: {
     initial: {
       x: -160,
       opacity: 0

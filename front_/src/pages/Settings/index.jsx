@@ -79,7 +79,7 @@ const Settings = () => {
             name="font"
             min={80}
             max={110}
-            step={5}
+            step={2}
             value={fontSize}
             onChange={e => {
               setFontSize(e.target.value)

@@ -3,6 +3,17 @@ const { Types } = require('mongoose')
 const { genSalt, hash, compare } = require('bcrypt')
 const { isEmail, isStrongPassword } = require('validator')
 
+const getUsers = async (req, res) => {
+  const users = await User
+    .find({})
+    .sort({ name: 1 })
+    .select([
+      'name', 'email', 'createdAt'
+    ])
+
+  res.status(200).json(users)
+}
+
 const getCurrentUser = async (req, res) => {
   const { _id } = req.user
 
@@ -10,19 +21,17 @@ const getCurrentUser = async (req, res) => {
     return res.status(404).json({ error: 'No such user, invalid id' })
   }
 
-  const user = await User.findOne({ _id })
+  const user = await User
+    .findOne({ _id })
+    .select([
+      '_id', 'name', 'email', 'createdAt', 'updatedAt'
+    ])
 
   if (!user) {
     return res.status(404).json({ error: 'No such user' })
   }
 
-  res.status(200).json({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt
-  })
+  res.status(200).json(user)
 }
 
 const updateUser = async (req, res) => {
@@ -107,4 +116,4 @@ const updateUser = async (req, res) => {
   })
 }
 
-module.exports = { getCurrentUser, updateUser }
+module.exports = { getUsers, getCurrentUser, updateUser }

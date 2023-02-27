@@ -7,7 +7,7 @@ import './styles/global.scss'
 import './styles/responsive.scss'
 
 import { AuthProvider } from './contexts/AuthContext'
-import { UserProvider } from './contexts/UserContext'
+import { UsersProvider } from './contexts/UsersContext'
 import { BoardsProvider } from './contexts/BoardsContext'
 import { TasksProvider } from './contexts/TasksContext'
 import { TagsProvider } from './contexts/TagsContext'
@@ -18,7 +18,7 @@ const root = createRoot(document.getElementById('root'))
 
 root.render(
   <AuthProvider>
-    <UserProvider>
+    <UsersProvider>
       <BoardsProvider>
         <TasksProvider>
           <TagsProvider>
@@ -32,6 +32,6 @@ root.render(
           </TagsProvider>
         </TasksProvider>
       </BoardsProvider>
-    </UserProvider>
+    </UsersProvider>
   </AuthProvider>
 )

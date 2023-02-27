@@ -6,7 +6,7 @@ import config from './motion.config'
 
 import useFetch from '../../hooks/useFetch'
 
-import PasswordValidation from '../../components/PasswordValidation'
+import PasswordVerifier from '../../components/PasswordVerifier'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
@@ -115,8 +115,8 @@ const UpdateUserForm = ({ user }) => {
           />
         </motion.div>
 
-        <motion.div {...config.passwordValidationAnimation}>
-          <PasswordValidation password={newPassword} />
+        <motion.div {...config.passwordVerifierAnimation}>
+          <PasswordVerifier password={newPassword} />
         </motion.div>
 
         <motion.div {...config.passwordButtonAnimation}>

@@ -27,11 +27,18 @@ const App = () => {
 
   const token = localStorage.getItem('token')
 
-  // const { token } = useContext(AuthContext)
+  // const { user } = useContext(AuthContext)
+
+  // const { response: users } = useFetch({
+  //   method: 'get',
+  //   url: '/users',
+  //   type: 'GET_USERS',
+  //   requireAuth: false
+  // })
 
   const { loading, response: user, error } = useFetch({
     method: 'get',
-    url: '/user',
+    url: '/users',
     type: 'GET_CURRENT_USER'
   })
 

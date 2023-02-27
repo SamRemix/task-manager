@@ -5,7 +5,7 @@ import { memo, useContext } from 'react'
 import { motion } from 'framer-motion'
 import config from './motion.config'
 
-import { UserContext } from '../../contexts/UserContext'
+import { UsersContext } from '../../contexts/UsersContext'
 
 import UpdateUserForm from './UpdateUserForm'
 import Header from '../../components/Header'
@@ -15,7 +15,7 @@ import formatDate from '../../utils/formatDate'
 import setDocumentTitle from '../../utils/setDocumentTitle'
 
 const Account = () => {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UsersContext)
 
   setDocumentTitle(user?.name)
 

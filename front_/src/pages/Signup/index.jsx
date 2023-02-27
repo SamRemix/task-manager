@@ -6,7 +6,7 @@ import config from './motion.config'
 import useFetch from '../../hooks/useFetch'
 
 import Header from '../../components/Header'
-import PasswordValidation from '../../components/PasswordValidation'
+import PasswordVerifier from '../../components/PasswordVerifier'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
@@ -74,8 +74,8 @@ const Signup = () => {
             />
           </motion.div>
 
-          <motion.div {...config.passwordValidationAnimation}>
-            <PasswordValidation password={password} />
+          <motion.div {...config.passwordVerifierAnimation}>
+            <PasswordVerifier password={password} />
           </motion.div>
 
           <motion.div {...config.submitButtonAnimation}>

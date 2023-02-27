@@ -23,7 +23,9 @@ const Home = ({ loading, error }) => {
         <h1 className="title">Home</h1>
       </Header>
       <div className="content">
-        <motion.p {...config.homePageAnimation}>Simplify Your Task Management.</motion.p>
+        <motion.div style={{ textAlign: 'center' }} {...config.homePageAnimation}>
+          <p>Simplify Your Task Management.</p>
+        </motion.div>
       </div>
     </section>
   )

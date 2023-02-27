@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import config from './motion.config'
 
 import { AuthContext } from '../../contexts/AuthContext'
-import { UserContext } from '../../contexts/UserContext'
+import { UsersContext } from '../../contexts/UsersContext'
 import { BoardsContext } from '../../contexts/BoardsContext'
 
 import useLogout from '../../hooks/useLogout'
@@ -46,7 +46,7 @@ const Navbar = () => {
   const [displayNavbar, toggleNavbar] = useState(true)
 
   const { token } = useContext(AuthContext)
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UsersContext)
   const { boards } = useContext(BoardsContext)
 
   const { logout } = useLogout()
