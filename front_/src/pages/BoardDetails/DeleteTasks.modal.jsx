@@ -23,12 +23,17 @@ const DeleteTasks = ({ tasks, tasksIds, setTasksIds, toggle }) => {
       <div className="modal-content">
         <h1 className="modal-content-title">Delete tasks</h1>
         <div className="selected">
-          {tasks.map(({ _id, title, status, createdAt }) => (
+          <div className="selected-item label">
+            <p className="title">Task</p>
+            <p className="status">Status</p>
+            <p className="createdAt">Created at</p>
+          </div>
+          {tasks.map(({ _id, title, status, createdAt, updatedAt }) => (
             tasksIds.includes(_id) && (
               <div key={_id} className="selected-item">
                 <p className="title">{title}</p>
-                <p>{status}</p>
-                <p>{formatDate(createdAt)}</p>
+                <p className="status">{status}</p>
+                <p className="createdAt">{formatDate(createdAt)}</p>
                 <XMarkIcon
                   className="remove-item"
                   width="1.75em"
@@ -56,12 +61,6 @@ const DeleteTasks = ({ tasks, tasksIds, setTasksIds, toggle }) => {
             toggle()
           }}>
           Delete {tasksIds.length} tasks
-        </Button>
-
-        <Button
-          type="secondary"
-          event={toggle}>
-          Cancel
         </Button>
       </div>
     </>

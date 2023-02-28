@@ -22,23 +22,19 @@ const Cursor = () => {
   useEffect(() => {
     const { addEventListener, innerWidth, innerHeight } = window
 
-    const event = (type, listener) => (
-      addEventListener(type, listener)
-    )
-
     let windowSize = {
       width: innerWidth,
       height: innerHeight
     }
 
-    event('resize', () => {
+    addEventListener('resize', () => {
       windowSize = {
         width: window.innerWidth,
         height: window.innerHeight
       }
     })
 
-    event('mousemove', ({ clientX, clientY }) => {
+    addEventListener('mousemove', ({ clientX, clientY }) => {
       const set = ({ inner, client, max, position }) => (
         // 16 = margin: 1rem
         inner - client > max + position + 16 ? (
@@ -64,8 +60,8 @@ const Cursor = () => {
       })
     })
 
-    event('mouseout', () => setIsOut(true))
-    event('mouseover', () => setIsOut(false))
+    addEventListener('mouseout', () => setIsOut(true))
+    addEventListener('mouseover', () => setIsOut(false))
   }, [])
 
   return (

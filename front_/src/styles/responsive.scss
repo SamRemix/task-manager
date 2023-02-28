@@ -1,16 +1,13 @@
 @use './vars' as v;
 @use './mixins' as mix;
 
-@mixin container {
-  margin-right: v.$app-padding;
-  padding: 1rem v.$container-padding !important;
-}
-
 // sm 640px
 @media (min-width: 640px) {
   .navbar-button {
+    transform: translate(.5rem, .5rem);
+
     &--active {
-      transform: translateX(18rem);
+      transform: translate(17rem, .5rem);
     }
   }
 
@@ -20,7 +17,7 @@
     }
 
     &+.container {
-      @include container;
+      margin-right: v.$app-padding;
     }
   }
 }
@@ -28,7 +25,11 @@
 // md 768px
 @media (min-width: 768px) {
   .navbar-button {
-    transform: translateX(5rem);
+    transform: translate(5rem, .5rem);
+
+    &--active {
+      transform: translate(17rem, .5rem);
+    }
   }
 
   .navbar {
@@ -49,10 +50,18 @@
 
 // lg 1024px
 @media (min-width: 1024px) {
+  .navbar-button {
+    &--active {
+      transform: translate(18rem, .5rem);
+    }
+  }
+
   .navbar {
     &--active {
+      margin-left: v.$app-padding;
+
       &+.container {
-        @include container;
+        margin-right: v.$app-padding;
       }
     }
   }

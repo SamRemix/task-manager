@@ -1,4 +1,4 @@
-import { useEffect, createContext, useReducer } from 'react'
+import { useState, useEffect, createContext, useReducer } from 'react'
 
 const initialState = {
   theme: '',
@@ -10,7 +10,7 @@ const SET_THEME = 'SET_THEME'
 const SET_FONT_FAMILY = 'SET_FONT_FAMILY'
 const SET_FONT_SIZE = 'SET_FONT_SIZE'
 
-const settingsReducer = (state = initialState, action) => {
+const SettingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_THEME:
       return {
@@ -38,7 +38,8 @@ const settingsReducer = (state = initialState, action) => {
 export const SettingsContext = createContext(initialState)
 
 export const SettingsProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(settingsReducer, initialState)
+
+  const [state, dispatch] = useReducer(SettingsReducer, initialState)
 
   const browserTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
@@ -50,28 +51,34 @@ export const SettingsProvider = ({ children }) => {
     dispatch({ type: `SET_${key.toUpperCase()}`, payload: value })
   }
 
-  // set default theme
-  const theme = localStorage.getItem('theme')
+  const theme = localStorage.getItem('theme') || browserTheme
+  const fontFamily = localStorage.getItem('font_family') || 'Poppins'
+  const fontSize = localStorage.getItem('font_size') || 100
 
   useEffect(() => {
-    storeData('theme', theme ?? browserTheme)
+    storeData('theme', theme)
   }, [theme])
 
-  // set font family
-  const fontFamily = localStorage.getItem('font_family')
-
   useEffect(() => {
-    storeData('font_family', fontFamily ?? 'Poppins')
+    storeData('font_family', fontFamily)
   }, [fontFamily])
 
-  // set font size
-  const fontSize = localStorage.getItem('font_size')
+  const { addEventListener, innerWidth } = window
+
+  const [windowWidth, setWindowWidth] = useState(innerWidth)
 
   useEffect(() => {
-    storeData('font_size', fontSize ?? 100)
+    addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
 
-    html.style.fontSize = html.getAttribute('font_size') + '%'
-  }, [fontSize])
+    localStorage.setItem('font_size', fontSize)
+    dispatch({ type: 'SET_FONT_SIZE', payload: fontSize })
+
+    html.style.fontSize = windowWidth < 768 ? (
+      fontSize * .8 + '%'
+    ) : fontSize + '%'
+  }, [windowWidth, fontSize])
 
   return (
     <SettingsContext.Provider value={{ ...state, dispatch }}>

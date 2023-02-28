@@ -2,6 +2,13 @@
 @use '../../styles/mixins' as mix;
 
 .tags {
+  .header {
+    .right-side {
+      @include mix.flex-align-gap(2rem);
+      flex-wrap: wrap
+    }
+  }
+
   &-list {
     @include mix.flex-gap(1rem);
     color: #000;

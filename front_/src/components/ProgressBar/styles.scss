@@ -4,7 +4,7 @@
 .progress-bar {
   @include mix.flex-column-center-gap(1.4rem);
   grid-area: ProgressBar;
-  width: 5rem;
+  // width: 5rem;
   height: calc(100vh - calc(v.$app-padding + 1rem) * 2);
   position: sticky;
   top: 0;

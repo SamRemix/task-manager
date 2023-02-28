@@ -1,7 +1,7 @@
 @use '../../styles/vars' as v;
 @use '../../styles/mixins' as mix;
 
-$navbar-button-size: 3rem;
+$navbar-button-size: 48px;
 $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4s .3s;
 
 .navbar-button {
@@ -12,7 +12,9 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
   box-shadow: v.$box-shadow-lg;
   border-radius: v.$radius-lg;
   position: absolute;
-  inset: .5rem auto auto .5rem;
+  inset: 0 auto auto 0;
+  transform: translate(.5rem,
+      calc(100vh - .5rem - $navbar-button-size));
   z-index: 8;
   cursor: pointer;
   transition: $navbar-transition, box-shadow .1s;
@@ -27,11 +29,12 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
 
   &--active {
     @extend .navbar-button;
-    transform: translateX(calc(100vw - 1rem - $navbar-button-size));
+    transform: translate(calc(100vw - .5rem - $navbar-button-size),
+        calc(100vh - .5rem - $navbar-button-size));
     transition: transform .4s, box-shadow .1s;
 
     span {
-      width: 2rem !important;
+      width: 32px !important;
 
       &:nth-child(1) {
         transform: translateY(0) rotate(45deg) !important;
@@ -43,7 +46,7 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
 
       &:nth-child(3) {
         width: 0 !important;
-        transform: translateX(1rem) !important;
+        transform: translateX(16px) !important;
         transition: .2s !important;
       }
     }
@@ -54,22 +57,22 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
     background: #000;
     border-radius: 3px;
     position: absolute;
-    inset: auto auto auto .5rem;
+    inset: auto auto auto 8px;
     z-index: 100;
     transition: .4s;
 
     &:nth-child(1) {
-      width: 1.25rem;
-      transform: translateY(-.625rem);
+      width: 20px;
+      transform: translateY(-10px);
     }
 
     &:nth-child(2) {
-      width: 1rem;
-      transform: translateY(.625rem);
+      width: 16px;
+      transform: translateY(10px);
     }
 
     &:nth-child(3) {
-      width: 2rem;
+      width: 32px;
       transform: translateX(0);
       transition: .4s !important;
     }
@@ -91,7 +94,6 @@ $navbar-transition: transform .4s .3s, width .4s .3s, margin .4s .3s, padding .4
 
   &--active {
     @extend .navbar;
-    margin-left: v.$app-padding;
     padding: 2rem;
     width: calc(100vw - v.$app-padding * 2);
     transition: .4s, background 0s;

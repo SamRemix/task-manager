@@ -35,13 +35,6 @@
   }
 }
 
-// html {
-//   font-size: 87.5%;
-//   // 1rem = 14px
-//   // 1.5rem = 21px
-//   // 2rem = 28px
-// }
-
 body {
   // set background cause of resize (resize console)
   background: var(--border-window-color);
@@ -64,12 +57,12 @@ body {
 
     &::before {
       content: '';
-      width: calc(100% - 2rem);
-      height: calc(100% - 2rem);
-      box-shadow: 0 0 0 2rem var(--border-window-color);
+      width: calc(100% - calc(v.$app-padding * 2));
+      height: calc(100% - calc(v.$app-padding * 2));
+      box-shadow: 0 0 0 calc(v.$app-padding * 2) var(--border-window-color);
       border-radius: v.$radius-lg;
       position: fixed;
-      inset: 1rem auto auto 1rem;
+      inset: v.$app-padding auto auto v.$app-padding;
       z-index: 7;
       pointer-events: none;
     }
@@ -77,7 +70,7 @@ body {
     .container {
       @include mix.flex-column-center-gap(1rem);
       justify-content: flex-start;
-      padding: 1rem calc(v.$container-padding / 2);
+      padding: 1rem v.$container-padding;
       // min-height: calc(100vh - v.$container-padding * 2);
       position: relative;
       overflow: hidden scroll;
