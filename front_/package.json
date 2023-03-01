@@ -1,5 +1,4 @@
 {
-  "proxy": "task-manager-mern-back.vercel.app",
   "name": "front_",
   "version": "0.1.0",
   "private": true,
