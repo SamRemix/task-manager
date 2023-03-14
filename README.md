@@ -1,2 +1,2 @@
 # task-manager
-MongoDB, Express, React
+MongoDB, Express, React (w/ CRA)
